@@ -53,10 +53,25 @@ for rg in resource_groups["value"]:
 ## Functions currently supported
 Just bare bones initially. If you want to add something please send me a PR (don't forget to update this readme too).
 ```
+### Subscription and access token functions
 **get_access_token**(tenant_id, application_id, application_secret) - get an Azure access token for your application  
 **list_subscriptions**(access_token) - list the available Azure subscriptions for this application  
+
+### Resource group functions
 **create_resource_group**(access_token, subscription_id, rgname, location) - create a resource group in the specified location  
 **delete_resource_group**(access_token, subscription_id, rgname) - delete the named resource group  
 **list_resource_groups**(access_token, subscription_id) - list the resource groups in your subscription  
-**list_vm_scale_sets**(access_token, subscription_id, resource_group) - list the VM Scale Sets in a resource group
+
+### Virtual machine functions
+**list_vm_scale_sets**(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
+
+### Storage functions
+**create_storage_account**(access_token, subscription_id, rgname, location) - create a storage account in the specified location and resource group
+**delete_storage_account**(access_token, subscription_id, rgname) - delete a storage account in the specified resource group
+**get_storage_account**(access_token, subscription_id, rgname) - get details for the specified storage account
+**list_storage_accounts_rg**(access_token, subscription_id, rgname) - list the storage accounts in the specified resource group
+**list_storage_accounts_sub**(access_token, subscription_id) - list the storage accounts in the specified subscription
+**get_storage_account_keys**(access_token, subscription_id, rgname, account_name) - get the access keys for the specified storage account
+**get_storage_usage**(access_token, subscription_id) - returns storage usage and quota information for the specified subscription
+
 ```
