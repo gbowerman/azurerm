@@ -8,6 +8,18 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
+# Compiled python modules.
+*.pyc
+
+# cache folder
+azurerm/__pycache__/
+
+# Setuptools distribution folder.
+/dist/
+
+# Python egg metadata, regenerated from source files by setuptools.
+/*.egg-info
+
 # Windows Installer files
 *.cab
 *.msi
