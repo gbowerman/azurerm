@@ -11,11 +11,11 @@ The azurerm philosophy is ease of use over completeness of API. Rather than supp
 ## Functions currently supported
 Just bare bones initially. If you want to add something please send me a PR (don't forget to update this readme too).
 
-**get_access_token**(tenant_id, application_id, application_secret) - get an Azure access token for your application
-**list_subscriptions**(access_token) - list the available Azure subscriptions for this application
-**create_resource_group**(access_token, subscription_id, rgname, location) - create a resource group in the specified location
-**delete_resource_group**(access_token, subscription_id, rgname) - delete the named resource group
-**list_resource_groups**(access_token, subscription_id) - list the resource groups in your subscription
+**get_access_token**(tenant_id, application_id, application_secret) - get an Azure access token for your application  
+**list_subscriptions**(access_token) - list the available Azure subscriptions for this application  
+**create_resource_group**(access_token, subscription_id, rgname, location) - create a resource group in the specified location  
+**delete_resource_group**(access_token, subscription_id, rgname) - delete the named resource group  
+**list_resource_groups**(access_token, subscription_id) - list the resource groups in your subscription  
 **list_vm_scale_sets**(access_token, subscription_id, resource_group) - list the VM Scale Sets in a resource group
 
 ## Using azurerm
