@@ -20,8 +20,8 @@ def do_put(endpoint, body, access_token):
     headers = {"content-type": "application/json", "Authorization": 'Bearer ' + access_token}
     return requests.put(endpoint, data=body, headers=headers)
 	
-# do_put(endpoint, body, access_token)
-# do an HTTP PUT request and return JSON
+# do_post(endpoint, body, access_token)
+# do an HTTP POST request and return JSON
 def do_post(endpoint, body, access_token):
     headers = {"content-type": "application/json", "Authorization": 'Bearer ' + access_token}
     return requests.post(endpoint, data=body, headers=headers)
