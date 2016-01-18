@@ -13,7 +13,7 @@ To use this library (and in general to access Azure Resource Manager from a prog
 
 For more information on how to get this information go here: <a href ="https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/">Authenticating a service principal with Azure Resource Manager</a>. See also: <a href="https://msftstack.wordpress.com/2016/01/05/azure-resource-manager-authentication-with-python/">Azure Resource Manager REST calls from Python</a>.
 
-### example to list Azure subscriptions
+### example to list Azure subscriptions, create a Resource Group, list Resource Groups
 ```
 import azurerm
 
