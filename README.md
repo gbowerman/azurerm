@@ -53,22 +53,22 @@ for rg in resource_groups["value"]:
 ## Functions currently supported
 Just bare bones initially. If you want to add something please send me a PR (don't forget to update this readme too).
 
-### Subscription and access token functions
+#### Subscription and access tokens
 ```
 get_access_token(tenant_id, application_id, application_secret) - get an Azure access token for your application  
 list_subscriptions(access_token) - list the available Azure subscriptions for this application  
 ```
-### Resource group functions
+#### Resource groups
 ```
 create_resource_group(access_token, subscription_id, rgname, location) - create a resource group in the specified location  
 delete_resource_group(access_token, subscription_id, rgname) - delete the named resource group  
 list_resource_groups(access_token, subscription_id) - list the resource groups in your subscription  
 ```
-### Virtual machine functions
+#### Virtual machines
 ```
 list_vm_scale_sets(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
 ```
-### Storage functions
+#### Storage
 ```
 create_storage_account(access_token, subscription_id, rgname, location) - create a storage account in the specified location and resource group
 delete_storage_account(access_token, subscription_id, rgname) - delete a storage account in the specified resource group
