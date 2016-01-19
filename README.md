@@ -66,6 +66,13 @@ list_resource_groups(access_token, subscription_id) - list the resource groups i
 ```
 #### Virtual machines
 ```
+delete_vm(access_token, subscription_id, resource_group, vm_name) - delete a virtual machine
+get_vm(access_token, subscription_id, resource_group, vm_name) - get virtual machine details
+list_vms(access_token, subscription_id, resource_group) - list VMs in a resource group
+restart_vm(access_token, subscription_id, resource_group, vm_name) - restart a virtual machine
+start_vm(access_token, subscription_id, resource_group, vm_name) - start a virtual machine
+stop_vm(access_token, subscription_id, resource_group, vm_name) - stop a VM, don't deallocate resources
+deallocate_vm(access_token, subscription_id, resource_group, vm_name) - stop-deallocate a virtual machine
 list_vm_scale_sets(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
 ```
 #### Storage

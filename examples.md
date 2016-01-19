@@ -123,6 +123,32 @@ access_token = azurerm.get_access_token(
 rgreturn = azurerm.delete_resource_group(access_token, subscription_id, rgname)
 print(rgreturn)
 ```
+### List the virtual machines in a subscription and print the properties
+```
+import azurerm
+
+tenant_id = 'your_tenant_id'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
+subscription_id = 'your_sub_id'
+
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+# loop through resource groups
+resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
+for rg in resource_groups["value"]:
+    rgname = rg["name"] 
+    vmlist = azurerm.list_vms(access_token, subscription_id, rgname)
+    for vm in vmlist['value']:
+        name = vm['name']
+        location = vm['location']
+        offer = vm['properties']['storageProfile']['imageReference']['offer']
+        sku = vm['properties']['storageProfile']['imageReference']['sku']
+        print(''.join(['Name: ', name,
+                       ', RG: ', rgname,
+                       ', location: ', location,
+                       ', OS: ', offer, ' ', sku]))
+```
 
 ### List the VM Scale Sets in a subscription and print basic properties
 ```
