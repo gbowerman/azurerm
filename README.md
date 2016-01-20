@@ -73,11 +73,14 @@ restart_vm(access_token, subscription_id, resource_group, vm_name) - restart a v
 start_vm(access_token, subscription_id, resource_group, vm_name) - start a virtual machine
 stop_vm(access_token, subscription_id, resource_group, vm_name) - stop a VM, don't deallocate resources
 deallocate_vm(access_token, subscription_id, resource_group, vm_name) - stop-deallocate a virtual machine
+delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name) - delete a virtual machine scale set
+delete_vmss_vm(access_token, subscription_id, resource_group, vmss_name) - delete a VM in a VM Scale Set
+list_vmss_vms(access_token, subscription_id, resource_group, vmss_name) - list the VMs in a VM Scale Set
 list_vm_scale_sets(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
 ```
 #### Storage
 ```
-create_storage_account(access_token, subscription_id, rgname, location) - create a storage account in the specified location and resource group
+create_storage_account(access_token, subscription_id, rgname, location) - create a new storage account
 delete_storage_account(access_token, subscription_id, rgname) - delete a storage account in the specified resource group
 get_storage_account(access_token, subscription_id, rgname) - get details for the specified storage account
 list_storage_accounts_rg(access_token, subscription_id, rgname) - list the storage accounts in the specified resource group

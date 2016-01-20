@@ -77,11 +77,31 @@ def deallocate_vm(access_token, subscription_id, resource_group, vm_name):
     endpoint = ''.join([azure_rm_endpoint,
                          '/subscriptions/', subscription_id,
 						 '/resourceGroups/', resource_group,
-						 '/providers/Microsoft.Compute/virtualMachines/',
-						 vm_name,
+						 '/providers/Microsoft.Compute/virtualMachines/', vm_name,
 						 '/deallocate',
 						 '?api-version=', COMP_API])
     return do_post(endpoint, access_token)
+
+# delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name)
+# delete a virtual machine scale set
+def delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+						 '/resourceGroups/', resource_group,
+						 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+						 '?api-version=', COMP_API])
+    return do_delete(endpoint, access_token)
+
+# delete_vmss_vm(access_token, subscription_id, resource_group, vmss_name)
+# delete a VM in a VM Scale Set
+def delete_vmss_vm(access_token, subscription_id, resource_group, vmss_name, vm_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+						 '/resourceGroups/', resource_group,
+						 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+						 '/virtualMachines/', str(vm_id),
+						 '?api-version=', COMP_API])
+    return do_delete(endpoint, access_token)
 	
 # list_vm_scale_sets(access_token, subscription_id, resource_group)
 # list VM Scale Sets in a resource group
@@ -92,3 +112,13 @@ def list_vm_scale_sets(access_token, subscription_id, resource_group):
 						 '/providers/Microsoft.Compute/virtualMachineScaleSets',
 						 '?api-version=', COMP_API])
     return do_get(endpoint, access_token)
+
+# list_vmss_vms(access_token, subscription_id, resource_group, vmss_name)
+# list the VMs in a VM Scale Set
+def list_vmss_vms(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+						 '/resourceGroups/', resource_group,
+						 '/providers/Microsoft.Compute/virtualMachineScaleSets', vmss_name,
+						 '?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
+    return do_get(endpoint, access_token)	
