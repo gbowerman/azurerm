@@ -1,6 +1,7 @@
 # restfns - REST functions for azurerm
 
 import requests
+#import json
 
 # do_get(endpoint, access_token)
 # do an HTTP GET request and return JSON

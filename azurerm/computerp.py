@@ -1,7 +1,6 @@
 # computerp.py - azurerm functions for the Microsoft.Compute resource provider
-
 from .settings import azure_rm_endpoint, BASEAPI, COMP_API
-from .restfns import do_delete, do_get, do_put
+from .restfns import do_delete, do_get, do_put, do_post
 
 # delete_vm(access_token, subscription_id, resource_group, vm_name)
 # delete a virtual machine
@@ -45,7 +44,7 @@ def restart_vm(access_token, subscription_id, resource_group, vm_name):
 						 vm_name,
 						 '/restart',
 						 '?api-version=', COMP_API])
-    return do_post(endpoint, access_token)
+    return do_post(endpoint, '', access_token)
 
 # start_vm(access_token, subscription_id, resource_group, vm_name)
 # start a virtual machine
@@ -57,7 +56,7 @@ def start_vm(access_token, subscription_id, resource_group, vm_name):
 						 vm_name,
 						 '/start',
 						 '?api-version=', COMP_API])
-    return do_post(endpoint, access_token)
+    return do_post(endpoint, '', access_token)
 
 # stop_vm(access_token, subscription_id, resource_group, vm_name)
 # stop a virtual machine but don't deallocate resources
@@ -69,7 +68,7 @@ def stop_vm(access_token, subscription_id, resource_group, vm_name):
 						 vm_name,
 						 '/stop',
 						 '?api-version=', COMP_API])
-    return do_post(endpoint, access_token)
+    return do_post(endpoint, '', access_token)
 
 # deallocate_vm(access_token, subscription_id, resource_group, vm_name)
 # stop-deallocate a virtual machine
@@ -80,7 +79,7 @@ def deallocate_vm(access_token, subscription_id, resource_group, vm_name):
 						 '/providers/Microsoft.Compute/virtualMachines/', vm_name,
 						 '/deallocate',
 						 '?api-version=', COMP_API])
-    return do_post(endpoint, access_token)
+    return do_post(endpoint, '', access_token)
 
 # delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name)
 # delete a virtual machine scale set
@@ -102,7 +101,27 @@ def delete_vmss_vm(access_token, subscription_id, resource_group, vmss_name, vm_
 						 '/virtualMachines/', str(vm_id),
 						 '?api-version=', COMP_API])
     return do_delete(endpoint, access_token)
-	
+
+# get_vmss(access_token, subscription_id, resource_group, vmss_name)
+# get virtual machine scale set details
+def get_vmss(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+						 '/resourceGroups/', resource_group,
+						 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+						 '?api-version=', COMP_API])
+    return do_get(endpoint, access_token)
+
+# get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_name)
+# get virtual machine scale set instance view
+def get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+						 '/resourceGroups/', resource_group,
+						 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+						 '/instanceView?api-version=', COMP_API])
+    return do_get(endpoint, access_token)
+
 # list_vm_scale_sets(access_token, subscription_id, resource_group)
 # list VM Scale Sets in a resource group
 def list_vm_scale_sets(access_token, subscription_id, resource_group):
@@ -121,5 +140,92 @@ def list_vmss_vms(access_token, subscription_id, resource_group, vmss_name):
 						 '/resourceGroups/', resource_group,
 						 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
 						 '/virtualMachines',
-						 '?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
+						 '?api-version=', COMP_API])
     return do_get(endpoint, access_token)	
+
+# get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# get individual VMSS VM details
+def get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+						 '/resourceGroups/', resource_group,
+						 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+						 '/virtualMachines/', str(instance_id),
+						 '?api-version=', COMP_API])
+    return do_get(endpoint, access_token)	
+	
+# get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# get individual VMSS VM instance view
+def get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+						 '/resourceGroups/', resource_group,
+						 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+						 '/virtualMachines/', str(instance_id),
+						 '/instanceView?api-version=', COMP_API])
+    return do_get(endpoint, access_token)
+	
+# get_vmss_nics(access_token, subscription_id, resource_group, vmss_name)
+# get individual VMSS VM instance view
+def get_vmss_nics(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+						 '/resourceGroups/', resource_group,
+						 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+						 '/networkInterfaces?api-version=', COMP_API])
+    return do_get(endpoint, access_token)
+		
+# get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# get individual VMSS VM instance view
+def get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+						 '/resourceGroups/', resource_group,
+						 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+						 '/virtualMachines/', str(instance_id),
+						 '/networkInterfaces?api-version=', COMP_API])
+    return do_get(endpoint, access_token)
+	
+# start_vmss(access_token, subscription_id, resource_group, vmss_name)
+# start all the VMs in a virtual machine scale set
+def start_vmss(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+                         '/resourceGroups/', resource_group,
+                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                         '/start?api-version=', COMP_API])
+    body = '{"instanceIds" : ["*"]}'
+    return do_post(endpoint, body, access_token)
+
+# stop_vmss(access_token, subscription_id, resource_group, vmss_name)
+# stop all the VMs in a virtual machine scale set
+def stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+                         '/resourceGroups/', resource_group,
+                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                         '/deallocate?api-version=', COMP_API])
+    body = '{"instanceIds" : ["*"]}'
+    return do_post(endpoint, body, access_token)
+
+# start_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# start all the VMs in a virtual machine scale set
+def start_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+                         '/resourceGroups/', resource_group,
+                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                         '/virtualMachines/', str(instance_id),
+                         '/start?api-version=', COMP_API])
+    return do_post(endpoint, '', access_token)
+
+# stop_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# stop all the VMs in a virtual machine scale set
+def stopdealloc_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+                         '/resourceGroups/', resource_group,
+                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                         '/virtualMachines/', str(instance_id),
+                         '/deallocate?api-version=', COMP_API])
+    return do_post(endpoint, '', access_token)	

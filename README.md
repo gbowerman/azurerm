@@ -77,6 +77,16 @@ delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name) - 
 delete_vmss_vm(access_token, subscription_id, resource_group, vmss_name) - delete a VM in a VM Scale Set
 list_vmss_vms(access_token, subscription_id, resource_group, vmss_name) - list the VMs in a VM Scale Set
 list_vm_scale_sets(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
+get_vmss(access_token, subscription_id, resource_group, vmss_name) - get virtual machine scale set details
+get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_name) - get virtual machine scale set instance view
+get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM details
+get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM instance view
+get_vmss_nics(access_token, subscription_id, resource_group, vmss_name) - get individual VMSS VM instance view
+get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM instance view
+start_vmss(access_token, subscription_id, resource_group, vmss_name) - start all the VMs in a virtual machine scale set
+stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name) - stop all the VMs in a virtual machine scale set
+start_vmss_vm(access_token, subscription_id, resource_group, vmss_name) - start a VM in a virtual machine scale set
+stopdealloc_vmss_vm(access_token, subscription_id, resource_group, vmss_name) - stop a VM in a virtual machine scale set
 ```
 #### Storage
 ```
