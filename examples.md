@@ -241,3 +241,38 @@ access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 startoutput = azurerm.start_vmss(access_token, subscription_id, 'myresourcegroup', 'myvmss')
 print(startoutput)
 ```
+
+### List image publishers available in South East Asia region
+```
+tenant_id = 'your_tenant_id'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
+subscription_id = 'your_sub_id'
+
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+pubs = azurerm.list_publishers(access_token, subscription_id, 'southeastasia')
+
+for pub in pubs:
+    print(pub['name'])
+```
+
+### List offers from Canonical, skus for UbuntuServer, versions for 15.10 sku
+```
+tenant_id = 'your_tenant_id'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
+subscription_id = 'your_sub_id'
+
+offers = azurerm.list_offers(access_token, subscription_id, 'southeastasia', 'Canonical')
+for offer in offers:
+    print(offer['name'])
+
+skus = azurerm.list_skus(access_token, subscription_id, 'southeastasia', 'Canonical', 'UbuntuServer')
+for sku in skus:
+    print(sku['name'])
+
+versions = azurerm.list_sku_versions(access_token, subscription_id, 'southeastasia', 'Canonical', 'UbuntuServer', '15.10')
+for version in versions:
+    print(version['name'])
+```
