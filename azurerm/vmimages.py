@@ -35,8 +35,8 @@ def list_skus(access_token, subscription_id, location, publisher, offer):
                          '/skus?api-version=', COMP_API])
     return do_get(endpoint, access_token)
 
-# list_images(access_token, subscription_id, location, publisher, offer, sku)
-# list available images for a given publisher's sku
+# list_sku_versions(access_token, subscription_id, location, publisher, offer, sku)
+# list available versions for a given publisher's sku
 def list_sku_versions(access_token, subscription_id, location, publisher, offer, sku):
     endpoint = ''.join([azure_rm_endpoint,
                          '/subscriptions/', subscription_id,

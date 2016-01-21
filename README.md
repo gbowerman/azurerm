@@ -102,5 +102,12 @@ list_storage_accounts_rg(access_token, subscription_id, rgname) - list the stora
 list_storage_accounts_sub(access_token, subscription_id) - list the storage accounts in the specified subscription
 get_storage_account_keys(access_token, subscription_id, rgname, account_name) - get the access keys for the specified storage account
 get_storage_usage(access_token, subscription_id) - returns storage usage and quota information for the specified subscription
+```
 
+### Image/Publisher catalog
+```
+list_publishers(access_token, subscription_id, location) - list available image publishers for a location
+list_offers(access_token, subscription_id, location, publisher) - list available VM image offers from a publisher
+list_skus(access_token, subscription_id, location, publisher, offer) - list available VM image skus for a publisher offer
+list_sku_versions(access_token, subscription_id, location, publisher, offer, sku) - list available versions for a given publisher's sku
 ```
