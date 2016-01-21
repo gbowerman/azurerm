@@ -51,7 +51,7 @@ for rg in resource_groups["value"]:
     print(rg["name"] + ', ' + rg["location"] + ', ' + rg["properties"]["provisioningState"])
 ```    
 ## Functions currently supported
-Just bare bones initially. If you want to add something please send me a PR (don't forget to update this readme too).
+Basic resource group, storage and VM/VMSS functions are implemented. Network functions, create VM and general template deploy need filling out. If you want to add something please send me a PR (don't forget to update this readme too).
 
 #### Subscription and access tokens
 ```
@@ -64,7 +64,7 @@ create_resource_group(access_token, subscription_id, rgname, location) - create 
 delete_resource_group(access_token, subscription_id, rgname) - delete the named resource group  
 list_resource_groups(access_token, subscription_id) - list the resource groups in your subscription  
 ```
-#### Virtual machines
+#### Virtual machines and VM Scale Sets
 ```
 delete_vm(access_token, subscription_id, resource_group, vm_name) - delete a virtual machine
 get_vm(access_token, subscription_id, resource_group, vm_name) - get virtual machine details
@@ -84,9 +84,14 @@ get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_na
 get_vmss_nics(access_token, subscription_id, resource_group, vmss_name) - get individual VMSS VM instance view
 get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM instance view
 start_vmss(access_token, subscription_id, resource_group, vmss_name) - start all the VMs in a virtual machine scale set
-stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name) - stop all the VMs in a virtual machine scale set
 start_vmss_vm(access_token, subscription_id, resource_group, vmss_name) - start a VM in a virtual machine scale set
+stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name) - stop all the VMs in a virtual machine scale set
 stopdealloc_vmss_vm(access_token, subscription_id, resource_group, vmss_name) - stop a VM in a virtual machine scale set
+restart_vmss(access_token, subscription_id, resource_group, vmss_name) - restart all the VMs in a virtual machine scale set
+restart_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - restart all the VMs in a virtual machine scale set
+poweroff_vmss(access_token, subscription_id, resource_group, vmss_name) - poweroff all the VMs in a virtual machine scale set
+poweroff_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - poweroff all the VMs in a virtual machine scale set
+scale_vmss(access_token, subscription_id, resource_group, vmss_name, capacity) - change the instance count of an existing VM Scale Set
 ```
 #### Storage
 ```

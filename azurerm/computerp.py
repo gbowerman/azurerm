@@ -1,6 +1,6 @@
 # computerp.py - azurerm functions for the Microsoft.Compute resource provider
-from .settings import azure_rm_endpoint, BASEAPI, COMP_API
-from .restfns import do_delete, do_get, do_put, do_post
+from .settings import azure_rm_endpoint, COMP_API
+from .restfns import do_delete, do_get, do_put, do_patch, do_post
 
 # delete_vm(access_token, subscription_id, resource_group, vm_name)
 # delete a virtual machine
@@ -197,17 +197,6 @@ def start_vmss(access_token, subscription_id, resource_group, vmss_name):
     body = '{"instanceIds" : ["*"]}'
     return do_post(endpoint, body, access_token)
 
-# stop_vmss(access_token, subscription_id, resource_group, vmss_name)
-# stop all the VMs in a virtual machine scale set
-def stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name):
-    endpoint = ''.join([azure_rm_endpoint,
-                         '/subscriptions/', subscription_id,
-                         '/resourceGroups/', resource_group,
-                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
-                         '/deallocate?api-version=', COMP_API])
-    body = '{"instanceIds" : ["*"]}'
-    return do_post(endpoint, body, access_token)
-
 # start_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
 # start all the VMs in a virtual machine scale set
 def start_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id):
@@ -219,6 +208,17 @@ def start_vmss_vm(access_token, subscription_id, resource_group, vmss_name, inst
                          '/start?api-version=', COMP_API])
     return do_post(endpoint, '', access_token)
 
+# stop_vmss(access_token, subscription_id, resource_group, vmss_name)
+# stop all the VMs in a virtual machine scale set
+def stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+                         '/resourceGroups/', resource_group,
+                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                         '/deallocate?api-version=', COMP_API])
+    body = '{"instanceIds" : ["*"]}'
+    return do_post(endpoint, body, access_token)
+
 # stop_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
 # stop all the VMs in a virtual machine scale set
 def stopdealloc_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id):
@@ -228,4 +228,59 @@ def stopdealloc_vmss_vm(access_token, subscription_id, resource_group, vmss_name
                          '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                          '/virtualMachines/', str(instance_id),
                          '/deallocate?api-version=', COMP_API])
-    return do_post(endpoint, '', access_token)	
+    return do_post(endpoint, '', access_token)
+
+# restart_vmss(access_token, subscription_id, resource_group, vmss_name)
+# restart all the VMs in a virtual machine scale set
+def restart_vmss(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+                         '/resourceGroups/', resource_group,
+                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                         '/restart?api-version=', COMP_API])
+    body = '{"instanceIds" : ["*"]}'
+    return do_post(endpoint, body, access_token)
+
+# restart_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# restart all the VMs in a virtual machine scale set
+def restart_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+                         '/resourceGroups/', resource_group,
+                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                         '/virtualMachines/', str(instance_id),
+                         '/restart?api-version=', COMP_API])
+    return do_post(endpoint, '', access_token)
+
+# poweroff_vmss(access_token, subscription_id, resource_group, vmss_name)
+# poweroff all the VMs in a virtual machine scale set
+def poweroff_vmss(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+                         '/resourceGroups/', resource_group,
+                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                         '/powerOff?api-version=', COMP_API])
+    body = '{"instanceIds" : ["*"]}'
+    return do_post(endpoint, body, access_token)
+
+# poweroff_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# poweroff all the VMs in a virtual machine scale set
+def poweroff_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+                         '/resourceGroups/', resource_group,
+                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                         '/virtualMachines/', str(instance_id),
+                         '/powerOff?api-version=', COMP_API])
+    return do_post(endpoint, '', access_token)
+
+# scale_vmss(access_token, subscription_id, resource_group, vmss_name, capacity)
+# change the instance count of an existing VM Scale Set
+def scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+                         '/resourceGroups/', resource_group,
+                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                         '?api-version=', COMP_API])
+    body = '{"sku":{ "name":"' + size + '", "tier":"' + tier + '", "capacity":"' + str(capacity) + '"}}'
+    return do_patch(endpoint, body, access_token)
