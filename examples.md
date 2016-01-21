@@ -178,3 +178,66 @@ for rg in resource_groups["value"]:
                        ', Capacity: ', str(capacity),
                        ', OS: ', offer, ' ', sku]))
 ```
+
+### Print VM Scale Set VM properties for all the VMs in all the VM Scale Sets in a subscription
+```
+import azurerm
+
+tenant_id = 'your_tenant_id'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
+subscription_id = 'your_sub_id'
+
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+# loop through resource groups
+resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
+for rg in resource_groups["value"]:
+    rgname = rg["name"] 
+    vmsslist = azurerm.list_vm_scale_sets(access_token, subscription_id, rgname)
+    for vmss in vmsslist['value']:
+        name = vmss['name']
+        location = vmss['location']
+        capacity = vmss['sku']['capacity']
+        offer = vmss['properties']['virtualMachineProfile']['storageProfile']['imageReference']['offer']
+        sku = vmss['properties']['virtualMachineProfile']['storageProfile']['imageReference']['sku']
+        print(''.join(['Name: ', name,
+                       ', RG: ', rgname,
+                       ', location: ', location,
+                       ', Capacity: ', str(capacity),
+                       ', OS: ', offer, ' ', sku]))
+        print('Virtual machines...')
+        vms = azurerm.list_vmss_vms(access_token, subscription_id, rgname, name)
+        for vm in vms['value']:
+            print(vm['instanceId'] + ', ' + vm['name'] + '\n')
+```
+
+### Change the number of VMs in a VM Scale Set to 5
+```
+import azurerm
+
+tenant_id = 'your_tenant_id'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
+subscription_id = 'your_sub_id'
+
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+scaleoutput = azurerm.scale_vmss(access_token, subscription_id, 'myresourcegroup', 'myvmss', 'Standard_A1', 'Standard', 5)
+print(scaleoutput)
+```
+
+### Start all the VMs in a VM Scale Set
+```
+import azurerm
+
+tenant_id = 'your_tenant_id'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
+subscription_id = 'your_sub_id'
+
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+startoutput = azurerm.start_vmss(access_token, subscription_id, 'myresourcegroup', 'myvmss')
+print(startoutput)
+```
