@@ -264,6 +264,8 @@ app_id = 'your_application_id'
 app_secret = 'your_app_secret'
 subscription_id = 'your_sub_id'
 
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
 offers = azurerm.list_offers(access_token, subscription_id, 'southeastasia', 'Canonical')
 for offer in offers:
     print(offer['name'])
