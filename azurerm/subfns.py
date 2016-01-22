@@ -2,8 +2,8 @@
 
 """
 Copyright (c) 2016, Guy Bowerman
-Description: Core utility functions
-License: MIT (see LICENSE.md for details)
+Description: Azure Resource Manager Python library
+License: MIT (see LICENSE file for details)
 """
 
 # subnfs - place to store azurerm functions related to subscriptions
