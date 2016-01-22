@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+"""
+Copyright (c) 2016, Guy Bowerman
+Description: Core utility functions
+License: MIT (see LICENSE.md for details)
+"""
+
 # azurerm - library for easy Azure Resource Manager calls from Python
 
 from .adalfns        import get_access_token

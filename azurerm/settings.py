@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+"""
+Copyright (c) 2016, Guy Bowerman
+Description: Core utility functions
+License: MIT (see LICENSE.md for details)
+"""
+
 # settings.py - place to store constants for azurerm
 
 azure_rm_endpoint = 'https://management.azure.com'

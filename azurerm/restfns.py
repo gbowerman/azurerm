@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+"""
+Copyright (c) 2016, Guy Bowerman
+Description: Core utility functions
+License: MIT (see LICENSE.md for details)
+"""
+
 # restfns - REST functions for azurerm
 
 import requests

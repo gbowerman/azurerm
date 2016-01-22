@@ -1,4 +1,13 @@
+#!/usr/bin/env python
+
+"""
+Copyright (c) 2016, Guy Bowerman
+Description: Core utility functions
+License: MIT (see LICENSE.md for details)
+"""
+
 # vmimages.py - azurerm functions for Microsoft.Compute RP publishers and images
+
 from .settings import azure_rm_endpoint, COMP_API
 from .restfns import do_get
 

@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+"""
+Copyright (c) 2016, Guy Bowerman
+Description: Core utility functions
+License: MIT (see LICENSE.md for details)
+"""
+
 # computerp.py - azurerm functions for the Microsoft.Compute resource provider
 from .settings import azure_rm_endpoint, COMP_API
 from .restfns import do_delete, do_get, do_put, do_patch, do_post

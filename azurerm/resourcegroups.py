@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+"""
+Copyright (c) 2016, Guy Bowerman
+Description: Core utility functions
+License: MIT (see LICENSE.md for details)
+"""
+
 # resourcegroups.py - azurerm functions for Resource Groups
 
 from .settings import azure_rm_endpoint, BASEAPI

@@ -1,3 +1,11 @@
+#!/usr/bin/env python
+
+"""
+Copyright (c) 2016, Guy Bowerman
+Description: Core utility functions
+License: MIT (see LICENSE.md for details)
+"""
+
 # subnfs - place to store azurerm functions related to subscriptions
 
 from .settings import azure_rm_endpoint, BASEAPI
