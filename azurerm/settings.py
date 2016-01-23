@@ -2,7 +2,7 @@
 
 """
 Copyright (c) 2016, Guy Bowerman
-Description: Core utility functions
+Description: Simple Azure Resource Manager Python Library
 License: MIT (see LICENSE.md for details)
 """
 
@@ -10,6 +10,6 @@ License: MIT (see LICENSE.md for details)
 
 azure_rm_endpoint = 'https://management.azure.com'
 
-BASEAPI = '2015-01-01'
-STORAGEAPI = '2015-06-15'
+BASE_API = '2015-01-01'
+STORAGE_API = '2015-06-15'
 COMP_API = '2015-06-15'

@@ -8,7 +8,7 @@ License: MIT (see LICENSE file for details)
 
 # subnfs - place to store azurerm functions related to subscriptions
 
-from .settings import azure_rm_endpoint, BASEAPI
+from .settings import azure_rm_endpoint, BASE_API
 from .restfns import do_get
 
 # list_subscriptions(access_token)
@@ -16,5 +16,5 @@ from .restfns import do_get
 def list_subscriptions(access_token):
     endpoint = ''.join([azure_rm_endpoint, 
 	                    '/subscriptions/', 
-			            '?api-version=', BASEAPI]) 
+			            '?api-version=', BASE_API]) 
     return do_get(endpoint, access_token)

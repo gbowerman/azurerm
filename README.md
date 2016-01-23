@@ -111,3 +111,9 @@ list_offers(access_token, subscription_id, location, publisher) - list available
 list_skus(access_token, subscription_id, location, publisher, offer) - list available VM image skus for a publisher offer
 list_sku_versions(access_token, subscription_id, location, publisher, offer, sku) - list available versions for a given publisher's sku
 ```
+### Template functions
+```
+deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters_uri) - deploy a template with both template and parameters referenced by URIs
+deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters) - deploy a template referenced by a URI, with parameters as a JSON string
+deploy_template(access_token, subscription_id, resource_group, deployment_name, template, parameters) - deploy a template referenced by a JSON string, with parameters as a JSON string
+```
