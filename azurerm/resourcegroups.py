@@ -2,13 +2,13 @@
 
 """
 Copyright (c) 2016, Guy Bowerman
-Description: Azure Resource Manager Python library
+Description: Simple Azure Resource Manager Python library
 License: MIT (see LICENSE file for details)
 """
 
 # resourcegroups.py - azurerm functions for Resource Groups
 
-from .settings import azure_rm_endpoint, BASEAPI
+from .settings import azure_rm_endpoint, BASE_API
 from .restfns import do_delete, do_get, do_put
 
 def create_resource_group(access_token, subscription_id, rgname, location):
