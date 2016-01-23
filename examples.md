@@ -279,7 +279,7 @@ for version in versions:
     print(version['name'])
 ```
 
-### deploy a VM Scale Set in Southeast Asia from a template, getting the parameters interactively
+### Deploy a VM Scale Set in Southeast Asia from a template, getting the parameters interactively
 ```
 tenant_id = 'your_tenant_id'
 app_id = 'your_application_id'
