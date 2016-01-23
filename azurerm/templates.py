@@ -17,11 +17,11 @@ def deploy_template_uri_param_uri(access_token, subscription_id, resource_group,
     endpoint = ''.join([azure_rm_endpoint,
                          '/subscriptions/', subscription_id,
                          '/resourcegroups/', resource_group,
-                         '/providers/microsoft.resources/deployments/', deployment_name, 
+                         '/providers/Microsoft.Resources/deployments/', deployment_name, 
                          '?api-version=', BASE_API])
     body = ''.join(['{   "properties": {     "templateLink": {       "uri": "', template_uri, 
-                    '",       "contentVersion": "1.0.0.0",     },     "mode": "Incremental",     "parametersLink": {       "uri": "',
-                    parameters_uri, '",       "contentVersion": "1.0.0.0",           }   } }'])
+                    '",       "contentVersion": "1.0.0.0"     },     "mode": "Incremental",     "parametersLink": {       "uri": "',
+                    parameters_uri, '",       "contentVersion": "1.0.0.0"           }   } }'])
     return do_put(endpoint, body, access_token)
 
 # deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters)
@@ -30,10 +30,10 @@ def deploy_template_uri(access_token, subscription_id, resource_group, deploymen
     endpoint = ''.join([azure_rm_endpoint,
                          '/subscriptions/', subscription_id,
                          '/resourcegroups/', resource_group,
-                         '/providers/microsoft.resources/deployments/', deployment_name, 
+                         '/providers/Microsoft.Resources/deployments/', deployment_name, 
                          '?api-version=', BASE_API])
     body = ''.join(['{   "properties": {     "templateLink": {       "uri": "', template_uri, 
-                    '",       "contentVersion": "1.0.0.0",     },',
+                    '",       "contentVersion": "1.0.0.0"     },',
 	                '     "mode": "Incremental",',
                     '     "parameters": ', parameters, 
                     '   } }'])
@@ -45,7 +45,7 @@ def deploy_template(access_token, subscription_id, resource_group, deployment_na
     endpoint = ''.join([azure_rm_endpoint,
                          '/subscriptions/', subscription_id,
                          '/resourcegroups/', resource_group,
-                         '/providers/microsoft.resources/deployments/', deployment_name, 
+                         '/providers/Microsoft.Resources/deployments/', deployment_name, 
                          '?api-version=', BASE_API])
     body = ''.join(['{   "properties": {     "template": ', template,
 	                '     "mode": "Incremental",',

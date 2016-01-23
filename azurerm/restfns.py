@@ -2,7 +2,7 @@
 
 """
 Copyright (c) 2016, Guy Bowerman
-Description: Azure Resource Manager Python library
+Description: Simple Azure Resource Manager Python library
 License: MIT (see LICENSE file for details)
 """
 

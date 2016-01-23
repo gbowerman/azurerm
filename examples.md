@@ -278,3 +278,49 @@ versions = azurerm.list_sku_versions(access_token, subscription_id, 'southeastas
 for version in versions:
     print(version['name'])
 ```
+
+### deploy a VM Scale Set in Southeast Asia from a template, getting the parameters interactively
+```
+tenant_id = 'your_tenant_id'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
+subscription_id = 'your_sub_id'
+
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+location = 'Southeast Asia'
+
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+template_uri = 'https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/201-vmss-lapstack-autoscale/azuredeploy.json'
+
+raw_params = '{     "resourceLocation": {       "value": "LOCATION"     },     "vmSku": {       "value": "Standard_A1"     },     "ubuntuOSVersion": {       "value": "15.04"     },     "vmssName": {       "value": "VMSSNAME"     },     "instanceCount": {       "value": INSTANCECOUNT     },     "adminUsername": {       "value": "ADMINUSER"     },     "adminPassword": {       "value": "ADMINPASSWORD"     }   }'
+
+print('Enter new resource group name')
+rgname = input()
+
+# create resource group
+rgreturn = azurerm.create_resource_group(access_token, subscription_id, rgname, location)
+print(rgreturn)
+
+print('Enter VMSS name')
+vmss_name = input()
+
+print('Enter instance count')
+instance_count = input()
+
+print('Enter user name')
+user_name = input()
+
+print('Enter password')
+password = input()
+
+params = raw_params.replace('VMSSNAME', vmss_name)
+params = params.replace('INSTANCECOUNT', instance_count)
+params = params.replace('LOCATION', location)
+params = params.replace('ADMINUSER', user_name)
+params = params.replace('ADMINPASSWORD', password)
+
+deploy_return = azurerm.deploy_template_uri(access_token, subscription_id, rgname, 'mydep3', template_uri, params)
+print(deploy_return)
+```
