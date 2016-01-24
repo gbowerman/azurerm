@@ -2,14 +2,14 @@
 
 """
 Copyright (c) 2016, Guy Bowerman
-Description: Azure Resource Manager Python library
+Description: Simple Azure Resource Manager Python library
 License: MIT (see LICENSE file for details)
 """
 
 # storagerp.py - azurerm functions for the Microsoft.Storage resource provider
 
 from .settings import azure_rm_endpoint, STORAGE_API
-from .restfns import do_delete, do_get, do_put, do_post
+from .restfns import do_delete, do_get, do_put, do_patch, do_post
 
 # create_storage_account(access_token, subscription_id, rgname, account_name, location)
 # create a storage account in the specified location and resource group

@@ -104,6 +104,12 @@ get_storage_account_keys(access_token, subscription_id, rgname, account_name) - 
 get_storage_usage(access_token, subscription_id) - returns storage usage and quota information for the specified subscription
 ```
 
+### Network
+```
+list_vnets(access_token, subscription_id) - list the VNETs in a subscription	
+list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription	
+```
+
 ### Image/Publisher catalog
 ```
 list_publishers(access_token, subscription_id, location) - list available image publishers for a location
