@@ -7,14 +7,10 @@ Here are some simple Python programming examples using the **azurerm** package. 
 import azurerm
 
 tenant_id = 'your_tenant_id'
-application_id = 'your_application_id'
-application_secret = 'your_app_secret'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
 
-access_token = azurerm.get_access_token(
-    tenant_id,
-    application_id,
-    application_secret
-)
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
 # list subscriptions
 subscriptions = azurerm.list_subscriptions(access_token)
@@ -22,20 +18,35 @@ for sub in subscriptions["value"]:
     print(sub["displayName"] + ': ' + sub["subscriptionId"])
 ```
 	
+### List Azure locations and coordinates
+```
+tenant_id = 'your_tenant_id'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
+subscription_id = 'your_sub_id'
+
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+# list locations
+locations = azurerm.list_locations(access_token, subscription_id)
+
+for location in locations['value']:
+    print(location['name']
+          + ', Display Name: ' + location['displayName']
+          + ', Coords: ' + location['latitude']
+          + ', ' + location['longitude'])
+```
+
 ### List the resource groups in a subscription
 ```
 import azurerm
 
 tenant_id = 'your_tenant_id'
-application_id = 'your_application_id'
-application_secret = 'your_app_secret'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
 subscription_id = 'your_sub_id'
 
-access_token = azurerm.get_access_token(
-    tenant_id,
-    application_id,
-    application_secret
-)
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
 # list resource groups
 resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
@@ -285,8 +296,6 @@ tenant_id = 'your_tenant_id'
 app_id = 'your_application_id'
 app_secret = 'your_app_secret'
 subscription_id = 'your_sub_id'
-
-access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
 location = 'Southeast Asia'
 

@@ -11,8 +11,6 @@ License: MIT (see LICENSE file for details)
 from .settings import azure_rm_endpoint, INSIGHTS_API
 from .restfns import do_delete, do_get, do_put, do_post
 
-# https://management.azure.com/subscriptions/{-id}/providers/microsoft.insights/autoscaleSettings?api-version={api-version}
-
 # list_autoscale_settings(access_token, subscription_id)
 # list the autoscale settings in a subscription_id
 def list_autoscale_settings(access_token, subscription_id):

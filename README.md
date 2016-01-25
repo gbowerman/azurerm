@@ -53,10 +53,11 @@ for rg in resource_groups["value"]:
 ## Functions currently supported
 Basic resource group, storage and VM/VMSS functions are implemented. Network functions, create VM and general template deploy need filling out. If you want to add something please send me a PR (don't forget to update this readme too).
 
-#### Subscription and access tokens
+#### Subscription, location, and access token
 ```
 get_access_token(tenant_id, application_id, application_secret) - get an Azure access token for your application  
 list_subscriptions(access_token) - list the available Azure subscriptions for this application  
+list_locations(access_token, subscrpition_id) - list available locations for a subscription
 ```
 #### Resource groups
 ```
@@ -122,4 +123,10 @@ list_sku_versions(access_token, subscription_id, location, publisher, offer, sku
 deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters_uri) - deploy a template with both template and parameters referenced by URIs
 deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters) - deploy a template referenced by a URI, with parameters as a JSON string
 deploy_template(access_token, subscription_id, resource_group, deployment_name, template, parameters) - deploy a template referenced by a JSON string, with parameters as a JSON string
+```
+
+### Insights
+```
+list_autoscale_settings(access_token, subscription_id) - list the autoscale settings in a subscription_id
+list_insights_components(access_token, subscription_id, resource_group) - list the Microsoft Insights components in a resource group	
 ```

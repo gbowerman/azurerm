@@ -16,7 +16,7 @@ from .restfns import do_get
 def list_locations(access_token, subscription_id):
     endpoint = ''.join([azure_rm_endpoint, 
 	                    '/subscriptions/', subscription_id,
-			            'locations?api-version=', BASE_API]) 
+			            '/locations?api-version=', BASE_API]) 
     return do_get(endpoint, access_token)
 
 # list_subscriptions(access_token)
