@@ -1,9 +1,10 @@
 #!/usr/bin/env python
+#!/usr/bin/env python
 
 """
 Copyright (c) 2016, Guy Bowerman
 Description: Simple Azure Resource Manager Python library
-License: MIT (see LICENSE file for details)
+License: MIT (see LICENSE.txt file for details)
 """
 
 # insightsrp.py - azurerm functions for the Microsoft.Insights resource provider

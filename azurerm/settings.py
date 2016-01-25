@@ -3,7 +3,7 @@
 """
 Copyright (c) 2016, Guy Bowerman
 Description: Simple Azure Resource Manager Python Library
-License: MIT (see LICENSE.md for details)
+License: MIT (see LICENSE.txt for details)
 """
 
 # settings.py - place to store constants for azurerm

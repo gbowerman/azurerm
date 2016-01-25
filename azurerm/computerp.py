@@ -3,7 +3,7 @@
 """
 Copyright (c) 2016, Guy Bowerman
 Description: Simple Azure Resource Manager Python library
-License: MIT (see LICENSE file for details)
+License: MIT (see LICENSE.txt file for details)
 """
 
 # computerp.py - azurerm functions for the Microsoft.Compute resource provider
