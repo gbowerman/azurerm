@@ -8,4 +8,7 @@ setup(name='azurerm',
       author_email='guybo@outlook.com',
       license='MIT',
       packages=['azurerm'],
+	  install_requires=[
+          'adal',
+      ],
       zip_safe=False)
