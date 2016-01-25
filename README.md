@@ -3,7 +3,7 @@ Easy to use Python library for Azure Resource Manager.
 
 The azurerm philosophy is ease of use over completeness of API. Rather than support every possible attribute the goal is to provide a set of simple functions for the most common tasks. 
 
-Note: For the official Azure library for Python go here: <a href="https://github.com/Azure/azure-sdk-for-python">https://github.com/Azure/azure-sdk-for-python</a>.
+Note: This is not an official Microsoft library, just some REST wrappers to make it easier to call the Azure REST API. For the official Azure library for Python please go here: <a href="https://github.com/Azure/azure-sdk-for-python">https://github.com/Azure/azure-sdk-for-python</a>.
 
 ## Installation
 1. pip install adal
