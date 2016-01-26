@@ -107,7 +107,8 @@ get_storage_usage(access_token, subscription_id) - returns storage usage and quo
 ### Network
 ```
 list_vnets(access_token, subscription_id) - list the VNETs in a subscription	
-list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription	
+list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription
+get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location
 ```
 
 ### Image/Publisher catalog

@@ -333,3 +333,36 @@ params = params.replace('ADMINPASSWORD', password)
 deploy_return = azurerm.deploy_template_uri(access_token, subscription_id, rgname, 'mydep3', template_uri, params)
 print(deploy_return)
 ```
+
+### List the VNETs and load balancers in a subscription, and list network usage and limits for a location
+```
+tenant_id = 'your_tenant_id'
+app_id = 'your_application_id'
+app_secret = 'your_app_secret'
+subscription_id = 'your_sub_id'
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+location = 'westus'
+
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+# list VNETs in subscription
+print('VNETs in subscription:')
+vnets = azurerm.list_vnets(access_token, subscription_id)
+for vnet in vnets['value']:
+    print(vnet['name'] + ', ' + vnet['location'])
+
+# list load balancers in subscription
+print('\nLoad Balancers in subscription:')
+lbs = azurerm.list_load_balancers(access_token, subscription_id)
+for lb in lbs['value']:
+    print(lb['name'] + ', ' + lb['location'])
+
+# get subscription limits by location
+usage = azurerm.get_network_usage(access_token, subscription_id, location)
+print('\nNetwork limits in ' + location + ':')
+for property in usage['value']:
+    print(property['name']['value'] + ': Current: '
+          + str(property['currentValue']) + ', Limit: '
+          + str(property['limit']))
+```
