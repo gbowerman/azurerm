@@ -366,3 +366,42 @@ for property in usage['value']:
           + str(property['currentValue']) + ', Limit: '
           + str(property['limit']))
 ```
+
+### Get isntance view details of all the VMs in my VM Scale Set
+```
+import azurerm
+import json
+
+tenant_id = 'my_tenant_id'
+app_id = 'my_application_id'
+app_secret = 'my_app_secret'
+subscription_id = 'my_sub_id'
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+rg = 'my_resource_group'
+vmss = 'my_vm_scale_set_name'
+
+print('Printing VMSS details\n')
+vmssget = azurerm.get_vmss(access_token, subscription_id, rg, vmss)
+
+name = vmssget['name']
+capacity = vmssget['sku']['capacity']
+location = vmssget['location']
+offer = vmssget['properties']['virtualMachineProfile']['storageProfile']['imageReference']['offer']
+sku = vmssget['properties']['virtualMachineProfile']['storageProfile']['imageReference']['sku']
+print('Name: ' + name + ', capacity: ' + str(capacity) + ', ' + location + ', ' + offer + ', ' + sku)
+
+print('\nPrinting VMSS instance view\n')
+instanceView = azurerm.get_vmss_instance_view(access_token, subscription_id, rg, vmss)
+print(json.dumps(instanceView, sort_keys=False, indent=2, separators=(',', ': ')))
+
+print('\nListing VMSS VMs\n')
+vmss_vms = azurerm.list_vmss_vms(access_token, subscription_id, rg, vmss)
+print(json.dumps(vmss_vms, sort_keys=False, indent=2, separators=(',', ': ')))
+
+for vm in vmss_vms['value']:
+    instanceId = vm['instanceId']
+    vmInstanceView = azurerm.get_vmss_vm_instance_view(access_token, subscription_id, rg, vmss, instanceId)
+    print('\nVM ' + str(instanceId) + ' instance view\n')
+    print(json.dumps(vmInstanceView, sort_keys=False, indent=2, separators=(',', ': ')))
+```
