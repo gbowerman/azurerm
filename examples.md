@@ -343,7 +343,7 @@ subscription_id = 'your_sub_id'
 access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
 location = 'westus'
-
+resource_group = 'my_resource_group'
 access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
 # list VNETs in subscription
@@ -357,6 +357,15 @@ print('\nLoad Balancers in subscription:')
 lbs = azurerm.list_load_balancers(access_token, subscription_id)
 for lb in lbs['value']:
     print(lb['name'] + ', ' + lb['location'])
+
+# list the public ip addresses in a resource group
+print('\nPublic IPs in Resource Group' + resource_group + ': ')
+ips = azurerm.list_public_ips(access_token, subscription_id, resource_group)
+#print(json.dumps(ips, sort_keys=False, indent=2, separators=(',', ': ')))
+for ip in ips['value']:
+    dns = ip['properties']['dnsSettings']['fqdn']
+    ipaddr = ip['properties']['ipAddress']
+    print(dns + ' (' + ipaddr + ')\n')
 
 # get subscription limits by location
 usage = azurerm.get_network_usage(access_token, subscription_id, location)
