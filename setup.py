@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='azurerm',
-      version='0.2',
+      version='0.3',
       description='Simple Azure Resource Manager library',
       url='http://github.com/gbowerman/azurerm',
       author='sendmarsh',
