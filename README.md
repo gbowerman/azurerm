@@ -108,6 +108,8 @@ get_storage_usage(access_token, subscription_id) - returns storage usage and quo
 ```
 list_vnets(access_token, subscription_id) - list the VNETs in a subscription	
 list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription
+list_load_balancers_rg(access_token, subscription_id, resource_group) - list the load balancers in a resource group
+get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
 list_public_ips(access_token, subscription_id, resource_group) - list the public ip addresses in a resource group	
 get_public_ip(access_token, subscription_id, resource_group) - get details about the named public ip address
 get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location

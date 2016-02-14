@@ -358,6 +358,12 @@ lbs = azurerm.list_load_balancers(access_token, subscription_id)
 for lb in lbs['value']:
     print(lb['name'] + ', ' + lb['location'])
 
+# get details for load balancer mylb
+lb_name = 'mylb'
+print('\nLoad balancer ' + lb_name + ' details: ')
+lb = azurerm.get_load_balancer(access_token, subscription_id, resource_group, lb_name)
+print(json.dumps(lb, sort_keys=False, indent=2, separators=(',', ': '))
+
 # list the public ip addresses in a resource group
 print('\nPublic IPs in Resource Group' + resource_group + ': ')
 ips = azurerm.list_public_ips(access_token, subscription_id, resource_group)
