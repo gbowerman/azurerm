@@ -382,7 +382,7 @@ for property in usage['value']:
           + str(property['limit']))
 ```
 
-### Get isntance view details of all the VMs in my VM Scale Set
+### Get instance view details of all the VMs in my VM Scale Set
 ```
 import azurerm
 import json
@@ -419,4 +419,20 @@ for vm in vmss_vms['value']:
     vmInstanceView = azurerm.get_vmss_vm_instance_view(access_token, subscription_id, rg, vmss, instanceId)
     print('\nVM ' + str(instanceId) + ' instance view\n')
     print(json.dumps(vmInstanceView, sort_keys=False, indent=2, separators=(',', ': ')))
+```
+
+### Print Compute usage and limits for southeastasia
+```
+import azurerm
+
+tenant_id = 'my_tenant_id'
+app_id = 'my_application_id'
+app_secret = 'my_app_secret'
+subscription_id = 'my_sub_id'
+
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+location = 'southeastasia'
+quota = azurerm.get_compute_usage(access_token, subscription_id, location)
+print(json.dumps(quota, sort_keys=False, indent=2, separators=(',', ': ')))
 ```

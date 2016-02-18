@@ -292,3 +292,12 @@ def scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, t
                          '?api-version=', COMP_API])
     body = '{"sku":{ "name":"' + size + '", "tier":"' + tier + '", "capacity":"' + str(capacity) + '"}}'
     return do_patch(endpoint, body, access_token)
+	
+# get_compute_usage(access_token, subscription_id, location)
+# list compute usage and limits for a location
+def get_compute_usage(access_token, subscription_id, location):
+    endpoint = ''.join([azure_rm_endpoint,
+						'/subscriptions/', subscription_id,
+						'/providers/Microsoft.compute/locations/', location,
+						'/usages?api-version=', COMP_API])
+    return do_get(endpoint, access_token)

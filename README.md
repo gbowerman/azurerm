@@ -92,6 +92,7 @@ restart_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instan
 poweroff_vmss(access_token, subscription_id, resource_group, vmss_name) - poweroff all the VMs in a virtual machine scale set
 poweroff_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - poweroff all the VMs in a virtual machine scale set
 scale_vmss(access_token, subscription_id, resource_group, vmss_name, capacity) - change the instance count of an existing VM Scale Set
+get_compute_usage(access_token, subscription_id, location) - list compute usage and limits for a location
 ```
 #### Storage
 ```
