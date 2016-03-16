@@ -9,7 +9,7 @@ License: MIT (see LICENSE.txt file for details)
 # templates.py - azurerm functions for deploying templates
 
 from .settings import azure_rm_endpoint, BASE_API
-from .restfns import do_put
+from .restfns import do_put, do_get
 
 # deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters_uri)
 # deploy a template with both template and parameters referenced by URIs
