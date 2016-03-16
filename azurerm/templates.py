@@ -51,4 +51,4 @@ def deploy_template(access_token, subscription_id, resource_group, deployment_na
 	                '     "mode": "Incremental",',
                     '     "parameters": ', parameters, 
                     '   } }'])
-    return do_get(endpoint, body, access_token)
+    return do_put(endpoint, body, access_token)
