@@ -57,3 +57,6 @@ azurerm/__pycache__/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# builid directory
+build/*

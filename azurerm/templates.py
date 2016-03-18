@@ -48,7 +48,8 @@ def deploy_template(access_token, subscription_id, resource_group, deployment_na
                          '/providers/Microsoft.Resources/deployments/', deployment_name, 
                          '?api-version=', BASE_API])
     body = ''.join(['{   "properties": {     "template": ', template,
-	                '     "mode": "Incremental",',
+	                ',     "mode": "Incremental",',
                     '     "parameters": ', parameters, 
-                    '   } }'])
+                    '}}'])
+
     return do_put(endpoint, body, access_token)
