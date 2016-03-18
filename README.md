@@ -52,18 +52,68 @@ for rg in resource_groups["value"]:
 ## Functions currently supported
 Basic resource group, storage and VM/VMSS functions are implemented. Network functions, create VM and general template deploy need filling out. If you want to add something please send me a PR (don't forget to update this readme too).
 
-#### Subscription, location, and access token
+### Deployments
 ```
-get_access_token(tenant_id, application_id, application_secret) - get an Azure access token for your application  
-list_subscriptions(access_token) - list the available Azure subscriptions for this application  
-list_locations(access_token, subscrpition_id) - list available locations for a subscription
+show_deployment(access_token, subscription_id, resource_group, deployment_name) - show deployment status/details
 ```
+
+### Image/Publisher catalog
+```
+list_publishers(access_token, subscription_id, location) - list available image publishers for a location
+list_offers(access_token, subscription_id, location, publisher) - list available VM image offers from a publisher
+list_skus(access_token, subscription_id, location, publisher, offer) - list available VM image skus for a publisher offer
+list_sku_versions(access_token, subscription_id, location, publisher, offer, sku) - list available versions for a given publisher's sku
+```
+
+### Network
+```
+list_vnets(access_token, subscription_id) - list the VNETs in a subscription	
+list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription
+list_load_balancers_rg(access_token, subscription_id, resource_group) - list the load balancers in a resource group
+get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
+list_public_ips(access_token, subscription_id, resource_group) - list the public ip addresses in a resource group	
+get_public_ip(access_token, subscription_id, resource_group) - get details about the named public ip address
+get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location
+```
+
+### Insights
+```
+list_autoscale_settings(access_token, subscription_id) - list the autoscale settings in a subscription_id
+list_insights_components(access_token, subscription_id, resource_group) - list the Microsoft Insights components in a resource group	
+```
+
 #### Resource groups
 ```
 create_resource_group(access_token, subscription_id, rgname, location) - create a resource group in the specified location  
 delete_resource_group(access_token, subscription_id, rgname) - delete the named resource group  
 list_resource_groups(access_token, subscription_id) - list the resource groups in your subscription  
 ```
+
+#### Storage
+```
+create_storage_account(access_token, subscription_id, rgname, location) - create a new storage account
+delete_storage_account(access_token, subscription_id, rgname) - delete a storage account in the specified resource group
+get_storage_account(access_token, subscription_id, rgname) - get details for the specified storage account
+list_storage_accounts_rg(access_token, subscription_id, rgname) - list the storage accounts in the specified resource group
+list_storage_accounts_sub(access_token, subscription_id) - list the storage accounts in the specified subscription
+get_storage_account_keys(access_token, subscription_id, rgname, account_name) - get the access keys for the specified storage account
+get_storage_usage(access_token, subscription_id) - returns storage usage and quota information for the specified subscription
+```
+
+#### Subscription, location, and access token
+```
+get_access_token(tenant_id, application_id, application_secret) - get an Azure access token for your application  
+list_subscriptions(access_token) - list the available Azure subscriptions for this application  
+list_locations(access_token, subscrpition_id) - list available locations for a subscription
+```
+
+### Template functions
+```
+deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters_uri) - deploy a template with both template and parameters referenced by URIs
+deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters) - deploy a template referenced by a URI, with parameters as a JSON string
+deploy_template(access_token, subscription_id, resource_group, deployment_name, template, parameters) - deploy a template referenced by a JSON string, with parameters as a JSON string
+```
+
 #### Virtual machines and VM Scale Sets
 ```
 delete_vm(access_token, subscription_id, resource_group, vm_name) - delete a virtual machine
@@ -93,45 +143,4 @@ poweroff_vmss(access_token, subscription_id, resource_group, vmss_name) - powero
 poweroff_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - poweroff all the VMs in a virtual machine scale set
 scale_vmss(access_token, subscription_id, resource_group, vmss_name, capacity) - change the instance count of an existing VM Scale Set
 get_compute_usage(access_token, subscription_id, location) - list compute usage and limits for a location
-```
-#### Storage
-```
-create_storage_account(access_token, subscription_id, rgname, location) - create a new storage account
-delete_storage_account(access_token, subscription_id, rgname) - delete a storage account in the specified resource group
-get_storage_account(access_token, subscription_id, rgname) - get details for the specified storage account
-list_storage_accounts_rg(access_token, subscription_id, rgname) - list the storage accounts in the specified resource group
-list_storage_accounts_sub(access_token, subscription_id) - list the storage accounts in the specified subscription
-get_storage_account_keys(access_token, subscription_id, rgname, account_name) - get the access keys for the specified storage account
-get_storage_usage(access_token, subscription_id) - returns storage usage and quota information for the specified subscription
-```
-
-### Network
-```
-list_vnets(access_token, subscription_id) - list the VNETs in a subscription	
-list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription
-list_load_balancers_rg(access_token, subscription_id, resource_group) - list the load balancers in a resource group
-get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
-list_public_ips(access_token, subscription_id, resource_group) - list the public ip addresses in a resource group	
-get_public_ip(access_token, subscription_id, resource_group) - get details about the named public ip address
-get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location
-```
-
-### Image/Publisher catalog
-```
-list_publishers(access_token, subscription_id, location) - list available image publishers for a location
-list_offers(access_token, subscription_id, location, publisher) - list available VM image offers from a publisher
-list_skus(access_token, subscription_id, location, publisher, offer) - list available VM image skus for a publisher offer
-list_sku_versions(access_token, subscription_id, location, publisher, offer, sku) - list available versions for a given publisher's sku
-```
-### Template functions
-```
-deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters_uri) - deploy a template with both template and parameters referenced by URIs
-deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters) - deploy a template referenced by a URI, with parameters as a JSON string
-deploy_template(access_token, subscription_id, resource_group, deployment_name, template, parameters) - deploy a template referenced by a JSON string, with parameters as a JSON string
-```
-
-### Insights
-```
-list_autoscale_settings(access_token, subscription_id) - list the autoscale settings in a subscription_id
-list_insights_components(access_token, subscription_id, resource_group) - list the Microsoft Insights components in a resource group	
 ```
