@@ -20,6 +20,25 @@ def list_vnets(access_token, subscription_id):
 						'/virtualNetworks?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
+# list_nics(access_token, subscription_id)
+# list the network interfaces in a subscription
+def list_nics(access_token, subscription_id):
+    endpoint = ''.join([azure_rm_endpoint,
+						'/subscriptions/', subscription_id,
+						'/providers/Microsoft.Network/',
+						'/networkInterfaces?api-version=', NETWORK_API])
+    return do_get(endpoint, access_token)
+
+# list_nics_rg(access_token, subscription_id, resource_group)
+# list network interface cards within a resource group	
+def list_nics_rg(access_token, subscription_id, resource_group):
+    endpoint = ''.join([azure_rm_endpoint,
+						'/subscriptions/', subscription_id,
+						'/resourceGroups/', resource_group,
+						'/providers/Microsoft.Network/',
+						'/networkInterfaces?api-version=', NETWORK_API])
+    return do_get(endpoint, access_token)
+	
 # list_load_balancers(access_token, subscription_id)
 # list the load balancers in a subscription	
 def list_load_balancers(access_token, subscription_id):

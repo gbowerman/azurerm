@@ -67,7 +67,9 @@ list_sku_versions(access_token, subscription_id, location, publisher, offer, sku
 
 ### Network
 ```
-list_vnets(access_token, subscription_id) - list the VNETs in a subscription	
+list_vnets(access_token, subscription_id) - list the VNETs in a subscription
+list_nics(access_token, subscription_id) - list the network interfaces in a subscription
+list_nics_rg(access_token, subscription_id, resource_group) - list the network interfaces in a resource group	
 list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription
 list_load_balancers_rg(access_token, subscription_id, resource_group) - list the load balancers in a resource group
 get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
