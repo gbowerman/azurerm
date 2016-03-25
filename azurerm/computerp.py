@@ -89,6 +89,18 @@ def deallocate_vm(access_token, subscription_id, resource_group, vm_name):
 						 '?api-version=', COMP_API])
     return do_post(endpoint, '', access_token)
 
+# get_vm_extension(access_token, subscription_id, resource_group, vm_name, extension_name)
+# get details about a VM extension
+def get_vm_extension(access_token, subscription_id, resource_group, vm_name, extension_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                         '/subscriptions/', subscription_id,
+						 '/resourceGroups/', resource_group,
+						 '/providers/Microsoft.Compute/virtualMachines/', vm_name,
+						 '/extensions/', extension_name,
+						 '?api-version=', COMP_API])
+    return do_get(endpoint, access_token)    
+
+
 # delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name)
 # delete a virtual machine scale set
 def delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name):
