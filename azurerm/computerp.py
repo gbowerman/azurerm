@@ -294,7 +294,7 @@ def poweroff_vmss_vm(access_token, subscription_id, resource_group, vmss_name, i
                          '/powerOff?api-version=', COMP_API])
     return do_post(endpoint, '', access_token)
 
-# scale_vmss(access_token, subscription_id, resource_group, vmss_name, capacity)
+# scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity)
 # change the instance count of an existing VM Scale Set
 def scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity):
     endpoint = ''.join([azure_rm_endpoint,

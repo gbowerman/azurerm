@@ -129,6 +129,7 @@ delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name) - 
 delete_vmss_vm(access_token, subscription_id, resource_group, vmss_name) - delete a VM in a VM Scale Set
 list_vmss_vms(access_token, subscription_id, resource_group, vmss_name) - list the VMs in a VM Scale Set
 list_vm_scale_sets(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
+get_vm_extensionaccess_token, subscription_id, resource_group, vm_name, extension_name) - get details about a VM extension
 get_vmss(access_token, subscription_id, resource_group, vmss_name) - get virtual machine scale set details
 get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_name) - get virtual machine scale set instance view
 get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM details
@@ -143,6 +144,6 @@ restart_vmss(access_token, subscription_id, resource_group, vmss_name) - restart
 restart_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - restart all the VMs in a virtual machine scale set
 poweroff_vmss(access_token, subscription_id, resource_group, vmss_name) - poweroff all the VMs in a virtual machine scale set
 poweroff_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - poweroff all the VMs in a virtual machine scale set
-scale_vmss(access_token, subscription_id, resource_group, vmss_name, capacity) - change the instance count of an existing VM Scale Set
+scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity) - change the instance count of an existing VM Scale Set
 get_compute_usage(access_token, subscription_id, location) - list compute usage and limits for a location
 ```
