@@ -17,8 +17,8 @@ resource_group = configData['resourceGroup']
 
 access_token = azurerm.get_access_token(
     tenant_id,
-    application_id,
-    application_secret
+    app_id,
+    app_secret
 )
 
 # create a storage account 
