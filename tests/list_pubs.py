@@ -30,7 +30,7 @@ for sku in skus:
     print(sku['name'])
 '''
 #versions = azurerm.list_sku_versions(access_token, subscription_id, 'eastus', 'MicrosoftWindowsServer', 'WindowsServer', '2012-R2-Datacenter')
-versions = azurerm.list_sku_versions(access_token, subscription_id, 'eastus', 'Canonical', 'UbuntuServer', '15.04')
+versions = azurerm.list_sku_versions(access_token, subscription_id, 'eastus', 'Canonical', 'UbuntuServer', '15.10')
 for version in versions:
     print(version['name'])
 
