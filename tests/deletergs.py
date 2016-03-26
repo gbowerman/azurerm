@@ -26,8 +26,8 @@ subscription_id = configData['subscriptionId']
 
 access_token = azurerm.get_access_token(
     tenant_id,
-    application_id,
-    application_secret
+    app_id,
+    app_secret
 )
 
 # delete a resource groups
