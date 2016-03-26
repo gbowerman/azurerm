@@ -126,7 +126,7 @@ start_vm(access_token, subscription_id, resource_group, vm_name) - start a virtu
 stop_vm(access_token, subscription_id, resource_group, vm_name) - stop a VM, don't deallocate resources
 deallocate_vm(access_token, subscription_id, resource_group, vm_name) - stop-deallocate a virtual machine
 delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name) - delete a virtual machine scale set
-delete_vmss_vm(access_token, subscription_id, resource_group, vmss_name) - delete a VM in a VM Scale Set
+delete_vmss_vms(access_token, subscription_id, resource_group, vm_ids) - delete a VM in a VM Scale Set
 list_vmss_vms(access_token, subscription_id, resource_group, vmss_name) - list the VMs in a VM Scale Set
 list_vm_scale_sets(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
 get_vm_extensionaccess_token, subscription_id, resource_group, vm_name, extension_name) - get details about a VM extension
@@ -134,16 +134,17 @@ get_vmss(access_token, subscription_id, resource_group, vmss_name) - get virtual
 get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_name) - get virtual machine scale set instance view
 get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM details
 get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM instance view
-get_vmss_nics(access_token, subscription_id, resource_group, vmss_name) - get individual VMSS VM instance view
-get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM instance view
+get_vmss_nics(access_token, subscription_id, resource_group, vmss_name) - get NIC details for a VM Scale Set
+get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id) - get NIC details for a VMSS VM
 start_vmss(access_token, subscription_id, resource_group, vmss_name) - start all the VMs in a virtual machine scale set
-start_vmss_vm(access_token, subscription_id, resource_group, vmss_name) - start a VM in a virtual machine scale set
+start_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm_ids) - start VMs in a virtual machine scale set
 stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name) - stop all the VMs in a virtual machine scale set
-stopdealloc_vmss_vm(access_token, subscription_id, resource_group, vmss_name) - stop a VM in a virtual machine scale set
+stopdealloc_vmss_vms(access_token, subscription_id, resource_group, vm_ids) - stop VMs in a virtual machine scale set
 restart_vmss(access_token, subscription_id, resource_group, vmss_name) - restart all the VMs in a virtual machine scale set
-restart_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - restart all the VMs in a virtual machine scale set
+restart_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_id) - restart VMs in a virtual machine scale set
 poweroff_vmss(access_token, subscription_id, resource_group, vmss_name) - poweroff all the VMs in a virtual machine scale set
-poweroff_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - poweroff all the VMs in a virtual machine scale set
+poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm_ids) - poweroff VMs in a virtual machine scale set
+upgrade_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids) - upgrade a specific VMs a virtual machine scale set
 scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity) - change the instance count of an existing VM Scale Set
 get_compute_usage(access_token, subscription_id, location) - list compute usage and limits for a location
 ```

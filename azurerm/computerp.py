@@ -120,7 +120,6 @@ def delete_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm
 						 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                          '/delete?api-version=', COMP_API])
     body = '{"instanceIds" : ' + vm_ids + '}'
-    print(body)
     return do_post(endpoint, body, access_token)
 
 # get_vmss(access_token, subscription_id, resource_group, vmss_name)
@@ -187,7 +186,7 @@ def get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vms
     return do_get(endpoint, access_token)
 	
 # get_vmss_nics(access_token, subscription_id, resource_group, vmss_name)
-# get individual VMSS VM instance view
+# get NIC details for a VM Scale Set
 def get_vmss_nics(access_token, subscription_id, resource_group, vmss_name):
     endpoint = ''.join([azure_rm_endpoint,
                          '/subscriptions/', subscription_id,
@@ -197,7 +196,7 @@ def get_vmss_nics(access_token, subscription_id, resource_group, vmss_name):
     return do_get(endpoint, access_token)
 		
 # get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id)
-# get individual VMSS VM instance view
+# get NIC details for a VMSS VM
 def get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id):
     endpoint = ''.join([azure_rm_endpoint,
                          '/subscriptions/', subscription_id,
@@ -218,7 +217,7 @@ def start_vmss(access_token, subscription_id, resource_group, vmss_name):
     body = '{"instanceIds" : ["*"]}'
     return do_post(endpoint, body, access_token)
 
-# start_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# start_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
 # start all the VMs in a virtual machine scale set
 def start_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
     endpoint = ''.join([azure_rm_endpoint,
@@ -229,7 +228,7 @@ def start_vmss_vms(access_token, subscription_id, resource_group, vmss_name, ins
     body = '{"instanceIds" : ' + instance_ids + '}'
     return do_post(endpoint, body, access_token)
 
-# stop_vmss(access_token, subscription_id, resource_group, vmss_name)
+# stopdalloc_vmss(access_token, subscription_id, resource_group, vmss_name)
 # stop all the VMs in a virtual machine scale set
 def stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name):
     endpoint = ''.join([azure_rm_endpoint,
@@ -240,7 +239,7 @@ def stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name):
     body = '{"instanceIds" : ["*"]}'
     return do_post(endpoint, body, access_token)
 
-# stop_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# stopdealloc_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
 # stop all the VMs in a virtual machine scale set
 def stopdealloc_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
     endpoint = ''.join([azure_rm_endpoint,
@@ -262,7 +261,7 @@ def restart_vmss(access_token, subscription_id, resource_group, vmss_name):
     body = '{"instanceIds" : ["*"]}'
     return do_post(endpoint, body, access_token)
 
-# restart_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# restart_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
 # restart a specific VM in a virtual machine scale set
 def restart_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
     endpoint = ''.join([azure_rm_endpoint,
@@ -273,7 +272,7 @@ def restart_vmss_vms(access_token, subscription_id, resource_group, vmss_name, i
     body = '{"instanceIds" : ' + instance_ids + '}'
     return do_post(endpoint, body, access_token)
 
-# upgrade_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_ids)
+# upgrade_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
 # upgrade a specific VMs a virtual machine scale set
 def upgrade_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
     endpoint = ''.join([azure_rm_endpoint,
@@ -294,7 +293,7 @@ def poweroff_vmss(access_token, subscription_id, resource_group, vmss_name):
     body = '{"instanceIds" : ["*"]}'
     return do_post(endpoint, body, access_token)
 
-# poweroff_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
+# poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
 # poweroff all the VMs in a virtual machine scale set
 def poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
     endpoint = ''.join([azure_rm_endpoint,
