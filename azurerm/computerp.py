@@ -31,8 +31,8 @@ def get_vm(access_token, subscription_id, resource_group, vm_name):
     return do_get(endpoint, access_token)
 
 
-# update_vmss(access_token, subscription_id, resource_group, vmss_name, body)
-# put an updated virtual machine scale set body, e.g. a sku version
+# update_vm(access_token, subscription_id, resource_group, vm_name, body)
+# updates a VM model, that is put an updated virtual machine scale set body, e.g. a sku version
 def update_vm(access_token, subscription_id, resource_group, vm_name, body):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
@@ -151,7 +151,7 @@ def get_vmss(access_token, subscription_id, resource_group, vmss_name):
 
 
 # update_vmss(access_token, subscription_id, resource_group, vmss_name, body)
-# put an updated virtual machine scale set body, e.g. a sku version
+# updates a VMSS model, that is put an updated virtual machine scale set body, e.g. a sku version
 def update_vmss(access_token, subscription_id, resource_group, vmss_name, body):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,

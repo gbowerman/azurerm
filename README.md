@@ -120,6 +120,7 @@ deploy_template(access_token, subscription_id, resource_group, deployment_name, 
 ```
 delete_vm(access_token, subscription_id, resource_group, vm_name) - delete a virtual machine
 get_vm(access_token, subscription_id, resource_group, vm_name) - get virtual machine details
+update_vm(access_token, subscription_id, resource_group, vm_name, body) - updates a VM model, that is put an updated virtual machine scale set body
 list_vms(access_token, subscription_id, resource_group) - list VMs in a resource group
 restart_vm(access_token, subscription_id, resource_group, vm_name) - restart a virtual machine
 start_vm(access_token, subscription_id, resource_group, vm_name) - start a virtual machine
@@ -131,6 +132,7 @@ list_vmss_vms(access_token, subscription_id, resource_group, vmss_name) - list t
 list_vm_scale_sets(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
 get_vm_extensionaccess_token, subscription_id, resource_group, vm_name, extension_name) - get details about a VM extension
 get_vmss(access_token, subscription_id, resource_group, vmss_name) - get virtual machine scale set details
+update_vmss(access_token, subscription_id, resource_group, vmss_name, body) - updates a VMSS model, that is put an updated virtual machine scale set body
 get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_name) - get virtual machine scale set instance view
 get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM details
 get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM instance view
