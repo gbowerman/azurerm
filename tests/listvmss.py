@@ -42,10 +42,7 @@ for rg in resource_groups["value"]:
             #print(json.dumps(vmnic, sort_keys=False, indent=2, separators=(',', ': ')))
             print(vmid + ', ' + vm['name'] + ', private IP:' + privateIP)
 
-# print quota
-location = 'southeastasia'
-quota = azurerm.get_compute_usage(access_token, subscription_id, location)
-print(json.dumps(quota, sort_keys=False, indent=2, separators=(',', ': ')))
+
 #startoutput = azurerm.start_vmss(access_token, subscription_id, 'guydock3', 'guydock3')
 # print(startoutput)
 

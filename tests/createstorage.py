@@ -3,12 +3,12 @@ import json
 
 # Load Azure app defaults
 try:
-   with open('azurermconfig.json') as configFile:    
-      configData = json.load(configFile)
+    with open('azurermconfig.json') as configFile:
+        configData = json.load(configFile)
 except FileNotFoundError:
-   print("Error: Expecting vmssConfig.json in current folder")
-   sys.exit()
-   
+    print("Error: Expecting vmssConfig.json in current folder")
+    sys.exit()
+
 tenant_id = configData['tenantId']
 app_id = configData['appId']
 app_secret = configData['appSecret']
@@ -46,4 +46,4 @@ print('Storage account keys...')
 # get storage account keys
 keys = azurerm.get_storage_account_keys(access_token, subscription_id, resource_group, saname)
 print(json.dumps(keys.text, sort_keys=False, indent=2, separators=(',', ': ')))
-#print(keys.text)
+# print(keys.text)
