@@ -320,6 +320,7 @@ def upgrade_vmss_vms(access_token, subscription_id, resource_group, vmss_name, i
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                         '/manualupgrade?api-version=', COMP_API])
     body = '{"instanceIds" : ' + instance_ids + '}'
     return do_post(endpoint, body, access_token)
@@ -331,6 +332,7 @@ def reimage_vmss_vms(access_token, subscription_id, resource_group, vmss_name, i
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                         '/reimage?api-version=', COMP_API])
     body = '{"instanceIds" : ' + instance_ids + '}'
     return do_post(endpoint, body, access_token)
