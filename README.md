@@ -59,23 +59,23 @@ show_deployment(access_token, subscription_id, resource_group, deployment_name) 
 
 ### Image/Publisher catalog
 ```
-list_publishers(access_token, subscription_id, location) - list available image publishers for a location
 list_offers(access_token, subscription_id, location, publisher) - list available VM image offers from a publisher
-list_skus(access_token, subscription_id, location, publisher, offer) - list available VM image skus for a publisher offer
+list_publishers(access_token, subscription_id, location) - list available image publishers for a location
 list_sku_versions(access_token, subscription_id, location, publisher, offer, sku) - list available versions for a given publisher's sku
+list_skus(access_token, subscription_id, location, publisher, offer) - list available VM image skus for a publisher offer
 ```
 
 ### Network
 ```
-list_vnets(access_token, subscription_id) - list the VNETs in a subscription
-list_nics(access_token, subscription_id) - list the network interfaces in a subscription
-list_nics_rg(access_token, subscription_id, resource_group) - list the network interfaces in a resource group	
+get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
+get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location
+get_public_ip(access_token, subscription_id, resource_group) - get details about the named public ip address
 list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription
 list_load_balancers_rg(access_token, subscription_id, resource_group) - list the load balancers in a resource group
-get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
-list_public_ips(access_token, subscription_id, resource_group) - list the public ip addresses in a resource group	
-get_public_ip(access_token, subscription_id, resource_group) - get details about the named public ip address
-get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location
+list_nics(access_token, subscription_id) - list the network interfaces in a subscription
+list_nics_rg(access_token, subscription_id, resource_group) - list the network interfaces in a resource group
+list_public_ips(access_token, subscription_id, resource_group) - list the public ip addresses in a resource group
+list_vnets(access_token, subscription_id) - list the VNETs in a subscription
 ```
 
 ### Insights
@@ -96,57 +96,58 @@ list_resource_groups(access_token, subscription_id) - list the resource groups i
 create_storage_account(access_token, subscription_id, rgname, location) - create a new storage account
 delete_storage_account(access_token, subscription_id, rgname) - delete a storage account in the specified resource group
 get_storage_account(access_token, subscription_id, rgname) - get details for the specified storage account
-list_storage_accounts_rg(access_token, subscription_id, rgname) - list the storage accounts in the specified resource group
-list_storage_accounts_sub(access_token, subscription_id) - list the storage accounts in the specified subscription
 get_storage_account_keys(access_token, subscription_id, rgname, account_name) - get the access keys for the specified storage account
 get_storage_usage(access_token, subscription_id) - returns storage usage and quota information for the specified subscription
+list_storage_accounts_rg(access_token, subscription_id, rgname) - list the storage accounts in the specified resource group
+list_storage_accounts_sub(access_token, subscription_id) - list the storage accounts in the specified subscription
 ```
 
 #### Subscription, location, and access token
 ```
-get_access_token(tenant_id, application_id, application_secret) - get an Azure access token for your application  
-list_subscriptions(access_token) - list the available Azure subscriptions for this application  
+get_access_token(tenant_id, application_id, application_secret) - get an Azure access token for your application
 list_locations(access_token, subscrpition_id) - list available locations for a subscription
+list_subscriptions(access_token) - list the available Azure subscriptions for this application  
 ```
 
 ### Template functions
 ```
-deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters_uri) - deploy a template with both template and parameters referenced by URIs
-deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters) - deploy a template referenced by a URI, with parameters as a JSON string
 deploy_template(access_token, subscription_id, resource_group, deployment_name, template, parameters) - deploy a template referenced by a JSON string, with parameters as a JSON string
+deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters) - deploy a template referenced by a URI, with parameters as a JSON string
+deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters_uri) - deploy a template with both template and parameters referenced by URIs
 ```
 
 #### Virtual machines and VM Scale Sets
 ```
-delete_vm(access_token, subscription_id, resource_group, vm_name) - delete a virtual machine
-get_vm(access_token, subscription_id, resource_group, vm_name) - get virtual machine details
-update_vm(access_token, subscription_id, resource_group, vm_name, body) - updates a VM model, that is put an updated virtual machine scale set body
-list_vms(access_token, subscription_id, resource_group) - list VMs in a resource group
-restart_vm(access_token, subscription_id, resource_group, vm_name) - restart a virtual machine
-start_vm(access_token, subscription_id, resource_group, vm_name) - start a virtual machine
-stop_vm(access_token, subscription_id, resource_group, vm_name) - stop a VM, don't deallocate resources
 deallocate_vm(access_token, subscription_id, resource_group, vm_name) - stop-deallocate a virtual machine
-delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name) - delete a virtual machine scale set
+delete_vm(access_token, subscription_id, resource_group, vm_name) - delete a virtual machine
+delete_vmss(access_token, subscription_id, resource_group, vmss_name) - delete a virtual machine scale set
 delete_vmss_vms(access_token, subscription_id, resource_group, vm_ids) - delete a VM in a VM Scale Set
-list_vmss_vms(access_token, subscription_id, resource_group, vmss_name) - list the VMs in a VM Scale Set
-list_vm_scale_sets(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
-get_vm_extensionaccess_token, subscription_id, resource_group, vm_name, extension_name) - get details about a VM extension
+get_compute_usage(access_token, subscription_id, location) - list compute usage and limits for a location
+get_vm(access_token, subscription_id, resource_group, vm_name) - get virtual machine details
+get_vm_extension(access_token, subscription_id, resource_group, vm_name, extension_name) - get details about a VM extension
 get_vmss(access_token, subscription_id, resource_group, vmss_name) - get virtual machine scale set details
-update_vmss(access_token, subscription_id, resource_group, vmss_name, body) - updates a VMSS model, that is put an updated virtual machine scale set body
 get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_name) - get virtual machine scale set instance view
+get_vmss_nics(access_token, subscription_id, resource_group, vmss_name) - get NIC details for a VM Scale Set
 get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM details
 get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM instance view
-get_vmss_nics(access_token, subscription_id, resource_group, vmss_name) - get NIC details for a VM Scale Set
 get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id) - get NIC details for a VMSS VM
-start_vmss(access_token, subscription_id, resource_group, vmss_name) - start all the VMs in a virtual machine scale set
-start_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm_ids) - start VMs in a virtual machine scale set
-stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name) - stop all the VMs in a virtual machine scale set
-stopdealloc_vmss_vms(access_token, subscription_id, resource_group, vm_ids) - stop VMs in a virtual machine scale set
+list_vms(access_token, subscription_id, resource_group) - list VMs in a resource group
+list_vmss(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
+list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name) - list the VMSS VM instance views in a scale set
+list_vmss_vms(access_token, subscription_id, resource_group, vmss_name) - list the VMs in a VM Scale Set
+restart_vm(access_token, subscription_id, resource_group, vm_name) - restart a virtual machine
 restart_vmss(access_token, subscription_id, resource_group, vmss_name) - restart all the VMs in a virtual machine scale set
 restart_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_id) - restart VMs in a virtual machine scale set
+scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity) - change the instance count of an existing VM Scale Set
+start_vm(access_token, subscription_id, resource_group, vm_name) - start a virtual machine
+start_vmss(access_token, subscription_id, resource_group, vmss_name) - start all the VMs in a virtual machine scale set
+start_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm_ids) - start VMs in a virtual machine scale set
+stop_vm(access_token, subscription_id, resource_group, vm_name) - stop a VM, don't deallocate resources
+stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name) - stop all the VMs in a virtual machine scale set
+stopdealloc_vmss_vms(access_token, subscription_id, resource_group, vm_ids) - stop VMs in a virtual machine scale set
 poweroff_vmss(access_token, subscription_id, resource_group, vmss_name) - poweroff all the VMs in a virtual machine scale set
 poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm_ids) - poweroff VMs in a virtual machine scale set
+update_vm(access_token, subscription_id, resource_group, vm_name, body) - updates a VM model, that is put an updated virtual machine scale set body
+update_vmss(access_token, subscription_id, resource_group, vmss_name, body) - updates a VMSS model, that is put an updated virtual machine scale set body
 upgrade_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids) - upgrade a specific VMs a virtual machine scale set
-scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity) - change the instance count of an existing VM Scale Set
-get_compute_usage(access_token, subscription_id, location) - list compute usage and limits for a location
 ```

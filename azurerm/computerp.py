@@ -116,9 +116,9 @@ def get_vm_extension(access_token, subscription_id, resource_group, vm_name, ext
     return do_get(endpoint, access_token)
 
 
-# delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name)
+# delete_vmss(access_token, subscription_id, resource_group, vmss_name)
 # delete a virtual machine scale set
-def delete_vm_scale_set(access_token, subscription_id, resource_group, vmss_name):
+def delete_vmss(access_token, subscription_id, resource_group, vmss_name):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -174,7 +174,7 @@ def get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_n
 
 # list_vm_scale_sets(access_token, subscription_id, resource_group)
 # list VM Scale Sets in a resource group
-def list_vm_scale_sets(access_token, subscription_id, resource_group):
+def list_vmss(access_token, subscription_id, resource_group):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -218,6 +218,15 @@ def get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vms
                         '/instanceView?api-version=', COMP_API])
     return do_get(endpoint, access_token)
 
+# list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name)
+# list the VMSS VM instance views in a scale set
+def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                        '/virtualMachines?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
+    return do_get(endpoint, access_token)
 
 # get_vmss_nics(access_token, subscription_id, resource_group, vmss_name)
 # get NIC details for a VM Scale Set

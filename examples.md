@@ -132,7 +132,7 @@ access_token = azurerm.get_access_token(
     application_secret
 )
 
-# delete a resource groups
+# delete a resource group
 rgreturn = azurerm.delete_resource_group(access_token, subscription_id, rgname)
 print(rgreturn)
 ```
@@ -178,7 +178,7 @@ access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
 for rg in resource_groups["value"]:
     rgname = rg["name"] 
-    vmsslist = azurerm.list_vm_scale_sets(access_token, subscription_id, rgname)
+    vmsslist = azurerm.list_vmss(access_token, subscription_id, rgname)
     for vmss in vmsslist['value']:
         name = vmss['name']
         location = vmss['location']
@@ -207,7 +207,7 @@ access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
 for rg in resource_groups["value"]:
     rgname = rg["name"] 
-    vmsslist = azurerm.list_vm_scale_sets(access_token, subscription_id, rgname)
+    vmsslist = azurerm.list_vmss(access_token, subscription_id, rgname)
     for vmss in vmsslist['value']:
         name = vmss['name']
         location = vmss['location']
