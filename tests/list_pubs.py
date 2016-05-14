@@ -15,22 +15,15 @@ app_secret = configData['appSecret']
 subscription_id = configData['subscriptionId']
 
 access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
-'''
+
 pubs = azurerm.list_publishers(access_token, subscription_id, 'southeastasia')
 
-for pub in pubs:
-    print(pub['name'])
-
-offers = azurerm.list_offers(access_token, subscription_id, 'southeastasia', 'MicrosoftWindowsServer')
-for offer in offers:
-    print(offer['name'])
-
-skus = azurerm.list_skus(access_token, subscription_id, 'southeastasia', 'MicrosoftWindowsServer', 'WindowsServer')
+# skus = azurerm.list_skus(access_token, subscription_id, 'southeastasia', 'MicrosoftWindowsServer', 'WindowsServer')
+skus = azurerm.list_skus(access_token, subscription_id, 'southeastasia', 'Canonical', 'UbuntuServer')
 for sku in skus:
     print(sku['name'])
-'''
-#versions = azurerm.list_sku_versions(access_token, subscription_id, 'eastus', 'MicrosoftWindowsServer', 'WindowsServer', '2012-R2-Datacenter')
-versions = azurerm.list_sku_versions(access_token, subscription_id, 'eastus', 'Canonical', 'UbuntuServer', '15.10')
+
+print('Versions for sku 14.04.2-LTS:')
+versions = azurerm.list_sku_versions(access_token, subscription_id, 'southeastasia', 'Canonical', 'UbuntuServer', '14.04.2-LTS')
 for version in versions:
     print(version['name'])
-

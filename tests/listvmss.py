@@ -16,11 +16,17 @@ subscription_id = configData['subscriptionId']
 
 access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
+# list the VMs 
+vmsslist = azurerm.list_vmss_sub(access_token, subscription_id)
+for vm in vmsslist['value']:
+    # print(json.dumps(vm, sort_keys=False, indent=2, separators=(',', ': ')))
+    print(vm['name'])
+'''
 # loop through resource groups
 resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
 for rg in resource_groups["value"]:
     rgname = rg["name"] 
-    vmsslist = azurerm.list_vm_scale_sets(access_token, subscription_id, rgname)
+    vmsslist = azurerm.list_vmss(access_token, subscription_id, rgname)
     for vmss in vmsslist['value']:
         name = vmss['name']
         location = vmss['location']
@@ -48,5 +54,5 @@ for rg in resource_groups["value"]:
 
 # scaleoutput = azurerm.scale_vmss(access_token, subscription_id, 'guydock3', 'guydock3', 'Standard_A1', 'Standard', 5)
 # print(scaleoutput)
-        
+'''       
     

@@ -13,7 +13,8 @@ tenant_id = configData['tenantId']
 app_id = configData['appId']
 app_secret = configData['appSecret']
 subscription_id = configData['subscriptionId']
-resource_group = configData['resourceGroup']
+#resource_group = configData['resourceGroup']
+resource_group = 'guyqlen'
 
 access_token = azurerm.get_access_token(
     tenant_id,
@@ -24,7 +25,7 @@ access_token = azurerm.get_access_token(
 # create a storage account 
 print('Enter storage account name to create.')
 saname = input()
-location = 'southeastasia'
+location = 'eastus'
 sareturn = azurerm.create_storage_account(access_token, subscription_id, resource_group, saname, location)
 print(sareturn)
 
@@ -39,19 +40,19 @@ input()
 
 # list storage accounts in rg
 sa_list = azurerm.list_storage_accounts_rg(access_token, subscription_id, resource_group)
-print(sa_list)
+print(json.dumps(sa_list, sort_keys=False, indent=2, separators=(',', ': ')))
 
 print('Storage account details...')
 
 # get storage account details
 sa_info = azurerm.get_storage_account(access_token, subscription_id, resource_group, saname)
-print(sa_info)
+print(json.dumps(sa_info, sort_keys=False, indent=2, separators=(',', ': ')))
 
 print('Storage account quota...')
 
 # get storage account quota
 quota_info = azurerm.get_storage_usage(access_token, subscription_id)
-print(quota_info)
+print(json.dumps(quota_info, sort_keys=False, indent=2, separators=(',', ': ')))
 
 print('Storage account keys...')
 
@@ -60,8 +61,8 @@ keys = azurerm.get_storage_account_keys(access_token, subscription_id, resource_
 print(keys.text)
 
 # delete storage_account
-print('Press Enter to delete account.')
-input()
-rgreturn = azurerm.delete_storage_account(access_token, subscription_id, resource_group, saname)
-print(rgreturn)
+#print('Press Enter to delete account.')
+#input()
+#rgreturn = azurerm.delete_storage_account(access_token, subscription_id, resource_group, saname)
+#print(rgreturn)
 

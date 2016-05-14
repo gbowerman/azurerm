@@ -30,7 +30,7 @@ print('Name: ' + name + ', capacity: ' + str(capacity) + ', ' + location + ', ' 
 print('\nPrinting VMSS instance view\n')
 instanceView = azurerm.get_vmss_instance_view(access_token, subscription_id, rg, vmss)
 print(json.dumps(instanceView, sort_keys=False, indent=2, separators=(',', ': ')))
-
+'''
 print('\nListing VMSS VMs\n')
 vmss_vms = azurerm.list_vmss_vms(access_token, subscription_id, rg, vmss)
 #print(vmss_vms)
@@ -40,6 +40,6 @@ for vm in vmss_vms['value']:
     vmInstanceView = azurerm.get_vmss_vm_instance_view(access_token, subscription_id, rg, vmss, instanceId)
     print('\nVM ' + str(instanceId) + ' instance view\n')
     print(json.dumps(vmInstanceView, sort_keys=False, indent=2, separators=(',', ': ')))
-                                        
+ '''                                       
     
 
