@@ -137,6 +137,8 @@ rgreturn = azurerm.delete_resource_group(access_token, subscription_id, rgname)
 print(rgreturn)
 ```
 ### List the virtual machines in a subscription and print the properties
+
+Note: There is an easier way to do this. You can just call azurerm.list_vms_sub() to list all the VMs in a subscription.
 ```
 import azurerm
 
@@ -164,6 +166,8 @@ for rg in resource_groups["value"]:
 ```
 
 ### List the VM Scale Sets in a subscription and print basic properties
+
+Note: There is an easier way to list all the VM Scale Sets in a subscription. Just call azurerm.list_vmss_sub().
 ```
 import azurerm
 

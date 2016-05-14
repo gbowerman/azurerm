@@ -132,7 +132,9 @@ get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_i
 get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM instance view
 get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id) - get NIC details for a VMSS VM
 list_vms(access_token, subscription_id, resource_group) - list VMs in a resource group
-list_vmss(access_token, subscription_id, rgname) - list the VM Scale Sets in a resource group
+list_vms_sub(access_token, subscription_id) - list the VMs in a subscription
+list_vmss(access_token, subscription_id, resource_group) - list the VM Scale Sets in a resource group
+list_vmss_sub(access_token, subscription_id) - list the VM Scale Sets in a subscription
 list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name) - list the VMSS VM instance views in a scale set
 list_vmss_vms(access_token, subscription_id, resource_group, vmss_name) - list the VMs in a VM Scale Set
 restart_vm(access_token, subscription_id, resource_group, vm_name) - restart a virtual machine

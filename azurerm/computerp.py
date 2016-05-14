@@ -52,7 +52,15 @@ def list_vms(access_token, subscription_id, resource_group):
                         '?api-version=', COMP_API])
     return do_get(endpoint, access_token)
 
-
+# list_vms_sub(access_token, subscription_id)
+# list VMs in a subscription
+def list_vms_sub(access_token, subscription_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/providers/Microsoft.Compute/virtualMachines',
+                        '?api-version=', COMP_API])
+    return do_get(endpoint, access_token)
+    
 # restart_vm(access_token, subscription_id, resource_group, vm_name)
 # restart a virtual machine
 def restart_vm(access_token, subscription_id, resource_group, vm_name):
@@ -178,6 +186,15 @@ def list_vmss(access_token, subscription_id, resource_group):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachineScaleSets',
+                        '?api-version=', COMP_API])
+    return do_get(endpoint, access_token)
+
+# list_vmss_sub(access_token, subscription_id)
+# list VM Scale Sets in a subscription
+def list_vmss_sub(access_token, subscription_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/virtualMachineScaleSets',
                         '?api-version=', COMP_API])
     return do_get(endpoint, access_token)
