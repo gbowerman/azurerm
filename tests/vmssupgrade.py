@@ -3,11 +3,12 @@
 # test values for ubuntu 14.04 platform image:
 #   oldversion = "14.04.201506100"
 #   newversion = "14.04.201507060"
-import azurerm
 import argparse
 import json
 import sys
 import time
+
+import azurerm
 
 
 def get_vm_ids_by_ud(access_token, subscription_id, resource_group, vmssname, updatedomain):
@@ -29,15 +30,20 @@ def main():
     argParser = argparse.ArgumentParser()
 
     argParser.add_argument('--vmssname', '-s', required=True, action='store', help='VM Scale Set name')
-    argParser.add_argument('--resourcegroup', '-r', required=True, dest='resource_group', action='store', help='Resource group name')
-    argParser.add_argument('--newversion', '-n', dest='newversion', action='store', help='New platform image version string')
+    argParser.add_argument('--resourcegroup', '-r', required=True, dest='resource_group', action='store',
+                           help='Resource group name')
+    argParser.add_argument('--newversion', '-n', dest='newversion', action='store',
+                           help='New platform image version string')
     argParser.add_argument('--customuri', '-c', dest='customuri', action='store', help='New custom image URI string')
-    argParser.add_argument('--updatedomain', '-u', dest='updatedomain', action='store', type=int, help='Update domain (int)')
+    argParser.add_argument('--updatedomain', '-u', dest='updatedomain', action='store', type=int,
+                           help='Update domain (int)')
     argParser.add_argument('--vmid', '-i', dest='vmid', action='store', type=int, help='Single VM ID (int)')
     argParser.add_argument('--vmlist', '-l', dest='vmlist', action='store', help='List of VM IDs e.g. "["1", "2"]"')
-    argParser.add_argument('--nowait', '-w', action='store_true', default=False, help='Start upgrades and then exit without waiting')
+    argParser.add_argument('--nowait', '-w', action='store_true', default=False,
+                           help='Start upgrades and then exit without waiting')
     argParser.add_argument('--verbose', '-v', action='store_true', default=False, help='Show additional information')
-    argParser.add_argument('-y', dest='noprompt', action='store_true', default=False, help='Do not prompt for confirmation')
+    argParser.add_argument('-y', dest='noprompt', action='store_true', default=False,
+                           help='Do not prompt for confirmation')
 
     args = argParser.parse_args()
 
@@ -105,7 +111,8 @@ def main():
             # change the version
             vmssmodel['properties']['virtualMachineProfile']['storageProfile']['imageReference']['version'] = newversion
             # put the vmss model
-            updateresult = azurerm.update_vmss(access_token, subscription_id, resource_group, vmssname, json.dumps(vmssmodel))
+            updateresult = azurerm.update_vmss(access_token, subscription_id, resource_group, vmssname,
+                                               json.dumps(vmssmodel))
             if verbose:
                 print(updateresult)
             print('OS version updated to ' + newversion + ' in model for VM Scale Set: ' + vmssname)
@@ -125,7 +132,8 @@ def main():
             # change the version
             vmssmodel['properties']['virtualMachineProfile']['storageProfile']['osDisk']['image']['uri'] = customuri
             # put the vmss model
-            updateresult = azurerm.update_vmss(access_token, subscription_id, resource_group, vmssname, json.dumps(vmssmodel))
+            updateresult = azurerm.update_vmss(access_token, subscription_id, resource_group, vmssname,
+                                               json.dumps(vmssmodel))
             if verbose:
                 print(updateresult)
             print('Image URI updated to ' + customuri + ' in model for VM Scale Set: ' + vmssname)

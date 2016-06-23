@@ -1,4 +1,3 @@
-
 """
 Copyright (c) 2016, Guy Bowerman
 Description: Simple Azure Resource Manager Python Library

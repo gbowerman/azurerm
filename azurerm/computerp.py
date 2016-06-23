@@ -5,8 +5,8 @@ License: MIT (see LICENSE.txt file for details)
 """
 
 # computerp.py - azurerm functions for the Microsoft.Compute resource provider
-from .settings import azure_rm_endpoint, COMP_API
 from .restfns import do_delete, do_get, do_put, do_patch, do_post
+from .settings import azure_rm_endpoint, COMP_API
 
 
 # delete_vm(access_token, subscription_id, resource_group, vm_name)
@@ -52,6 +52,7 @@ def list_vms(access_token, subscription_id, resource_group):
                         '?api-version=', COMP_API])
     return do_get(endpoint, access_token)
 
+
 # list_vms_sub(access_token, subscription_id)
 # list VMs in a subscription
 def list_vms_sub(access_token, subscription_id):
@@ -60,7 +61,8 @@ def list_vms_sub(access_token, subscription_id):
                         '/providers/Microsoft.Compute/virtualMachines',
                         '?api-version=', COMP_API])
     return do_get(endpoint, access_token)
-    
+
+
 # restart_vm(access_token, subscription_id, resource_group, vm_name)
 # restart a virtual machine
 def restart_vm(access_token, subscription_id, resource_group, vm_name):
@@ -190,6 +192,7 @@ def list_vmss(access_token, subscription_id, resource_group):
                         '?api-version=', COMP_API])
     return do_get(endpoint, access_token)
 
+
 # list_vmss_sub(access_token, subscription_id)
 # list VM Scale Sets in a subscription
 def list_vmss_sub(access_token, subscription_id):
@@ -235,6 +238,7 @@ def get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vms
                         '/instanceView?api-version=', COMP_API])
     return do_get(endpoint, access_token)
 
+
 # list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name)
 # list the VMSS VM instance views in a scale set
 def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name):
@@ -244,6 +248,7 @@ def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vm
                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                         '/virtualMachines?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
     return do_get(endpoint, access_token)
+
 
 # get_vmss_nics(access_token, subscription_id, resource_group, vmss_name)
 # get NIC details for a VM Scale Set

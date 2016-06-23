@@ -1,14 +1,15 @@
-import azurerm
 import json
+
+import azurerm
 
 # Load Azure app defaults
 try:
-   with open('azurermconfig.json') as configFile:    
-      configData = json.load(configFile)
+    with open('azurermconfig.json') as configFile:
+        configData = json.load(configFile)
 except FileNotFoundError:
-   print("Error: Expecting vmssConfig.json in current folder")
-   sys.exit()
-   
+    print("Error: Expecting vmssConfig.json in current folder")
+    sys.exit()
+
 tenant_id = configData['tenantId']
 app_id = configData['appId']
 app_secret = configData['appSecret']
@@ -24,6 +25,7 @@ for sku in skus:
     print(sku['name'])
 
 print('Versions for sku 14.04.2-LTS:')
-versions = azurerm.list_sku_versions(access_token, subscription_id, 'southeastasia', 'Canonical', 'UbuntuServer', '14.04.2-LTS')
+versions = azurerm.list_sku_versions(access_token, subscription_id, 'southeastasia', 'Canonical', 'UbuntuServer',
+                                     '14.04.2-LTS')
 for version in versions:
     print(version['name'])

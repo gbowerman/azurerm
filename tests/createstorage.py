@@ -1,5 +1,6 @@
-import azurerm
 import json
+
+import azurerm
 
 # Load Azure app defaults
 try:

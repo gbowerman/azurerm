@@ -1,14 +1,15 @@
-import azurerm
 import json
+
+import azurerm
 
 # Load Azure app defaults
 try:
-   with open('azurermconfig.json') as configFile:    
-      configData = json.load(configFile)
+    with open('azurermconfig.json') as configFile:
+        configData = json.load(configFile)
 except FileNotFoundError:
-   print("Error: Expecting vmssConfig.json in current folder")
-   sys.exit()
-   
+    print("Error: Expecting vmssConfig.json in current folder")
+    sys.exit()
+
 tenant_id = configData['tenantId']
 app_id = configData['appId']
 app_secret = configData['appSecret']
@@ -40,6 +41,4 @@ for vm in vmss_vms['value']:
     vmInstanceView = azurerm.get_vmss_vm_instance_view(access_token, subscription_id, rg, vmss, instanceId)
     print('\nVM ' + str(instanceId) + ' instance view\n')
     print(json.dumps(vmInstanceView, sort_keys=False, indent=2, separators=(',', ': ')))
- '''                                       
-    
-
+ '''

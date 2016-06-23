@@ -1,11 +1,14 @@
-import azurerm
-import sys
 import json
+import sys
+
+import azurerm
+
 
 def usage():
     sys.exit('Usage: python ' + sys.argv[0] + ' rg_name')
 
-# check for single command argument    
+
+# check for single command argument
 if len(sys.argv) != 2:
     usage()
 
@@ -13,12 +16,12 @@ rgname = sys.argv[1]
 
 # Load Azure app defaults
 try:
-   with open('azurermconfig.json') as configFile:    
-      configData = json.load(configFile)
+    with open('azurermconfig.json') as configFile:
+        configData = json.load(configFile)
 except FileNotFoundError:
-   print("Error: Expecting vmssConfig.json in current folder")
-   sys.exit()
-   
+    print("Error: Expecting vmssConfig.json in current folder")
+    sys.exit()
+
 tenant_id = configData['tenantId']
 app_id = configData['appId']
 app_secret = configData['appSecret']
