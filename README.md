@@ -55,6 +55,7 @@ Basic resource group, storage and VM/VMSS functions are implemented. Network fun
 ### Deployments
 ```
 show_deployment(access_token, subscription_id, resource_group, deployment_name) - show deployment status/details
+list_deployment_operations(access_token, subscription_id, resource_group, deployment_name) - list operations involved in a given deployment
 ```
 
 ### Image/Publisher catalog
