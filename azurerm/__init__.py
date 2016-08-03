@@ -13,7 +13,7 @@ from .computerp import delete_vm, get_vm, update_vm, list_vms, list_vms_sub, res
     get_vmss_nics, get_vmss_vm_nics, start_vmss, stopdealloc_vmss, start_vmss_vms, stopdealloc_vmss_vms, restart_vmss, \
     restart_vmss_vms, poweroff_vmss, poweroff_vmss_vms, reimage_vmss_vms, upgrade_vmss_vms, scale_vmss, \
     get_compute_usage
-from .deployments import show_deployment
+from .deployments import show_deployment, list_deployment_operations
 from .insightsrp import list_insights_components, list_autoscale_settings
 from .networkrp import get_network_usage, list_vnets, list_nics, list_nics_rg, list_load_balancers, \
     list_load_balancers_rg, get_load_balancer, list_public_ips, get_public_ip
