@@ -68,13 +68,16 @@ list_skus(access_token, subscription_id, location, publisher, offer) - list avai
 
 ### Network
 ```
+create_vnet(access_token, subscription_id, resource_group, location, name) # create a VNet with specified name and location
 get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
 get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location
 get_public_ip(access_token, subscription_id, resource_group) - get details about the named public ip address
 list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription
 list_load_balancers_rg(access_token, subscription_id, resource_group) - list the load balancers in a resource group
+create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location) # create a network interface
 list_nics(access_token, subscription_id) - list the network interfaces in a subscription
 list_nics_rg(access_token, subscription_id, resource_group) - list the network interfaces in a resource group
+create_public_ip(access_token, subscription_id, resource_group) # list the public ip addresses in a resource group
 list_public_ips(access_token, subscription_id, resource_group) - list the public ip addresses in a resource group
 list_vnets(access_token, subscription_id) - list the VNETs in a subscription
 ```
