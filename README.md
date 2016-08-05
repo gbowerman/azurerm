@@ -43,12 +43,78 @@ rgname = input()
 location = 'southeastasia'
 rgreturn = azurerm.create_resource_group(access_token, subscription_id, rgname, location)
 print(rgreturn)
+print(json.dumps(rgreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
 
 # list resource groups
 resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
 for rg in resource_groups["value"]:
     print(rg["name"] + ', ' + rg["location"] + ', ' + rg["properties"]["provisioningState"])
-```    
+``` 
+
+#### Example to create a virtual machine
+```
+import azurerm
+
+tenant_id = 'your-tenant-id'
+application_id = 'your-application-id'
+application_secret = 'your-application-secret'
+
+# authenticate
+access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
+
+# create resource group
+print('Creating resource group: ' + name)
+rmreturn = azurerm.create_resource_group(access_token, subscription_id, name, location)
+print(rmreturn)
+
+# create storage account
+print('Creating storage account: ' + name)
+rmreturn = azurerm.create_storage_account(access_token, subscription_id, name, name, location)
+print(rmreturn)
+
+# create VNET
+vnetname = name + 'vnet'
+print('Creating VNet: ' + vnetname)
+rmreturn = azurerm.create_vnet(access_token, subscription_id, name, vnetname, location)
+print(rmreturn)
+# print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
+subnet_id = rmreturn.json()['properties']['subnets'][0]['id']
+print('subnet_id = ' + subnet_id)
+
+# create public IP address
+public_ip_name = name + 'ip'
+dns_label = name + 'ip'
+print('Creating public IP address: ' + public_ip_name)
+rmreturn = azurerm.create_public_ip(access_token, subscription_id, name, public_ip_name, dns_label, location)
+print(rmreturn)
+ip_id = rmreturn.json()['id']
+print('ip_id = ' + ip_id)
+
+# create NIC
+nic_name = name + 'nic'
+print('Creating NIC: ' + nic_name)
+rmreturn = azurerm.create_nic(access_token, subscription_id, name, nic_name, ip_id, subnet_id, location)
+print(rmreturn)
+nic_id = rmreturn.json()['id']
+
+# create VM
+vm_name = name
+vm_size = 'Standard_A1'
+publisher = 'Canonical'
+offer = 'UbuntuServer'
+sku = '16.04.0-LTS'
+version = 'latest'
+os_uri = 'http://' + name + '.blob.core.windows.net/vhds/osdisk.vhd'
+username = 'rootuser'
+password = 'myPassw0rd'
+
+print('Creating VM: ' + vm_name)
+rmreturn = azurerm.create_vm(access_token, subscription_id, name, vm_name, vm_size, publisher, offer, sku,
+                             version, name, os_uri, username, password, nic_id, location)
+print(rmreturn)
+print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
+```   
+
 ## Functions currently supported
 A basic set of infrastructure create, list, query functions are implemented. If you want to add something please send me a PR (don't forget to update this readme too).
 
