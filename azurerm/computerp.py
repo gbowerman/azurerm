@@ -31,6 +31,36 @@ def get_vm(access_token, subscription_id, resource_group, vm_name):
     return do_get(endpoint, access_token)
 
 
+# create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
+#              storage_account, os_uri, username, password, nic_id, location)
+# create a simple virtual machine - in most cases deploying an ARM template might be easier
+def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
+              storage_account, os_uri, username, password, nic_id, location):
+    endpoint = ''.join([azure_rm_endpoint,
+                '/subscriptions/', subscription_id,
+                '/resourceGroups/', resource_group,
+                '/providers/Microsoft.Compute/virtualMachines/', vm_name,
+                '?api-version=', COMP_API])
+    body = ''.join(['{"name": "', vm_name,
+                '","location": "', location,
+                '","properties": { "hardwareProfile": {',
+                '"vmSize": "', vm_size,
+                '"},"storageProfile": { "imageReference": { "publisher": "', publisher,
+                '","offer": "', offer,
+                '","sku": "', sku,
+                '","version": "', version,
+                '"},"osDisk": { "name": "myosdisk1","vhd": {',
+                '"uri": "', os_uri,
+                '" }, "caching": "ReadWrite", "createOption": "fromImage" }},"osProfile": {',
+                '"computerName": "', vm_name,
+                '", "adminUsername": "', username,
+                '", "adminPassword": "', password,
+                '" }, "networkProfile": {',
+                '"networkInterfaces": [{"id": "', nic_id,
+                '", "properties": {"primary": true}}]}}}'])
+    return do_put(endpoint, body, access_token)
+	
+	
 # update_vm(access_token, subscription_id, resource_group, vm_name, body)
 # updates a VM model, that is put an updated virtual machine scale set body, e.g. a sku version
 def update_vm(access_token, subscription_id, resource_group, vm_name, body):

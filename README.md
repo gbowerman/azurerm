@@ -50,7 +50,7 @@ for rg in resource_groups["value"]:
     print(rg["name"] + ', ' + rg["location"] + ', ' + rg["properties"]["provisioningState"])
 ```    
 ## Functions currently supported
-Basic resource group, storage and VM/VMSS functions are implemented. Network functions, create VM and general template deploy need filling out. If you want to add something please send me a PR (don't forget to update this readme too).
+A basic set of infrastructure create, list, query functions are implemented. If you want to add something please send me a PR (don't forget to update this readme too).
 
 ### Deployments
 ```
@@ -122,6 +122,8 @@ deploy_template_uri_param_uri(access_token, subscription_id, resource_group, dep
 
 #### Virtual machines and VM Scale Sets
 ```
+create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
+              storage_account, os_uri, username, password, nic_id, location) # simple vm create function
 deallocate_vm(access_token, subscription_id, resource_group, vm_name) - stop-deallocate a virtual machine
 delete_vm(access_token, subscription_id, resource_group, vm_name) - delete a virtual machine
 delete_vmss(access_token, subscription_id, resource_group, vmss_name) - delete a virtual machine scale set

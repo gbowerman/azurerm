@@ -7,7 +7,7 @@ License: MIT (see LICENSE.txt file for details)
 # azurerm - library for easy Azure Resource Manager calls from Python
 
 from .adalfns import get_access_token
-from .computerp import delete_vm, get_vm, update_vm, list_vms, list_vms_sub, restart_vm, start_vm, stop_vm, \
+from .computerp import delete_vm, get_vm, create_vm, update_vm, list_vms, list_vms_sub, restart_vm, start_vm, stop_vm, \
     deallocate_vm, get_vm_extension, delete_vmss, delete_vmss_vms, get_vmss, update_vmss, get_vmss_instance_view, \
     list_vmss, list_vmss_sub, list_vmss_vms, get_vmss_vm, get_vmss_vm_instance_view, list_vmss_vm_instance_view, \
     get_vmss_nics, get_vmss_vm_nics, start_vmss, stopdealloc_vmss, start_vmss_vms, stopdealloc_vmss_vms, restart_vmss, \
