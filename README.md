@@ -135,7 +135,7 @@ list_skus(access_token, subscription_id, location, publisher, offer) - list avai
 
 ### Network
 ```
-create_vnet(access_token, subscription_id, resource_group, location, name) # create a VNet with specified name and location
+create_vnet(access_token, subscription_id, resource_group, location, name, address_prefix='10.0.0.0/16') # create a VNet with specified name and location
 get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
 get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location
 get_public_ip(access_token, subscription_id, resource_group) - get details about the named public ip address
@@ -187,7 +187,7 @@ deploy_template_uri(access_token, subscription_id, resource_group, deployment_na
 deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters_uri) - deploy a template with both template and parameters referenced by URIs
 ```
 
-#### Virtual machines and VM Scale Sets
+#### Virtual machines and VM Scale Sets (Compute Resource provider)
 ```
 create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
               storage_account, os_uri, username, password, nic_id, location) # simple vm create function

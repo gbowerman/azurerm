@@ -19,16 +19,16 @@ def list_vnets(access_token, subscription_id):
     return do_get(endpoint, access_token)
 
 # create_vnet(access_token, subscription_id, resource_group, location, name)
-# create a VNet with specified name and location. Default the adress prefixes for now.
-def create_vnet(access_token, subscription_id, resource_group, name, location):
+# create a VNet with specified name and location. Optional subnet address prefix.
+def create_vnet(access_token, subscription_id, resource_group, name, location, address_prefix='10.0.0.0/16'):
     endpoint = ''.join([azure_rm_endpoint,
                     '/subscriptions/', subscription_id,
                     '/resourceGroups/', resource_group,
                     '/providers/Microsoft.Network/virtualNetworks/', name,
                     '?api-version=', NETWORK_API])
     body = ''.join(['{   "location": "', location, '", "properties": ',
-                    '{"addressSpace": {"addressPrefixes": ["10.0.0.0/16"]}, ',
-                    '"subnets": [ { "name": "subnet", "properties": { "addressPrefix": "10.0.0.0/16" }}]}}'])
+                    '{"addressSpace": {"addressPrefixes": ["', address_prefix, '"]}, ',
+                    '"subnets": [ { "name": "subnet", "properties": { "addressPrefix": "', address_prefix, '" }}]}}'])
     return do_put(endpoint, body, access_token)
 
 # create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location)
