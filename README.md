@@ -54,6 +54,7 @@ for rg in resource_groups["value"]:
 #### Example to create a virtual machine
 ```
 import azurerm
+impor json
 
 tenant_id = 'your-tenant-id'
 application_id = 'your-application-id'
@@ -69,7 +70,7 @@ print(rmreturn)
 
 # create storage account
 print('Creating storage account: ' + name)
-rmreturn = azurerm.create_storage_account(access_token, subscription_id, name, name, location)
+rmreturn = azurerm.create_storage_account(access_token, subscription_id, name, name, location, storage_type='Premium_LRS')
 print(rmreturn)
 
 # create VNET
@@ -99,7 +100,7 @@ nic_id = rmreturn.json()['id']
 
 # create VM
 vm_name = name
-vm_size = 'Standard_A1'
+vm_size = 'Standard_DS1'
 publisher = 'Canonical'
 offer = 'UbuntuServer'
 sku = '16.04.0-LTS'
@@ -163,7 +164,7 @@ list_resource_groups(access_token, subscription_id) - list the resource groups i
 
 #### Storage
 ```
-create_storage_account(access_token, subscription_id, rgname, location) - create a new storage account
+create_storage_account(access_token, subscription_id, rgname, location, storage_type='Standard_LRS') - create a new storage account
 delete_storage_account(access_token, subscription_id, rgname) - delete a storage account in the specified resource group
 get_storage_account(access_token, subscription_id, rgname) - get details for the specified storage account
 get_storage_account_keys(access_token, subscription_id, rgname, account_name) - get the access keys for the specified storage account

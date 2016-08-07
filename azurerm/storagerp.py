@@ -13,14 +13,14 @@ from .settings import azure_rm_endpoint, STORAGE_API
 # create_storage_account(access_token, subscription_id, rgname, account_name, location)
 # create a storage account in the specified location and resource group
 # Note: just standard storage for now. Could add a storageType argument later.
-def create_storage_account(access_token, subscription_id, rgname, account_name, location):
+def create_storage_account(access_token, subscription_id, rgname, account_name, location, storage_type='Standard_LRS'):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', rgname,
                         '/providers/Microsoft.Storage/storageAccounts/', account_name,
                         '?api-version=', STORAGE_API])
     body = ''.join(['{\n   "location": "', location, '",\n',
-                    '   "properties": {\n      "accountType": "Standard_LRS"\n   }\n}'])
+                    '   "properties": {\n      "accountType": "', storage_type, '"\n   }\n}'])
     return do_put(endpoint, body, access_token)
 
 
