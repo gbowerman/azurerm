@@ -18,21 +18,26 @@ def list_vnets(access_token, subscription_id):
                         '/virtualNetworks?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
-# create_vnet(access_token, subscription_id, resource_group, location, name)
+# create_vnet(access_token, subscription_id, resource_group, name, location, address_prefix='10.0.0.0/16', nsg_id=None))
 # create a VNet with specified name and location. Optional subnet address prefix.
-def create_vnet(access_token, subscription_id, resource_group, name, location, address_prefix='10.0.0.0/16'):
+def create_vnet(access_token, subscription_id, resource_group, name, location, address_prefix='10.0.0.0/16', nsg_id=None):
     endpoint = ''.join([azure_rm_endpoint,
                     '/subscriptions/', subscription_id,
                     '/resourceGroups/', resource_group,
                     '/providers/Microsoft.Network/virtualNetworks/', name,
                     '?api-version=', NETWORK_API])
+    if nsg_id is not None:
+        nsg_reference = ''.join([', "networkSecurityGroup": { "id": "',nsg_id,'"} '])
+    else:
+        nsg_reference = ''	
     body = ''.join(['{   "location": "', location, '", "properties": ',
                     '{"addressSpace": {"addressPrefixes": ["', address_prefix, '"]}, ',
-                    '"subnets": [ { "name": "subnet", "properties": { "addressPrefix": "', address_prefix, '" }}]}}'])
+                    '"subnets": [ { "name": "subnet", "properties": { "addressPrefix": "', address_prefix, 
+                    '"', nsg_reference, '}}]}}'])
     return do_put(endpoint, body, access_token)
 
 # create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location)
-# create a network interface with an assoicated public ip address
+# create a network interface with an associated public ip address
 def create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location):
     endpoint = ''.join([azure_rm_endpoint,
                     '/subscriptions/', subscription_id,
@@ -125,6 +130,7 @@ def create_public_ip(access_token, subscription_id, resource_group, public_ip_na
                     '"domainNameLabel": "', dns_label, '"}}}'])
     return do_put(endpoint, body, access_token)
 
+	
 # get_public_ip(access_token, subscription_id, resource_group)
 # get details about the named public ip address
 def get_public_ip(access_token, subscription_id, resource_group, ip_name):
@@ -136,7 +142,39 @@ def get_public_ip(access_token, subscription_id, resource_group, ip_name):
                         '?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
+	
+# create_nsg(access_token, subscription_id, resource_group, nsg_name, location)
+# create network security group (use create_nsg_rule() to add rules to it)
+def create_nsg(access_token, subscription_id, resource_group, nsg_name, location):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/networkSecurityGroups/', nsg_name,
+                        '?api-version=', NETWORK_API])
+    body = ''.join(['{ "location":"', location, '" }'])
+    return do_put(endpoint, body, access_token)
 
+# create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound')
+# create network security group (use create_nsg_rule() to add rules to it)
+def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound'):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/networkSecurityGroups/', nsg_name,
+                        '/securityRules/', nsg_rule_name,
+                        '?api-version=', NETWORK_API])
+    body = ''.join(['{ "properties":{ "description":"', description, 
+                        '", "protocol":"', protocol, 
+                        '", "sourcePortRange":"', source_range, 
+                        '", "destinationPortRange":"', destination_range, 
+                        '", "sourceAddressPrefix": "', source_prefix, 
+                        '", "destinationAddressPrefix": "', destination_prefix,
+                        '", "sourceAddressPrefix":"*", "destinationAddressPrefix":"*", "access":"', access, 
+                        '", "priority":', str(priority), 
+                        ', "direction":"', direction, '" }}'])
+    return do_put(endpoint, body, access_token)
+
+	
 # get_network_usage(access_token, subscription_id, location)
 # list network usage and limits for a location
 def get_network_usage(access_token, subscription_id, location):

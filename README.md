@@ -68,6 +68,21 @@ print('Creating resource group: ' + name)
 rmreturn = azurerm.create_resource_group(access_token, subscription_id, name, location)
 print(rmreturn)
 
+# create NSG
+nsg_name = name + 'nsg'
+print('Creating NSG: ' + nsg_name)
+rmreturn = azurerm.create_nsg(access_token, subscription_id, name, nsg_name, location)
+nsg_id = rmreturn.json()['id']
+print('nsg_id = ' + nsg_id)
+
+# create NSG rule
+nsg_rule = 'ssh'
+print('Creating NSG rule: ' + nsg_rule)
+rmreturn = azurerm.create_nsg_rule(access_token, subscription_id, name, nsg_name, nsg_rule, description='ssh rule',
+                                  destination_range='22')
+print(rmreturn)
+print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
+
 # create storage account
 print('Creating storage account: ' + name)
 rmreturn = azurerm.create_storage_account(access_token, subscription_id, name, name, location, storage_type='Premium_LRS')
@@ -76,7 +91,7 @@ print(rmreturn)
 # create VNET
 vnetname = name + 'vnet'
 print('Creating VNet: ' + vnetname)
-rmreturn = azurerm.create_vnet(access_token, subscription_id, name, vnetname, location)
+rmreturn = azurerm.create_vnet(access_token, subscription_id, name, vnetname, location, nsg_id=nsg_id)
 print(rmreturn)
 # print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
 subnet_id = rmreturn.json()['properties']['subnets'][0]['id']
@@ -135,10 +150,12 @@ list_skus(access_token, subscription_id, location, publisher, offer) - list avai
 
 ### Network
 ```
-create_vnet(access_token, subscription_id, resource_group, location, name, address_prefix='10.0.0.0/16') # create a VNet with specified name and location
+create_vnet(access_token, subscription_id, resource_group, name, location, address_prefix='10.0.0.0/16', nsg_id=None)) # create a VNet with specified name and location, optional address prefix and NSG id
 get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
 get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location
 get_public_ip(access_token, subscription_id, resource_group) - get details about the named public ip address
+create_nsg(access_token, subscription_id, resource_group, nsg_name, location) # create network security group (use create_nsg_rule() to add rules to it)
+create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound') # create network security group rule to apply to a named NSG
 list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription
 list_load_balancers_rg(access_token, subscription_id, resource_group) - list the load balancers in a resource group
 create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location) # create a network interface
