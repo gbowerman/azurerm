@@ -131,6 +131,50 @@ print(rmreturn)
 print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
 ```   
 
+#### Example to create a Media Services Account
+```
+import json
+import azurerm
+
+# Load Azure app defaults
+try:
+        with open('config.json') as configFile:
+                configData = json.load(configFile)
+except FileNotFoundError:
+        print("ERROR: Expecting config.json in current folder")
+        sys.exit()
+
+tenant_id = configData['tenantId']
+app_id = configData['appId']
+app_secret = configData['appSecret']
+subscription_id = configData['subscriptionId']
+resourceGroup = configData['resourceGroup']
+stoaccountName = configData['stoaccountName']
+region = configData['region']
+
+access_token = azurerm.get_access_token(
+        tenant_id,
+        app_id,
+        app_secret
+)
+
+# list subscriptions
+subscriptions = azurerm.list_subscriptions(access_token)
+for sub in subscriptions["value"]:
+        print("SUBSCRIPTION: " + sub["displayName"] + ': ' + sub["subscriptionId"])
+
+# use the first subscription
+subscription_id = subscriptions["value"][0]["subscriptionId"]
+
+# create a media service account in a resource group
+name = "itisjustasimpletest"
+response = azurerm.create_media_service_rg(access_token, subscription_id, resourceGroup, region, stoaccountName, name)
+if (response.status_code == 201):
+        print("MEDIA SERVICE ACCOUNT: '" + name.upper() + "' CREATED OK.")
+else:
+        print("ERROR: Creating New MEDIA SERVICE ACCOUNT: " + name.upper())
+```   
+
 ## Functions currently supported
 A basic set of infrastructure create, list, query functions are implemented. If you want to add something please send me a PR (don't forget to update this readme too).
 
@@ -242,4 +286,13 @@ poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm_i
 update_vm(access_token, subscription_id, resource_group, vm_name, body) - updates a VM model, that is put an updated virtual machine scale set body
 update_vmss(access_token, subscription_id, resource_group, vmss_name, body) - updates a VMSS model, that is put an updated virtual machine scale set body
 upgrade_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids) - upgrade a specific VMs a virtual machine scale set
+```
+#### Azure Media Services (Media Resource provider)
+```
+list_media_services(access_token, subscription_id) - list media services in a subscription
+list_media_services_rg(access_token, subscription_id, rgname) - list media services in a specific resource group
+list_media_endpoint_keys(access_token, subscription_id, rgname, msname) - list media services endpoint keys in a resource group and specifig media services account
+check_name_availability(access_token, subscription_id, rgname) - verify the availability of an media services account name
+create_media_service_rg(access_token, subscription_id, rgname) - create a media services account in a resource group
+delete_media_service_rg(access_token, subscription_id, rgname) - delete a media services account in a resource group
 ```
