@@ -288,9 +288,11 @@ update_vmss(access_token, subscription_id, resource_group, vmss_name, body) - up
 upgrade_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids) - upgrade a specific VMs a virtual machine scale set
 ```
 #### Azure Media Services (Media Resource provider)
+```
 list_media_services(access_token, subscription_id) - list media services in a subscription
 list_media_services_rg(access_token, subscription_id, rgname) - list media services in a specific resource group
 list_media_endpoint_keys(access_token, subscription_id, rgname, msname) - list media services endpoint keys in a resource group and specifig media services account
 check_name_availability(access_token, subscription_id, rgname) - verify the availability of an media services account name
 create_media_service_rg(access_token, subscription_id, rgname) - create a media services account in a resource group
 delete_media_service_rg(access_token, subscription_id, rgname) - delete a media services account in a resource group
+```
