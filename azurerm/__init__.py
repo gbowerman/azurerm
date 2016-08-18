@@ -23,5 +23,5 @@ from .storagerp import create_storage_account, delete_storage_account, get_stora
 from .subfns import list_subscriptions, list_locations
 from .templates import deploy_template, deploy_template_uri, deploy_template_uri_param_uri
 from .vmimages import list_publishers, list_offers, list_skus, list_sku_versions
-from .amsrp import list_media_services, list_media_services_rg, list_media_endpoint_keys, check_media_service_name_availability, create_media_service_rg
+from .amsrp import list_media_services, list_media_services_rg, list_media_endpoint_keys, check_media_service_name_availability, create_media_service_rg, delete_media_service_rg
 

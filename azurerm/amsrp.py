@@ -6,7 +6,7 @@ License: MIT (see LICENSE.txt file for details)
 
 # amsrp.py - azurerm functions for the Microsoft.Media resource provider
 
-from .restfns import do_get, do_post, do_put
+from .restfns import do_get, do_post, do_put, do_delete
 from .settings import azure_rm_endpoint, MEDIA_API
 
 
@@ -57,3 +57,13 @@ def create_media_service_rg(access_token, subscription_id, rgname, location, sto
 
     body = '{"name":"' + name + '", "location":"' + location + '", "properties":{  "storageAccounts":[  {  "id":"/subscriptions/' + subscription_id + '/resourceGroups/' + rgname + '/providers/Microsoft.Storage/storageAccounts/' + stoname + '", "isPrimary":true } ] } }'
     return do_put(endpoint, body, access_token)
+
+# delete_media_service_rg(access_token, subscription_id, rgname)
+# delete the media service in a rgname
+def delete_media_service_rg(access_token, subscription_id, rgname, location, stoname, name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', rgname,
+                        '/providers/microsoft.media/mediaservices/' + name + '?api-version=', MEDIA_API])
+
+    return do_delete(endpoint, access_token)
