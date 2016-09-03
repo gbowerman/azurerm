@@ -90,7 +90,21 @@ def list_vms_sub(access_token, subscription_id):
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/virtualMachines',
                         '?api-version=', COMP_API])
-    return do_get(endpoint, access_token)
+    # in case there are more than 50 VMs, follow the nextLink chain and build up a list
+    looping = True
+    value_list = []
+    vm_dict = {}
+    while(looping):
+        get_return = do_get(endpoint, access_token)
+        if not 'value' in get_return:
+            return get_return
+        if not 'nextLink' in get_return:
+            looping = False
+        else:
+            endpoint = get_return['nextLink']
+        value_list += get_return['value']
+    vm_dict['value'] = value_list
+    return vm_dict
 
 
 # restart_vm(access_token, subscription_id, resource_group, vm_name)
