@@ -265,6 +265,9 @@ get_vmss_nics(access_token, subscription_id, resource_group, vmss_name) - get NI
 get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM details
 get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id) - get individual VMSS VM instance view
 get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id) - get NIC details for a VMSS VM
+list_as(access_token, subscription_id, resource_group) - list availability sets in a resource_group
+list_as_sub(access_token, subscription_id) - list availability sets in a subscription
+list_vm_images_sub(access_token, subscription_id) - list VM images in a subscription
 list_vms(access_token, subscription_id, resource_group) - list VMs in a resource group
 list_vms_sub(access_token, subscription_id) - list the VMs in a subscription
 list_vmss(access_token, subscription_id, resource_group) - list the VM Scale Sets in a resource group

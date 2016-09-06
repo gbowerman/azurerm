@@ -5,7 +5,7 @@ License: MIT (see LICENSE.txt file for details)
 """
 
 # computerp.py - azurerm functions for the Microsoft.Compute resource provider
-from .restfns import do_delete, do_get, do_put, do_patch, do_post
+from .restfns import do_delete, do_get, do_get_next, do_patch, do_post, do_put
 from .settings import azure_rm_endpoint, COMP_API
 
 
@@ -90,21 +90,38 @@ def list_vms_sub(access_token, subscription_id):
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/virtualMachines',
                         '?api-version=', COMP_API])
-    # in case there are more than 50 VMs, follow the nextLink chain and build up a list
-    looping = True
-    value_list = []
-    vm_dict = {}
-    while(looping):
-        get_return = do_get(endpoint, access_token)
-        if not 'value' in get_return:
-            return get_return
-        if not 'nextLink' in get_return:
-            looping = False
-        else:
-            endpoint = get_return['nextLink']
-        value_list += get_return['value']
-    vm_dict['value'] = value_list
-    return vm_dict
+    return do_get_next(endpoint, access_token)
+
+
+# list_vm_images_sub(access_token, subscription_id)
+# list VM images in a subscription
+def list_vm_images_sub(access_token, subscription_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/providers/Microsoft.Compute/images',
+                        '?api-version=', COMP_API])
+    return do_get_next(endpoint, access_token)
+
+
+# list_as_sub(access_token, subscription_id, resource_group)
+# list availability sets in a resource_group
+def list_as(access_token, subscription_id, resource_group):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/availabilitySets',
+                        '?api-version=', COMP_API])
+    return do_get_next(endpoint, access_token)
+
+
+# list_as_sub(access_token, subscription_id)
+# list availability sets in a subscription
+def list_as_sub(access_token, subscription_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/providers/Microsoft.Compute/availabilitySets',
+                        '?api-version=', COMP_API])
+    return do_get_next(endpoint, access_token)
 
 
 # restart_vm(access_token, subscription_id, resource_group, vm_name)
@@ -234,7 +251,7 @@ def list_vmss(access_token, subscription_id, resource_group):
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Compute/virtualMachineScaleSets',
                         '?api-version=', COMP_API])
-    return do_get(endpoint, access_token)
+    return do_get_next(endpoint, access_token)
 
 
 # list_vmss_sub(access_token, subscription_id)
@@ -244,7 +261,7 @@ def list_vmss_sub(access_token, subscription_id):
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/virtualMachineScaleSets',
                         '?api-version=', COMP_API])
-    return do_get(endpoint, access_token)
+    return do_get_next(endpoint, access_token)
 
 
 # list_vmss_vms(access_token, subscription_id, resource_group, vmss_name)
