@@ -17,9 +17,9 @@ from .computerp import delete_vm, get_vm, create_vm, update_vm, list_vms, list_v
     poweroff_vmss_vms, reimage_vmss_vms, upgrade_vmss_vms, scale_vmss, get_compute_usage
 from .deployments import list_deployment_operations, show_deployment
 from .insightsrp import list_insights_components, list_autoscale_settings
-from .networkrp import get_network_usage, list_vnets, create_vnet, create_nic, list_nics, list_nics_rg, \
-    list_load_balancers, list_load_balancers_rg, get_load_balancer, create_nsg, create_nsg_rule, list_lb_nat_rules, \
-    list_public_ips, create_public_ip, get_public_ip
+from .networkrp import create_nic, create_nsg, create_nsg_rule, create_public_ip, create_vnet, get_lb_nat_rule, \
+    get_load_balancer, get_network_usage, get_public_ip, list_load_balancers, list_load_balancers_rg, list_nics, \
+    list_nics_rg, list_lb_nat_rules, list_public_ips, list_vnets
 from .resourcegroups import create_resource_group, delete_resource_group, list_resource_groups
 from .storagerp import create_storage_account, delete_storage_account, get_storage_account, list_storage_accounts_sub, \
     list_storage_accounts_rg, get_storage_usage, get_storage_account_keys
