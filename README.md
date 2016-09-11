@@ -194,19 +194,21 @@ list_skus(access_token, subscription_id, location, publisher, offer) - list avai
 
 ### Network
 ```
+create_nsg(access_token, subscription_id, resource_group, nsg_name, location) # create network security group (use create_nsg_rule() to add rules to it)
+create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound') # create network security group rule to apply to a named NSG
+create_public_ip(access_token, subscription_id, resource_group) # list the public ip addresses in a resource group
 create_vnet(access_token, subscription_id, resource_group, name, location, address_prefix='10.0.0.0/16', nsg_id=None)) # create a VNet with specified name and location, optional address prefix and NSG id
+get_lb_nat_rule(access_token, subscription_id, resource_group, lb_name, rule_name) # get details about a load balancer inbound NAT rule
 get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
 get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location
 get_public_ip(access_token, subscription_id, resource_group) - get details about the named public ip address
-create_nsg(access_token, subscription_id, resource_group, nsg_name, location) # create network security group (use create_nsg_rule() to add rules to it)
-create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound') # create network security group rule to apply to a named NSG
+get_vnet(access_token, subscription_id, resource_group, vnet_name) # get details about the named virtual network
 list_lb_nat_rules(access_token, subscription_id, resource_group, lb_name) # list the inbound NAT rules for a load balancer
 list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription
 list_load_balancers_rg(access_token, subscription_id, resource_group) - list the load balancers in a resource group
 create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location) # create a network interface
 list_nics(access_token, subscription_id) - list the network interfaces in a subscription
 list_nics_rg(access_token, subscription_id, resource_group) - list the network interfaces in a resource group
-create_public_ip(access_token, subscription_id, resource_group) # list the public ip addresses in a resource group
 list_public_ips(access_token, subscription_id, resource_group) - list the public ip addresses in a resource group
 list_vnets(access_token, subscription_id) - list the VNETs in a subscription
 ```

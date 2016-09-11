@@ -95,7 +95,7 @@ def create_vnet(access_token, subscription_id, resource_group, name, location, a
 
 # get_lb_nat_rule(access_token, subscription_id, resource_group, lb_name, rule_name)
 # get details about a load balancer inbound NAT rule
-def get_lb_nat_ule(access_token, subscription_id, resource_group, lb_name, rule_name):
+def get_lb_nat_rule(access_token, subscription_id, resource_group, lb_name, rule_name):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -134,6 +134,17 @@ def get_public_ip(access_token, subscription_id, resource_group, ip_name):
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Network/',
                         'publicIPAddresses/', ip_name,
+                        '?api-version=', NETWORK_API])
+    return do_get(endpoint, access_token)
+
+
+# get_vnet(access_token, subscription_id, resource_group, vnet_name)
+# get details about the named virtual network
+def get_vnet(access_token, subscription_id, resource_group, vnet_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/virtualNetworks/', vnet_name,
                         '?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
