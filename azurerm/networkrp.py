@@ -175,6 +175,17 @@ def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg
     return do_put(endpoint, body, access_token)
 
 	
+# list_lb_nat_rules(access_token, subscription_id, resource_group, lb_name)
+# list the inbound NAT rules for a load balancer
+def list_lb_nat_rules(access_token, subscription_id, resource_group, lb_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/loadBalancers/', lb_name,
+                        'inboundNatRules?api-version=', NETWORK_API])
+    return do_get(endpoint, access_token)
+
+
 # get_network_usage(access_token, subscription_id, location)
 # list network usage and limits for a location
 def get_network_usage(access_token, subscription_id, location):

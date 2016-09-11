@@ -200,6 +200,7 @@ get_network_usage(access_token, subscription_id, location) - list network usage 
 get_public_ip(access_token, subscription_id, resource_group) - get details about the named public ip address
 create_nsg(access_token, subscription_id, resource_group, nsg_name, location) # create network security group (use create_nsg_rule() to add rules to it)
 create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound') # create network security group rule to apply to a named NSG
+list_lb_nat_rules(access_token, subscription_id, resource_group, lb_name) # list the inbound NAT rules for a load balancer
 list_load_balancers(access_token, subscription_id) - list the load balancers in a subscription
 list_load_balancers_rg(access_token, subscription_id, resource_group) - list the load balancers in a resource group
 create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location) # create a network interface
