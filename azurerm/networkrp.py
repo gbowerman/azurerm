@@ -1,5 +1,5 @@
 # networkrp.py - azurerm functions for the Microsoft.Network resource provider
-from .restfns import do_get, do_put
+from .restfns import do_delete, do_get, do_put
 from .settings import azure_rm_endpoint, NETWORK_API
 
 
@@ -53,7 +53,7 @@ def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg
     return do_put(endpoint, body, access_token)
 
 
-# create_public_ip(access_token, subscription_id, resource_group)
+# create_public_ip(access_token, subscription_id, resource_group, public_ip_name, dns_label, location)
 # list the public ip addresses in a resource group
 def create_public_ip(access_token, subscription_id, resource_group, public_ip_name, dns_label, location):
     endpoint = ''.join([azure_rm_endpoint,
@@ -85,6 +85,61 @@ def create_vnet(access_token, subscription_id, resource_group, name, location, a
                     '"', nsg_reference, '}}]}}'])
     return do_put(endpoint, body, access_token)
 
+
+# delete_nic(access_token, subscription_id, resource_group, nic_name)
+# delete a network interface
+def delete_nic(access_token, subscription_id, resource_group, nic_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                    '/subscriptions/', subscription_id,
+                    '/resourceGroups/', resource_group,
+                    '/providers/Microsoft.Network/networkInterfaces/', nic_name,
+                    '?api-version=', NETWORK_API])
+    return do_delete(endpoint, access_token)
+
+	
+# delete_nsg(access_token, subscription_id, resource_group, nsg_name)
+# delete network security group
+def delete_nsg(access_token, subscription_id, resource_group, nsg_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/networkSecurityGroups/', nsg_name,
+                        '?api-version=', NETWORK_API])
+    return do_delete(endpoint, access_token)
+
+
+# delete_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name)
+# delete network security group rule
+def delete_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/networkSecurityGroups/', nsg_name,
+                        '/securityRules/', nsg_rule_name,
+                        '?api-version=', NETWORK_API])
+    return do_delete(endpoint, access_token)
+
+
+# delete_public_ip(access_token, subscription_id, resource_group, public_ip_name)
+# delete a public ip addresses associated with a resource group
+def delete_public_ip(access_token, subscription_id, resource_group, public_ip_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/publicIPAddresses/', public_ip_name,
+                        '?api-version=', NETWORK_API])
+    return do_delete(endpoint, access_token)
+
+
+# delete_vnet(access_token, subscription_id, resource_group, name)
+# delete a virtual network
+def delete_vnet(access_token, subscription_id, resource_group, name):
+    endpoint = ''.join([azure_rm_endpoint,
+                    '/subscriptions/', subscription_id,
+                    '/resourceGroups/', resource_group,
+                    '/providers/Microsoft.Network/virtualNetworks/', name,
+                    '?api-version=', COMP_API])
+    return do_delete(endpoint, access_token)
 
 
 # get_lb_nat_rule(access_token, subscription_id, resource_group, lb_name, rule_name)

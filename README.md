@@ -198,6 +198,10 @@ create_nsg(access_token, subscription_id, resource_group, nsg_name, location) # 
 create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound') # create network security group rule to apply to a named NSG
 create_public_ip(access_token, subscription_id, resource_group) # list the public ip addresses in a resource group
 create_vnet(access_token, subscription_id, resource_group, name, location, address_prefix='10.0.0.0/16', nsg_id=None)) # create a VNet with specified name and location, optional address prefix and NSG id
+delete_nic(access_token, subscription_id, resource_group, nic_name) # delete a network interface
+delete_nsg(access_token, subscription_id, resource_group, nsg_name) # delete network security group
+delete_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name) # delete network security group rule
+delete_public_ip(access_token, subscription_id, resource_group, public_ip_name) # delete a public ip addresses associated with a resource group
 get_lb_nat_rule(access_token, subscription_id, resource_group, lb_name, rule_name) # get details about a load balancer inbound NAT rule
 get_load_balancer(access_token, subscription_id, resource_group, lb_name) - get details about a load balancer
 get_network_usage(access_token, subscription_id, location) - list network usage and limits for a location
