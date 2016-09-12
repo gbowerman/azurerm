@@ -46,27 +46,6 @@ def get_storage_account(access_token, subscription_id, rgname, account_name):
     return do_get(endpoint, access_token)
 
 
-# list_storage_accounts_rg(access_token, subscription_id, rgname)
-# list the storage accounts in the specified resource group
-def list_storage_accounts_rg(access_token, subscription_id, rgname):
-    endpoint = ''.join([azure_rm_endpoint,
-                        '/subscriptions/', subscription_id,
-                        '/resourcegroups/', rgname,
-                        '/providers/Microsoft.Storage/storageAccounts',
-                        '?api-version=', STORAGE_API])
-    return do_get(endpoint, access_token)
-
-
-# list_storage_accounts_sub(access_token, subscription_id)
-# list the storage accounts in the specified subscription
-def list_storage_accounts_sub(access_token, subscription_id):
-    endpoint = ''.join([azure_rm_endpoint,
-                        '/subscriptions/', subscription_id,
-                        '/providers/Microsoft.Storage/storageAccounts',
-                        '?api-version=', STORAGE_API])
-    return do_get(endpoint, access_token)
-
-
 # get_storage_account_keys(access_token, subscription_id, rgname, account_name)
 # get the access keys for the specified storage account
 def get_storage_account_keys(access_token, subscription_id, rgname, account_name):
@@ -85,5 +64,26 @@ def get_storage_usage(access_token, subscription_id):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Storage/usages',
+                        '?api-version=', STORAGE_API])
+    return do_get(endpoint, access_token)
+
+
+# list_storage_accounts_rg(access_token, subscription_id, rgname)
+# list the storage accounts in the specified resource group
+def list_storage_accounts_rg(access_token, subscription_id, rgname):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourcegroups/', rgname,
+                        '/providers/Microsoft.Storage/storageAccounts',
+                        '?api-version=', STORAGE_API])
+    return do_get(endpoint, access_token)
+
+
+# list_storage_accounts_sub(access_token, subscription_id)
+# list the storage accounts in the specified subscription
+def list_storage_accounts_sub(access_token, subscription_id):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/providers/Microsoft.Storage/storageAccounts',
                         '?api-version=', STORAGE_API])
     return do_get(endpoint, access_token)
