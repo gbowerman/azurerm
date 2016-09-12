@@ -219,6 +219,16 @@ list_autoscale_settings(access_token, subscription_id) - list the autoscale sett
 list_insights_components(access_token, subscription_id, resource_group) - list the Microsoft Insights components in a resource group	
 ```
 
+#### Media Services (Media Resource provider)
+```
+create_media_service_rg(access_token, subscription_id, rgname) - create a media services account in a resource group
+check_name_availability(access_token, subscription_id, rgname) - verify the availability of an media services account name
+delete_media_service_rg(access_token, subscription_id, rgname) - delete a media services account in a resource group
+list_media_endpoint_keys(access_token, subscription_id, rgname, msname) - list media services endpoint keys in a resource group and specifig media services account
+list_media_services(access_token, subscription_id) - list media services in a subscription
+list_media_services_rg(access_token, subscription_id, rgname) - list media services in a specific resource group
+```
+
 #### Resource groups
 ```
 create_resource_group(access_token, subscription_id, rgname, location) - create a resource group in the specified location  
@@ -292,13 +302,4 @@ poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm_i
 update_vm(access_token, subscription_id, resource_group, vm_name, body) - updates a VM model, that is put an updated virtual machine scale set body
 update_vmss(access_token, subscription_id, resource_group, vmss_name, body) - updates a VMSS model, that is put an updated virtual machine scale set body
 upgrade_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids) - upgrade a specific VMs a virtual machine scale set
-```
-#### Azure Media Services (Media Resource provider)
-```
-list_media_services(access_token, subscription_id) - list media services in a subscription
-list_media_services_rg(access_token, subscription_id, rgname) - list media services in a specific resource group
-list_media_endpoint_keys(access_token, subscription_id, rgname, msname) - list media services endpoint keys in a resource group and specifig media services account
-check_name_availability(access_token, subscription_id, rgname) - verify the availability of an media services account name
-create_media_service_rg(access_token, subscription_id, rgname) - create a media services account in a resource group
-delete_media_service_rg(access_token, subscription_id, rgname) - delete a media services account in a resource group
 ```
