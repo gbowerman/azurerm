@@ -1,9 +1,3 @@
-"""
-Copyright (c) 2016, Guy Bowerman
-Description: Simple Azure Resource Manager Python Library
-License: MIT (see LICENSE.txt for details)
-"""
-
 # settings.py - place to store constants for azurerm
 
 azure_rm_endpoint = 'https://management.azure.com'

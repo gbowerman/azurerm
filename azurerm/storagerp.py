@@ -1,9 +1,3 @@
-"""
-Copyright (c) 2016, Guy Bowerman
-Description: Simple Azure Resource Manager Python library
-License: MIT (see LICENSE.txt file for details)
-"""
-
 # storagerp.py - azurerm functions for the Microsoft.Storage resource provider
 
 from .restfns import do_delete, do_get, do_put, do_post

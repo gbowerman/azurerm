@@ -1,9 +1,3 @@
-"""
-Copyright (c) 2016, Guy Bowerman
-Description: Simple Azure Resource Manager Python library
-License: MIT (see LICENSE.txt file for details)
-"""
-
 # restfns - REST functions for azurerm
 
 import requests

@@ -1,10 +1,5 @@
-"""
-Copyright (c) 2016, Guy Bowerman
-Description: Simple Azure Resource Manager Python library
-License: MIT (see LICENSE.txt file for details)
-"""
-
 # computerp.py - azurerm functions for the Microsoft.Compute resource provider
+
 from .restfns import do_delete, do_get, do_get_next, do_patch, do_post, do_put
 from .settings import azure_rm_endpoint, COMP_API
 
@@ -452,7 +447,7 @@ def update_vm(access_token, subscription_id, resource_group, vm_name, body):
                         '/providers/Microsoft.Compute/virtualMachines/', vm_name,
                         '?api-version=', COMP_API])
     return do_put(endpoint, body, access_token)
-    
+
 
 # update_vmss(access_token, subscription_id, resource_group, vmss_name, body)
 # updates a VMSS model, that is put an updated virtual machine scale set body, e.g. a sku version

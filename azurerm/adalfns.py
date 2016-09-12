@@ -1,9 +1,3 @@
-"""
-Copyright (c) 2016, Guy Bowerman
-Description: Azure Resource Manager Python library
-License: MIT (see LICENSE.txt file for details)
-"""
-
 # adalfns - place to store azurerm functions which call adal routines
 
 import adal

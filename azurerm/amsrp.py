@@ -1,9 +1,3 @@
-"""
-Copyright (c) 2016, Marcelo Leal
-Description: Simple Azure Resource Manager Python library
-License: MIT (see LICENSE.txt file for details)
-"""
-
 # amsrp.py - azurerm functions for the Microsoft.Media resource provider
 
 from .restfns import do_get, do_post, do_put, do_delete
@@ -61,7 +55,7 @@ def list_media_services(access_token, subscription_id):
                         '/subscriptions/', subscription_id,
                         '/providers/microsoft.media/mediaservices?api-version=', MEDIA_API])
     return do_get(endpoint, access_token)
-    
+
 
 # list_media_services_rg in a resrouce group(access_token, subscription_id, rgname)
 # list the media services in a rgname

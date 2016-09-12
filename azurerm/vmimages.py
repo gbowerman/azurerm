@@ -1,9 +1,3 @@
-"""
-Copyright (c) 2016, Guy Bowerman
-Description: Simple Azure Resource Manager Python library
-License: MIT (see LICENSE.txt file for details)
-"""
-
 # vmimages.py - azurerm functions for Microsoft.Compute RP publishers and images
 
 from .restfns import do_get

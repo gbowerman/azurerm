@@ -1,9 +1,3 @@
-"""
-Copyright (c) 2016, Guy Bowerman
-Description: Simple Azure Resource Manager Python library
-License: MIT (see LICENSE.txt file for details)
-"""
-
 # templates.py - azurerm functions for deploying templates
 
 from .restfns import do_put
@@ -25,7 +19,7 @@ def deploy_template(access_token, subscription_id, resource_group, deployment_na
 
     return do_put(endpoint, body, access_token)
 
-    
+
 # deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters)
 # deploy a template referenced by a URI, with parameters as a JSON string
 def deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters):
