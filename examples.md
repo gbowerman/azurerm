@@ -2,7 +2,7 @@
 
 Here are some simple Python programming examples using the **azurerm** package. In each case, before using these you will need to register your application with Azure, create a Service Principal (app user) and set its access permissions. After these steps you will have a tenant id, an application id and an application secret. See <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/">Authenticating a Service Principal with Azure Resource Manager</a> and are covered <a href="https://msftstack.wordpress.com/2016/01/05/azure-resource-manager-authentication-with-python/">Azure Resource Manager REST calls from Python</a>.
 
-For more examples look at the <a href="https://github.com/gbowerman/azurerm/tree/master/tests">azurerm test library</a>.
+For more examples look at the <a href="https://github.com/gbowerman/azurerm/tree/master/examples">azurerm example library</a>.
 
 ### List Azure subscriptions
 ```
