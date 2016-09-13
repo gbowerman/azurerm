@@ -1,3 +1,6 @@
+# azurerm - resource groups unit tests 
+# to run tests: python -m unittest resource_groups_test.py
+
 import sys
 import unittest
 from haikunator import Haikunator
@@ -28,8 +31,14 @@ class TestAzurermPy(unittest.TestCase):
     def test_resource_groups(self):
         # create resource group
         print('Creating resource group: ' + self.rgname)
-        response = azurerm.create_resource_group(self.access_token, self.subscription_id, self.rgname, self.location)
+        response = azurerm.create_resource_group(self.access_token, self.subscription_id, \
+            self.rgname, self.location)
         self.assertEqual(response.status_code, 201)
+
+        # get resource group
+        print('Getting resource group: ' + self.rgname)
+        response = azurerm.get_resource_group(self.access_token, self.subscription_id, self.rgname)
+        self.assertEqual(response['name'], self.rgname)
 
         # delete resource group
         print('Deleting resource group: ' + self.rgname)

@@ -238,7 +238,8 @@ list_media_services_rg(access_token, subscription_id, rgname) - list media servi
 #### Resource groups
 ```
 create_resource_group(access_token, subscription_id, rgname, location) - create a resource group in the specified location  
-delete_resource_group(access_token, subscription_id, rgname) - delete the named resource group  
+delete_resource_group(access_token, subscription_id, rgname) - delete the named resource group
+get_resource_group(access_token, subscription_id, rgname) # get details about the named resource group
 list_resource_groups(access_token, subscription_id) - list the resource groups in your subscription  
 ```
 

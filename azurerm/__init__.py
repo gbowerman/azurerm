@@ -18,7 +18,8 @@ from .networkrp import create_nic, create_nsg, create_nsg_rule, create_public_ip
     get_load_balancer, get_network_usage, get_public_ip, get_vnet, list_lb_nat_rules, \
     list_load_balancers, list_load_balancers_rg, list_nics, list_nics_rg, list_public_ips, \
     list_vnets
-from .resourcegroups import create_resource_group, delete_resource_group, list_resource_groups
+from .resourcegroups import create_resource_group, delete_resource_group, get_resource_group, \
+    list_resource_groups
 from .storagerp import create_storage_account, delete_storage_account, get_storage_account, get_storage_account_keys, \
     get_storage_usage, list_storage_accounts_rg, list_storage_accounts_sub
 from .subfns import list_locations, list_subscriptions
