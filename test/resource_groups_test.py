@@ -40,6 +40,11 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.get_resource_group(self.access_token, self.subscription_id, self.rgname)
         self.assertEqual(response['name'], self.rgname)
 
+        # list resource groups
+        print('List resource groups: ' + self.rgname)
+        response = azurerm.list_resource_groups(self.access_token, self.subscription_id)
+        self.assertTrue('value' in response)
+
         # delete resource group
         print('Deleting resource group: ' + self.rgname)
         response = azurerm.delete_resource_group(self.access_token, self.subscription_id, self.rgname)
