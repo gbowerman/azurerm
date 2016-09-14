@@ -32,7 +32,7 @@ print(sareturn)
 
 # list storage accounts per sub
 sa_list = azurerm.list_storage_accounts_sub(access_token, subscription_id)
-print(sa_list)
+print(json.dumps(sa_list, sort_keys=False, indent=2, separators=(',', ': ')))
 # for rg in resource_groups["value"]:
 #    print(rg["name"] + ', ' + rg["location"] + ', ' + rg["properties"]["provisioningState"])
 
@@ -66,3 +66,4 @@ print(keys.text)
 # input()
 # rgreturn = azurerm.delete_storage_account(access_token, subscription_id, resource_group, saname)
 # print(rgreturn)
+
