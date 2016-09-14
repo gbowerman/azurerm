@@ -1,5 +1,5 @@
 # azurerm - resource groups unit tests 
-# to run tests: python -m unittest resource_groups_test.py
+# to run tests: python -m unittest storage_test.py
 
 import sys
 import unittest
