@@ -61,7 +61,7 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.get_storage_account_keys(self.access_token, self.subscription_id, \
             self.rgname, self.storage_account) 
         keys = json.loads(response.text)
-        self.assertTrue('key1' in keys)
+        self.assertTrue('keys' in keys)
 
         # get storage usage
         print('Get storage usage')

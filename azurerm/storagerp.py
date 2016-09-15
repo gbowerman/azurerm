@@ -14,7 +14,8 @@ def create_storage_account(access_token, subscription_id, rgname, account_name, 
                         '/providers/Microsoft.Storage/storageAccounts/', account_name,
                         '?api-version=', STORAGE_API])
     body = ''.join(['{\n   "location": "', location, '",\n',
-                    '   "properties": {\n      "accountType": "', storage_type, '"\n   }\n}'])
+                    '   "sku": {\n      "name": "', storage_type, '"\n   },\n',
+                    '   "kind": "Storage"\n}'])
     return do_put(endpoint, body, access_token)
 
 
