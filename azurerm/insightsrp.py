@@ -1,7 +1,7 @@
 # insightsrp.py - azurerm functions for the Microsoft.Insights resource provider
 
 from .restfns import do_get
-from .settings import azure_rm_endpoint, INSIGHTS_API
+from .settings import azure_rm_endpoint, INSIGHTS_API, INSIGHTS_PREVIEW_API
 
 # list_autoscale_settings(access_token, subscription_id)
 # list the autoscale settings in a subscription_id
@@ -23,7 +23,8 @@ def list_insights_components(access_token, subscription_id, resource_group):
                         '/components?api-version=', INSIGHTS_API])
     return do_get(endpoint, access_token)
 
-
+# list_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name)
+# list the monitoring metrics for a resource
 def list_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
@@ -32,5 +33,5 @@ def list_metrics_for_resource(access_token, subscription_id, resource_group, res
                         '/', resource_type,
                         '/', resource_name,
                         '/providers/microsoft.insights/',
-                        '/metricdefinitions?api-version=', INSIGHTS_API])
+                        '/metricdefinitions?api-version=', INSIGHTS_PREVIEW_API])
     return do_get(endpoint, access_token)
