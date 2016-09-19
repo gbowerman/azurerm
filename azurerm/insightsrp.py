@@ -24,8 +24,8 @@ def list_insights_components(access_token, subscription_id, resource_group):
     return do_get(endpoint, access_token)
 
 # list_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name)
-# list the monitoring metrics for a resource
-def list_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name):
+# list the monitoring metric definitions for a resource
+def list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
