@@ -23,7 +23,7 @@ def list_insights_components(access_token, subscription_id, resource_group):
                         '/components?api-version=', INSIGHTS_API])
     return do_get(endpoint, access_token)
 
-# list_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name)
+# list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name)
 # list the monitoring metric definitions for a resource
 def list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name):
     endpoint = ''.join([azure_rm_endpoint,
@@ -34,4 +34,18 @@ def list_metric_definitions_for_resource(access_token, subscription_id, resource
                         '/', resource_name,
                         '/providers/microsoft.insights/',
                         '/metricdefinitions?api-version=', INSIGHTS_PREVIEW_API])
+    return do_get(endpoint, access_token)
+
+
+# get_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name)
+# get the monitoring metrics for a resource
+def get_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/', resource_provider,
+                        '/', resource_type,
+                        '/', resource_name,
+                        '/providers/microsoft.insights/',
+                        '/metrics?api-version=', INSIGHTS_PREVIEW_API])
     return do_get(endpoint, access_token)

@@ -224,6 +224,7 @@ list_vnets(access_token, subscription_id) # list the VNETs in a subscription
 list_autoscale_settings(access_token, subscription_id) # list the autoscale settings in a subscription_id
 list_insights_components(access_token, subscription_id, resource_group) # list the Microsoft Insights components in a resource group
 list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name) # list the monitoring metric definitions for a resource
+get_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name) # get the monitoring metrics for a resource
 ```
 
 #### Media Services (Media Resource provider)
