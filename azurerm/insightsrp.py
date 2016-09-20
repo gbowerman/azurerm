@@ -32,8 +32,8 @@ def list_metric_definitions_for_resource(access_token, subscription_id, resource
                         '/providers/', resource_provider,
                         '/', resource_type,
                         '/', resource_name,
-                        '/providers/microsoft.insights/',
-                        '/metricdefinitions?api-version=', INSIGHTS_PREVIEW_API])
+                        '/providers/microsoft.insights',
+                        '/metricdefinitions?api-version=', INSIGHTS_API])
     return do_get(endpoint, access_token)
 
 
