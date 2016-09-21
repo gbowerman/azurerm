@@ -259,6 +259,8 @@ list_storage_accounts_sub(access_token, subscription_id) # list the storage acco
 #### Subscription, location, and access token
 ```
 get_access_token(tenant_id, application_id, application_secret) # get an Azure access token for your application
+    # Note get_access_token has optional endpoint parameters which allow you to join national clouds
+    # - authentication_endpoint='https://login.microsoftonline.com/', resource='https://management.core.windows.net/
 list_locations(access_token, subscription_id) # list available locations for a subscription
 list_subscriptions(access_token) # list the available Azure subscriptions for this application  
 ```
