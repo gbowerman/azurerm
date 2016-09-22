@@ -46,6 +46,6 @@ def get_metrics_for_resource(access_token, subscription_id, resource_group, reso
                         '/providers/', resource_provider,
                         '/', resource_type,
                         '/', resource_name,
-                        '/providers/microsoft.insights/',
+                        '/providers/microsoft.insights',
                         '/metrics?api-version=', INSIGHTS_PREVIEW_API])
     return do_get(endpoint, access_token)
