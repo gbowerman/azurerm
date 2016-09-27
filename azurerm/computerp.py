@@ -426,14 +426,14 @@ def stopdealloc_vmss_vms(access_token, subscription_id, resource_group, vmss_nam
 
 
 # stop_vm(access_token, subscription_id, resource_group, vm_name)
-# stop a virtual machine but don't deallocate resources
+# stop a virtual machine but don't deallocate resources (power off)
 def stop_vm(access_token, subscription_id, resource_group, vm_name):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Compute/virtualMachines/',
                         vm_name,
-                        '/stop',
+                        '/powerOff',
                         '?api-version=', COMP_API])
     return do_post(endpoint, '', access_token)
 
