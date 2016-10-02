@@ -194,8 +194,27 @@ list_sku_versions(access_token, subscription_id, location, publisher, offer, sku
 list_skus(access_token, subscription_id, location, publisher, offer) # list available VM image skus for a publisher offer
 ```
 
+### Insights
+```
+list_autoscale_settings(access_token, subscription_id) # list the autoscale settings in a subscription_id
+list_insights_components(access_token, subscription_id, resource_group) # list the Microsoft Insights components in a resource group
+list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name) # list the monitoring metric definitions for a resource
+get_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name) # get the monitoring metrics for a resource
+```
+
+#### Media Services (Media Resource provider)
+```
+create_media_service_rg(access_token, subscription_id, rgname) # create a media services account in a resource group
+check_name_availability(access_token, subscription_id, rgname) # verify the availability of an media services account name
+delete_media_service_rg(access_token, subscription_id, rgname) # delete a media services account in a resource group
+list_media_endpoint_keys(access_token, subscription_id, rgname, msname) # list media services endpoint keys in a resource group and specifig media services account
+list_media_services(access_token, subscription_id) # list media services in a subscription
+list_media_services_rg(access_token, subscription_id, rgname) # list media services in a specific resource group
+```
+
 ### Network
 ```
+create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location) # create a network interface
 create_nsg(access_token, subscription_id, resource_group, nsg_name, location) # create network security group (use create_nsg_rule() to add rules to it)
 create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound') # create network security group rule to apply to a named NSG
 create_public_ip(access_token, subscription_id, resource_group, public_ip_name, dns_label, location) # create a public ip address
@@ -213,29 +232,10 @@ get_vnet(access_token, subscription_id, resource_group, vnet_name) # get details
 list_lb_nat_rules(access_token, subscription_id, resource_group, lb_name) # list the inbound NAT rules for a load balancer
 list_load_balancers(access_token, subscription_id) # list the load balancers in a subscription
 list_load_balancers_rg(access_token, subscription_id, resource_group) # list the load balancers in a resource group
-create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location) # create a network interface
 list_nics(access_token, subscription_id) # list the network interfaces in a subscription
 list_nics_rg(access_token, subscription_id, resource_group) # list the network interfaces in a resource group
 list_public_ips(access_token, subscription_id, resource_group) # list the public ip addresses in a resource group
 list_vnets(access_token, subscription_id) # list the VNETs in a subscription
-```
-
-### Insights
-```
-list_autoscale_settings(access_token, subscription_id) # list the autoscale settings in a subscription_id
-list_insights_components(access_token, subscription_id, resource_group) # list the Microsoft Insights components in a resource group
-list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name) # list the monitoring metric definitions for a resource
-get_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name) # get the monitoring metrics for a resource
-```
-
-#### Media Services (Media Resource provider)
-```
-create_media_service_rg(access_token, subscription_id, rgname) # create a media services account in a resource group
-check_name_availability(access_token, subscription_id, rgname) # verify the availability of an media services account name
-delete_media_service_rg(access_token, subscription_id, rgname) # delete a media services account in a resource group
-list_media_endpoint_keys(access_token, subscription_id, rgname, msname) # list media services endpoint keys in a resource group and specifig media services account
-list_media_services(access_token, subscription_id) # list media services in a subscription
-list_media_services_rg(access_token, subscription_id, rgname) # list media services in a specific resource group
 ```
 
 #### Resource groups
