@@ -54,7 +54,7 @@ def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg
 
 
 # create_public_ip(access_token, subscription_id, resource_group, public_ip_name, dns_label, location)
-# list the public ip addresses in a resource group
+# create a public ip address
 def create_public_ip(access_token, subscription_id, resource_group, public_ip_name, dns_label, location):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,

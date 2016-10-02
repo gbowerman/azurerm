@@ -198,7 +198,7 @@ list_skus(access_token, subscription_id, location, publisher, offer) # list avai
 ```
 create_nsg(access_token, subscription_id, resource_group, nsg_name, location) # create network security group (use create_nsg_rule() to add rules to it)
 create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound') # create network security group rule to apply to a named NSG
-create_public_ip(access_token, subscription_id, resource_group) # list the public ip addresses in a resource group
+create_public_ip(access_token, subscription_id, resource_group, public_ip_name, dns_label, location) # create a public ip address
 create_vnet(access_token, subscription_id, resource_group, name, location, address_prefix='10.0.0.0/16', nsg_id=None)) # create a VNet with specified name and location, optional address prefix and NSG id
 delete_nic(access_token, subscription_id, resource_group, nic_name) # delete a network interface
 delete_nsg(access_token, subscription_id, resource_group, nsg_name) # delete network security group
