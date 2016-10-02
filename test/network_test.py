@@ -63,6 +63,24 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.json()['name'], self.vnet)
         subnet_id = response.json()['properties']['subnets'][0]['id']
 
+        # create NSG
+        nsg_name = self.vnet + 'nsg'
+        print('Creating NSG: ' + nsg_name)
+        response = azurerm.create_nsg(self.access_token, self.subscription_id, self.rgname, \
+            nsg_name, self.location)
+        self.assertEqual(response.status_code, 201)
+        # print(json.dumps(response.json()))
+        self.assertEqual(response.json()['name'], nsg_name)
+        nsg_id = response.json()['id']
+
+        # create NSG rule
+        nsg_rule = 'ssh'
+        print('Creating NSG rule: ' + nsg_rule)
+        response = azurerm.create_nsg_rule(self.access_token, self.subscription_id, self.rgname, \
+            nsg_name, nsg_rule, description='ssh rule', destination_range='22')
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json()['name'], nsg_rule)
+
         # create nic
         nic_name = self.vnet + 'nic'
         print('Creating nic: ' + nic_name)
@@ -102,8 +120,21 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response['value'][0]['name'], nic_name)
 
         # list nics in subscription
+        print('Listing nics in subscription.')
         response = azurerm.list_nics(self.access_token, self.subscription_id)
         self.assertTrue(len(response['value']) > 0)
+
+        # delete nsg rule
+        print('Deleting nsg rule: ' + nsg_rule)
+        response = azurerm.delete_nsg_rule(self.access_token, self.subscription_id, self.rgname, \
+            nsg_name, nsg_rule)
+        self.assertEqual(response.status_code, 202)
+
+        # delete nsg
+        print('Deleting nsg: ' + nsg_name)
+        response = azurerm.delete_nsg(self.access_token, self.subscription_id, self.rgname, \
+            nsg_name)
+        self.assertEqual(response.status_code, 202)
 
         # delete nic
         print('Deleting nic: ' + nic_name)
@@ -122,6 +153,11 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.delete_vnet(self.access_token, self.subscription_id, self.rgname, \
             self.vnet)
         self.assertEqual(response.status_code, 202)
+
+        # get network usage
+        print('Getting network usage')
+        response = azurerm.get_network_usage(self.access_token, self.subscription_id, self.location)
+        self.assertTrue(len(response['value']) > 0)
 
 if __name__ == '__main__':
     unittest.main()
