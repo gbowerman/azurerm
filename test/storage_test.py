@@ -1,4 +1,4 @@
-# azurerm - resource groups unit tests 
+# azurerm - unit tests - storage 
 # to run tests: python -m unittest storage_test.py
 
 import sys

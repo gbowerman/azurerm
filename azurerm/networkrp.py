@@ -138,7 +138,7 @@ def delete_vnet(access_token, subscription_id, resource_group, name):
                     '/subscriptions/', subscription_id,
                     '/resourceGroups/', resource_group,
                     '/providers/Microsoft.Network/virtualNetworks/', name,
-                    '?api-version=', COMP_API])
+                    '?api-version=', NETWORK_API])
     return do_delete(endpoint, access_token)
 
 

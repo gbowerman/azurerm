@@ -1,11 +1,12 @@
-# azurerm unit tests - resource groups
-# to run tests: python -m unittest resource_groups_test.py
+# azurerm unit tests - network
+# to run tests: python -m unittest storage_test.py
 
 import sys
 import unittest
 from haikunator import Haikunator
 import json
 import azurerm
+import time
 
 class TestAzurermPy(unittest.TestCase):
 
@@ -25,29 +26,34 @@ class TestAzurermPy(unittest.TestCase):
         self.location = configData['location']
         self.rgname = Haikunator.haikunate()
 
-    def tearDown(self):
-        pass
-
-    def test_resource_groups(self):
-        # create resource group
+        # create resource gorup
         print('Creating resource group: ' + self.rgname)
         response = azurerm.create_resource_group(self.access_token, self.subscription_id, \
             self.rgname, self.location)
         self.assertEqual(response.status_code, 201)
 
-        # get resource group
-        print('Getting resource group: ' + self.rgname)
-        response = azurerm.get_resource_group(self.access_token, self.subscription_id, self.rgname)
-        self.assertEqual(response['name'], self.rgname)
+        # vnet name
+        self.vnet = Haikunator.haikunate(delimiter='')
 
-        # list resource groups
-        print('List resource groups: ' + self.rgname)
-        response = azurerm.list_resource_groups(self.access_token, self.subscription_id)
-        self.assertTrue('value' in response)
-
+    def tearDown(self):
         # delete resource group
         print('Deleting resource group: ' + self.rgname)
         response = azurerm.delete_resource_group(self.access_token, self.subscription_id, self.rgname)
+        self.assertEqual(response.status_code, 202)
+
+    def test_network(self):
+
+        # create vnet
+        print('Creating vnet: ' + self.vnet)
+        response = azurerm.create_vnet(self.access_token, self.subscription_id, self.rgname, \
+            self.vnet, self.location, address_prefix='10.0.0.0/16', nsg_id=None)
+        self.assertEqual(response.status_code, 201)
+ 
+
+        # delete vnet
+        print('Delete vnet: ' + self.vnet)
+        response = azurerm.delete_vnet(self.access_token, self.subscription_id, self.rgname, \
+            self.vnet)
         self.assertEqual(response.status_code, 202)
 
 
