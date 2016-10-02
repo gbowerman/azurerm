@@ -175,6 +175,17 @@ def get_network_usage(access_token, subscription_id, location):
     return do_get(endpoint, access_token)
 
 
+# get_nic(access_token, subscription_id, resource_group, nic_name)
+# get details about a network interface
+def get_nic(access_token, subscription_id, resource_group, nic_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/networkInterfaces/', nic_name,
+                        '?api-version=', NETWORK_API])
+    return do_get(endpoint, access_token)
+
+
 # get_public_ip(access_token, subscription_id, resource_group)
 # get details about the named public ip address
 def get_public_ip(access_token, subscription_id, resource_group, ip_name):

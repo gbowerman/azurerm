@@ -227,6 +227,7 @@ delete_vnet(access_token, subscription_id, resource_group, name) # delete a virt
 get_lb_nat_rule(access_token, subscription_id, resource_group, lb_name, rule_name) # get details about a load balancer inbound NAT rule
 get_load_balancer(access_token, subscription_id, resource_group, lb_name) # get details about a load balancer
 get_network_usage(access_token, subscription_id, location) # list network usage and limits for a location
+get_nic(access_token, subscription_id, resource_group, nic_name) # get details about a network interface
 get_public_ip(access_token, subscription_id, resource_group) # get details about the named public ip address
 get_vnet(access_token, subscription_id, resource_group, vnet_name) # get details about the named virtual network
 list_lb_nat_rules(access_token, subscription_id, resource_group, lb_name) # list the inbound NAT rules for a load balancer
