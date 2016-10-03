@@ -35,7 +35,9 @@ class TestAzurermPy(unittest.TestCase):
 
         # generate vnet name
         self.vnet = Haikunator.haikunate(delimiter='')
+        # generate public ip address names
         self.ipname = self.vnet + 'ip'
+        self.lbipname = self.vnet + 'lbip'
 
     def tearDown(self):
         # delete resource group - that deletes everything in the test
@@ -54,6 +56,16 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.json()['name'], self.ipname)
         # print(json.dumps(response.json()))
         ip_id = response.json()['id']
+
+        # create public ip for load balancer
+        print('Creating public ip address for load balancer: ' + self.lbipname)
+        dns_label = self.vnet + 'lb'
+        response = azurerm.create_public_ip(self.access_token, self.subscription_id, self.rgname, \
+            self.lbipname, dns_label, self.location)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json()['name'], self.lbipname)
+        # print(json.dumps(response.json()))
+        lbip_id = response.json()['id']
 
         # create vnet
         print('Creating vnet: ' + self.vnet)
@@ -89,6 +101,15 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], nic_name)
         nic_id = response.json()['id']
+
+        # create load balancer with nat pool
+        lb_name = self.vnet + 'lb'
+        print('Creating load balancer with nat pool: ' + lb_name)
+        response = azurerm.create_lb_with_nat_pool(self.access_token, self.subscription_id, \
+            self.rgname, lb_name, lbip_id, '50000', '50100', '22', self.location)
+        # print(json.dumps(response.json()))
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json()['name'], lb_name)
 
         # get public ip
         print('Getting public ip ' + self.ipname)
@@ -146,6 +167,12 @@ class TestAzurermPy(unittest.TestCase):
         print('Deleting public ip ' + self.ipname)
         response = azurerm.delete_public_ip(self.access_token, self.subscription_id, self.rgname, \
             self.ipname)
+        self.assertEqual(response.status_code, 202)
+
+        # delete load balancer
+        print('Deleting load balancer ' + lb_name)
+        response = azurerm.delete_load_balancer(self.access_token, self.subscription_id, self.rgname, \
+            lb_name)
         self.assertEqual(response.status_code, 202)
 
         # delete vnet

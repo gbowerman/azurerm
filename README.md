@@ -214,11 +214,13 @@ list_media_services_rg(access_token, subscription_id, rgname) # list media servi
 
 ### Network
 ```
+create_lb_with_nat_pool(access_token, subscription_id, resource_group, lb_name, public_ip_id, fe_start_port, fe_end_port, backend_port, location) # create a load balancer with inbound NAT pool
 create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location) # create a network interface
 create_nsg(access_token, subscription_id, resource_group, nsg_name, location) # create network security group (use create_nsg_rule() to add rules to it)
 create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound') # create network security group rule to apply to a named NSG
 create_public_ip(access_token, subscription_id, resource_group, public_ip_name, dns_label, location) # create a public ip address
 create_vnet(access_token, subscription_id, resource_group, name, location, address_prefix='10.0.0.0/16', nsg_id=None)) # create a VNet with specified name and location, optional address prefix and NSG id
+delete_load_balancer(access_token, subscription_id, resource_group, nic_name) # delete a load balancer
 delete_nic(access_token, subscription_id, resource_group, nic_name) # delete a network interface
 delete_nsg(access_token, subscription_id, resource_group, nsg_name) # delete network security group
 delete_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name) # delete network security group rule

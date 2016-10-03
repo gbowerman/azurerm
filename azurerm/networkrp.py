@@ -3,6 +3,31 @@ from .restfns import do_delete, do_get, do_put
 from .settings import azure_rm_endpoint, NETWORK_API
 
 
+# create_lb_with_nat_pool(access_token, subscription_id, resource_group, lb_name, public_ip_id, 
+#    fe_start_port, fe_end_port, backend_port, location)
+# create a load balancer with inbound NAT pools
+def create_lb_with_nat_pool(access_token, subscription_id, resource_group, lb_name, public_ip_id, \
+    fe_start_port, fe_end_port, backend_port, location):
+    endpoint = ''.join([azure_rm_endpoint,
+                '/subscriptions/', subscription_id,
+                '/resourceGroups/', resource_group,
+                '/providers/Microsoft.Network/loadBalancers/', lb_name,
+                '?api-version=', NETWORK_API])
+    body = ''.join(['{"location": "', location,
+        '", "properties": { "frontendIPConfigurations": [{ "name": "LoadBalancerFrontEnd",',
+        '"properties": { "publicIPAddress": { "id": "', public_ip_id,
+        '"}}}], "backendAddressPools": [{"name": "bepool" }],"inboundNatPools": [',
+        '{ "name": "natpool", "properties": { "frontendIPConfiguration": {',
+        '"id": "/subscriptions/', subscription_id, '/resourceGroups/', resource_group,
+        '/providers/Microsoft.Network/loadBalancers/', lb_name,
+        '/frontendIPConfigurations/LoadBalancerFrontEnd" }, "protocol": "tcp",',
+        '"frontendPortRangeStart": "', fe_start_port,
+        '", "frontendPortRangeEnd": "', fe_end_port, 
+        '", "backendPort": "', backend_port, 
+        '"}}]}}'])
+    return do_put(endpoint, body, access_token)
+
+
 # create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location)
 # create a network interface with an associated public ip address
 def create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location):
@@ -84,6 +109,17 @@ def create_vnet(access_token, subscription_id, resource_group, name, location, a
                     '"subnets": [ { "name": "subnet", "properties": { "addressPrefix": "', address_prefix, 
                     '"', nsg_reference, '}}]}}'])
     return do_put(endpoint, body, access_token)
+
+
+# delete_load_balancer(access_token, subscription_id, resource_group, nic_name)
+# delete a load balancer
+def delete_load_balancer(access_token, subscription_id, resource_group, lb_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                    '/subscriptions/', subscription_id,
+                    '/resourceGroups/', resource_group,
+                    '/providers/Microsoft.Network/loadBalancers/', lb_name,
+                    '?api-version=', NETWORK_API])
+    return do_delete(endpoint, access_token)
 
 
 # delete_nic(access_token, subscription_id, resource_group, nic_name)
