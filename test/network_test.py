@@ -1,5 +1,5 @@
 # azurerm unit tests - network
-# to run tests: python -m unittest storage_test.py
+# to run tests: python -m unittest network_test.py
 
 import sys
 import unittest
