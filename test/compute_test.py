@@ -27,8 +27,12 @@ class TestAzurermPy(unittest.TestCase):
         self.subscription_id = configData['subscriptionId']
         self.access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
         self.location = configData['location']
-        # generate resource group name
+        
+        # generate names used in tests
         self.rgname = Haikunator.haikunate()
+        self.vnet = Haikunator.haikunate(delimiter='')
+        self.saname = Haikunator.haikunate(delimiter='')
+        self.vmname = Haikunator.haikunate(delimiter='')
 
         # create resource gorup
         print('Creating resource group: ' + self.rgname)
@@ -37,7 +41,6 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
         # create vnet
-        self.vnet = Haikunator.haikunate(delimiter='')
         print('Creating vnet: ' + self.vnet)
         response = azurerm.create_vnet(self.access_token, self.subscription_id, self.rgname, \
             self.vnet, self.location, address_prefix='10.0.0.0/16', nsg_id=None)
@@ -52,6 +55,12 @@ class TestAzurermPy(unittest.TestCase):
             self.ipname, dns_label, self.location)
         self.assertEqual(response.status_code, 201)
         self.ip_id = response.json()['id']
+
+        # create storage account
+        print('Creating storage account: ' + self.saname)
+        response = azurerm.create_storage_account(self.access_token, self.subscription_id, self.rgname, \
+            self.saname, self.location, storage_type='Standard_LRS')
+        self.assertEqual(response.status_code, 202)
 
         # create NSG
         nsg_name = self.vnet + 'nsg'
@@ -85,15 +94,33 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 202)
 
     def test_compute(self):
-
         # create VM
-        
-        # delete VM
+        vm_size = 'Standard_D1'
+        publisher = 'Canonical'
+        offer = 'UbuntuServer'
+        sku = '16.04.0-LTS'
+        version = 'latest'
+        os_uri = 'http://' + self.saname + '.blob.core.windows.net/vhds/osdisk.vhd'
+        username = 'rootuser'
+        password = Haikunator.haikunate(delimiter=',')
+
+        print('Creating VM: ' + self.vmname)
+        response = azurerm.create_vm(self.access_token, self.subscription_id, self.rgname, \
+            self.vmname, vm_size, publisher, offer, sku, version, self.saname, os_uri, \
+            username, password, self.nic_id, self.location)
+        self.assertEqual(response.status_code, 201)
+        self.assertEqual(response.json()['name'], self.vmname)
 
         # get compute usage
         print('Getting compute usage')
         response = azurerm.get_compute_usage(self.access_token, self.subscription_id, self.location)
         self.assertTrue(len(response['value']) > 0)
+
+        # delete VM
+        print('Deleteing VM: ' + self.vmname)
+        response = azurerm.delete_vm(self.access_token, self.subscription_id, self.rgname, \
+            self.vmname)
+        self.assertEqual(response.status_code, 202)
 
 if __name__ == '__main__':
     unittest.main()
