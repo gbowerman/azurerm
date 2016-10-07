@@ -6,6 +6,7 @@
 import argparse
 import azurerm
 import json
+from haikunator import Haikunator
 
 # validate command line arguments
 argParser = argparse.ArgumentParser()
@@ -96,8 +97,8 @@ offer = 'UbuntuServer'
 sku = '16.04.0-LTS'
 version = 'latest'
 os_uri = 'http://' + name + '.blob.core.windows.net/vhds/osdisk.vhd'
-username = 'guybo'
-password = 'SqlGuy01'
+username = 'azure'
+password = Haikunator.haikunate(delimiter=',') # creates random password
 
 print('Creating VM: ' + vm_name)
 rmreturn = azurerm.create_vm(access_token, subscription_id, name, vm_name, vm_size, publisher, offer, sku,

@@ -110,8 +110,8 @@ publisher = 'Canonical'
 offer = 'UbuntuServer'
 sku = '16.04.0-LTS'
 version = 'latest'
-username = 'guybo'
-password = Haikunator.haikunate(delimiter=',')
+username = 'azure'
+password = Haikunator.haikunate(delimiter=',') # creates random password
 
 print('Creating VMSS: ' + vmss_name)
 rmreturn = azurerm.create_vmss(access_token, subscription_id, name, vmss_name, vm_size, capacity, \
