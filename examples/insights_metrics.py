@@ -18,8 +18,16 @@ vmss = configData['vmssName']
 
 access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
-# loop through resource groups
-instances = azurerm.list_vmss_vm_instance_view(access_token, subscription_id, rg, vmss)
+# get metric definitions
+provider = 'Microsoft.Compute'
+resource_type = 'virtualMachineScaleSets'
 
-print(json.dumps(instances, sort_keys=False, indent=2, separators=(',', ': ')))
+metric_definitions = azurerm.list_metric_definitions_for_resource(access_token, subscription_id, rg, \
+    provider, resource_type, vmss)
 
+print(json.dumps(metric_definitions, sort_keys=False, indent=2, separators=(',', ': ')))
+
+metrics = azurerm.get_metrics_for_resource(access_token, subscription_id, rg, \
+    provider, resource_type, vmss)
+
+print(json.dumps(metrics, sort_keys=False, indent=2, separators=(',', ': ')))

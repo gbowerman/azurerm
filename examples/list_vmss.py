@@ -1,15 +1,14 @@
-import json
-
 import azurerm
+import json
 
 # Load Azure app defaults
 try:
-    with open('azurermconfig.json') as configFile:
-        configData = json.load(configFile)
+   with open('azurermconfig.json') as configFile:    
+      configData = json.load(configFile)
 except FileNotFoundError:
-    print("Error: Expecting vmssConfig.json in current folder")
-    sys.exit()
-
+   print("Error: Expecting vmssConfig.json in current folder")
+   sys.exit()
+   
 tenant_id = configData['tenantId']
 app_id = configData['appId']
 app_secret = configData['appSecret']
@@ -19,10 +18,13 @@ access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
 # list the VMs 
 vmsslist = azurerm.list_vmss_sub(access_token, subscription_id)
+print(json.dumps(vmsslist, sort_keys=False, indent=2, separators=(',', ': ')))
+
+'''
 for vm in vmsslist['value']:
     # print(json.dumps(vm, sort_keys=False, indent=2, separators=(',', ': ')))
     print(vm['name'])
-'''
+
 # loop through resource groups
 resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
 for rg in resource_groups["value"]:
@@ -55,4 +57,5 @@ for rg in resource_groups["value"]:
 
 # scaleoutput = azurerm.scale_vmss(access_token, subscription_id, 'guydock3', 'guydock3', 'Standard_A1', 'Standard', 5)
 # print(scaleoutput)
-'''
+'''       
+    

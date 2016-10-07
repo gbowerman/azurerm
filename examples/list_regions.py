@@ -19,9 +19,12 @@ access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 # list locations
 locations = azurerm.list_locations(access_token, subscription_id)
 
+# print quota
 for location in locations['value']:
-    print(location['name']
-          + ', Display Name: ' + location['displayName']
-          + ', Coords: ' + location['latitude']
-          + ', ' + location['longitude'])
+    locationStr = location['name']
+    # print(locationStr)
+    print(json.dumps(location, sort_keys=False, indent=2, separators=(',', ': ')))
+
+    
+
 

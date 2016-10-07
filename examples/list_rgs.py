@@ -1,15 +1,5 @@
 import azurerm
-import sys
 import json
-
-def usage():
-    sys.exit('Usage: python ' + sys.argv[0] + ' rg_name')
-
-# check for single command argument    
-if len(sys.argv) != 2:
-    usage()
-
-rgname = sys.argv[1]
 
 # Load Azure app defaults
 try:
@@ -30,6 +20,10 @@ access_token = azurerm.get_access_token(
     app_secret
 )
 
-# delete a resource groups
-rgreturn = azurerm.delete_resource_group(access_token, subscription_id, rgname)
-print(rgreturn)
+# list resource groups
+resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
+for rg in resource_groups['value']:
+    print(rg['name'] + ', ' + rg['location'] + ', ' + rg['properties']['provisioningState'])
+    print('Resource group details..')
+    rg_details = azurerm.get_resource_group(access_token, subscription_id, rg['name'])
+    print(json.dumps(rg_details, sort_keys=False, indent=2, separators=(',', ': ')))
