@@ -280,6 +280,9 @@ deploy_template_uri_param_uri(access_token, subscription_id, resource_group, dep
 ```
 create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
               storage_account, os_uri, username, password, nic_id, location) # simple vm create function
+create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, 
+              publisher, offer, sku, version, storage_container_list, os_uri, username, password, 
+subnet_id, lb_pool_id, location, overprovision='true', upgradePolicy='Manual') #  create virtual machine scale set
 deallocate_vm(access_token, subscription_id, resource_group, vm_name) # stop#deallocate a virtual machine
 delete_vm(access_token, subscription_id, resource_group, vm_name) # delete a virtual machine
 delete_vmss(access_token, subscription_id, resource_group, vmss_name) # delete a virtual machine scale set

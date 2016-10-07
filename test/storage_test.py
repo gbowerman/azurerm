@@ -26,7 +26,7 @@ class TestAzurermPy(unittest.TestCase):
         self.location = configData['location']
         self.rgname = Haikunator.haikunate()
 
-        # create resource gorup
+        # create resource group
         print('Creating resource group: ' + self.rgname)
         response = azurerm.create_resource_group(self.access_token, self.subscription_id, \
             self.rgname, self.location)

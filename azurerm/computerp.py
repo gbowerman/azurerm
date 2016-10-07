@@ -2,6 +2,7 @@
 
 from .restfns import do_delete, do_get, do_get_next, do_patch, do_post, do_put
 from .settings import azure_rm_endpoint, COMP_API
+import json
 
 
 # create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
@@ -31,6 +32,43 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
                 '" }, "networkProfile": {',
                 '"networkInterfaces": [{"id": "', nic_id,
                 '", "properties": {"primary": true}}]}}}'])
+    return do_put(endpoint, body, access_token)
+
+
+# create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, \
+#    publisher, offer, sku, version, storage_container_list, os_uri, username, password, \
+#    subnet_id, lb_pool_id, location, overprovision='true', upgradePolicy='Manual')
+# create virtual machine scale set
+def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, \
+    publisher, offer, sku, version, storage_container_list, username, password, subnet_id,\
+    be_pool_id, lb_pool_id, location, overprovision='true', upgradePolicy='Manual'):
+    endpoint = ''.join([azure_rm_endpoint,
+                '/subscriptions/', subscription_id,
+                '/resourceGroups/', resource_group,
+                '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                '?api-version=', COMP_API])
+    storage_container_string = json.dumps(storage_container_list)
+    body = ''.join(['{ "location": "', location,
+        '", "sku": { "name": "', vm_size, 
+        '", "tier": "Standard", "capacity": ', str(capacity),       
+        '}, "properties": { "overprovision": ', overprovision, 
+        ', "upgradePolicy": { "mode": "', upgradePolicy,
+        '"}, "virtualMachineProfile": { "osProfile": { "computerNamePrefix": "', vmss_name, 
+        '", "adminUsername": "', username, 
+        '", "adminPassword": "', password, 
+        '"}, "storageProfile": { "osDisk": { "name": "', vmss_name, 
+        '", "vhdContainers": ', storage_container_string,
+        ', "caching": "ReadOnly", "createOption": "FromImage" }, "imageReference": {',	
+        ' "publisher": "', publisher,
+        '","offer": "', offer, 
+        '", "sku": "', sku, 
+        '", "version": "', version, 
+        '" }}, "networkProfile": { "networkInterfaceConfigurations": [ { "name": "', vmss_name,
+        '", "properties": { "primary": true,"ipConfigurations": [ { "name": "', vmss_name, 
+        '", "properties": { "subnet": { "id": "', subnet_id,
+        '" }, "loadBalancerBackendAddressPools": [ { "id": "', be_pool_id,
+        '" } ], "loadBalancerInboundNatPools": [ { "id": "', lb_pool_id,
+        '" } ] } } ] } } ] } } }}'])
     return do_put(endpoint, body, access_token)
 
 
