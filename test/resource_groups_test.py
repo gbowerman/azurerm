@@ -1,4 +1,4 @@
-# azurerm unit tests - resource groups
+# azurerm nit tests - resource groups
 # to run tests: python -m unittest resource_groups_test.py
 
 import sys

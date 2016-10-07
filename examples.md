@@ -1,8 +1,8 @@
 # azurerm Python library programming examples
 
-Here are some simple Python programming examples using the **azurerm** package. In each case, before using these you will need to register your application with Azure, create a Service Principal (app user) and set its access permissions. After these steps you will have a tenant id, an application id and an application secret. See <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/">Authenticating a Service Principal with Azure Resource Manager</a> and are covered <a href="https://msftstack.wordpress.com/2016/01/05/azure-resource-manager-authentication-with-python/">Azure Resource Manager REST calls from Python</a>.
+Here are some simple Python programming examples using the **azurerm** package. Before using these you will need to do the one-off task of creating a Service Principal to get your tenant id, application id and application secret. See <a href="https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/">Authenticating a Service Principal with Azure Resource Manager</a> and <a href="https://msftstack.wordpress.com/2016/01/05/azure-resource-manager-authentication-with-python/">Azure Resource Manager REST calls from Python</a>.
 
-For more examples look at the <a href="https://github.com/gbowerman/azurerm/tree/master/examples">azurerm example library</a>.
+For even more examples look at the <a href="https://github.com/gbowerman/azurerm/tree/master/examples">azurerm example library</a>.
 
 ### List Azure subscriptions
 ```
@@ -274,7 +274,7 @@ for pub in pubs:
     print(pub['name'])
 ```
 
-### List offers from Canonical, skus for UbuntuServer, versions for 15.10 sku
+### List offers from Canonical, skus for UbuntuServer, versions for 16.04 sku
 ```
 tenant_id = 'your_tenant_id'
 app_id = 'your_application_id'
@@ -291,7 +291,8 @@ skus = azurerm.list_skus(access_token, subscription_id, 'southeastasia', 'Canoni
 for sku in skus:
     print(sku['name'])
 
-versions = azurerm.list_sku_versions(access_token, subscription_id, 'southeastasia', 'Canonical', 'UbuntuServer', '15.10')
+versions = azurerm.list_sku_versions(access_token, subscription_id, 'southeastasia', 'Canonical', \
+    'UbuntuServer', '16.04.0-LTS')
 for version in versions:
     print(version['name'])
 ```

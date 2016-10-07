@@ -5,6 +5,9 @@ The azurerm philosophy is ease of use over completeness of API. Rather than supp
 
 Note: This is not an official Microsoft library, just some REST wrappers to make it easier to call the Azure REST API. For the official Microsoft Azure library for Python please go here: <a href="https://github.com/Azure/azure-sdk-for-python">https://github.com/Azure/azure-sdk-for-python</a>.
 
+## Latest news
+
+
 ## Installation
 1. pip install azurerm
 2. To start using, follow the instructions below on authenticating a service principal with Azure Resource Manager.
@@ -14,7 +17,7 @@ To use this library (and in general to access Azure Resource Manager from a prog
 
 A more detailed set of **azurerm** programming examples can be found here: <a href="https://github.com/gbowerman/azurerm/blob/master/examples.md">azurerm Python library programming examples</a>. For even more examples look at the <a href="https://github.com/gbowerman/azurerm/tree/master/examples">azurerm examples library</a>. 
 
-See also the unit test suite which is new but the goal is to expand it to test every function: <a href="https://github.com/gbowerman/azurerm/tree/master/test">test</a>
+See also the unit test suite which is new but the goal is to expand it to test every function in the library: <a href="https://github.com/gbowerman/azurerm/tree/master/test">test</a>
 
 #### Example to list Azure subscriptions, create a Resource Group, list Resource Groups
 ```
@@ -33,27 +36,29 @@ access_token = azurerm.get_access_token(
 
 # list subscriptions
 subscriptions = azurerm.list_subscriptions(access_token)
-for sub in subscriptions["value"]:
-    print(sub["displayName"] + ': ' + sub["subscriptionId"])
+for sub in subscriptions['value']:
+    print(sub['displayName'] + ': ' + sub['subscriptionId'])
 
 # select the first subscription
-subscription_id = subscriptions["value"][0]["subscriptionId"]
+subscription_id = subscriptions['value'][0]['subscriptionId']
 
 # create a resource group
 print('Enter Resource group name to create.')
 rgname = input()
 location = 'southeastasia'
 rgreturn = azurerm.create_resource_group(access_token, subscription_id, rgname, location)
-print(rgreturn)
+print('Create RG return code: ' + str(rgreturn.status_code)
 print(json.dumps(rgreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
 
 # list resource groups
 resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
-for rg in resource_groups["value"]:
-    print(rg["name"] + ', ' + rg["location"] + ', ' + rg["properties"]["provisioningState"])
+for rg in resource_groups['value']:
+    print(rg["name"] + ', ' + rg['location'] + ', ' + rg['properties']['provisioningState'])
 ``` 
 
 #### Example to create a virtual machine
+
+See also an example to create a VM Scale Set <a href="https://github.com/gbowerman/azurerm/tree/master/examples/create_vmss.py">create_vmss.py</a>. 
 ```
 import azurerm
 impor json
@@ -134,48 +139,7 @@ print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ':
 ```   
 
 #### Example to create a Media Services Account
-```
-import json
-import azurerm
-
-# Load Azure app defaults
-try:
-        with open('config.json') as configFile:
-                configData = json.load(configFile)
-except FileNotFoundError:
-        print("ERROR: Expecting config.json in current folder")
-        sys.exit()
-
-tenant_id = configData['tenantId']
-app_id = configData['appId']
-app_secret = configData['appSecret']
-subscription_id = configData['subscriptionId']
-resourceGroup = configData['resourceGroup']
-stoaccountName = configData['stoaccountName']
-region = configData['region']
-
-access_token = azurerm.get_access_token(
-        tenant_id,
-        app_id,
-        app_secret
-)
-
-# list subscriptions
-subscriptions = azurerm.list_subscriptions(access_token)
-for sub in subscriptions["value"]:
-        print("SUBSCRIPTION: " + sub["displayName"] + ': ' + sub["subscriptionId"])
-
-# use the first subscription
-subscription_id = subscriptions["value"][0]["subscriptionId"]
-
-# create a media service account in a resource group
-name = "itisjustasimpletest"
-response = azurerm.create_media_service_rg(access_token, subscription_id, resourceGroup, region, stoaccountName, name)
-if (response.status_code == 201):
-        print("MEDIA SERVICE ACCOUNT: '" + name.upper() + "' CREATED OK.")
-else:
-        print("ERROR: Creating New MEDIA SERVICE ACCOUNT: " + name.upper())
-```   
+See <a href="https://github.com/gbowerman/azurerm/tree/master/examples/createmediaserviceaccountinrg.py">createmediaserviceaccountinrg.py</a>
 
 ## Functions currently supported
 A basic set of infrastructure create, list, query functions are implemented. If you want to add something please send me a PR (don't forget to update this readme too).
