@@ -10,7 +10,7 @@ The most recent enhancements before 0.6.12 include the following:
 
 - Added create_vm() function to create a virtual machine.
 - Added create_lb_with_nat_pool() function to create a load balancer which can be used with VM Scale Sets.
-- Added unit tests, with the goal that all new functions should include a unit test. See [test/](./master/test) for more details. These are also useful for seeing how to call functions.
+- Added unit tests, with the goal that all new functions should include a unit test. See [test/](./test) for more details. These are also useful for seeing how to call functions.
 - Added delete_vnet().
 - Fixed a bug with stop_vm().
 - Added pagination support for list functions.
