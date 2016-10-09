@@ -6,7 +6,9 @@ The azurerm philosophy is ease of use over completeness of API. Rather than supp
 Note: This is not an official Microsoft library, just some REST wrappers to make it easier to call the Azure REST API. For the official Microsoft Azure library for Python please go here: <a href="https://github.com/Azure/azure-sdk-for-python">https://github.com/Azure/azure-sdk-for-python</a>.
 
 ## Latest news
-See [Changelog](./changelog.md).
+For the most recent azurerm code samples and announcements see the [azurerm blog](https://msftstack.wordpress.com/?s=azurerm).
+
+For what's new in the most recent version refer to the [Changelog](./changelog.md).
 
 ## Installation
 1. pip install azurerm
