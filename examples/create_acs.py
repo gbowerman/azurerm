@@ -58,6 +58,6 @@ response = azurerm.create_container_service(access_token, subscription_id, \
     rgname, service_name, agent_count, agent_vm_size, agent_dns, \
     master_dns, admin_user, public_key, location, master_count=master_count)
 if response.status_code != 201:
-    sys.exit('Expecting return code 201 from create_resource_group()')
+    sys.exit('Expecting return code 201 from create_container_service(): ' + str(response.status_code))
 
 print(json.dumps(response.json(), sort_keys=False, indent=2, separators=(',', ': ')))
