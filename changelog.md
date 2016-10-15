@@ -1,8 +1,9 @@
 # azurerm - change log
 
 ### v0.6.13 (Oct 14 2016):
-- Added Azure Container Services support + unit tests
-'''
+- Added Azure Container Services support + unit tests.
+
+```
   create_container_service(access_token, subscription_id, resource_group, service_name,
     agent_count, agent_vm_size, agent_dns, master_dns, admin_user, public_key, location,
     master_count=3, orchestrator='DCOS') # create a new container service 
@@ -11,7 +12,7 @@
   list_acs_operations(access_token) # list available Container Server operations
   list_container_services(access_token, subscription_id, resource_grou) # list the container services in a resource group
   list_container_services_sub(access_token, subscription_id) # list the container services in a subscription
-'''
+```
 
 ### v0.6.12 (Oct 7 2016):
 - Added create_vmss() function + unit test. This function creates a VM Scale Set. Initially it only accepts a password rather than a cert. There are a few assumptions made about load balancer configuration too. For example see [create_vmss.py](./examples/create_vmss.py).
