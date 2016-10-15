@@ -1,5 +1,5 @@
 # azurerm - unit tests - acs
-# to run tests: python -m unittest storage_test.py
+# to run tests: python -m unittest acs_test.py
 
 import sys
 import unittest
@@ -67,7 +67,6 @@ class TestAzurermPy(unittest.TestCase):
         print('Agents: ' + str(agent_count) + ' * ' + agent_vm_size)
         print('Master count: ' + str(master_count))
         
-        # create a new container service
         response = azurerm.create_container_service(self.access_token, self.subscription_id, \
             self.rgname, self.service_name, agent_count, agent_vm_size, self.agent_dns, \
             self.master_dns, admin_user, self.public_key, self.location, master_count=master_count)
@@ -85,7 +84,6 @@ class TestAzurermPy(unittest.TestCase):
         print('Listing ACS operations')
         response = azurerm.list_acs_operations(self.access_token)
         self.assertTrue(len(response['value']) > 0)
-
 
         # list_container_services in resource group
         print('Listing container services in resource group')
