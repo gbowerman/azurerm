@@ -1,5 +1,6 @@
 # azurerm - library for easy Azure Resource Manager calls from Python
 
+from .acs import *
 from .adalfns import *
 from .amsrp import *
 from .computerp import *

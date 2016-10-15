@@ -146,6 +146,18 @@ See <a href="https://github.com/gbowerman/azurerm/tree/master/examples/createmed
 ## Functions currently supported
 A basic set of infrastructure create, list, query functions are implemented. If you want to add something please send me a PR (don't forget to update this readme too).
 
+### Azure Container Service
+'''
+create_container_service(access_token, subscription_id, resource_group, service_name,
+    agent_count, agent_vm_size, agent_dns, master_dns, admin_user, public_key, location,
+    master_count=3, orchestrator='DCOS') # create a new container service 
+delete_container_service(access_token, subscription_id, resource_group, container_service_name) # delete a named container service
+get_container_service(access_token, subscription_id, resource_group, service_name) # get details about an Azure Container Server
+list_acs_operations(access_token) # list available Container Server operations
+list_container_services(access_token, subscription_id, resource_grou) # list the container services in a resource group
+list_container_services_sub(access_token, subscription_id) # list the container services in a subscription
+'''
+
 ### Deployments
 ```
 show_deployment(access_token, subscription_id, resource_group, deployment_name) # show deployment status/details
