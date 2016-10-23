@@ -1,6 +1,6 @@
 # azurerm - change log
 
-### v0.6.14 (Oct 23 2016):
+### v0.6.15 (Oct 23 2016):
 - Added get_vm_instance_view() to get state details about a VM
 
 
