@@ -1,5 +1,10 @@
 # azurerm - change log
 
+### v0.6.14 (Oct 23 2016):
+- Added get_vm_instance_view() to get state details about a VM
+
+
+# get operational details about the state of a VM
 ### v0.6.13 (Oct 14 2016):
 - Added Azure Container Services support + unit tests.
 

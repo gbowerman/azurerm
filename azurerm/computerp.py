@@ -151,6 +151,17 @@ def get_vm_extension(access_token, subscription_id, resource_group, vm_name, ext
     return do_get(endpoint, access_token)
 
 
+# get_vm_instance(access_token, subscription_id, resource_group, vm_name)
+# get operational details about the state of a VM
+def get_vm_instance_view(access_token, subscription_id, resource_group, vm_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachines/', vm_name,
+                        'InstanceView?api-version=', COMP_API])
+    return do_get(endpoint, access_token)
+
+
 # get_vmss(access_token, subscription_id, resource_group, vmss_name)
 # get virtual machine scale set details
 def get_vmss(access_token, subscription_id, resource_group, vmss_name):

@@ -268,6 +268,7 @@ delete_vmss_vms(access_token, subscription_id, resource_group, vm_ids) # delete 
 get_compute_usage(access_token, subscription_id, location) # list compute usage and limits for a location
 get_vm(access_token, subscription_id, resource_group, vm_name) # get virtual machine details
 get_vm_extension(access_token, subscription_id, resource_group, vm_name, extension_name) # get details about a VM extension
+get_vm_instance(access_token, subscription_id, resource_group, vm_name) # get operational details about the state of a VM
 get_vmss(access_token, subscription_id, resource_group, vmss_name) # get virtual machine scale set details
 get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_name) # get virtual machine scale set instance view
 get_vmss_nics(access_token, subscription_id, resource_group, vmss_name) # get NIC details for a VM Scale Set
