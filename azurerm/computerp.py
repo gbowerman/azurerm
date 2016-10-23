@@ -158,7 +158,7 @@ def get_vm_instance_view(access_token, subscription_id, resource_group, vm_name)
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Compute/virtualMachines/', vm_name,
-                        'InstanceView?api-version=', COMP_API])
+                        '/InstanceView?api-version=', COMP_API])
     return do_get(endpoint, access_token)
 
 
