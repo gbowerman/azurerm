@@ -278,6 +278,7 @@ get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, insta
 list_as(access_token, subscription_id, resource_group) # list availability sets in a resource_group
 list_as_sub(access_token, subscription_id) # list availability sets in a subscription
 list_vm_images_sub(access_token, subscription_id) # list VM images in a subscription
+list_vm_instance_view(access_token, subscription_id, resource_group) # list VM instances views in a resource group
 list_vms(access_token, subscription_id, resource_group) # list VMs in a resource group
 list_vms_sub(access_token, subscription_id) # list the VMs in a subscription
 list_vmss(access_token, subscription_id, resource_group) # list the VM Scale Sets in a resource group

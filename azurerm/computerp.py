@@ -263,6 +263,17 @@ def list_vm_images_sub(access_token, subscription_id):
     return do_get_next(endpoint, access_token)
 
 
+# list_vm_instance_view(access_token, subscription_id, resource_group)
+# list VM instances views in a resource group
+def list_vm_instance_view(access_token, subscription_id, resource_group):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachines',
+                        '?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
+    return do_get(endpoint, access_token)
+
+
 # list_vms(access_token, subscription_id, resource_group)
 # list VMs in a resource group
 def list_vms(access_token, subscription_id, resource_group):

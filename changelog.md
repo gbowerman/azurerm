@@ -1,7 +1,11 @@
 # azurerm - change log
 
+### v0.6.16 (Oct 23 2016):
+- Added list_vm_instance_view() to get instance details about the VMs in a resource group
+
+
 ### v0.6.15 (Oct 23 2016):
-- Added get_vm_instance_view() to get state details about a VM
+- Added get_vm_instance_view() to get instance state details about a VM
 
 
 # get operational details about the state of a VM
