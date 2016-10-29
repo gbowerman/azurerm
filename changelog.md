@@ -1,5 +1,12 @@
 # azurerm - change log
 
+### v0.6.17 (Oct 29 2016):
+- Add create_autoscale_rule() and create_autoscale_settings(). 
+- The output from create_autoscale_rule() is a dictionary object. Create a list of these rules and pass the list as an argument to create_autoscale setttings().
+- Pass in the name of an existing VM scale set to create_autoscale_settings.
+- Added unit tests for insights. See insights_tests.py in [test/](./test) for an example of how to call these new functions.
+
+
 ### v0.6.16 (Oct 23 2016):
 - Added list_vm_instance_view() to get instance details about the VMs in a resource group
 
@@ -8,7 +15,6 @@
 - Added get_vm_instance_view() to get instance state details about a VM
 
 
-# get operational details about the state of a VM
 ### v0.6.13 (Oct 14 2016):
 - Added Azure Container Services support + unit tests.
 

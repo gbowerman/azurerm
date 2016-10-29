@@ -174,6 +174,8 @@ list_skus(access_token, subscription_id, location, publisher, offer) # list avai
 
 ### Insights
 ```
+create_autoscale_rule(subscription_id, resource_group, vmss_name, metric_name, operator, threshold, direction, change_count, time_grain='PT1M', time_window='PT5M', cool_down='PT1M') # create a new autoscale rule - pass the output in a list to create_autoscale_setting()
+create_autoscale_setting(access_token, subscription_id, resource_group, setting_name, vmss_name, location, min, max, default, autoscale_rules,notify=None) # create a new autoscale setting for a scale set
 list_autoscale_settings(access_token, subscription_id) # list the autoscale settings in a subscription_id
 list_insights_components(access_token, subscription_id, resource_group) # list the Microsoft Insights components in a resource group
 list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name) # list the monitoring metric definitions for a resource
