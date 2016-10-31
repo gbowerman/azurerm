@@ -15,23 +15,23 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
                 '/resourceGroups/', resource_group,
                 '/providers/Microsoft.Compute/virtualMachines/', vm_name,
                 '?api-version=', COMP_API])
-    body = ''.join(['{"name": "', vm_name,
-                '","location": "', location,
-                '","properties": { "hardwareProfile": {',
-                '"vmSize": "', vm_size,
-                '"},"storageProfile": { "imageReference": { "publisher": "', publisher,
-                '","offer": "', offer,
-                '","sku": "', sku,
-                '","version": "', version,
-                '"},"osDisk": { "name": "myosdisk1","vhd": {',
-                '"uri": "', os_uri,
-                '" }, "caching": "ReadWrite", "createOption": "fromImage" }},"osProfile": {',
-                '"computerName": "', vm_name,
-                '", "adminUsername": "', username,
-                '", "adminPassword": "', password,
-                '" }, "networkProfile": {',
-                '"networkInterfaces": [{"id": "', nic_id,
-                '", "properties": {"primary": true}}]}}}'])
+    vm_body = {'name': vm_name}
+    vm_body['location'] = location
+    properties = {'hardwareProfile': {'vmSize': vm_size}}
+    image_reference = {'publisher': publisher, 'offer': offer, 'sku': sku, 'version': version}
+    storage_profile = {'imageReference': image_reference}
+    os_disk = {'name': 'osdisk1'}
+    os_disk['vhd'] = {'uri': os_uri}
+    os_disk['caching'] = 'ReadWrite'
+    os_disk['createOption'] = 'fromImage'
+    storage_profile['osDisk'] = os_disk
+    properties['storageProfile'] = storage_profile
+    os_profile = {'computerName': vm_name, 'adminUsername': username, 'adminPassword': password}
+    properties['osProfile'] = os_profile
+    network_profile = {'networkInterfaces': [{'id': nic_id, 'properties': {'primary': True}}]}
+    properties['networkProfile'] = network_profile
+    vm_body['properties'] = properties
+    body = json.dumps(vm_body)
     return do_put(endpoint, body, access_token)
 
 
@@ -47,28 +47,37 @@ def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_siz
                 '/resourceGroups/', resource_group,
                 '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                 '?api-version=', COMP_API])
-    storage_container_string = json.dumps(storage_container_list)
-    body = ''.join(['{ "location": "', location,
-        '", "sku": { "name": "', vm_size, 
-        '", "tier": "Standard", "capacity": ', str(capacity),       
-        '}, "properties": { "overprovision": ', overprovision, 
-        ', "upgradePolicy": { "mode": "', upgradePolicy,
-        '"}, "virtualMachineProfile": { "osProfile": { "computerNamePrefix": "', vmss_name, 
-        '", "adminUsername": "', username, 
-        '", "adminPassword": "', password, 
-        '"}, "storageProfile": { "osDisk": { "name": "', vmss_name, 
-        '", "vhdContainers": ', storage_container_string,
-        ', "caching": "ReadOnly", "createOption": "FromImage" }, "imageReference": {',	
-        ' "publisher": "', publisher,
-        '","offer": "', offer, 
-        '", "sku": "', sku, 
-        '", "version": "', version, 
-        '" }}, "networkProfile": { "networkInterfaceConfigurations": [ { "name": "', vmss_name,
-        '", "properties": { "primary": true,"ipConfigurations": [ { "name": "', vmss_name, 
-        '", "properties": { "subnet": { "id": "', subnet_id,
-        '" }, "loadBalancerBackendAddressPools": [ { "id": "', be_pool_id,
-        '" } ], "loadBalancerInboundNatPools": [ { "id": "', lb_pool_id,
-        '" } ] } } ] } } ] } } }}'])
+
+    vmss_body = {'location': location}
+    vmss_sku = {'name': vm_size, 'tier': 'Standard', 'capacity': capacity}
+    vmss_body['sku'] = vmss_sku
+    properties = {'overprovision': overprovision}
+    properties['upgradePolicy'] = {'mode': upgradePolicy}
+    os_profile = {'computerNamePrefix': vmss_name}
+    os_profile['adminUsername'] = username
+    os_profile['adminPassword'] = password
+    vm_profile = {'osProfile': os_profile}
+    os_disk = {'name': vmss_name}
+    os_disk['vhdContainers'] = storage_container_list
+    os_disk['caching'] = 'ReadOnly'
+    os_disk['createOption'] = 'FromImage'
+    storage_profile = {'osDisk': os_disk}
+    storage_profile['imageReference'] = \
+        {'publisher': publisher, 'offer': offer, 'sku': sku, 'version': version} 
+    vm_profile['storageProfile'] = storage_profile
+    nic = {'name': vmss_name}
+    ip_config = {'name': vmss_name}
+    ip_properties = {'subnet': { 'id': subnet_id}}
+    ip_properties['loadBalancerBackendAddressPools'] = [{'id': be_pool_id}]
+    ip_properties['loadBalancerInboundNatPools'] = [{'id': lb_pool_id}]
+    ip_config['properties'] = ip_properties
+    nic['properties'] = {'primary': True, 'ipConfigurations': [ip_config]}
+    network_profile = {'networkInterfaceConfigurations': [nic]}
+    vm_profile['networkProfile'] = network_profile
+    properties['virtualMachineProfile'] = vm_profile
+    vmss_body['properties'] = properties
+
+    body = json.dumps(vmss_body)
     return do_put(endpoint, body, access_token)
 
 

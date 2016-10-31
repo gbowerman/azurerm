@@ -1,5 +1,5 @@
 # storagerp.py - azurerm functions for the Microsoft.Storage resource provider
-
+import json
 from .restfns import do_delete, do_get, do_put, do_post
 from .settings import azure_rm_endpoint, STORAGE_API
 
@@ -13,9 +13,11 @@ def create_storage_account(access_token, subscription_id, rgname, account_name, 
                         '/resourcegroups/', rgname,
                         '/providers/Microsoft.Storage/storageAccounts/', account_name,
                         '?api-version=', STORAGE_API])
-    body = ''.join(['{\n   "location": "', location, '",\n',
-                    '   "sku": {\n      "name": "', storage_type, '"\n   },\n',
-                    '   "kind": "Storage"\n}'])
+
+    storage_body = {'location': location}
+    storage_body['sku'] = {'name': storage_type}
+    storage_body['kind'] = 'Storage'             
+    body = json.dumps(storage_body)
     return do_put(endpoint, body, access_token)
 
 

@@ -70,8 +70,8 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.create_container_service(self.access_token, self.subscription_id, \
             self.rgname, self.service_name, agent_count, agent_vm_size, self.agent_dns, \
             self.master_dns, admin_user, self.public_key, self.location, master_count=master_count)
+        #print(json.dumps(response.json(), sort_keys=False, indent=2, separators=(',', ': ')))
         self.assertEqual(response.status_code, 201)
-        #print(json.dumps(response.json()))
         self.assertEqual(response.json()['name'], self.service_name)
 
         # get container service

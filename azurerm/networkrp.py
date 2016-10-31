@@ -1,4 +1,5 @@
 # networkrp.py - azurerm functions for the Microsoft.Network resource provider
+import json
 from .restfns import do_delete, do_get, do_put
 from .settings import azure_rm_endpoint, NETWORK_API
 
@@ -13,18 +14,25 @@ def create_lb_with_nat_pool(access_token, subscription_id, resource_group, lb_na
                 '/resourceGroups/', resource_group,
                 '/providers/Microsoft.Network/loadBalancers/', lb_name,
                 '?api-version=', NETWORK_API])
-    body = ''.join(['{"location": "', location,
-        '", "properties": { "frontendIPConfigurations": [{ "name": "LoadBalancerFrontEnd",',
-        '"properties": { "publicIPAddress": { "id": "', public_ip_id,
-        '"}}}], "backendAddressPools": [{"name": "bepool" }],"inboundNatPools": [',
-        '{ "name": "natpool", "properties": { "frontendIPConfiguration": {',
-        '"id": "/subscriptions/', subscription_id, '/resourceGroups/', resource_group,
-        '/providers/Microsoft.Network/loadBalancers/', lb_name,
-        '/frontendIPConfigurations/LoadBalancerFrontEnd" }, "protocol": "tcp",',
-        '"frontendPortRangeStart": "', fe_start_port,
-        '", "frontendPortRangeEnd": "', fe_end_port, 
-        '", "backendPort": "', backend_port, 
-        '"}}]}}'])
+    lb_body = {'location': location}
+    frontendipcconfig = {'name': 'LoadBalancerFrontEnd'}
+    fipc_properties = {'publicIPAddress': {'id': public_ip_id}}
+    frontendipcconfig['properties'] = fipc_properties
+    properties = {'frontendIPConfigurations': [frontendipcconfig]}
+    properties['backendAddressPools'] = [{'name': 'bepool'}]
+    inbound_natpool = {'name': 'natpool'}
+    lbfe_id = '/subscriptions/' + subscription_id + '/resourceGroups/' + resource_group + \
+        '/providers/Microsoft.Network/loadBalancers/' + lb_name + \
+        '/frontendIPConfigurations/LoadBalancerFrontEnd'
+    ibnp_properties = {'frontendIPConfiguration': {'id': lbfe_id}}
+    ibnp_properties['protocol'] = 'tcp'
+    ibnp_properties['frontendPortRangeStart'] = fe_start_port
+    ibnp_properties['frontendPortRangeEnd'] = fe_end_port
+    ibnp_properties['backendPort'] = backend_port
+    inbound_natpool['properties'] = ibnp_properties
+    properties['inboundNatPools'] = [inbound_natpool]
+    lb_body['properties'] = properties
+    body = json.dumps(lb_body)
     return do_put(endpoint, body, access_token)
 
 
@@ -36,12 +44,15 @@ def create_nic(access_token, subscription_id, resource_group, nic_name, public_i
                     '/resourceGroups/', resource_group,
                     '/providers/Microsoft.Network/networkInterfaces/', nic_name,
                     '?api-version=', NETWORK_API])
-    body = ''.join(['{ "location": "', location,
-                    '", "properties": { "ipConfigurations": [{ "name": "ipconfig1", "properties": {',
-                    '"privateIPAllocationMethod": "Dynamic", "publicIPAddress": {',
-                    '"id": "', public_ip_id,
-                    '" }, "subnet": { "id": "', subnet_id,
-                    '" } } } ] } }'])
+    nic_body = {'location': location}
+    ipconfig = {'name': 'ipconfig1'}
+    ipc_properties = {'privateIPAllocationMethod': 'Dynamic'}
+    ipc_properties['publicIPAddress'] = {'id': public_ip_id}
+    ipc_properties['subnet'] = {'id': subnet_id}
+    ipconfig['properties'] = ipc_properties
+    properties = {'ipConfigurations': [ipconfig]}
+    nic_body['properties'] = properties
+    body = json.dumps(nic_body)
     return do_put(endpoint, body, access_token)
 
 	
@@ -53,11 +64,14 @@ def create_nsg(access_token, subscription_id, resource_group, nsg_name, location
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Network/networkSecurityGroups/', nsg_name,
                         '?api-version=', NETWORK_API])
-    body = ''.join(['{ "location":"', location, '" }'])
+    nsg_body = {'location': location}
+    body = json.dumps(nsg_body)
     return do_put(endpoint, body, access_token)
 
 
-# create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound')
+# create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, 
+# description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', 
+# destination_prefix='*', access = 'Allow', priority=100, direction='Inbound')
 # create network security group rule
 def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound'):
     endpoint = ''.join([azure_rm_endpoint,
@@ -66,15 +80,19 @@ def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg
                         '/providers/Microsoft.Network/networkSecurityGroups/', nsg_name,
                         '/securityRules/', nsg_rule_name,
                         '?api-version=', NETWORK_API])
-    body = ''.join(['{ "properties":{ "description":"', description, 
-                        '", "protocol":"', protocol, 
-                        '", "sourcePortRange":"', source_range, 
-                        '", "destinationPortRange":"', destination_range, 
-                        '", "sourceAddressPrefix": "', source_prefix, 
-                        '", "destinationAddressPrefix": "', destination_prefix,
-                        '", "sourceAddressPrefix":"*", "destinationAddressPrefix":"*", "access":"', access, 
-                        '", "priority":', str(priority), 
-                        ', "direction":"', direction, '" }}'])
+    properties = {'description': description}
+    properties['protocol'] = protocol
+    properties['sourcePortRange'] = source_range
+    properties['destinationPortRange'] = destination_range
+    properties['sourceAddressPrefix'] = source_prefix
+    properties['destinationAddressPrefix'] = destination_prefix
+    properties['sourceAddressPrefix'] = '*'
+    properties['destinationAddressPrefix'] = '*'
+    properties['access'] = access
+    properties['priority'] = priority
+    properties['direction'] = direction
+    ip_body = {'properties': properties}
+    body = json.dumps(ip_body)
     return do_put(endpoint, body, access_token)
 
 
@@ -86,9 +104,11 @@ def create_public_ip(access_token, subscription_id, resource_group, public_ip_na
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Network/publicIPAddresses/', public_ip_name,
                         '?api-version=', NETWORK_API])
-    body = ''.join(['{"location": "', location,
-                    '", "properties": {"publicIPAllocationMethod": "Dynamic", "dnsSettings": {',
-                    '"domainNameLabel": "', dns_label, '"}}}'])
+    ip_body = {'location': location}
+    properties = {'publicIPAllocationMethod': 'Dynamic'}
+    properties['dnsSettings'] = {'domainNameLabel': dns_label}
+    ip_body['properties'] = properties
+    body = json.dumps(ip_body)
     return do_put(endpoint, body, access_token)
 
 
@@ -100,14 +120,16 @@ def create_vnet(access_token, subscription_id, resource_group, name, location, a
                     '/resourceGroups/', resource_group,
                     '/providers/Microsoft.Network/virtualNetworks/', name,
                     '?api-version=', NETWORK_API])
+
+    vnet_body = {'location': location}
+    properties = {'addressSpace': {'addressPrefixes': [address_prefix]}}
+    subnet = {'name': 'subnet'}
+    subnet['properties'] = {'addressPrefix': address_prefix}
     if nsg_id is not None:
-        nsg_reference = ''.join([', "networkSecurityGroup": { "id": "',nsg_id,'"} '])
-    else:
-        nsg_reference = ''	
-    body = ''.join(['{   "location": "', location, '", "properties": ',
-                    '{"addressSpace": {"addressPrefixes": ["', address_prefix, '"]}, ',
-                    '"subnets": [ { "name": "subnet", "properties": { "addressPrefix": "', address_prefix, 
-                    '"', nsg_reference, '}}]}}'])
+        subnet['properties']['networkSecurityGroup'] = {'id': nsg_id}
+    properties['subnets'] = [subnet]
+    vnet_body['properties'] = properties
+    body = json.dumps(vnet_body)
     return do_put(endpoint, body, access_token)
 
 

@@ -1,5 +1,11 @@
 # azurerm - change log
 
+### v0.7.0 (Oct 31 2016):
+- All create functions have been refactored to make them easier to maintain.
+- Previously a PUT REST call had its JSON body constructed using join() to concatenate a string. This was cumbersome and messy to update.
+- Now a Python dictionary is constructed for the body, which is then converted to a string with json.dumps() 
+- In future it will be easier to create functions without messing with large join() strings.
+
 ### v0.6.17 (Oct 29 2016):
 - Add create_autoscale_rule() and create_autoscale_settings(). 
 - The output from create_autoscale_rule() is a dictionary object. Create a list of these rules and pass the list as an argument to create_autoscale setttings().

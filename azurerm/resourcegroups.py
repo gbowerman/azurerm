@@ -1,5 +1,5 @@
 # resourcegroups.py - azurerm functions for Resource Groups
-
+import json
 from .restfns import do_delete, do_get, do_put
 from .settings import azure_rm_endpoint, BASE_API
 
@@ -11,7 +11,8 @@ def create_resource_group(access_token, subscription_id, rgname, location):
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', rgname,
                         '?api-version=', BASE_API])
-    body = ''.join(['{\n   "location": "', location, '"\n}'])
+    rg_body = {'location': location}
+    body = json.dumps(rg_body)
     return do_put(endpoint, body, access_token)
 
 # delete_resource_group(access_token, subscription_id, rgname)

@@ -141,6 +141,7 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.create_vm(self.access_token, self.subscription_id, self.rgname, \
             self.vmname, vm_size, publisher, offer, sku, version, self.saname, os_uri, \
             username, password, self.nic_id, self.location)
+        # print(json.dumps(response.json()))
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], self.vmname)
 
@@ -150,6 +151,7 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.create_vmss(self.access_token, self.subscription_id, self.rgname, \
             self.vmssname, vm_size, capacity, publisher, offer, sku, version, self.container_list, \
             username, password, self.subnet_id, self.be_pool_id, self.lb_pool_id, self.location)
+        # print(json.dumps(response.json()))
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], self.vmssname)
 

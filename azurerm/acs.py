@@ -1,5 +1,5 @@
 # acs.py - azurerm functions for the Azure Container Service
-
+import json
 from .restfns import do_delete, do_get, do_put
 from .settings import azure_rm_endpoint, ACS_API
 
@@ -16,16 +16,19 @@ def create_container_service(access_token, subscription_id, resource_group, serv
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.ContainerService/ContainerServices/', service_name,
                         '?api-version=', ACS_API])
-    body = ''.join(['{  "location": "', location, 
-        '", "properties": { "orchestratorProfile": { "orchestratorType": "', orchestrator,
-        '" }, "masterProfile": { "count": ', str(master_count),
-        ', "dnsPrefix": "', master_dns, 
-        '"}, "agentPoolProfiles": [ { "name": "AgentPool1", "count": ', str(agent_count),
-        ', "vmSize": "', agent_vm_size,
-        '", "dnsPrefix": "', agent_dns, 
-        '"}],"linuxProfile": {"adminUsername": "', admin_user,
-        '","ssh": {"publicKeys": [{"keyData": "', public_key,
-        '"}]}}}}'])
+    acs_body = {'location': location }
+    properties = {'orchestratorProfile': { 'orchestratorType': orchestrator}}
+    properties['masterProfile'] = {'count': master_count, 'dnsPrefix': master_dns}
+    ap_profile = {'name': 'AgentPool1'}
+    ap_profile['count'] = agent_count
+    ap_profile['vmSize'] = agent_vm_size
+    ap_profile['dnsPrefix'] = agent_dns
+    properties['agentPoolProfiles'] = [ap_profile]
+    linux_profile = {'adminUsername': admin_user}
+    linux_profile['ssh'] = {'publicKeys': [{'keyData': public_key}]}
+    properties['linuxProfile'] = linux_profile
+    acs_body['properties'] = properties
+    body = json.dumps(acs_body)
     return do_put(endpoint, body, access_token)
 
 # delete_container_service(access_token, subscription_id, resource_group, container_service_name) 

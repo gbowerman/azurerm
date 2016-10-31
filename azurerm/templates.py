@@ -1,5 +1,5 @@
 # templates.py - azurerm functions for deploying templates
-
+import json
 from .restfns import do_put
 from .settings import azure_rm_endpoint, BASE_API
 
@@ -12,11 +12,11 @@ def deploy_template(access_token, subscription_id, resource_group, deployment_na
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,
                         '?api-version=', BASE_API])
-    body = ''.join(['{   "properties": {     "template": ', template,
-                    ',     "mode": "Incremental",',
-                    '     "parameters": ', parameters,
-                    '}}'])
-
+    properties = {'template': template}
+    properties['mode'] = 'Incremental'
+    properties = {'parameters': parameters}
+    template_body = {'properties': properties}
+    body = json.dumps(template_body)    
     return do_put(endpoint, body, access_token)
 
 
@@ -28,11 +28,11 @@ def deploy_template_uri(access_token, subscription_id, resource_group, deploymen
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,
                         '?api-version=', BASE_API])
-    body = ''.join(['{   "properties": {     "templateLink": {       "uri": "', template_uri,
-                    '",       "contentVersion": "1.0.0.0"     },',
-                    '     "mode": "Incremental",',
-                    '     "parameters": ', parameters,
-                    '   } }'])
+    properties = {'templateLink': {'uri': template_uri, 'contentVersion': '1.0.0.0'}}
+    properties['mode'] = 'Incremental'
+    properties = {'parameters': parameters}
+    template_body = {'properties': properties}
+    body = json.dumps(template_body)                        
     return do_put(endpoint, body, access_token)
 
 
@@ -45,7 +45,9 @@ def deploy_template_uri_param_uri(access_token, subscription_id, resource_group,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,
                         '?api-version=', BASE_API])
-    body = ''.join(['{   "properties": {     "templateLink": {       "uri": "', template_uri,
-                    '",       "contentVersion": "1.0.0.0"     },     "mode": "Incremental",     "parametersLink": {       "uri": "',
-                    parameters_uri, '",       "contentVersion": "1.0.0.0"           }   } }'])
+    properties = {'templateLink': {'uri': template_uri, 'contentVersion': '1.0.0.0'}}
+    properties['mode'] = 'Incremental'
+    properties = {'parametersLink': {'uri': parameters_uri, 'contentVersion': '1.0.0.0'}}
+    template_body = {'properties': properties}
+    body = json.dumps(template_body)
     return do_put(endpoint, body, access_token)
