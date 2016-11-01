@@ -102,6 +102,6 @@ password = Haikunator.haikunate(delimiter=',') # creates random password
 
 print('Creating VM: ' + vm_name)
 rmreturn = azurerm.create_vm(access_token, subscription_id, name, vm_name, vm_size, publisher, offer, sku,
-                             version, name, os_uri, username, password, nic_id, location)
+                             version, name, os_uri, nic_id, location, username=username, password=password)
 print(rmreturn)
 print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))

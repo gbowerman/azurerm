@@ -1,5 +1,17 @@
 # azurerm - change log
 
+### v0.7.1 (Oct 31 2016):
+- BREAKING CHANGE: to support sha key support in create_vm() and create_vmss() 
+- These function have new positions for user/password, and the new public_key parameter
+- You can now provide a public_key OR a password (or both if you want)
+- New usage: 
+create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version, storage_account, os_uri, nic_id, location, username='azure', password=None, public_key=None)
+- it is recommended to pass in the username, password and/or public_key as named parameters to avoid confusion. 
+
+- New usage: 
+create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, publisher, offer, sku, version, storage_container_list, subnet_id, be_pool_id, lb_pool_id, location, username='azure', password=None, public_key=None, overprovision='true', upgradePolicy='Manual') 
+- it is recommended to pass in any optional parameters after username as named parameters to avoid confusion.
+
 ### v0.7.0 (Oct 31 2016):
 - All create functions have been refactored to make them easier to maintain.
 - Previously a PUT REST call had its JSON body constructed using join() to concatenate a string. This was cumbersome and messy to update.

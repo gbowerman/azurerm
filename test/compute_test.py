@@ -13,6 +13,9 @@ import time
 from random import choice
 from string import ascii_lowercase
 
+from cryptography.hazmat.primitives import serialization
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.backends import default_backend
 
 class TestAzurermPy(unittest.TestCase):
 
@@ -37,6 +40,12 @@ class TestAzurermPy(unittest.TestCase):
         self.saname = Haikunator.haikunate(delimiter='')
         self.vmname = Haikunator.haikunate(delimiter='')
         self.vmssname = Haikunator.haikunate(delimiter='')
+
+        # generate RSA Key for compute resources
+        key = rsa.generate_private_key(backend=default_backend(), public_exponent=65537, \
+            key_size=2048)
+        self.public_key = key.public_key().public_bytes(serialization.Encoding.OpenSSH, \
+            serialization.PublicFormat.OpenSSH).decode('utf-8')
 
         # create resource group
         print('Creating resource group: ' + self.rgname)
@@ -140,7 +149,7 @@ class TestAzurermPy(unittest.TestCase):
         print('Creating VM: ' + self.vmname)
         response = azurerm.create_vm(self.access_token, self.subscription_id, self.rgname, \
             self.vmname, vm_size, publisher, offer, sku, version, self.saname, os_uri, \
-            username, password, self.nic_id, self.location)
+            self.nic_id, self.location, username=username, public_key=self.public_key)
         # print(json.dumps(response.json()))
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], self.vmname)
@@ -150,7 +159,8 @@ class TestAzurermPy(unittest.TestCase):
         print('Creating VMSS: ' + self.vmssname + ', capacity = ' + str(capacity))
         response = azurerm.create_vmss(self.access_token, self.subscription_id, self.rgname, \
             self.vmssname, vm_size, capacity, publisher, offer, sku, version, self.container_list, \
-            username, password, self.subnet_id, self.be_pool_id, self.lb_pool_id, self.location)
+            self.subnet_id, self.be_pool_id, self.lb_pool_id, self.location, username=username, \
+            public_key=self.public_key)
         # print(json.dumps(response.json()))
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], self.vmssname)

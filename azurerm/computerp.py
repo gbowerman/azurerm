@@ -6,10 +6,10 @@ import json
 
 
 # create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
-#              storage_account, os_uri, username, password, nic_id, location)
+#              storage_account, os_uri, nic_id, location, username='azure', password=None, public_key=None)
 # create a simple virtual machine - in most cases deploying an ARM template might be easier
 def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
-              storage_account, os_uri, username, password, nic_id, location):
+              storage_account, os_uri, nic_id, location, username='azure', password=None, public_key=None):
     endpoint = ''.join([azure_rm_endpoint,
                 '/subscriptions/', subscription_id,
                 '/resourceGroups/', resource_group,
@@ -26,7 +26,20 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
     os_disk['createOption'] = 'fromImage'
     storage_profile['osDisk'] = os_disk
     properties['storageProfile'] = storage_profile
-    os_profile = {'computerName': vm_name, 'adminUsername': username, 'adminPassword': password}
+    os_profile = {'computerName': vm_name}
+    os_profile['adminUsername'] = username
+    if password is not None:
+        os_profile['adminPassword'] = password
+    if public_key is not None:
+        if password is None:
+            disable_pswd = True
+        else:
+            disable_pswd = False
+        linux_config = {'disablePasswordAuthentication': disable_pswd}
+        pub_key = {'path': '/home/' + username +'/.ssh/authorized_keys'}
+        pub_key['keyData'] = public_key
+        linux_config['ssh'] = {'publicKeys': [pub_key]}
+        os_profile['linuxConfiguration'] = linux_config
     properties['osProfile'] = os_profile
     network_profile = {'networkInterfaces': [{'id': nic_id, 'properties': {'primary': True}}]}
     properties['networkProfile'] = network_profile
@@ -36,12 +49,14 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
 
 
 # create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, \
-#    publisher, offer, sku, version, storage_container_list, os_uri, username, password, \
-#    subnet_id, lb_pool_id, location, overprovision='true', upgradePolicy='Manual')
+#   publisher, offer, sku, version, storage_container_list, subnet_id, be_pool_id, lb_pool_id, \
+#   location, username='azure', password=None, public_key=None, overprovision='true', \
+#   upgradePolicy='Manual')
 # create virtual machine scale set
 def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, \
-    publisher, offer, sku, version, storage_container_list, username, password, subnet_id,\
-    be_pool_id, lb_pool_id, location, overprovision='true', upgradePolicy='Manual'):
+    publisher, offer, sku, version, storage_container_list, subnet_id, be_pool_id, lb_pool_id, \
+    location, username='azure', password=None, public_key=None, overprovision='true', \
+    upgradePolicy='Manual'):
     endpoint = ''.join([azure_rm_endpoint,
                 '/subscriptions/', subscription_id,
                 '/resourceGroups/', resource_group,
@@ -55,11 +70,22 @@ def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_siz
     properties['upgradePolicy'] = {'mode': upgradePolicy}
     os_profile = {'computerNamePrefix': vmss_name}
     os_profile['adminUsername'] = username
-    os_profile['adminPassword'] = password
+    if password is not None:
+        os_profile['adminPassword'] = password
+    if public_key is not None:
+        if password is None:
+            disable_pswd = True
+        else:
+            disable_pswd = False
+        linux_config = {'disablePasswordAuthentication': disable_pswd}
+        pub_key = {'path': '/home/' + username +'/.ssh/authorized_keys'}
+        pub_key['keyData'] = public_key
+        linux_config['ssh'] = {'publicKeys': [pub_key]}
+        os_profile['linuxConfiguration'] = linux_config
     vm_profile = {'osProfile': os_profile}
     os_disk = {'name': vmss_name}
     os_disk['vhdContainers'] = storage_container_list
-    os_disk['caching'] = 'ReadOnly'
+    os_disk['caching'] = 'ReadWrite'
     os_disk['createOption'] = 'FromImage'
     storage_profile = {'osDisk': os_disk}
     storage_profile['imageReference'] = \

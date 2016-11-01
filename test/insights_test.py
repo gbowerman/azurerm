@@ -90,7 +90,8 @@ class TestAzurermPy(unittest.TestCase):
         print('Creating VMSS: ' + self.vmssname + ', capacity = ' + str(capacity))
         response = azurerm.create_vmss(self.access_token, self.subscription_id, self.rgname, \
             self.vmssname, vm_size, capacity, publisher, offer, sku, version, self.container_list, \
-            username, password, self.subnet_id, self.be_pool_id, self.lb_pool_id, self.location)
+            self.subnet_id, self.be_pool_id, self.lb_pool_id, self.location, username=username, \
+            password=password)
             
 
     def tearDown(self):
