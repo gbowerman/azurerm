@@ -1,5 +1,5 @@
 # amsrp.py - azurerm functions for the Microsoft.Media resource provider
-
+import json
 from .restfns import do_get, do_post, do_put, do_delete
 from .settings import azure_rm_endpoint, MEDIA_API
 
@@ -10,7 +10,9 @@ def check_media_service_name_availability(access_token, subscription_id, name):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/providers/microsoft.media/CheckNameAvailability?api-version=', MEDIA_API])
-    body = '{"name": "' + name + '", "type":"mediaservices"}'
+    ms_body = {'name': name}
+    ms_body['type'] = 'mediaservices'
+    body = json.dumps(ms_body)
     return do_post(endpoint, body, access_token)
 
 # create_media_service_rg(access_token, subscription_id, rgname)
@@ -20,8 +22,14 @@ def create_media_service_rg(access_token, subscription_id, rgname, location, sto
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', rgname,
                         '/providers/microsoft.media/mediaservices/' + name + '?api-version=', MEDIA_API])
-
-    body = '{"name":"' + name + '", "location":"' + location + '", "properties":{  "storageAccounts":[  {  "id":"/subscriptions/' + subscription_id + '/resourceGroups/' + rgname + '/providers/Microsoft.Storage/storageAccounts/' + stoname + '", "isPrimary":true } ] } }'
+    ms_body = {'name': name}
+    ms_body['location'] = location
+    sub_id_str = '/subscriptions/' + subscription_id + '/resourceGroups/' + rgname + \
+        '/providers/Microsoft.Storage/storageAccounts/' + stoname
+    storage_account = {'id': sub_id_str}
+    storage_account['isPrimary'] = True
+    properties = {'storageAccounts': [storage_account]}
+    body = json.dumps(ms_body)
     return do_put(endpoint, body, access_token)
 
 

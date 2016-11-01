@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.7.2 (Oct 31 2016):
+- Refactored azure media services functions (finishing the changes in 0.7.0)
+
+
 ### v0.7.1 (Oct 31 2016):
 - BREAKING CHANGE: to support sha key support in create_vm() and create_vmss() 
 - These function have new positions for user/password, and the new public_key parameter
