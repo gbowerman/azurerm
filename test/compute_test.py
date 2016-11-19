@@ -184,6 +184,13 @@ class TestAzurermPy(unittest.TestCase):
         # print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
         self.assertTrue(len(response['value']) > 0)
 
+        # list VMSS skus
+        print('Listing VMSS skus')
+        response = azurerm.list_vmss_skus(self.access_token, self.subscription_id, \
+            self.rgname, self.vmssname)
+        # print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
+        self.assertTrue(len(response['value']) > 0)
+
         # delete VM
         print('Deleting VM: ' + self.vmname)
         response = azurerm.delete_vm(self.access_token, self.subscription_id, self.rgname, \

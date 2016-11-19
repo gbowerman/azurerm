@@ -1,8 +1,11 @@
 # azurerm - change log
 
+### v0.7.3 (Nov 19 2016):
+- Added list_vmss_skus(access_token, subscription_id, resource_group, vmss_name)
+- list the VM skus available for a VM Scale Set
+
 ### v0.7.2 (Oct 31 2016):
 - Refactored azure media services functions (finishing the changes in 0.7.0)
-
 
 ### v0.7.1 (Oct 31 2016):
 - BREAKING CHANGE: to support sha key support in create_vm() and create_vmss() 

@@ -341,6 +341,18 @@ def list_vmss(access_token, subscription_id, resource_group):
     return do_get_next(endpoint, access_token)
 
 
+# list_vmss_skus(access_token, subscription_id, resource_group, vmss_name)
+# list the VM skus available for a VM Scale Set
+def list_vmss_skus(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                        '/skus',
+                        '?api-version=', COMP_API])
+    return do_get_next(endpoint, access_token)
+
+
 # list_vmss_sub(access_token, subscription_id)
 # list VM Scale Sets in a subscription
 def list_vmss_sub(access_token, subscription_id):
