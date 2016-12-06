@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.7.4 (Dec 5 2016):
+- Updated Microsoft.Compute API version to 2016-04-30-preview
+- This is to support preview scale set features like managed disks and large scale sets
+
 ### v0.7.3 (Nov 19 2016):
 - Added list_vmss_skus(access_token, subscription_id, resource_group, vmss_name)
 - list the VM skus available for a VM Scale Set
