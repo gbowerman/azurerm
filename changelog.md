@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.7.5 (Dec 9 2016):
+- Update NETWORK_API to 2016-09-01
+- This change fixes get_vmss_nics()
+
 ### v0.7.4 (Dec 5 2016):
 - Updated Microsoft.Compute API version to 2016-04-30-preview
 - This is to support preview scale set features like managed disks and large scale sets
