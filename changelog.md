@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.7.6 (Jan 6 2017):
+- Update COMPUTE_API to 2016-08-30
+- Adds ability to update customData property of a VM scale set
+
 ### v0.7.5 (Dec 9 2016):
 - Update NETWORK_API to 2016-09-01
 - This change fixes get_vmss_nics()
