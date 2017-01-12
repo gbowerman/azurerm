@@ -1,5 +1,7 @@
 # VIP swap test script
 # requires 2 load balancers, in the same resource group, with public IP addresses
+# can be used to swap a staging scale application into production
+
 import azurerm
 import argparse
 import json
@@ -79,7 +81,6 @@ def main():
     if verbose == True:
         print(json.dumps(ret, sort_keys=False, indent=2, separators=(',', ': ')))
     
-
     # 3. Get lb 1
     print('Getting load balancer: ' + lb1)
     lbmodel1 = azurerm.get_load_balancer(access_token, subscription_id, resource_group, lb1)
@@ -91,6 +92,7 @@ def main():
 
     print('Waiting for ' + lb2 + ' ip to be unnassigned')
     time.sleep(40)
+
     # 4. Assign old ip 2 to lb 1
     print('Downtime begins: Updating ' + lb1 + ' ip to ip from ' + lb2)
     lbmodel1['properties']['frontendIPConfigurations'][0]['properties']['publicIPAddress']['id'] = lb2_ip_id
@@ -98,12 +100,13 @@ def main():
     if (ret.status_code != 200):
         handle_bad_update("updating " + lb1, ret)
     else:
-        print('Downtime over: Staging IP now in production. Original ip id: ' + lb1_ip_id + ', new ip id: ' + lb2_ip_id)
+        print('Staging IP now points to production. Original ip id: ' + lb1_ip_id + ', new ip id: ' + lb2_ip_id)
     if verbose == True:
         print(json.dumps(ret, sort_keys=False, indent=2, separators=(',', ': ')))
 
     print('Waiting for ' + lb1 + ' ip to be unnassigned')
-    time.sleep(40)
+    time.sleep(40) # to do: loop to check this instead of hardcoded time
+
     # 5. Assign old ip 1 to lb 2
     print('Updating ' + lb2 + ' ip to ip from ' + lb1)
     lbmodel2['properties']['frontendIPConfigurations'][0]['properties']['publicIPAddress']['id'] = lb1_ip_id
