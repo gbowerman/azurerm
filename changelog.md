@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.7.7 (Jan 10 2017):
+- Add update_load_balancer() - makes it easy to change load balancer configuration
+- Add vip_swap.py to examples 
+
 ### v0.7.6 (Jan 6 2017):
 - Update COMPUTE_API to 2016-08-30
 - Adds ability to update customData property of a VM scale set

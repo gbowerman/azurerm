@@ -1,7 +1,7 @@
 from setuptools import setup
 
 setup(name='azurerm',
-      version='0.7.6',
+      version='0.7.7',
       description='Azure Resource Manager REST wrappers',
       url='http://github.com/gbowerman/azurerm',
       author='sendmarsh',

@@ -339,3 +339,14 @@ def list_vnets(access_token, subscription_id):
                         '/providers/Microsoft.Network/',
                         '/virtualNetworks?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
+
+    
+# update_load_balancer(access_token, subscription_id, resource_group, lb_name, body)
+# updates a load balancer model, i.e. PUT an updated LB body
+def update_load_balancer(access_token, subscription_id, resource_group, lb_name, body):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/loadBalancers/', lb_name,
+                        '?api-version=', NETWORK_API])
+    return do_put(endpoint, body, access_token)
