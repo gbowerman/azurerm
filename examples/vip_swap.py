@@ -89,6 +89,7 @@ def main():
         print(lb1 + ' model:')
         print(json.dumps(lbmodel1, sort_keys=False, indent=2, separators=(',', ': ')))
 
+    print('Waiting for ' + lb2 + ' ip to be unnassigned')
     time.sleep(40)
     # 4. Assign old ip 2 to lb 1
     print('Downtime begins: Updating ' + lb1 + ' ip to ip from ' + lb2)
@@ -101,6 +102,7 @@ def main():
     if verbose == True:
         print(json.dumps(ret, sort_keys=False, indent=2, separators=(',', ': ')))
 
+    print('Waiting for ' + lb1 + ' ip to be unnassigned')
     time.sleep(40)
     # 5. Assign old ip 1 to lb 2
     print('Updating ' + lb2 + ' ip to ip from ' + lb1)
