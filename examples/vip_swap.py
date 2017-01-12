@@ -5,6 +5,7 @@ import argparse
 import json
 import sys
 from haikunator import Haikunator # used to create a random ip name for the floating ip
+import time
 
 def handle_bad_update(operation, ret):
     print("Error " + operation)
@@ -88,7 +89,7 @@ def main():
         print(lb1 + ' model:')
         print(json.dumps(lbmodel1, sort_keys=False, indent=2, separators=(',', ': ')))
 
-
+    time.sleep(40)
     # 4. Assign old ip 2 to lb 1
     print('Downtime begins: Updating ' + lb1 + ' ip to ip from ' + lb2)
     lbmodel1['properties']['frontendIPConfigurations'][0]['properties']['publicIPAddress']['id'] = lb2_ip_id
@@ -100,6 +101,7 @@ def main():
     if verbose == True:
         print(json.dumps(ret, sort_keys=False, indent=2, separators=(',', ': ')))
 
+    time.sleep(40)
     # 5. Assign old ip 1 to lb 2
     print('Updating ' + lb2 + ' ip to ip from ' + lb1)
     lbmodel2['properties']['frontendIPConfigurations'][0]['properties']['publicIPAddress']['id'] = lb1_ip_id
