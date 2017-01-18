@@ -2,18 +2,25 @@ import azurerm
 import json
 import sys
 
+Summary = False
+
 def print_region_quota(region):
-    print(region)
+    print(region + ':')
     quota = azurerm.get_compute_usage(access_token, subscription_id, region)
-    print(json.dumps(quota, sort_keys=False, indent=2, separators=(',', ': ')))
-    for resource in quota['value']:
-        if resource['name']['value'] == 'cores':
-            print('Current: ' + str(resource['currentValue']) + ', limit: ' + str(resource['limit']))
-            break
+    if Summary == False:
+        print(json.dumps(quota, sort_keys=False, indent=2, separators=(',', ': ')))
+    try:
+        for resource in quota['value']:
+            if resource['name']['value'] == 'cores':
+                print('   Current: ' + str(resource['currentValue']) + ', limit: ' + str(resource['limit']))
+                break
+    except KeyError:
+        print('Invalid data for region: ' + region)
 
 # check for single command argument    
 if len(sys.argv) != 2:
     region = 'all'
+    Summary = True
 else:
     region = sys.argv[1]
 
@@ -40,7 +47,4 @@ if region == 'all':
         print_region_quota(location['name'])
 else:
     print_region_quota(region)
-
-    
-
 
