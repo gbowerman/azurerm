@@ -306,7 +306,7 @@ def list_vm_instance_view(access_token, subscription_id, resource_group):
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Compute/virtualMachines',
                         '?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
-    return do_get(endpoint, access_token)
+    return do_get_next(endpoint, access_token)
 
 
 # list_vms(access_token, subscription_id, resource_group)
@@ -371,7 +371,8 @@ def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vm
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                         '/virtualMachines?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
-    return do_get(endpoint, access_token)
+    print(endpoint)
+    return do_get_next(endpoint, access_token)
 
 
 # list_vmss_vms(access_token, subscription_id, resource_group, vmss_name)
@@ -383,7 +384,7 @@ def list_vmss_vms(access_token, subscription_id, resource_group, vmss_name):
                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                         '/virtualMachines',
                         '?api-version=', COMP_API])
-    return do_get(endpoint, access_token)
+    return do_get_next(endpoint, access_token)
 
 
 # poweroff_vmss(access_token, subscription_id, resource_group, vmss_name)
