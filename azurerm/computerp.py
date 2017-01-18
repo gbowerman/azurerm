@@ -371,7 +371,6 @@ def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vm
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                         '/virtualMachines?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
-    print(endpoint)
     return do_get_next(endpoint, access_token)
 
 

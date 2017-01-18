@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.7.8 (Jan 18 2017):
+- Update list_vmss_vm_instance_view() to use paginated API
+- Set COMP_API version to be 2016-04-30-preview
+
 ### v0.7.7 (Jan 10 2017):
 - Add update_load_balancer() - makes it easy to change load balancer configuration
 - Add vip_swap.py to examples 
