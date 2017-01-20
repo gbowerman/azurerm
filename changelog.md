@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.7.9 (Jan 19 2017):
+- Update BASE_API for Resource Manager calls to 2016-09-01
+
 ### v0.7.8 (Jan 18 2017):
 - Update list_vmss_vm_instance_view() to use paginated API
 - Set COMP_API version to be 2016-04-30-preview
