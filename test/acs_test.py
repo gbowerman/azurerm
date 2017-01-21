@@ -32,10 +32,11 @@ class TestAzurermPy(unittest.TestCase):
         self.location = configData['location']
 
         # create resource names
-        self.rgname = Haikunator.haikunate()
-        self.service_name = Haikunator.haikunate(delimiter='')
-        self.agent_dns = Haikunator.haikunate(delimiter='')
-        self.master_dns = Haikunator.haikunate(delimiter='')
+        h = Haikunator()
+        self.rgname = h.haikunate()
+        self.service_name = h.haikunate(delimiter='')
+        self.agent_dns = h.haikunate(delimiter='')
+        self.master_dns = h.haikunate(delimiter='')
 
         # generate RSA Key for container service
         key = rsa.generate_private_key(backend=default_backend(), public_exponent=65537, \

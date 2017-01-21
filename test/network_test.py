@@ -25,7 +25,8 @@ class TestAzurermPy(unittest.TestCase):
         self.access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
         self.location = configData['location']
         # generate resource group name
-        self.rgname = Haikunator.haikunate()
+        self.h = Haikunator()
+        self.rgname = self.h.haikunate()
 
         # create resource group
         print('Creating resource group: ' + self.rgname)
@@ -34,7 +35,7 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
         # generate vnet name
-        self.vnet = Haikunator.haikunate(delimiter='')
+        self.vnet = self.h.haikunate(delimiter='')
         # generate public ip address names
         self.ipname = self.vnet + 'ip'
         self.lbipname = self.vnet + 'lbip'

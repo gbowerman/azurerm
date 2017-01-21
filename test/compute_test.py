@@ -35,11 +35,12 @@ class TestAzurermPy(unittest.TestCase):
         self.location = configData['location']
         
         # generate names used in tests
-        self.rgname = Haikunator.haikunate()
-        self.vnet = Haikunator.haikunate(delimiter='')
-        self.saname = Haikunator.haikunate(delimiter='')
-        self.vmname = Haikunator.haikunate(delimiter='')
-        self.vmssname = Haikunator.haikunate(delimiter='')
+        self.h = Haikunator()
+        self.rgname = self.h.haikunate()
+        self.vnet = self.h.haikunate()
+        self.saname = self.h.haikunate(delimiter='')
+        self.vmname = self.h.haikunate(delimiter='')
+        self.vmssname = self.h.haikunate(delimiter='')
 
         # generate RSA Key for compute resources
         key = rsa.generate_private_key(backend=default_backend(), public_exponent=65537, \
@@ -144,7 +145,7 @@ class TestAzurermPy(unittest.TestCase):
         version = 'latest'
         os_uri = 'http://' + self.saname + '.blob.core.windows.net/vhds/osdisk.vhd'
         username = 'rootuser'
-        password = Haikunator.haikunate(delimiter=',')
+        password = self.h.haikunate(',')
 
         print('Creating VM: ' + self.vmname)
         response = azurerm.create_vm(self.access_token, self.subscription_id, self.rgname, \

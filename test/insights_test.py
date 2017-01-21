@@ -31,10 +31,11 @@ class TestAzurermPy(unittest.TestCase):
         self.location = configData['location']
         
         # generate names for resources
-        self.rgname = Haikunator.haikunate()
-        self.vnet = Haikunator.haikunate(delimiter='')
-        self.vmssname = Haikunator.haikunate(delimiter='')
-        self.setting_name = Haikunator.haikunate(delimiter='')
+        self.h = Haikunator()
+        self.rgname = self.h.haikunate()
+        self.vnet = self.h.haikunate(delimiter='')
+        self.vmssname = self.h.haikunate(delimiter='')
+        self.setting_name = self.h.haikunate(delimiter='')
 
         # create resource group
         print('Creating resource group: ' + self.rgname)
@@ -86,7 +87,7 @@ class TestAzurermPy(unittest.TestCase):
         sku = '16.04.0-LTS'
         version = 'latest'
         username = 'rootuser'
-        password = Haikunator.haikunate(delimiter=',')
+        password = self.h.haikunate(delimiter=',')
         print('Creating VMSS: ' + self.vmssname + ', capacity = ' + str(capacity))
         response = azurerm.create_vmss(self.access_token, self.subscription_id, self.rgname, \
             self.vmssname, vm_size, capacity, publisher, offer, sku, version, self.container_list, \

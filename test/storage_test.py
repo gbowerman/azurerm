@@ -24,7 +24,8 @@ class TestAzurermPy(unittest.TestCase):
         self.subscription_id = configData['subscriptionId']
         self.access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
         self.location = configData['location']
-        self.rgname = Haikunator.haikunate()
+        h = Haikunator()
+        self.rgname = h.haikunate()
 
         # create resource group
         print('Creating resource group: ' + self.rgname)
@@ -33,7 +34,7 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
 
         # storage account name
-        self.storage_account = Haikunator.haikunate(delimiter='')
+        self.storage_account = h.haikunate(delimiter='')
 
     def tearDown(self):
         # delete resource group

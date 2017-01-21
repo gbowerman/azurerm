@@ -23,7 +23,8 @@ class TestAzurermPy(unittest.TestCase):
         self.subscription_id = configData['subscriptionId']
         self.access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
         self.location = configData['location']
-        self.rgname = Haikunator.haikunate()
+        h = Haikunator()
+        self.rgname = h.haikunate()
 
     def tearDown(self):
         pass
