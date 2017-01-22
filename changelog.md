@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.7.11 (Jan 22 2017):
+- Add paginated list_vmss_vm_instance_view_pg() function to make it easier to get a smaller list of instances views at a time
+
 ### v0.7.10 (Jan 20 2017):
 - Fix adal deprecation issue
 

@@ -285,6 +285,7 @@ list_vmss(access_token, subscription_id, resource_group) # list the VM Scale Set
 list_vmss_skus(access_token, subscription_id, resource_group, vmss_name) # list the VM skus available for a VM Scale Set
 list_vmss_sub(access_token, subscription_id) # list the VM Scale Sets in a subscription
 list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name) # list the VMSS VM instance views in a scale set
+list_vmss_vm_instance_view_pg(access_token, subscription_id, resource_group, vmss_name) # gets one page of a paginated list of scale set VM instance views
 list_vmss_vms(access_token, subscription_id, resource_group, vmss_name) # list the VMs in a VM Scale Set
 restart_vm(access_token, subscription_id, resource_group, vm_name) # restart a virtual machine
 restart_vmss(access_token, subscription_id, resource_group, vmss_name) # restart all the VMs in a virtual machine scale set

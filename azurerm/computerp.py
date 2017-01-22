@@ -364,7 +364,7 @@ def list_vmss_sub(access_token, subscription_id):
 
 
 # list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name)
-# list the VMSS VM instance views in a scale set
+# list the VMSS VM instance views in a scale set - uses do_get_next to get all of them in a loop
 def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
@@ -372,6 +372,20 @@ def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vm
                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                         '/virtualMachines?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
     return do_get_next(endpoint, access_token)
+
+
+# list_vmss_vm_instance_view_pg(access_token, subscription_id, resource_group, vmss_name)
+# gets one page of a paginated list of scale set VM instance views
+def list_vmss_vm_instance_view_pg(access_token, subscription_id, resource_group, vmss_name, link=None):
+    if link is None:
+        endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                        '/virtualMachines?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
+    else:
+        endpoint = link
+    return do_get(endpoint, access_token)
 
 
 # list_vmss_vms(access_token, subscription_id, resource_group, vmss_name)
