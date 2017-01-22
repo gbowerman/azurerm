@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.7.10 (Jan 20 2017):
+- Fix adal deprecation issue
+
 ### v0.7.9 (Jan 19 2017):
 - Update BASE_API for Resource Manager calls to 2016-09-01
 
