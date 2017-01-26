@@ -41,6 +41,7 @@ class TestAzurermPy(unittest.TestCase):
         self.saname = self.h.haikunate(delimiter='')
         self.vmname = self.h.haikunate(delimiter='')
         self.vmssname = self.h.haikunate(delimiter='')
+        self.asname = self.h.haikunate()
 
         # generate RSA Key for compute resources
         key = rsa.generate_private_key(backend=default_backend(), public_exponent=65537, \
@@ -166,6 +167,13 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], self.vmssname)
 
+        # create availability set
+        print('Creating availability set: ' + self.asname + ', update domains = 5, fault domains = 3')
+        response = azurerm.create_as(self.access_token, self.subscription_id, self.rgname,
+                                     self.asname, 5, 3, self.location)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['name'], self.asname)
+
         # get compute usage
         print('Getting compute usage')
         response = azurerm.get_compute_usage(self.access_token, self.subscription_id, self.location)
@@ -177,6 +185,11 @@ class TestAzurermPy(unittest.TestCase):
             self.rgname, self.vmname)
         # print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
         self.assertEqual(response['statuses'][0]['displayStatus'], 'Creating')
+
+        # get availability set details
+        print('Getting availability set details')
+        response = azurerm.get_as(self.access_token, self.subscription_id, self.rgname, self.asname)
+        self.assertEqual(response['name'], self.asname)
 
         # list vm instance views
         print('Listing VM instance views')
