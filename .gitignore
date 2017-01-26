@@ -5,6 +5,9 @@ ehthumbs.db
 # Folder config file
 Desktop.ini
 
+# pypi upload file
+pyupload.bat
+
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
@@ -58,5 +61,5 @@ Network Trash Folder
 Temporary Items
 .apdisk
 
-# builid directory
+# build directory
 build/*
