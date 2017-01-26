@@ -259,14 +259,15 @@ deploy_template_uri_param_uri(access_token, subscription_id, resource_group, dep
 
 #### Virtual machines and VM Scale Sets (Compute Resource provider)
 ```
+create_as(access_token, subscription_id, resource_group, as_name, update_domains, fault_domains, location) # create an availability set
 create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version, storage_account, os_uri, nic_id, location, username='azure', password=None, public_key=None) # simple vm create function
 create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, publisher, offer, sku, version, storage_container_list, subnet_id, be_pool_id, lb_pool_id, location, username='azure', password=None, public_key=None, overprovision='true', upgradePolicy='Manual') #  create virtual machine scale set
-create_as(access_token, subscription_id, resource_group, as_name, update_domains, fault_domains, location) # create an availability set
 deallocate_vm(access_token, subscription_id, resource_group, vm_name) # stop#deallocate a virtual machine
+delete_as(access_token, subscription_id, resource_group, as_name) # delete an availability set
 delete_vm(access_token, subscription_id, resource_group, vm_name) # delete a virtual machine
 delete_vmss(access_token, subscription_id, resource_group, vmss_name) # delete a virtual machine scale set
 delete_vmss_vms(access_token, subscription_id, resource_group, vm_ids) # delete a VM in a VM Scale Set
-delete_as(access_token, subscription_id, resource_group, as_name) # delete an availability set
+get_as(access_token, subscription_id, resource_group, as_name) # get availability set details
 get_compute_usage(access_token, subscription_id, location) # list compute usage and limits for a location
 get_vm(access_token, subscription_id, resource_group, vm_name) # get virtual machine details
 get_vm_extension(access_token, subscription_id, resource_group, vm_name, extension_name) # get details about a VM extension
@@ -277,7 +278,6 @@ get_vmss_nics(access_token, subscription_id, resource_group, vmss_name) # get NI
 get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) # get individual VMSS VM details
 get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id) # get individual VMSS VM instance view
 get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id) # get NIC details for a VMSS VM
-get_as(access_token, subscription_id, resource_group, as_name) # get availability set details
 list_as(access_token, subscription_id, resource_group) # list availability sets in a resource_group
 list_as_sub(access_token, subscription_id) # list availability sets in a subscription
 list_vm_images_sub(access_token, subscription_id) # list VM images in a subscription

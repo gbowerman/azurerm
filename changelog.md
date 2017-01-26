@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.7.12 (Jan 26 2017):
+- Add Availability Set support: create_as(), get_as(), delete_as(). Thanks @KineticHub
+- See also create_as.py in examples.
+
 ### v0.7.11 (Jan 22 2017):
 - Add paginated list_vmss_vm_instance_view_pg() function to make it easier to get a smaller list of instances views at a time
 

@@ -5,6 +5,25 @@ from .settings import azure_rm_endpoint, COMP_API, NETWORK_API
 import json
 
 
+# create_as(access_token, subscription_id, resource_group, as_name, \
+#   update_domains, fault_domains, location)
+# create availability set
+def create_as(access_token, subscription_id, resource_group, as_name,
+              update_domains, fault_domains, location):
+
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/availabilitySets/', as_name,
+                        '?api-version=', COMP_API])
+    as_body = {'location': location}
+    properties = {'platformUpdateDomainCount': update_domains}
+    properties['platformFaultDomainCount'] = fault_domains
+    as_body['properties'] = properties
+    body = json.dumps(as_body)
+    return do_put(endpoint, body, access_token)
+
+
 # create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
 #              storage_account, os_uri, nic_id, location, username='azure', password=None, public_key=None)
 # create a simple virtual machine - in most cases deploying an ARM template might be easier
@@ -107,24 +126,6 @@ def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_siz
     return do_put(endpoint, body, access_token)
 
 
-# create_as(access_token, subscription_id, resource_group, as_name, \
-#   update_domains, fault_domains, location)
-# create availability set
-def create_as(access_token, subscription_id, resource_group, as_name,
-              update_domains, fault_domains, location):
-
-    endpoint = ''.join([azure_rm_endpoint,
-                        '/subscriptions/', subscription_id,
-                        '/resourceGroups/', resource_group,
-                        '/providers/Microsoft.Compute/availabilitySets/', as_name,
-                        '?api-version=', COMP_API])
-    as_body = {'location': location}
-    properties = {'platformUpdateDomainCount': update_domains}
-    properties['platformFaultDomainCount'] = fault_domains
-    as_body['properties'] = properties
-    body = json.dumps(as_body)
-    return do_put(endpoint, body, access_token)
-
 # deallocate_vm(access_token, subscription_id, resource_group, vm_name)
 # stop-deallocate a virtual machine
 def deallocate_vm(access_token, subscription_id, resource_group, vm_name):
@@ -135,6 +136,17 @@ def deallocate_vm(access_token, subscription_id, resource_group, vm_name):
                         '/deallocate',
                         '?api-version=', COMP_API])
     return do_post(endpoint, '', access_token)
+
+
+# delete_as(access_token, subscription_id, resource_group, as_name)
+# delete availability set
+def delete_as(access_token, subscription_id, resource_group, as_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/availabilitySets/', as_name,
+                        '?api-version=', COMP_API])
+    return do_delete(endpoint, access_token)
 
 
 # delete_vm(access_token, subscription_id, resource_group, vm_name)
@@ -169,17 +181,6 @@ def delete_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm
                         '/delete?api-version=', COMP_API])
     body = '{"instanceIds" : ' + vm_ids + '}'
     return do_post(endpoint, body, access_token)
-
-
-# delete_as(access_token, subscription_id, resource_group, as_name)
-# delete availability set
-def delete_as(access_token, subscription_id, resource_group, as_name):
-    endpoint = ''.join([azure_rm_endpoint,
-                        '/subscriptions/', subscription_id,
-                        '/resourceGroups/', resource_group,
-                        '/providers/Microsoft.Compute/availabilitySets/', as_name,
-                        '?api-version=', COMP_API])
-    return do_delete(endpoint, access_token)
 
 
 # get_compute_usage(access_token, subscription_id, location)

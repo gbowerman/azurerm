@@ -138,6 +138,13 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 202)
 
     def test_compute(self):
+        # create availability set
+        print('Creating availability set: ' + self.asname + ', update domains = 5, fault domains = 3')
+        response = azurerm.create_as(self.access_token, self.subscription_id, self.rgname,
+                                     self.asname, 5, 3, self.location)
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json()['name'], self.asname)
+
         # create VM
         vm_size = 'Standard_D1'
         publisher = 'Canonical'
@@ -166,13 +173,6 @@ class TestAzurermPy(unittest.TestCase):
         # print(json.dumps(response.json()))
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], self.vmssname)
-
-        # create availability set
-        print('Creating availability set: ' + self.asname + ', update domains = 5, fault domains = 3')
-        response = azurerm.create_as(self.access_token, self.subscription_id, self.rgname,
-                                     self.asname, 5, 3, self.location)
-        self.assertEqual(response.status_code, 200)
-        self.assertEqual(response.json()['name'], self.asname)
 
         # get compute usage
         print('Getting compute usage')
@@ -223,6 +223,12 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.delete_vmss(self.access_token, self.subscription_id, self.rgname, \
             self.vmssname)
         self.assertEqual(response.status_code, 202)
+    
+        # delete Availability Set
+        print('Deleting Availability Set: ' + self.asname)
+        response = azurerm.delete_as(self.access_token, self.subscription_id, self.rgname, \
+            self.asname)
+        self.assertEqual(response.status_code, 200)
 
 if __name__ == '__main__':
     unittest.main()
