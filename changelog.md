@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.7.13 (Jan 29 2017):
+- Set User-Agent in the Azure REST headers.
+
 ### v0.7.12 (Jan 26 2017):
 - Add Availability Set support: create_as(), get_as(), delete_as(). Thanks @KineticHub
 - See also create_as.py in examples.
