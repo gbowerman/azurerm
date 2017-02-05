@@ -1,8 +1,10 @@
-# simple program to do an imperative VM quick create from a platform image
+# program to create a jumpbox VM in an existing VNET for diagnostic purposes, e.g. ssh to local VMs
+# uses Managed Disks, assumes first subnet in VNET has room, uses CoreOs (change code if needed)
 # Arguments:
-# -name [resource names are defaulted from this]
-# -image
-# -location [same location used for all resources]
+# --name [resource names are defaulted from this]
+# --image
+# --location [same location used for all resources]
+# --vnet optional vnet name, otherwise first vnet in resource group is picked
 import argparse
 import azurerm
 import json
@@ -15,6 +17,7 @@ argParser = argparse.ArgumentParser()
 
 argParser.add_argument('--name', '-n', required=True, action='store', help='Name')
 argParser.add_argument('--rgname', '-g', required=True, action='store', help='Resource Group Name')
+argParser.add_argument('--vnet', required=False, action='store', help='Optional VNET Name (otherwise first VNET in resource group is used)')
 argParser.add_argument('--location', '-l', required=True, action='store', help='Location, e.g. eastus')
 argParser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print operational details')
 
@@ -22,6 +25,7 @@ args = argParser.parse_args()
 
 name = args.name
 rgname = args.rgname
+vnet = args.vnet
 location = args.location
 
 # Load Azure app defaults
@@ -43,28 +47,16 @@ access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 # initialize haikunator
 h = Haikunator()
 
-# create NSG
-nsg_name = name + 'nsg'
-print('Creating NSG: ' + nsg_name)
-rmreturn = azurerm.create_nsg(access_token, subscription_id, rgname, nsg_name, location)
-nsg_id = rmreturn.json()['id']
-print('nsg_id = ' + nsg_id)
-
-# create NSG rule
-nsg_rule = 'ssh'
-print('Creating NSG rule: ' + nsg_rule)
-rmreturn = azurerm.create_nsg_rule(access_token, subscription_id, rgname, nsg_name, nsg_rule, description='ssh rule',
-                                  destination_range='22')
-print(rmreturn)
-print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
-
-# create VNET
-vnetname = name + 'vnet'
-print('Creating VNet: ' + vnetname)
-rmreturn = azurerm.create_vnet(access_token, subscription_id, rgname, vnetname, location, nsg_id=nsg_id)
-print(rmreturn)
-# print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
-subnet_id = rmreturn.json()['properties']['subnets'][0]['id']
+# get VNET 
+print('Getting VNet')
+if vnet is None:
+    # get first VNET in resource group
+    vnets = azurerm.list_vnets_rg(access_token, subscription_id, rgname)
+    #print(json.dumps(vnets, sort_keys=False, indent=2, separators=(',', ': ')))
+    vnetresource = vnets['value'][0]
+else:
+    vnetresource = azurerm.get_vnet(access_token, subscription_id, rgname, vnet)
+subnet_id = vnetresource['properties']['subnets'][0]['id']
 print('subnet_id = ' + subnet_id)
 
 # create public IP address
@@ -114,4 +106,4 @@ print('Creating VM: ' + vm_name)
 rmreturn = azurerm.create_vm(access_token, subscription_id, rgname, vm_name, vm_size, publisher, offer, sku,
                              version, nic_id, location, username=username, password=password)
 print(rmreturn)
-print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
+#print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))

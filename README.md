@@ -219,6 +219,7 @@ list_nics(access_token, subscription_id) # list the network interfaces in a subs
 list_nics_rg(access_token, subscription_id, resource_group) # list the network interfaces in a resource group
 list_public_ips(access_token, subscription_id, resource_group) # list the public ip addresses in a resource group
 list_vnets(access_token, subscription_id) # list the VNETs in a subscription
+list_vnets_rg(access_token, subscription_id, resource_group) # list the VNETs in a resource group
 update_load_balancer(access_token, subscription_id, resource_group, lb_name, body) # updates a load balancer model, i.e. PUT an updated LB body
 ```
 

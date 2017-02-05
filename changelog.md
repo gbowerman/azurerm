@@ -1,5 +1,13 @@
 # azurerm - change log
 
+### v0.7.14 (Feb 5 2017):
+- BREAKING CHANGE: create_vm() - storage account argument removed, OS URI parameter removed
+- Fix create_vm() and create it with managed disks
+- Add list_vnet_rg() to list VNETs in a resource group
+- Fix examples\create_vm()
+- Add new examples\jumpbox() to drop a jumpbox vm into existing VNET
+- Update Compute test
+
 ### v0.7.13 (Jan 29 2017):
 - Set User-Agent in the Azure REST headers.
 

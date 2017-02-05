@@ -28,7 +28,7 @@ def create_as(access_token, subscription_id, resource_group, as_name,
 #              storage_account, os_uri, nic_id, location, username='azure', password=None, public_key=None)
 # create a simple virtual machine - in most cases deploying an ARM template might be easier
 def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
-              storage_account, os_uri, nic_id, location, username='azure', password=None, public_key=None):
+              nic_id, location, username='azure', password=None, public_key=None):
     endpoint = ''.join([azure_rm_endpoint,
                 '/subscriptions/', subscription_id,
                 '/resourceGroups/', resource_group,
@@ -40,7 +40,7 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
     image_reference = {'publisher': publisher, 'offer': offer, 'sku': sku, 'version': version}
     storage_profile = {'imageReference': image_reference}
     os_disk = {'name': 'osdisk1'}
-    os_disk['vhd'] = {'uri': os_uri}
+    os_disk['managedDisk'] = {'storageAccountType': 'Standard_LRS'}
     os_disk['caching'] = 'ReadWrite'
     os_disk['createOption'] = 'fromImage'
     storage_profile['osDisk'] = os_disk

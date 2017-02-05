@@ -38,7 +38,7 @@ class TestAzurermPy(unittest.TestCase):
         self.h = Haikunator()
         self.rgname = self.h.haikunate()
         self.vnet = self.h.haikunate()
-        self.saname = self.h.haikunate(delimiter='')
+        # self.saname = self.h.haikunate(delimiter='')
         self.vmname = self.h.haikunate(delimiter='')
         self.vmssname = self.h.haikunate(delimiter='')
         self.asname = self.h.haikunate()
@@ -79,13 +79,13 @@ class TestAzurermPy(unittest.TestCase):
             self.ipname2, dns_label2, self.location)
         self.assertEqual(response.status_code, 201)
         self.ip2_id = response.json()['id']
-
+        '''
         # create storage account for VM 
         print('Creating storage account: ' + self.saname)
         response = azurerm.create_storage_account(self.access_token, self.subscription_id, self.rgname, \
             self.saname, self.location, storage_type='Standard_LRS')
         self.assertEqual(response.status_code, 202)
-
+        '''
         # create 5 storage accounts for vmssname
         print('Creating storage accounts for scale set')
         self.container_list = []
@@ -151,13 +151,12 @@ class TestAzurermPy(unittest.TestCase):
         offer = 'UbuntuServer'
         sku = '16.04.0-LTS'
         version = 'latest'
-        os_uri = 'http://' + self.saname + '.blob.core.windows.net/vhds/osdisk.vhd'
         username = 'rootuser'
         password = self.h.haikunate(',')
 
         print('Creating VM: ' + self.vmname)
         response = azurerm.create_vm(self.access_token, self.subscription_id, self.rgname, \
-            self.vmname, vm_size, publisher, offer, sku, version, self.saname, os_uri, \
+            self.vmname, vm_size, publisher, offer, sku, version, \
             self.nic_id, self.location, username=username, public_key=self.public_key)
         # print(json.dumps(response.json()))
         self.assertEqual(response.status_code, 201)
