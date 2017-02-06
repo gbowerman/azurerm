@@ -1,17 +1,21 @@
 # azurerm - change log
 
+### v0.7.16 (Feb 6 2017):
+- Fix create_vm() to support creating multiple VMs in the same resource group (by not hardcoding osdisk name)
+- Improvements to examples/jumpbox.py to support ssh and various defaults
+
 ### v0.7.15 (Feb 5 2017):
 - BREAKING CHANGE: create_vmss() - storage containers argument removed
 - Fix create_vmss() and create it with managed disks
-- Fix examples\create_vmss()
+- Fix examples/create_vmss()
 - Update Compute test
 
 ### v0.7.14 (Feb 5 2017):
 - BREAKING CHANGE: create_vm() - storage account argument removed, OS URI parameter removed
 - Fix create_vm() and create it with managed disks
 - Add list_vnet_rg() to list VNETs in a resource group
-- Fix examples\create_vm()
-- Add new examples\jumpbox() to drop a jumpbox vm into existing VNET
+- Fix examples/create_vm()
+- Add new examples/jumpbox.py to drop a jumpbox vm into existing VNET
 - Update Compute test
 
 ### v0.7.13 (Jan 29 2017):

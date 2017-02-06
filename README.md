@@ -272,7 +272,7 @@ deploy_template_uri_param_uri(access_token, subscription_id, resource_group, dep
 #### Virtual machines and VM Scale Sets (Compute Resource provider)
 ```
 create_as(access_token, subscription_id, resource_group, as_name, update_domains, fault_domains, location) # create an availability set
-create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version, nic_id, location, storage_type='Standard_LRS', username='azure', password=None, public_key=None) # simple vm create function
+create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version, nic_id, location, osdisk_name=None, storage_type='Standard_LRS', username='azure', password=None, public_key=None) # simple vm create function
 create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, location, storage_type='Standard_LRS', username='azure', password=None, public_key=None, overprovision='true', upgradePolicy='Manual') #  create virtual machine scale set
 deallocate_vm(access_token, subscription_id, resource_group, vm_name) # stop#deallocate a virtual machine
 delete_as(access_token, subscription_id, resource_group, as_name) # delete an availability set
