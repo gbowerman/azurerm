@@ -79,24 +79,6 @@ class TestAzurermPy(unittest.TestCase):
             self.ipname2, dns_label2, self.location)
         self.assertEqual(response.status_code, 201)
         self.ip2_id = response.json()['id']
-        '''
-        # create storage account for VM 
-        print('Creating storage account: ' + self.saname)
-        response = azurerm.create_storage_account(self.access_token, self.subscription_id, self.rgname, \
-            self.saname, self.location, storage_type='Standard_LRS')
-        self.assertEqual(response.status_code, 202)
-        '''
-        # create 5 storage accounts for vmssname
-        print('Creating storage accounts for scale set')
-        self.container_list = []
-        for count in range(5):
-            sa_name = ''.join(choice(ascii_lowercase) for i in range(10))
-            print(sa_name)
-            response = azurerm.create_storage_account(self.access_token, self.subscription_id, \
-                self.rgname, sa_name, self.location, storage_type='Standard_LRS')
-            self.assertEqual(response.status_code, 202)
-            container = 'https://' + sa_name + '.blob.core.windows.net/' + self.vmssname + 'vhd'
-            self.container_list.append(container)
 
         # create NSG
         nsg_name = self.vnet + 'nsg'
@@ -149,7 +131,7 @@ class TestAzurermPy(unittest.TestCase):
         vm_size = 'Standard_D1'
         publisher = 'Canonical'
         offer = 'UbuntuServer'
-        sku = '16.04.0-LTS'
+        sku = '16.04-LTS'
         version = 'latest'
         username = 'rootuser'
         password = self.h.haikunate(',')
@@ -166,7 +148,7 @@ class TestAzurermPy(unittest.TestCase):
         capacity = 3
         print('Creating VMSS: ' + self.vmssname + ', capacity = ' + str(capacity))
         response = azurerm.create_vmss(self.access_token, self.subscription_id, self.rgname, \
-            self.vmssname, vm_size, capacity, publisher, offer, sku, version, self.container_list, \
+            self.vmssname, vm_size, capacity, publisher, offer, sku, version, \
             self.subnet_id, self.be_pool_id, self.lb_pool_id, self.location, username=username, \
             public_key=self.public_key)
         # print(json.dumps(response.json()))

@@ -25,10 +25,10 @@ def create_as(access_token, subscription_id, resource_group, as_name,
 
 
 # create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
-#              storage_account, os_uri, nic_id, location, username='azure', password=None, public_key=None)
+#              nic_id, location, storage_type='standard_LRS', username='azure', password=None, public_key=None)
 # create a simple virtual machine - in most cases deploying an ARM template might be easier
 def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer, sku, version,
-              nic_id, location, username='azure', password=None, public_key=None):
+              nic_id, location, storage_type='Standard_LRS', username='azure', password=None, public_key=None):
     endpoint = ''.join([azure_rm_endpoint,
                 '/subscriptions/', subscription_id,
                 '/resourceGroups/', resource_group,
@@ -40,7 +40,7 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
     image_reference = {'publisher': publisher, 'offer': offer, 'sku': sku, 'version': version}
     storage_profile = {'imageReference': image_reference}
     os_disk = {'name': 'osdisk1'}
-    os_disk['managedDisk'] = {'storageAccountType': 'Standard_LRS'}
+    os_disk['managedDisk'] = {'storageAccountType': storage_type}
     os_disk['caching'] = 'ReadWrite'
     os_disk['createOption'] = 'fromImage'
     storage_profile['osDisk'] = os_disk
@@ -68,13 +68,13 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
 
 
 # create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, \
-#   publisher, offer, sku, version, storage_container_list, subnet_id, be_pool_id, lb_pool_id, \
-#   location, username='azure', password=None, public_key=None, overprovision='true', \
+#   publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, \
+#   location, storage_type='Standard_LRS', username='azure', password=None, public_key=None, overprovision='true', \
 #   upgradePolicy='Manual')
 # create virtual machine scale set
 def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, \
-    publisher, offer, sku, version, storage_container_list, subnet_id, be_pool_id, lb_pool_id, \
-    location, username='azure', password=None, public_key=None, overprovision='true', \
+    publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, location, storage_type='Standard_LRS', \
+     username='azure', password=None, public_key=None, overprovision='true', \
     upgradePolicy='Manual'):
     endpoint = ''.join([azure_rm_endpoint,
                 '/subscriptions/', subscription_id,
@@ -102,10 +102,9 @@ def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_siz
         linux_config['ssh'] = {'publicKeys': [pub_key]}
         os_profile['linuxConfiguration'] = linux_config
     vm_profile = {'osProfile': os_profile}
-    os_disk = {'name': vmss_name}
-    os_disk['vhdContainers'] = storage_container_list
+    os_disk = {'createOption': 'fromImage'}
+    os_disk['managedDisk'] = {'storageAccountType': storage_type}
     os_disk['caching'] = 'ReadWrite'
-    os_disk['createOption'] = 'FromImage'
     storage_profile = {'osDisk': os_disk}
     storage_profile['imageReference'] = \
         {'publisher': publisher, 'offer': offer, 'sku': sku, 'version': version} 

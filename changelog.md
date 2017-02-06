@@ -1,5 +1,11 @@
 # azurerm - change log
 
+### v0.7.15 (Feb 5 2017):
+- BREAKING CHANGE: create_vmss() - storage containers argument removed
+- Fix create_vmss() and create it with managed disks
+- Fix examples\create_vmss()
+- Update Compute test
+
 ### v0.7.14 (Feb 5 2017):
 - BREAKING CHANGE: create_vm() - storage account argument removed, OS URI parameter removed
 - Fix create_vm() and create it with managed disks

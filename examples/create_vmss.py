@@ -60,21 +60,6 @@ rmreturn = azurerm.create_nsg_rule(access_token, subscription_id, name, nsg_name
     description='ssh rule', destination_range='22')
 #print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
 
-# create set of storage accounts, and construct container array
-print('Creating storage accounts')
-container_list = []
-for count in range(5):
-    sa_name = ''.join(choice(ascii_lowercase) for i in range(10))
-    print(sa_name)
-    rmreturn = azurerm.create_storage_account(access_token, subscription_id, name, sa_name, \
-        location, storage_type='Standard_LRS')
-    if rmreturn.status_code == 202:
-        container = 'https://' + sa_name + '.blob.core.windows.net/' + name + 'vhd'
-        container_list.append(container)
-    else:
-        print('Error ' + str(rmreturn.status_code) + ' creating storage account ' + sa_name)
-        sys.exit()
-
 # create VNET
 vnetname = name + 'vnet'
 print('Creating VNet: ' + vnetname)
@@ -108,14 +93,14 @@ vmss_name = name
 vm_size = 'Standard_A1'
 publisher = 'Canonical'
 offer = 'UbuntuServer'
-sku = '16.04.0-LTS'
+sku = '16.04-LTS'
 version = 'latest'
 username = 'azure'
-password = Haikunator.haikunate(delimiter=',') # creates random password
-
+password = Haikunator().haikunate(delimiter=',') # creates random password
+print('Password = ' + password)
 print('Creating VMSS: ' + vmss_name)
 rmreturn = azurerm.create_vmss(access_token, subscription_id, name, vmss_name, vm_size, capacity, \
-    publisher, offer, sku, version, container_list, subnet_id, be_pool_id, lb_pool_id, location, \
+    publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, location, \
     username=username, password=password)
 print(rmreturn)
 print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
