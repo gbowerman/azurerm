@@ -55,7 +55,7 @@ def main():
     location = rg['location']
 
     # Create a spare public IP address
-    ip_name = Haikunator.haikunate(delimiter='')
+    ip_name = Haikunator().haikunate(delimiter='')
     dns_label = ip_name + 'dns'
     ip_ret = azurerm.create_public_ip(access_token, subscription_id, resource_group, ip_name, dns_label, location)
     floatip_id = ip_ret.json()['id']
