@@ -9,25 +9,69 @@ import argparse
 import azurerm
 import json
 from haikunator import Haikunator
+import os
+from os.path import expanduser
 import sys
 import time
 
 # validate command line arguments
 argParser = argparse.ArgumentParser()
 
-argParser.add_argument('--name', '-n', required=True, action='store', help='Name')
+argParser.add_argument('--vmname', '-n', required=True, action='store', help='Name')
 argParser.add_argument('--rgname', '-g', required=True, action='store', help='Resource Group Name')
+argParser.add_argument('--user', '-u', required=False, action='store', help='Optional username')
+argParser.add_argument('--password', '-p', required=False, action='store', help='Optional password')
+argParser.add_argument('--sshkey', '-k', required=False, action='store', help='SSH public key')
+argParser.add_argument('--sshpath', '-s', required=False, action='store', help='SSH public key file path')
+argParser.add_argument('--location', '-l', required=False, action='store', help='Location, e.g. eastus')
 argParser.add_argument('--vnet', required=False, action='store', help='Optional VNET Name (otherwise first VNET in resource group is used)')
-argParser.add_argument('--location', '-l', required=True, action='store', help='Location, e.g. eastus')
 argParser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print operational details')
 
 args = argParser.parse_args()
 
-name = args.name
+name = args.vmname
 rgname = args.rgname
 vnet = args.vnet
 location = args.location
+username = args.user
+password = args.password
+sshkey = args.sshkey
+sshpath = args.sshpath
+verbose = args.verbose
 
+# do some validation of the command line arguments to make sure all authentication scenarios are handled
+if username is None:
+    print('Setting username to: azure')
+    username = 'azure'
+
+if sshkey is not None and sshfile is not None:
+    sys.exit('Error: You can provide an SSH public key, or a public key file path, not both.')
+if password is not None and (sshkey is not None or sshfile is not None):
+    sys.exit('Error: provide a password or SSH key (or nothing), not both')
+
+use_password = False
+if password is not None:
+    use_password = True
+else:
+    if sshkey is None and sshpath is None: # no auth parameters were provided
+        # look for ~/id_rsa.pub
+        home = expanduser('~')
+        sshpath = home + os.sep + '.ssh' + os.sep + 'id_rsa.pub'
+        if os.path.isfile(sshpath) is False:
+            print('Default public key file not found.')
+            use_password = True
+            password = Haikunator().haikunate(delimiter=',') # creates random password
+            print('Created new password = ' + password)
+        else:
+            print('Default public key file found')
+
+if use_password is False:
+    print('Reading public key..')
+    if sshkey is None:
+        # at this point sshpath should have a valid Value
+        with open(sshpath, 'r') as pub_ssh_file_fd:
+            sshkey = pub_ssh_file_fd.read()
+    
 # Load Azure app defaults
 try:
    with open('azurermconfig.json') as configFile:    
@@ -44,9 +88,6 @@ subscription_id = configData['subscriptionId']
 # authenticate
 access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
-# initialize haikunator
-h = Haikunator()
-
 # get VNET 
 print('Getting VNet')
 if vnet is None:
@@ -57,16 +98,24 @@ if vnet is None:
 else:
     vnetresource = azurerm.get_vnet(access_token, subscription_id, rgname, vnet)
 subnet_id = vnetresource['properties']['subnets'][0]['id']
-print('subnet_id = ' + subnet_id)
+if verbose is True:
+    print('subnet_id = ' + subnet_id)
+
+# if no location parameter was specified now would be a good time to figure out the location
+if location is None:
+    location = vnetresource['location']
+    print('location = ' + location)
 
 # create public IP address
 public_ip_name = name + 'ip'
 dns_label = name + 'ip'
 print('Creating public IP address: ' + public_ip_name)
 rmreturn = azurerm.create_public_ip(access_token, subscription_id, rgname, public_ip_name, dns_label, location)
-print(rmreturn)
+if rmreturn.status_code != 201:
+    sys.exit('Error: ' + str(rmreturn.status_code) + ' from azurerm.create_public_ip()')
 ip_id = rmreturn.json()['id']
-print('ip_id = ' + ip_id)
+if verbose is True:
+    print('ip_id = ' + ip_id)
 
 print('Waiting for IP provisioning..')
 waiting = True
@@ -98,12 +147,13 @@ publisher = 'CoreOS'
 offer = 'CoreOS'
 sku = 'Stable'
 version = 'latest'
-os_uri = 'http://' + name + '.blob.core.windows.net/vhds/' + name + 'osdisk.vhd'
-username = 'azure'
-password = h.haikunate(delimiter=',') # creates random password
-print('password = ' + password)
+
 print('Creating VM: ' + vm_name)
-rmreturn = azurerm.create_vm(access_token, subscription_id, rgname, vm_name, vm_size, publisher, offer, sku,
+if use_password == True:
+    rmreturn = azurerm.create_vm(access_token, subscription_id, rgname, vm_name, vm_size, publisher, offer, sku,
                              version, nic_id, location, username=username, password=password)
+else:
+    rmreturn = azurerm.create_vm(access_token, subscription_id, rgname, vm_name, vm_size, publisher, offer, sku,
+                             version, nic_id, location, username=username, public_key = sshkey)
 print(rmreturn)
 #print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
