@@ -79,7 +79,7 @@ try:
    with open('azurermconfig.json') as configFile:    
       configData = json.load(configFile)
 except FileNotFoundError:
-   print("Error: Expecting vmssConfig.json in current folder")
+   print("Error: Expecting azurermconfig.json in current folder")
    sys.exit()
    
 tenant_id = configData['tenantId']
@@ -112,7 +112,11 @@ if location is None:
 public_ip_name = name + 'ip'
 if dns_label is None:
     dns_label = name + 'dns'
-print('Creating public ipaddr. DNS: ' + dns_label + '.' + location + '.cloudapp.azure.com')
+
+print('Connect with:')
+print('ssh ' + dns_label + '.' + location + '.cloudapp.azure.com -l ' + username)
+
+print('Creating public ipaddr')
 rmreturn = azurerm.create_public_ip(access_token, subscription_id, rgname, public_ip_name, dns_label, location)
 if rmreturn.status_code != 201:
     print(rmreturn.text)
