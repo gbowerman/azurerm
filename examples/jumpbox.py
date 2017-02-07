@@ -147,9 +147,12 @@ while waiting:
 # create VM
 vm_name = name
 vm_size = 'Standard_D1'
-publisher = 'CoreOS'
-offer = 'CoreOS'
-sku = 'Stable'
+#publisher = 'CoreOS'
+#offer = 'CoreOS'
+#sku = 'Stable'
+publisher = 'Canonical'
+offer = 'UbuntuServer'
+sku = '16.04-LTS'
 version = 'latest'
 
 print('Creating VM: ' + vm_name)
