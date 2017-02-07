@@ -24,6 +24,7 @@ argParser.add_argument('--password', '-p', required=False, action='store', help=
 argParser.add_argument('--sshkey', '-k', required=False, action='store', help='SSH public key')
 argParser.add_argument('--sshpath', '-s', required=False, action='store', help='SSH public key file path')
 argParser.add_argument('--location', '-l', required=False, action='store', help='Location, e.g. eastus')
+argParser.add_argument('--dns', '-d', required=False, action='store', help='DNS, e.g. myuniquename')
 argParser.add_argument('--vnet', required=False, action='store', help='Optional VNET Name (otherwise first VNET in resource group is used)')
 argParser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print operational details')
 
@@ -38,6 +39,7 @@ password = args.password
 sshkey = args.sshkey
 sshpath = args.sshpath
 verbose = args.verbose
+dns_label = args.dns
 
 # do some validation of the command line arguments to make sure all authentication scenarios are handled
 if username is None:
@@ -108,8 +110,9 @@ if location is None:
 
 # create public IP address
 public_ip_name = name + 'ip'
-dns_label = name + 'ip'
-print('Creating public IP address: ' + public_ip_name)
+if dns_label is None:
+    dns_label = name + 'dns'
+print('Creating public ipaddr. DNS: ' + dns_label + '.' + location + '.cloudapp.azure.com')
 rmreturn = azurerm.create_public_ip(access_token, subscription_id, rgname, public_ip_name, dns_label, location)
 if rmreturn.status_code != 201:
     print(rmreturn.text)
