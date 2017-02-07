@@ -44,9 +44,9 @@ if username is None:
     print('Setting username to: azure')
     username = 'azure'
 
-if sshkey is not None and sshfile is not None:
+if sshkey is not None and sshpath is not None:
     sys.exit('Error: You can provide an SSH public key, or a public key file path, not both.')
-if password is not None and (sshkey is not None or sshfile is not None):
+if password is not None and (sshkey is not None or sshpath is not None):
     sys.exit('Error: provide a password or SSH key (or nothing), not both')
 
 use_password = False
@@ -93,7 +93,7 @@ print('Getting VNet')
 if vnet is None:
     # get first VNET in resource group
     vnets = azurerm.list_vnets_rg(access_token, subscription_id, rgname)
-    #print(json.dumps(vnets, sort_keys=False, indent=2, separators=(',', ': ')))
+    # print(json.dumps(vnets, sort_keys=False, indent=2, separators=(',', ': ')))
     vnetresource = vnets['value'][0]
 else:
     vnetresource = azurerm.get_vnet(access_token, subscription_id, rgname, vnet)
@@ -112,6 +112,7 @@ dns_label = name + 'ip'
 print('Creating public IP address: ' + public_ip_name)
 rmreturn = azurerm.create_public_ip(access_token, subscription_id, rgname, public_ip_name, dns_label, location)
 if rmreturn.status_code != 201:
+    print(rmreturn.text)
     sys.exit('Error: ' + str(rmreturn.status_code) + ' from azurerm.create_public_ip()')
 ip_id = rmreturn.json()['id']
 if verbose is True:
