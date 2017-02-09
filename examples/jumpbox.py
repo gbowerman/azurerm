@@ -10,6 +10,7 @@
 # --password/--sshkey/--sshpath [optional pick an authentication method, 
 #             otherwise if no .ssh/id_rsa.pub found will create a password for you]
 # --nowait [optional to not wait for VM to be successfully provisioned]
+# --nosng [optional to not create an nsg on the VM (default is to only open port 22)]
 import argparse
 import azurerm
 import json
