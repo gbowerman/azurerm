@@ -1,10 +1,15 @@
 # program to create a jumpbox VM in an existing VNET for diagnostic purposes, e.g. ssh to local VMs
 # uses Managed Disks, assumes first subnet in VNET has room, uses CoreOs (change code if needed)
 # Arguments:
-# --name [resource names are defaulted from this]
-# --image
-# --location [same location used for all resources]
-# --vnet optional vnet name, otherwise first vnet in resource group is picked
+# --vmname [resource names are defaulted from this]
+# --rgname 
+# --user [optional, defaults to azure]
+# --location [optional, defaults to VNET location]
+# --vnet [optional vnet name, otherwise first vnet in resource group is picked]
+# --dns [optional unique DNS name, otherwise uses vmname + 'dns'
+# --password/--sshkey/--sshpath [optional pick an authentication method, 
+#             otherwise if no .ssh/id_rsa.pub found will create a password for you]
+# --nowait [optional to not wait for VM to be successfully provisioned]
 import argparse
 import azurerm
 import json
@@ -26,6 +31,7 @@ argParser.add_argument('--sshpath', '-s', required=False, action='store', help='
 argParser.add_argument('--location', '-l', required=False, action='store', help='Location, e.g. eastus')
 argParser.add_argument('--dns', '-d', required=False, action='store', help='DNS, e.g. myuniquename')
 argParser.add_argument('--vnet', required=False, action='store', help='Optional VNET Name (otherwise first VNET in resource group is used)')
+argParser.add_argument('--nowait', action='store_true', default=False, help='Do not wait for VM to finish provisioning')
 argParser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print operational details')
 
 args = argParser.parse_args()
@@ -40,6 +46,7 @@ sshkey = args.sshkey
 sshpath = args.sshpath
 verbose = args.verbose
 dns_label = args.dns
+no_wait = args.nowait
 
 # do some validation of the command line arguments to make sure all authentication scenarios are handled
 if username is None:
@@ -113,9 +120,6 @@ public_ip_name = name + 'ip'
 if dns_label is None:
     dns_label = name + 'dns'
 
-print('Connect with:')
-print('ssh ' + dns_label + '.' + location + '.cloudapp.azure.com -l ' + username)
-
 print('Creating public ipaddr')
 rmreturn = azurerm.create_public_ip(access_token, subscription_id, rgname, public_ip_name, dns_label, location)
 if rmreturn.status_code != 201:
@@ -167,4 +171,14 @@ else:
     rmreturn = azurerm.create_vm(access_token, subscription_id, rgname, vm_name, vm_size, publisher, offer, sku,
                              version, nic_id, location, username=username, public_key = sshkey)
 print(rmreturn)
-#print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
+if no_wait == False:
+    print('Waiting for VM provisioning..')
+    waiting = True
+    while waiting:
+        vm = azurerm.get_vm(access_token, subscription_id, rgname, vm_name)
+        if vm['properties']['provisioningState'] == 'Succeeded':
+            waiting = False
+        time.sleep(5)
+    print('VM provisioning complete.')
+print('Connect with:')
+print('ssh ' + dns_label + '.' + location + '.cloudapp.azure.com -l ' + username)
