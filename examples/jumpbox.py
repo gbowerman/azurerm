@@ -32,6 +32,7 @@ argParser.add_argument('--location', '-l', required=False, action='store', help=
 argParser.add_argument('--dns', '-d', required=False, action='store', help='DNS, e.g. myuniquename')
 argParser.add_argument('--vnet', required=False, action='store', help='Optional VNET Name (otherwise first VNET in resource group is used)')
 argParser.add_argument('--nowait', action='store_true', default=False, help='Do not wait for VM to finish provisioning')
+argParser.add_argument('--nonsg', action='store_true', default=False, help='Do not create a network security group on the NIC')
 argParser.add_argument('--verbose', '-v', action='store_true', default=False, help='Print operational details')
 
 args = argParser.parse_args()
@@ -47,6 +48,7 @@ sshpath = args.sshpath
 verbose = args.verbose
 dns_label = args.dns
 no_wait = args.nowait
+no_nsg = args.nonsg
 
 # do some validation of the command line arguments to make sure all authentication scenarios are handled
 if username is None:
@@ -137,11 +139,35 @@ while waiting:
         waiting = False
     time.sleep(1)
 
+if no_nsg is True:
+    nsg_id = None
+else:
+    # create NSG
+    nsg_name = name + 'nsg'
+    print('Creating NSG: ' + nsg_name)
+    rmreturn = azurerm.create_nsg(access_token, subscription_id, rgname, nsg_name, location)
+    if rmreturn.status_code != 201:
+        print('Error ' + rmreturn.Status_code + ' creating NSG. ' + rmreturn.text)
+        sys.exit()
+    nsg_id = rmreturn.json()['id']
+
+    # create NSG rule for ssh, scp
+    nsg_rule = 'ssh'
+    print('Creating NSG rule: ' + nsg_rule)
+    rmreturn = azurerm.create_nsg_rule(access_token, subscription_id, rgname, nsg_name, nsg_rule, \
+        description='ssh rule', destination_range='22')
+    if rmreturn.status_code != 201:
+        print('Error ' + rmreturn.Status_code + ' creating NSG rule. ' + rmreturn.text)
+        sys.exit()
+
 # create NIC
 nic_name = name + 'nic'
 print('Creating NIC: ' + nic_name)
-rmreturn = azurerm.create_nic(access_token, subscription_id, rgname, nic_name, ip_id, subnet_id, location)
-#print(json.dumps(rmreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
+rmreturn = azurerm.create_nic(access_token, subscription_id, rgname, nic_name, ip_id, subnet_id, \
+    location, nsg_id=nsg_id)
+if rmreturn.status_code != 201:
+    print('Error ' + rmreturn.Status_code + ' creating NSG rule. ' + rmreturn.text)
+    sys.exit()
 nic_id = rmreturn.json()['id']
 
 print('Waiting for NIC provisioning..')

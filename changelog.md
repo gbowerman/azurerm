@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.7.17 (Feb 9 2017):
+- Add an optional nsg_id argument to create_nic()
+- Add nic support to examples\jumpbox.py
+
 ### v0.7.16 (Feb 6 2017):
 - Fix create_vm() to support creating multiple VMs in the same resource group (by not hardcoding osdisk name)
 - Improvements to examples/jumpbox.py to support ssh and various defaults

@@ -98,7 +98,7 @@ class TestAzurermPy(unittest.TestCase):
         nic_name = self.vnet + 'nic'
         print('Creating nic: ' + nic_name)
         response = azurerm.create_nic(self.access_token, self.subscription_id, self.rgname, \
-            nic_name, ip_id, subnet_id, self.location)
+            nic_name, ip_id, subnet_id, self.location, nsg_id=nsg_id)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], nic_name)
         nic_id = response.json()['id']
@@ -152,16 +152,16 @@ class TestAzurermPy(unittest.TestCase):
             nsg_name, nsg_rule)
         self.assertEqual(response.status_code, 202)
 
-        # delete nsg
-        print('Deleting nsg: ' + nsg_name)
-        response = azurerm.delete_nsg(self.access_token, self.subscription_id, self.rgname, \
-            nsg_name)
-        self.assertEqual(response.status_code, 202)
-
         # delete nic
         print('Deleting nic: ' + nic_name)
         response = azurerm.delete_nic(self.access_token, self.subscription_id, self.rgname, \
             nic_name)
+        self.assertEqual(response.status_code, 202)
+        
+        # delete nsg
+        print('Deleting nsg: ' + nsg_name)
+        response = azurerm.delete_nsg(self.access_token, self.subscription_id, self.rgname, \
+            nsg_name)
         self.assertEqual(response.status_code, 202)
 
         # delete public ip

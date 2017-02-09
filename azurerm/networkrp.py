@@ -38,7 +38,7 @@ def create_lb_with_nat_pool(access_token, subscription_id, resource_group, lb_na
 
 # create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location)
 # create a network interface with an associated public ip address
-def create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location):
+def create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location, nsg_id=None):
     endpoint = ''.join([azure_rm_endpoint,
                     '/subscriptions/', subscription_id,
                     '/resourceGroups/', resource_group,
@@ -51,6 +51,8 @@ def create_nic(access_token, subscription_id, resource_group, nic_name, public_i
     ipc_properties['subnet'] = {'id': subnet_id}
     ipconfig['properties'] = ipc_properties
     properties = {'ipConfigurations': [ipconfig]}
+    if nsg_id is not None:
+        properties['networkSecurityGroup'] = {'id': nsg_id}
     nic_body['properties'] = properties
     body = json.dumps(nic_body)
     return do_put(endpoint, body, access_token)
