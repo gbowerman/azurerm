@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.7.19 (Feb 10 2017):
+- Add optional subnet address prefix parameter (subnet_prefix) to create_vnet()
+
 ### v0.7.18 (Feb 10 2017):
 - Enhance examples/jumpbox.py to create VNET if not found.
 - Update Compute API version to 2017-03-30.
