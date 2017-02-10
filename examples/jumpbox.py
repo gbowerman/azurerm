@@ -100,32 +100,62 @@ subscription_id = configData['subscriptionId']
 # authenticate
 access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
+# if no location parameter was specified now would be a good time to figure out the location
+if location is None:
+    try:
+        rg = azurerm.get_resource_group(access_token, subscription_id, rgname)
+        location = rg['location']
+    except KeyError:
+        print('Cannot find resource group ' + rgname + '. Check connection/authorization.')
+        print(json.dumps(rg, sort_keys=False, indent=2, separators=(',', ': ')))
+        sys.exit()
+    print('location = ' + location)
+
 # get VNET 
 print('Getting VNet')
+vnet_not_found = False
 if vnet is None:
+    print('VNet not set, checking resource group')
     # get first VNET in resource group
-    vnets = azurerm.list_vnets_rg(access_token, subscription_id, rgname)
-    # print(json.dumps(vnets, sort_keys=False, indent=2, separators=(',', ': ')))
-    vnetresource = vnets['value'][0]
+    try:
+        vnets = azurerm.list_vnets_rg(access_token, subscription_id, rgname)
+        # print(json.dumps(vnets, sort_keys=False, indent=2, separators=(',', ': ')))
+        vnetresource = vnets['value'][0]
+    except IndexError:
+        print('No VNET found in resource group.')
+        vnet_not_found = True
+        vnet = name + 'vnet'
 else:
+    print('Getting VNet: ' + vnet)
     vnetresource = azurerm.get_vnet(access_token, subscription_id, rgname, vnet)
-subnet_id = vnetresource['properties']['subnets'][0]['id']
+    if 'properties' not in vnetresource:
+        print('VNet ' + vnet + ' not found in resource group ' + rgname)
+        vnet_not_found = True
+
+if vnet_not_found is True:
+    # create a vnet
+    print('Creating vnet: ' + vnet)
+    rmresource = azurerm.create_vnet(access_token, subscription_id, rgname, vnet, location, \
+        address_prefix='10.0.0.0/16', nsg_id=None)
+    if rmresource.status_code != 201:
+        print('Error ' + str(vnetresource.status_code) + ' creating VNET. ' + vnetresource.text)
+        sys.exit()
+    vnetresource = azurerm.get_vnet(access_token, subscription_id, rgname, vnet)
+try:
+    subnet_id = vnetresource['properties']['subnets'][0]['id']
+except KeyError:
+    print('Subnet not found for VNet ' + vnet)
+    sys.exit()
 if verbose is True:
     print('subnet_id = ' + subnet_id)
 
-# if no location parameter was specified now would be a good time to figure out the location
-if location is None:
-    location = vnetresource['location']
-    print('location = ' + location)
-
-# create public IP address
 public_ip_name = name + 'ip'
 if dns_label is None:
     dns_label = name + 'dns'
 
 print('Creating public ipaddr')
 rmreturn = azurerm.create_public_ip(access_token, subscription_id, rgname, public_ip_name, dns_label, location)
-if rmreturn.status_code != 201:
+if rmreturn.status_code not in [200,201]:
     print(rmreturn.text)
     sys.exit('Error: ' + str(rmreturn.status_code) + ' from azurerm.create_public_ip()')
 ip_id = rmreturn.json()['id']
@@ -148,7 +178,7 @@ else:
     print('Creating NSG: ' + nsg_name)
     rmreturn = azurerm.create_nsg(access_token, subscription_id, rgname, nsg_name, location)
     if rmreturn.status_code != 201:
-        print('Error ' + rmreturn.Status_code + ' creating NSG. ' + rmreturn.text)
+        print('Error ' + str(rmreturn.status_code) + ' creating NSG. ' + rmreturn.text)
         sys.exit()
     nsg_id = rmreturn.json()['id']
 
@@ -158,7 +188,7 @@ else:
     rmreturn = azurerm.create_nsg_rule(access_token, subscription_id, rgname, nsg_name, nsg_rule, \
         description='ssh rule', destination_range='22')
     if rmreturn.status_code != 201:
-        print('Error ' + rmreturn.Status_code + ' creating NSG rule. ' + rmreturn.text)
+        print('Error ' + str(rmreturn.status_code) + ' creating NSG rule. ' + rmreturn.text)
         sys.exit()
 
 # create NIC
@@ -167,7 +197,7 @@ print('Creating NIC: ' + nic_name)
 rmreturn = azurerm.create_nic(access_token, subscription_id, rgname, nic_name, ip_id, subnet_id, \
     location, nsg_id=nsg_id)
 if rmreturn.status_code != 201:
-    print('Error ' + rmreturn.Status_code + ' creating NSG rule. ' + rmreturn.text)
+    print('Error ' + rmreturn.status_code + ' creating NSG rule. ' + rmreturn.text)
     sys.exit()
 nic_id = rmreturn.json()['id']
 
