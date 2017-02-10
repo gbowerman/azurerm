@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.7.18 (Feb 10 2017):
+- Enhance examples/jumpbox.py to create VNET if not found.
+- Update Compute API version to 2017-03-30.
+
 ### v0.7.17 (Feb 9 2017):
 - Add an optional nsg_id argument to create_nic()
 - Add nic support to examples\jumpbox.py
