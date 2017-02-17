@@ -227,7 +227,9 @@ if use_password == True:
 else:
     rmreturn = azurerm.create_vm(access_token, subscription_id, rgname, vm_name, vm_size, publisher, offer, sku,
                              version, nic_id, location, username=username, public_key = sshkey)
-print(rmreturn)
+if rmreturn.status_code != 201:
+    print('Error ' + rmreturn.status_code + ' creating VM. ' + rmreturn.text)
+    sys.exit()
 if no_wait == False:
     print('Waiting for VM provisioning..')
     waiting = True
