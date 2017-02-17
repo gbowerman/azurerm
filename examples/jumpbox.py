@@ -25,11 +25,12 @@ argParser = argparse.ArgumentParser()
 
 argParser.add_argument('--vmname', '-n', required=True, action='store', help='Name')
 argParser.add_argument('--rgname', '-g', required=True, action='store', help='Resource Group Name')
-argParser.add_argument('--user', '-u', required=False, action='store', help='Optional username')
+argParser.add_argument('--user', '-u', required=False, action='store', default='azure', help='Optional username')
 argParser.add_argument('--password', '-p', required=False, action='store', help='Optional password')
 argParser.add_argument('--sshkey', '-k', required=False, action='store', help='SSH public key')
 argParser.add_argument('--sshpath', '-s', required=False, action='store', help='SSH public key file path')
 argParser.add_argument('--location', '-l', required=False, action='store', help='Location, e.g. eastus')
+argParser.add_argument('--vmsize', required=False, action='store', default='Standard_D1_V2', help='VM size, defaults to Standard_D1_V2')
 argParser.add_argument('--dns', '-d', required=False, action='store', help='DNS, e.g. myuniquename')
 argParser.add_argument('--vnet', required=False, action='store', help='Optional VNET Name (otherwise first VNET in resource group is used)')
 argParser.add_argument('--nowait', action='store_true', default=False, help='Do not wait for VM to finish provisioning')
@@ -50,12 +51,9 @@ verbose = args.verbose
 dns_label = args.dns
 no_wait = args.nowait
 no_nsg = args.nonsg
+vmsize = args.vmsize
 
-# do some validation of the command line arguments to make sure all authentication scenarios are handled
-if username is None:
-    print('Setting username to: azure')
-    username = 'azure'
-
+# make sure all authentication scenarios are handled
 if sshkey is not None and sshpath is not None:
     sys.exit('Error: You can provide an SSH public key, or a public key file path, not both.')
 if password is not None and (sshkey is not None or sshpath is not None):
@@ -211,7 +209,6 @@ while waiting:
 
 # create VM
 vm_name = name
-vm_size = 'Standard_D1'
 #publisher = 'CoreOS'
 #offer = 'CoreOS'
 #sku = 'Stable'
@@ -222,10 +219,10 @@ version = 'latest'
 
 print('Creating VM: ' + vm_name)
 if use_password == True:
-    rmreturn = azurerm.create_vm(access_token, subscription_id, rgname, vm_name, vm_size, publisher, offer, sku,
+    rmreturn = azurerm.create_vm(access_token, subscription_id, rgname, vm_name, vmsize, publisher, offer, sku,
                              version, nic_id, location, username=username, password=password)
 else:
-    rmreturn = azurerm.create_vm(access_token, subscription_id, rgname, vm_name, vm_size, publisher, offer, sku,
+    rmreturn = azurerm.create_vm(access_token, subscription_id, rgname, vm_name, vmsize, publisher, offer, sku,
                              version, nic_id, location, username=username, public_key = sshkey)
 if rmreturn.status_code != 201:
     print('Error ' + rmreturn.status_code + ' creating VM. ' + rmreturn.text)
