@@ -20,7 +20,7 @@ def main():
     argParser = argparse.ArgumentParser()
 
     # arguments: resource group lb name 1, 2
-    argParser.add_argument('--resourcegroup', '-r', required=True, dest='resource_group', action='store', help='Resource group name')
+    argParser.add_argument('--resourcegroup', '-g', required=True, dest='resource_group', action='store', help='Resource group name')
     argParser.add_argument('--lb1', '-1', required=True, action='store', help='Load balancer 1 name')
     argParser.add_argument('--lb2', '-2', required=True, action='store', help='Load balancer 2 name')
 
@@ -57,69 +57,96 @@ def main():
     # Create a spare public IP address
     ip_name = Haikunator().haikunate(delimiter='')
     dns_label = ip_name + 'dns'
+    print('Creating float public IP: ' + ip_name)
     ip_ret = azurerm.create_public_ip(access_token, subscription_id, resource_group, ip_name, dns_label, location)
     floatip_id = ip_ret.json()['id']
-    print('Float ip id = ' + floatip_id)
+    if verbose is True:
+        print('Float ip id = ' + floatip_id)
     
     # 1. Get lb 2
-    print('Getting load balancer: ' + lb2)
     lbmodel2 = azurerm.get_load_balancer(access_token, subscription_id, resource_group, lb2)
     lb2_ip_id = lbmodel2['properties']['frontendIPConfigurations'][0]['properties']['publicIPAddress']['id']
-    print(lb2 + ' ip id: ' + lb2_ip_id)
-    if verbose == True:
+    lb2_ip_name = lb2_ip_id.split('publicIPAddresses/',1)[1] 
+    if verbose is True:
+        print(lb2 + ' ip id: ' + lb2_ip_id)
         print(lb2 + ' model:')
         print(json.dumps(lbmodel2, sort_keys=False, indent=2, separators=(',', ': ')))
 
     # 2. Assign new ip to lb 2
-    print('Updating ' + lb2 + ' ip to float id')
+    print('Updating ' + lb2 + ' ip to float ip: ' + ip_name)
     lbmodel2['properties']['frontendIPConfigurations'][0]['properties']['publicIPAddress']['id'] = floatip_id
     ret = azurerm.update_load_balancer(access_token, subscription_id, resource_group, lb2, json.dumps(lbmodel2))
     if (ret.status_code != 200):
         handle_bad_update("updating " + lb2, ret)
-    else:
+
+    if verbose is True:
         print('original ip id: ' + lb2_ip_id + ', new ip id: ' + floatip_id)
-    if verbose == True:
         print(json.dumps(ret, sort_keys=False, indent=2, separators=(',', ': ')))
-    
+    print('Waiting for old ' + lb2 + ' ip: ' + lb2_ip_name + ' to be unnassigned')
+    waiting = True
+    start1 = time.time()
+    while waiting:
+        lbmodel2 = azurerm.get_load_balancer(access_token, subscription_id, resource_group, lb2)
+        if lbmodel2['properties']['provisioningState'] == 'Succeeded':
+            waiting = False
+        time.sleep(3)
+    end1 = time.time()
+    print('Elapsed time: ' + str(int(end1 - start1)))
     # 3. Get lb 1
-    print('Getting load balancer: ' + lb1)
     lbmodel1 = azurerm.get_load_balancer(access_token, subscription_id, resource_group, lb1)
     lb1_ip_id = lbmodel1['properties']['frontendIPConfigurations'][0]['properties']['publicIPAddress']['id']
-    print(lb1 + ' ip id: ' + lb1_ip_id)
-    if verbose == True:
+
+    if verbose is True:
+        print(lb1 + ' ip id: ' + lb1_ip_id)
         print(lb1 + ' model:')
         print(json.dumps(lbmodel1, sort_keys=False, indent=2, separators=(',', ': ')))
-
-    print('Waiting for ' + lb2 + ' ip to be unnassigned')
-    time.sleep(40)
+    lb1_ip_name = lb1_ip_id.split('publicIPAddresses/',1)[1] 
 
     # 4. Assign old ip 2 to lb 1
-    print('Downtime begins: Updating ' + lb1 + ' ip to ip from ' + lb2)
+    print('Downtime begins: Updating ' + lb1 + ' ip to ' + lb2_ip_name)
+    start2 = time.time()
     lbmodel1['properties']['frontendIPConfigurations'][0]['properties']['publicIPAddress']['id'] = lb2_ip_id
     ret = azurerm.update_load_balancer(access_token, subscription_id, resource_group, lb1, json.dumps(lbmodel1))
     if (ret.status_code != 200):
         handle_bad_update("updating " + lb1, ret)
-    else:
-        print('Staging IP now points to production. Original ip id: ' + lb1_ip_id + ', new ip id: ' + lb2_ip_id)
-    if verbose == True:
+    if verbose is True:
         print(json.dumps(ret, sort_keys=False, indent=2, separators=(',', ': ')))
 
-    print('Waiting for ' + lb1 + ' ip to be unnassigned')
-    time.sleep(40) # to do: loop to check this instead of hardcoded time
+    print('Waiting for old ' + lb1 + ' ip: ' + lb1_ip_name + ' to be unnassigned')
+    waiting = True
+    while waiting:
+        lbmodel1 = azurerm.get_load_balancer(access_token, subscription_id, resource_group, lb1)
+        if lbmodel1['properties']['provisioningState'] == 'Succeeded':
+            waiting = False
+        time.sleep(3)
+    end2 = time.time()
+    print('Staging IP ' + lb2_ip_name + ' now points to old production LB ' + lb1)
+    print('Elapsed time: ' + str(int(end2 - start1)))
 
     # 5. Assign old ip 1 to lb 2
-    print('Updating ' + lb2 + ' ip to ip from ' + lb1)
+    print('Updating ' + lb2 + ' ip to ' + lb1_ip_name)
     lbmodel2['properties']['frontendIPConfigurations'][0]['properties']['publicIPAddress']['id'] = lb1_ip_id
     ret = azurerm.update_load_balancer(access_token, subscription_id, resource_group, lb2, json.dumps(lbmodel2))
     if (ret.status_code != 200):
         handle_bad_update("updating " + lb2, ret)
-    else:
-        print('VIP swap complete. Original ip id: ' + lb2_ip_id + ', new ip id: ' + lb1_ip_id)
-    if verbose == True:
+
+    if verbose is True:
+        print('Original ip id: ' + lb2_ip_id + ', new ip id: ' + lb1_ip_id)
         print(json.dumps(ret, sort_keys=False, indent=2, separators=(',', ': ')))
+    print('Waiting for ' + lb2 + ' provisioning to complete')
+    waiting = True
+    while waiting:
+        lbmodel2 = azurerm.get_load_balancer(access_token, subscription_id, resource_group, lb2)
+        if lbmodel2['properties']['provisioningState'] == 'Succeeded':
+            waiting = False
+        time.sleep(3)
+    end3 = time.time()
 
     # 6. Delete floatip
-    print('Deleting float ip:' + floatip_id)
+    print('VIP swap complete')
+    print('Downtime: ' + str(int(end3 - start2)) + '. Total elapsed time: ' + \
+        str(int(end3 - start1)))
+    print('Deleting float ip: ' + ip_name)
     azurerm.delete_public_ip(access_token, subscription_id, resource_group, ip_name)
 
 if __name__ == "__main__":
