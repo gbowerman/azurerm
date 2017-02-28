@@ -59,18 +59,6 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.ip2_id = response.json()['id']
 
-        # create 5 storage accounts for vmssname
-        print('Creating storage accounts for scale set')
-        self.container_list = []
-        for count in range(5):
-            sa_name = ''.join(choice(ascii_lowercase) for i in range(10))
-            print(sa_name)
-            response = azurerm.create_storage_account(self.access_token, self.subscription_id, \
-                self.rgname, sa_name, self.location, storage_type='Standard_LRS')
-            self.assertEqual(response.status_code, 202)
-            container = 'https://' + sa_name + '.blob.core.windows.net/' + self.vmssname + 'vhd'
-            self.container_list.append(container)
-
         # create load balancer with nat pool for VMSS create
         lb_name = self.vnet + 'lb'
         print('Creating load balancer with nat pool: ' + lb_name)
@@ -84,15 +72,15 @@ class TestAzurermPy(unittest.TestCase):
         vm_size = 'Standard_D1'
         publisher = 'Canonical'
         offer = 'UbuntuServer'
-        sku = '16.04.0-LTS'
+        sku = '16.04-LTS'
         version = 'latest'
         username = 'rootuser'
         password = self.h.haikunate(delimiter=',')
         print('Creating VMSS: ' + self.vmssname + ', capacity = ' + str(capacity))
         response = azurerm.create_vmss(self.access_token, self.subscription_id, self.rgname, \
-            self.vmssname, vm_size, capacity, publisher, offer, sku, version, self.container_list, \
+            self.vmssname, vm_size, capacity, publisher, offer, sku, version, \
             self.subnet_id, self.be_pool_id, self.lb_pool_id, self.location, username=username, \
-            password=password)
+            public_key=self.public_key)
             
 
     def tearDown(self):
@@ -101,6 +89,7 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.delete_resource_group(self.access_token, self.subscription_id, \
             self.rgname)
         self.assertEqual(response.status_code, 202)
+
 
     def test_insights(self):
         # create autoscale rule
