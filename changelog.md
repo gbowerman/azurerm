@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.7.22 (Apr 4 2017):
+- Preview get_vmss_public_ips() (won't work unless your subscription is enabled)
+
 ### v0.7.20 (Apr 4 2017):
 - Fix NETWORK_API version for get_vmss_vm_nics()
 
