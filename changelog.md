@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.7.20 (Apr 4 2017):
+- Fix NETWORK_API version for get_vmss_vm_nics()
+
 ### v0.7.19 (Feb 10 2017):
 - Add optional subnet address prefix parameter (subnet_prefix) to create_vnet()
 
