@@ -293,7 +293,7 @@ def get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, i
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                         '/virtualMachines/', str(instance_id),
-                        '/networkInterfaces?api-version=', COMP_API])
+                        '/networkInterfaces?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
 
