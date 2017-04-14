@@ -538,6 +538,18 @@ def scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, t
     return do_patch(endpoint, body, access_token)
 
 
+# scale_vmss_lite(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity)
+# change the instance count of an existing VM Scale Set - testing patch capacity only
+def scale_vmss_lite(access_token, subscription_id, resource_group, vmss_name, capacity):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                        '?api-version=', COMP_API])
+    body = '{"sku":{"capacity":"' + str(capacity) + '"}}'
+    return do_patch(endpoint, body, access_token)
+
+
 # start_vm(access_token, subscription_id, resource_group, vm_name)
 # start a virtual machine
 def start_vm(access_token, subscription_id, resource_group, vm_name):
