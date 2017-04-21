@@ -10,7 +10,7 @@ from .settings import azure_rm_endpoint, ACS_API
 # create a new container service
 def create_container_service(access_token, subscription_id, resource_group, service_name, \
     agent_count, agent_vm_size, agent_dns, master_dns, admin_user, public_key, location, \
-    sp_clientid, sp_clientsecret, master_count=3, orchestrator='DCOS'):
+    app_id, app_secret, master_count=3, orchestrator='DCOS'):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
@@ -27,8 +27,8 @@ def create_container_service(access_token, subscription_id, resource_group, serv
     linux_profile = {'adminUsername': admin_user}
     linux_profile['ssh'] = {'publicKeys': [{'keyData': public_key}]}
     properties['linuxProfile'] = linux_profile
-    sp_profile = {'ClientID': sp_clientid}
-    sp_profile['Secret'] = sp_clientsecret
+    sp_profile = {'ClientID': app_id}
+    sp_profile['Secret'] = app_secret
     properties['servicePrincipalProfile'] = sp_profile
     acs_body['properties'] = properties
     body = json.dumps(acs_body)
