@@ -2,7 +2,7 @@
 
 azure_rm_endpoint = 'https://management.azure.com'
 
-ACS_API = '2016-03-30'
+ACS_API = '2017-01-31'
 BASE_API = '2016-09-01'
 COMP_API = '2017-03-30'
 #COMP_API = '2016-04-30-preview'

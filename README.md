@@ -161,7 +161,10 @@ A basic set of infrastructure create, list, query functions are implemented. If 
 '''
 create_container_service(access_token, subscription_id, resource_group, service_name,
     agent_count, agent_vm_size, agent_dns, master_dns, admin_user, public_key, location,
-    master_count=3, orchestrator='DCOS') # create a new container service 
+    master_count=3, orchestrator='DCOS') # create a new container service
+create_container_service(access_token, subscription_id, resource_group, service_name,
+    agent_count, agent_vm_size, agent_dns, master_dns, admin_user, public_key, location,
+    master_count=3, orchestrator='Kubernetes', app_id, app_secret) # create a new container service. last two arguments are required for kubernetes
 delete_container_service(access_token, subscription_id, resource_group, container_service_name) # delete a named container service
 get_container_service(access_token, subscription_id, resource_group, service_name) # get details about an Azure Container Server
 list_acs_operations(access_token) # list available Container Server operations
