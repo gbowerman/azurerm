@@ -6,8 +6,8 @@ from .settings import azure_rm_endpoint, ACS_API
 
 # create_container_service(access_token, subscription_id, resource_group, service_name, \
 #    agent_count, agent_vm_size, agent_dns, master_dns, admin_user, public_key, location, \
-#    master_count=3, orchestrator='DCOS')
-# create a new container service
+#    master_count=3, orchestrator='DCOS', app_id=None, app_secret=None)
+# create a new container service - includ app_id and app_secret if using Kubernetes
 def create_container_service(access_token, subscription_id, resource_group, service_name, \
     agent_count, agent_vm_size, agent_dns, master_dns, admin_user, public_key, location, \
     master_count=3, orchestrator='DCOS', app_id=None, app_secret=None):
@@ -27,7 +27,7 @@ def create_container_service(access_token, subscription_id, resource_group, serv
     linux_profile = {'adminUsername': admin_user}
     linux_profile['ssh'] = {'publicKeys': [{'keyData': public_key}]}
     properties['linuxProfile'] = linux_profile
-    if app_secret is not None:
+    if orchestrator == 'Kubernetes':
        sp_profile = {'ClientID': app_id}
        sp_profile['Secret'] = app_secret
        properties['servicePrincipalProfile'] = sp_profile
