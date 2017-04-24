@@ -18,8 +18,6 @@ tenant_id = configData['tenantId']
 app_id = configData['appId']
 app_secret = configData['appSecret']
 subscription_id = configData['subscriptionId']
-sp_client_id = configData['servicePrincipalClientID']
-sp_client_secret = configData['servicePrincipalClientSecret']
 
 # authenticate
 access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
@@ -58,8 +56,7 @@ print('Master count: ' + str(master_count))
 
 response = azurerm.create_container_service(access_token, subscription_id, \
     rgname, service_name, agent_count, agent_vm_size, agent_dns, \
-    master_dns, admin_user, public_key, location, app_id, \
-    app_secret, master_count=master_count)
+    master_dns, admin_user, public_key, location, master_count=master_count)
 if response.status_code != 201:
     sys.exit('Expecting return code 201 from create_container_service(): ' + str(response.status_code))
 
