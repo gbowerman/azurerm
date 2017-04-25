@@ -72,12 +72,12 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
 # create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, \
 #   publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, \
 #   location, storage_type='Standard_LRS', username='azure', password=None, public_key=None, overprovision='true', \
-#   upgradePolicy='Manual')
+#   upgradePolicy='Manual', public_ip_per_vm=False)
 # create virtual machine scale set
 def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, \
     publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, location, storage_type='Standard_LRS', \
-     username='azure', password=None, public_key=None, overprovision='true', \
-    upgradePolicy='Manual'):
+    username='azure', password=None, public_key=None, overprovision='true', \
+    upgradePolicy='Manual', public_ip_per_vm=False):
     endpoint = ''.join([azure_rm_endpoint,
                 '/subscriptions/', subscription_id,
                 '/resourceGroups/', resource_group,
@@ -116,6 +116,8 @@ def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_siz
     ip_properties = {'subnet': { 'id': subnet_id}}
     ip_properties['loadBalancerBackendAddressPools'] = [{'id': be_pool_id}]
     ip_properties['loadBalancerInboundNatPools'] = [{'id': lb_pool_id}]
+    if public_ip_per_vm is True:
+        ip_properties['publicIpAddressConfiguration'] = {'name': 'pubip', 'properties': {'idleTimeoutInMinutes': 15}}
     ip_config['properties'] = ip_properties
     nic['properties'] = {'primary': True, 'ipConfigurations': [ip_config]}
     network_profile = {'networkInterfaceConfigurations': [nic]}

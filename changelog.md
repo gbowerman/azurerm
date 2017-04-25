@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.7.25 (Apr 25 2017):
+- Add support for VMSS public IP per VM preview in create_vmss()
+
 ### v0.7.24 (Apr 24 2017):
 - Add Kubernetes support to create_acs() with optional params for app_id, app_secret - thanks @pothedar
 
