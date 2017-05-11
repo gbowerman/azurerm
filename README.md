@@ -191,6 +191,7 @@ list_autoscale_settings(access_token, subscription_id) # list the autoscale sett
 list_insights_components(access_token, subscription_id, resource_group) # list the Microsoft Insights components in a resource group
 list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name) # list the monitoring metric definitions for a resource
 get_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name) # get the monitoring metrics for a resource
+get_events_for_subscription(access_token, subscription_id, start_timestamp) # get activity log events for a resource; an example string to pass in for start_timestamp is: '2017-05-01T00:00:00.0000000Z'
 ```
 
 #### Media Services (Media Resource provider)
