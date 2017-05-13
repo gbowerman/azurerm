@@ -128,6 +128,10 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], self.setting_name)
 
+        start_timestamp = '2017-05-01T00:00:00.0000000Z'
+        events = get_events_for_subscription(self.access_token, self.subscription_id, \
+            start_timestamp)
+        print(json.dumps(events, sort_keys=False, indent=2, separators=(',', ': ')))
 if __name__ == '__main__':
     unittest.main()
 

@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.7.26 (5/13/2017):
+- Add get_events_for_subscription() for queriying audit log - thanks @gatneil
+
 ### v0.7.25 (Apr 25 2017):
 - Add support for VMSS public IP per VM preview in create_vmss()
 
