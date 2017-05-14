@@ -116,7 +116,6 @@ def get_metrics_for_resource(access_token, subscription_id, resource_group, reso
 def get_events_for_subscription(access_token, subscription_id, start_timestamp):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
-                        '/providers/microsoft.insights/eventtypes/management/values?api-version=', INSIGHTS_API,
-                        '&$filter=eventTimestamp ge \'', start_timestamp, '\''
-    ])
+                        '/providers/microsoft.insights/eventtypes/management/values?api-version=', 
+                        INSIGHTS_API, '&$filter=eventTimestamp ge \'', start_timestamp, '\''])
     return do_get(endpoint, access_token)

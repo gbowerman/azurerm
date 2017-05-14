@@ -3,18 +3,19 @@
 # Note: The insights test unit creates a VM scale set in order to add autoscale rules. 
 # Therefore it is a fairly good way to exercise storage, network, compute AND insights functions.
 
-import sys
-import unittest
-from haikunator import Haikunator
-import json
 import azurerm
-import time
-from random import choice
-from string import ascii_lowercase
-
 from cryptography.hazmat.primitives import serialization
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.backends import default_backend
+import datetime
+from haikunator import Haikunator
+import json
+from random import choice
+from string import ascii_lowercase
+import sys
+import time
+import unittest
+
 
 class TestAzurermPy(unittest.TestCase):
 
@@ -128,10 +129,14 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], self.setting_name)
 
-        start_timestamp = '2017-05-01T00:00:00.0000000Z'
-        events = get_events_for_subscription(self.access_token, self.subscription_id, \
+        # get audit log events
+        print('Getting audit log events')
+        # start_timestamp = '2017-05-01T00:00:00.0000000Z'
+        start_timestamp = str(datetime.datetime.now() - datetime.timedelta(days=1))
+        response = azurerm.get_events_for_subscription(self.access_token, self.subscription_id, \
             start_timestamp)
-        print(json.dumps(events, sort_keys=False, indent=2, separators=(',', ': ')))
+        self.assertTrue(len(response['value']) > 0)
+
 if __name__ == '__main__':
     unittest.main()
 
