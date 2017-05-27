@@ -190,7 +190,7 @@ class TestAzurermPy(unittest.TestCase):
         print('Getting VMSS NICs')
         response = azurerm.get_vmss_nics(self.access_token, self.subscription_id, \
             self.rgname, self.vmssname)
-        # print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
+        #print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
         self.assertTrue(len(response['value']) > 0)
 
         # delete VM

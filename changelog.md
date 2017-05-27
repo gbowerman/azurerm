@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.7.28 (5/27/2017):
+- Change get_vmss_nics() to use COMP_API version.
+
 ### v0.7.27 (5/27/2017):
 - Update Compute and Network API versions to latest.
 
