@@ -204,7 +204,7 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.delete_vmss(self.access_token, self.subscription_id, self.rgname, \
             self.vmssname)
         self.assertEqual(response.status_code, 202)
-    
+
         # delete Availability Set
         print('Deleting Availability Set: ' + self.asname)
         response = azurerm.delete_as(self.access_token, self.subscription_id, self.rgname, \
