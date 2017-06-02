@@ -19,7 +19,7 @@ access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 count = 0
 vmimglist = azurerm.list_vm_images_sub(access_token, subscription_id)
 print(json.dumps(vmimglist, sort_keys=False, indent=2, separators=(',', ': ')))
-'''
+
 for vm_image in vmimglist['value']:
     count += 1
     name = vm['name']
@@ -30,7 +30,7 @@ for vm_image in vmimglist['value']:
                    # ', RG: ', rgname,
                    ', location: ', location,
                    ', OS: ', offer, ' ', sku]))
-'''
+
 
 
         
