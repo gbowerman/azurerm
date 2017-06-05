@@ -291,6 +291,8 @@ get_vmss_nics(access_token, subscription_id, resource_group, vmss_name) # get NI
 get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id) # get individual VMSS VM details
 get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id) # get individual VMSS VM instance view
 get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id) # get NIC details for a VMSS VM
+get_vmss_public_ips(access_token, subscription_id, resource_group, vmss_name) # get public IP address details for a VM scale set
+get_vmss_rolling_upgrades(access_token, subscription_id, resource_group, vmss_name) # get details of the latest VM scale set rolling upgrade
 list_as(access_token, subscription_id, resource_group) # list availability sets in a resource_group
 list_as_sub(access_token, subscription_id) # list availability sets in a subscription
 list_vm_images_sub(access_token, subscription_id) # list VM images in a subscription

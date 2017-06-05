@@ -264,13 +264,24 @@ def get_vmss_nics(access_token, subscription_id, resource_group, vmss_name):
 
 
 # get_vmss_public_ips(access_token, subscription_id, resource_group, vmss_name)
-# get NIC details for a VM Scale Set
+# get public IP address details for a VM scale set
 def get_vmss_public_ips(access_token, subscription_id, resource_group, vmss_name):
     endpoint = ''.join([azure_rm_endpoint,
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                         '/publicipaddresses?api-version=', COMP_API])
+    return do_get(endpoint, access_token)
+
+
+# get_vmss_rolling_upgrades(access_token, subscription_id, resource_group, vmss_name)
+# get details of the latest VM scale set rolling upgrade
+def get_vmss_rolling_upgrades(access_token, subscription_id, resource_group, vmss_name):
+    endpoint = ''.join([azure_rm_endpoint,
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                        '/rollingUpgrades/latest?api-version=', COMP_API])
     return do_get(endpoint, access_token)
 
 

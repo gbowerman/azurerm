@@ -1,7 +1,11 @@
 # azurerm - change log
 
+### v0.7.29 (6/05/2017):
+- Add get_vmss_rolling_upgrades() for Rolling upgrade preview.
+
 ### v0.7.28 (5/27/2017):
-- Change get_vmss_nics() to use COMP_API version.
+- Change get_vmss_nics() to use COMP_API version. 
+- Add get_vmss_public_ips()
 
 ### v0.7.27 (5/27/2017):
 - Update Compute and Network API versions to latest.
