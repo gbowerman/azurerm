@@ -41,6 +41,5 @@ upgrade_status = azurerm.get_vmss_rolling_upgrades(
 if details is True:
     print(json.dumps(upgrade_status, sort_keys=False, indent=2, separators=(',', ': ')))
 else:
-    print("More details will go here later..")
-    if "error" in upgrade_status:
-        print(json.dumps(upgrade_status, sort_keys=False, indent=2, separators=(',', ': ')))
+    print(json.dumps(upgrade_status, sort_keys=False, indent=2, separators=(',', ': ')))
+
