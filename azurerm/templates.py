@@ -1,13 +1,13 @@
 # templates.py - azurerm functions for deploying templates
 import json
 from .restfns import do_put
-from .settings import azure_rm_endpoint, BASE_API
+from .settings import get_rm_endpoint, BASE_API
 
 
 # deploy_template(access_token, subscription_id, resource_group, deployment_name, template, parameters)
 # deploy a template referenced by a JSON string, with parameters as a JSON string
 def deploy_template(access_token, subscription_id, resource_group, deployment_name, template, parameters):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,
@@ -23,7 +23,7 @@ def deploy_template(access_token, subscription_id, resource_group, deployment_na
 # deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters)
 # deploy a template referenced by a URI, with parameters as a JSON string
 def deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,
@@ -40,7 +40,7 @@ def deploy_template_uri(access_token, subscription_id, resource_group, deploymen
 # deploy a template with both template and parameters referenced by URIs
 def deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name, template_uri,
                                   parameters_uri):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,

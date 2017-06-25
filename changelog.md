@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.8.0 (6/25/2017):
+- Support national/isolated clouds. Now you can set an environment variable: AZURE_RM_ENDPOINT 
+  to override the default endpoint. E.g. for China: set AZURE_RM_ENDPOINT to "https://management.chinacloudapi.cn"
+
 ### v0.7.29 (6/05/2017):
 - Add get_vmss_rolling_upgrades() for Rolling upgrade preview.
 

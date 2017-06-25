@@ -1,7 +1,7 @@
 # acs.py - azurerm functions for the Azure Container Service
 import json
 from .restfns import do_delete, do_get, do_put
-from .settings import azure_rm_endpoint, ACS_API
+from .settings import get_rm_endpoint, ACS_API
 
 
 # create_container_service(access_token, subscription_id, resource_group, service_name, \
@@ -11,7 +11,7 @@ from .settings import azure_rm_endpoint, ACS_API
 def create_container_service(access_token, subscription_id, resource_group, service_name, \
     agent_count, agent_vm_size, agent_dns, master_dns, admin_user, public_key, location, \
     master_count=3, orchestrator='DCOS', app_id=None, app_secret=None):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.ContainerService/ContainerServices/', service_name,
@@ -38,7 +38,7 @@ def create_container_service(access_token, subscription_id, resource_group, serv
 # delete_container_service(access_token, subscription_id, resource_group, container_service_name)
 # delete a named container service
 def delete_container_service(access_token, subscription_id, resource_group, service_name):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.ContainerService/ContainerServices/', service_name,
@@ -49,7 +49,7 @@ def delete_container_service(access_token, subscription_id, resource_group, serv
 # get_container_service(access_token, subscription_id, resource_group, service_name)
 # get details about an Azure Container Server
 def get_container_service(access_token, subscription_id, resource_group, service_name):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.ContainerService/ContainerServices/', service_name,
@@ -60,7 +60,7 @@ def get_container_service(access_token, subscription_id, resource_group, service
 # list_acs_operations(access_token, subscription_id, resource_group)
 # list available Container Server operations
 def list_acs_operations(access_token):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/providers/Microsoft.ContainerService/operations',
                         '?api-version=', ACS_API])
     return do_get(endpoint, access_token)
@@ -69,7 +69,7 @@ def list_acs_operations(access_token):
 # list_container_services(access_token, subscription_id, resource_grou)
 # list the container services in a resource group
 def list_container_services(access_token, subscription_id, resource_group):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.ContainerService/ContainerServices',
@@ -80,7 +80,7 @@ def list_container_services(access_token, subscription_id, resource_group):
 # list_container_services_sub(access_token, subscription_id)
 # list the container services in a subscription
 def list_container_services_sub(access_token, subscription_id):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.ContainerService/ContainerServices',
                         '?api-version=', ACS_API])

@@ -1,7 +1,7 @@
 # insightsrp.py - azurerm functions for the Microsoft.Insights resource provider
 import json
 from .restfns import do_get, do_put
-from .settings import azure_rm_endpoint, INSIGHTS_API, INSIGHTS_METRICS_API, INSIGHTS_PREVIEW_API
+from .settings import get_rm_endpoint, INSIGHTS_API, INSIGHTS_METRICS_API, INSIGHTS_PREVIEW_API
 
 
 # create_autoscale_rule(subscription_id, resource_group, vmss_name, metric_name, operator, 
@@ -33,7 +33,7 @@ def create_autoscale_rule(subscription_id, resource_group, vmss_name, metric_nam
 # create a new autoscale setting for a scale set
 def create_autoscale_setting(access_token, subscription_id, resource_group, setting_name, 
     vmss_name, location, min, max, default, autoscale_rules, notify=None):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
                         '/providers/microsoft.insights/autoscaleSettings/', setting_name,
@@ -66,7 +66,7 @@ def create_autoscale_setting(access_token, subscription_id, resource_group, sett
 # list_autoscale_settings(access_token, subscription_id)
 # list the autoscale settings in a subscription_id
 def list_autoscale_settings(access_token, subscription_id):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/microsoft.insights/',
                         '/autoscaleSettings?api-version=', INSIGHTS_API])
@@ -76,7 +76,7 @@ def list_autoscale_settings(access_token, subscription_id):
 # list_insights_components(access_token, subscription_id, resource_group)
 # list the Microsoft Insights components in a resource group	
 def list_insights_components(access_token, subscription_id, resource_group):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
                         '/providers/microsoft.insights/',
@@ -86,7 +86,7 @@ def list_insights_components(access_token, subscription_id, resource_group):
 # list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name)
 # list the monitoring metric definitions for a resource
 def list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
                         '/providers/', resource_provider,
@@ -100,7 +100,7 @@ def list_metric_definitions_for_resource(access_token, subscription_id, resource
 # get_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name)
 # get the monitoring metrics for a resource
 def get_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
                         '/providers/', resource_provider,
@@ -114,7 +114,7 @@ def get_metrics_for_resource(access_token, subscription_id, resource_group, reso
 # get the monitoring metrics for a resource
 # example start_timetamp value: '2017-05-01T00:00:00.0000000Z'
 def get_events_for_subscription(access_token, subscription_id, start_timestamp):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/microsoft.insights/eventtypes/management/values?api-version=', 
                         INSIGHTS_API, '&$filter=eventTimestamp ge \'', start_timestamp, '\''])

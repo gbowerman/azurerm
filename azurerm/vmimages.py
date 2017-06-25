@@ -1,13 +1,13 @@
 # vmimages.py - azurerm functions for Microsoft.Compute RP publishers and images
 
 from .restfns import do_get
-from .settings import azure_rm_endpoint, COMP_API
+from .settings import get_rm_endpoint, COMP_API
 
 
 # list_offers(access_token, subscription_id, location, publisher)
 # list available VM image offers from a publisher
 def list_offers(access_token, subscription_id, location, publisher):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/',
                         'locations/', location,
@@ -19,7 +19,7 @@ def list_offers(access_token, subscription_id, location, publisher):
 # list_publishers(access_token, subscription_id, location)
 # list available image publishers for a location
 def list_publishers(access_token, subscription_id, location):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/',
                         'locations/', location,
@@ -30,7 +30,7 @@ def list_publishers(access_token, subscription_id, location):
 # list_skus(access_token, subscription_id, location, publisher, offer)
 # list available VM image skus for a publisher offer
 def list_skus(access_token, subscription_id, location, publisher, offer):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/',
                         'locations/', location,
@@ -43,7 +43,7 @@ def list_skus(access_token, subscription_id, location, publisher, offer):
 # list_sku_versions(access_token, subscription_id, location, publisher, offer, sku)
 # list available versions for a given publisher's sku
 def list_sku_versions(access_token, subscription_id, location, publisher, offer, sku):
-    endpoint = ''.join([azure_rm_endpoint,
+    endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/',
                         'locations/', location,
