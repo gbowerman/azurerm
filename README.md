@@ -22,9 +22,14 @@ A more detailed set of **azurerm** programming examples can be found here: <a hr
 See also the unit test suite which is new but the goal is to expand it to test every function in the library: <a href="https://github.com/gbowerman/azurerm/tree/master/test">test</a>
 
 ### National/isolated cloud support
-To use this library with national or isolated clouds, 
-1. Set an environment variable: AZURE_RM_ENDPOINT (e.g. for China set this to "https://management.chinacloudapi.cn").
-2. Specify optional arguments to azurerm.get_access_token(). E.g. for China: authentication_endpoint='https://login.chinacloudapi.cn/', resource='https://management.core.chinacloudapi.cn/'.
+To use this library with national or isolated clouds, set environment variables to override the public default endpoints.
+
+E.g. bash shell example for China..
+``` 
+  export AZURE_RM_ENDPOINT='https://management.chinacloudapi.cn'
+  export AZURE_AUTH_ENDPOINT='https://login.chinacloudapi.cn/'
+  export AZURE_RESOURCE_ENDPOINT='https://management.core.chinacloudapi.cn/'
+```
 
 #### Example to list Azure subscriptions, create a Resource Group, list Resource Groups
 ```

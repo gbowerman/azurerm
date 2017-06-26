@@ -1,5 +1,12 @@
 # azurerm - change log
 
+### v0.8.1 (6/26/2017):
+- Breaking change: Support national/isolated clouds through environment variables. 
+  E.g. for China: 
+  set AZURE_RM_ENDPOINT to 'https://management.chinacloudapi.cn'
+  set AZURE_AUTH_ENDPOINT to 'https://login.chinacloudapi.cn/'
+  set AZURE_RESOURCE_ENDPOINT to 'https://management.core.chinacloudapi.cn/'
+
 ### v0.8.0 (6/25/2017):
 - Support national/isolated clouds. Now you can set an environment variable: AZURE_RM_ENDPOINT 
   to override the default endpoint. E.g. for China: set AZURE_RM_ENDPOINT to "https://management.chinacloudapi.cn"

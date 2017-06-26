@@ -1,7 +1,10 @@
 # settings.py - place to store constants for azurerm
 import os
 
-azure_rm_endpoint = 'https://management.azure.com'
+# public defaults for authentication and resource endpoints
+AZURE_RM_ENDPOINT = 'https://management.azure.com'
+AZURE_AUTH_ENDPOINT = 'https://login.microsoftonline.com/'
+AZURE_RESOURCE_ENDPOINT = 'https://management.core.windows.net/'
 
 ACS_API = '2017-01-31'
 BASE_API = '2016-09-01'
@@ -18,7 +21,22 @@ STORAGE_API = '2016-01-01'
 def get_rm_endpoint():
     rm_endpoint = os.environ.get('AZURE_RM_ENDPOINT')
     if rm_endpoint is None:
-        return azure_rm_endpoint
+        return AZURE_RM_ENDPOINT
     else:
         return rm_endpoint
 
+
+def get_auth_endpoint():
+    auth_endpoint = os.environ.get('AZURE_AUTH_ENDPOINT')
+    if auth_endpoint is None:
+        return AZURE_AUTH_ENDPOINT
+    else:
+        return auth_endpoint
+
+
+def get_resource_endpoint():
+    resource_endpoint = os.environ.get('AZURE_RESOURCE_ENDPOINT')
+    if resource_endpoint is None:
+        return AZURE_RESOURCE_ENDPOINT
+    else:
+        return resource_endpoint
