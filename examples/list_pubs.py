@@ -32,8 +32,8 @@ for sku in skus:
     print(sku['name'])
 '''
 #print('Versions for CoreOS:')
-versions = azurerm.list_sku_versions(access_token, subscription_id, 'southeastasia', 'Canonical', 'UbuntuServer', '16.04-LTS')
-#versions = azurerm.list_sku_versions(access_token, subscription_id, 'eastasia', 'CoreOS', 'CoreOS', 'Stable')
+# versions = azurerm.list_sku_versions(access_token, subscription_id, 'southeastasia', 'Canonical', 'UbuntuServer', '17.10-DAILY')
+versions = azurerm.list_sku_versions(access_token, subscription_id, 'eastasia', 'CoreOS', 'CoreOS', 'Stable')
 # versions = azurerm.list_sku_versions(access_token, subscription_id, 'eastasia', 'rancher', 'rancheros', 'os')
 for version in versions:
     print(version['name'])
