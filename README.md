@@ -18,22 +18,11 @@ For what's new in the most recent version refer to the [Changelog](./changelog.m
 For a semi-permanent/hardcoded way to authenticate, you can create a "Service Principal" for your application (an application equivalent of a user). Once you've done this you'll have 3 pieces of information: A tenant ID, an application ID, and an application secret. You will use these to create an authentication token. For more information on how to get this information go here: <a href ="https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/">Authenticating a service principal with Azure Resource Manager</a>. See also: <a href="https://msftstack.wordpress.com/2016/01/05/azure-resource-manager-authentication-with-python/">Azure Resource Manager REST calls from Python</a>. Make sure you create a service principal with sufficient access rights, like "Contributor", not "Reader".
 
 ## Authenticating using CLI
-When you run a CLI command, it caches an authentication token which you can use with azurerm calls. Recent versions of CLI have a command which returns an authentication token: _az account get-access-token_, or you could programmatically get the token from the environment:
+When you run a CLI command, it caches an authentication token which you can use with azurerm calls. Recent versions of CLI have a command which returns an authentication token: _az account get-access-token_. Azurerm has added a new function to get the Azure authentication token from CLI's local cache: 
 ```
-import json
-import os
-import sys
-from azure.cli.core._profile import Profile
-from azure.cli.core._session import ACCOUNT
-from azure.cli.core._environment import get_config_dir
-
-azure_folder = get_config_dir()
-
-ACCOUNT.load(os.path.join(azure_folder, 'azureProfile.json'))
-profile = Profile(ACCOUNT)
-creds, subscription, tenant = profile.get_raw_token()
-print(creds[1])
+azurerm.get_access_token_from_cli()
 ```
+This saves you from having to create a Service Princial at all. Note: This function will fail unless you have an unexired authentication token in your local CLI cache. I.e. you have run _az login_ on the same machine recently.
 
 ## azurerm examples
 A more detailed set of **azurerm** programming examples can be found here: <a href="https://github.com/gbowerman/azurerm/blob/master/examples.md">azurerm Python library programming examples</a>. For even more examples look at the <a href="https://github.com/gbowerman/azurerm/tree/master/examples">azurerm examples library</a>. 

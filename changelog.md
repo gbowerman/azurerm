@@ -1,5 +1,10 @@
 # azurerm - change log
 
+### v0.8.2 (7/19/17):
+- Support getting Azure authentication from the local CLI cache instead of requiring a service principal.
+- Implies that you have run 'az login' recently enough to have a local unexpired auth token
+- New function get_access_token_from_cli()
+
 ### v0.8.1 (6/26/2017):
 - Breaking change: Support national/isolated clouds through environment variables. 
   E.g. for China: 
