@@ -24,6 +24,15 @@ azurerm.get_access_token_from_cli()
 ```
 This saves you from having to create a Service Princial at all. Note: This function will fail unless you have an unexired authentication token in your local CLI cache. I.e. you have run _az login_ on the same machine recently.
 
+Example authenticating using the Azure Portal Cloud Shell:
+```
+me@Azure:-$ pip install --user --upgrade azurerm
+me@azure:-$ python
+>>> import azurerm
+>>> token = azurerm.get_access_token_from_cli()
+>>> azurerm.list_subscriptions()
+```
+
 ## azurerm examples
 A more detailed set of **azurerm** programming examples can be found here: <a href="https://github.com/gbowerman/azurerm/blob/master/examples.md">azurerm Python library programming examples</a>. For even more examples look at the <a href="https://github.com/gbowerman/azurerm/tree/master/examples">azurerm examples library</a>. 
 
