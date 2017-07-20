@@ -6,9 +6,10 @@ The azurerm library provides wrapper functions for the Azure REST api. It doesn'
 Note: This is not an official Microsoft library, just some REST wrappers to make it easier to call the Azure REST API. For the official Microsoft Azure library for Python please go here: <a href="https://github.com/Azure/azure-sdk-for-python">https://github.com/Azure/azure-sdk-for-python</a>.
 
 ## Latest news
-For the most recent azurerm code samples and announcements see the [azurerm blog](https://msftstack.wordpress.com/?s=azurerm).
-
 For what's new in the most recent version refer to the [Changelog](./changelog.md).
+
+For occasional azurerm code samples and announcements see the [azurerm blog](https://msftstack.wordpress.com/?s=azurerm).
+
 
 ## Installation
 1. pip install azurerm

@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.8.7 (7/20/17):
+- Changes to readme and setup.py to display readme in pypi.
+- Created a github wiki and started moving reference content out of the readme and into the wiki.
+
 ### v0.8.2 (7/19/17):
 - Support getting Azure authentication from the local CLI cache instead of requiring a service principal.
 - Implies that you have run 'az login' recently enough to have a local unexpired auth token
