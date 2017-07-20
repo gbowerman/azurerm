@@ -30,7 +30,7 @@ me@Azure:-$ pip install --user --upgrade azurerm
 me@azure:-$ python
 >>> import azurerm
 >>> token = azurerm.get_access_token_from_cli()
->>> azurerm.list_subscriptions()
+>>> azurerm.list_subscriptions(token)
 ```
 
 ## azurerm examples
