@@ -88,7 +88,7 @@ See [create_vm.py](https://github.com/gbowerman/azurerm/tree/master/examples/cre
 See also an example to create a VM Scale Set [create_vmss.py](https://github.com/gbowerman/azurerm/tree/master/examples/create_vmss.py).
 
 #### Example to create a Media Services Account
-See [reatemediaserviceaccountinrg.py](https://github.com/gbowerman/azurerm/tree/master/examples/createmediaserviceaccountinrg.py)
+See [createmediaserviceaccountinrg.py](https://github.com/gbowerman/azurerm/tree/master/examples/createmediaserviceaccountinrg.py)
 
 ## Functions currently supported
 A basic set of infrastructure create, list, query functions are implemented. If you want to add something please send me a PR (don't forget to update this readme too).
