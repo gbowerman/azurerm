@@ -6,17 +6,16 @@ The azurerm library provides wrapper functions for the Azure REST api. It doesn'
 Note: This is not an official Microsoft library, just some REST wrappers to make it easier to call the Azure REST API. For the official Microsoft Azure library for Python please go here: <a href="https://github.com/Azure/azure-sdk-for-python">https://github.com/Azure/azure-sdk-for-python</a>.
 
 ## Latest news
-For what's new in the most recent version refer to the [Changelog](./changelog.md).
+For what's new in the most recent version refer to the [Changelog](https://github.com/gbowerman/azurerm/blob/master/changelog.md).
 
 For occasional azurerm code samples and announcements see the [azurerm blog](https://msftstack.wordpress.com/?s=azurerm).
-
 
 ## Installation
 1. pip install azurerm
 2. To call these functions you need an authentication token. One way to get this is by creating a Service Principal, another is to get a bearer token using CLI. 
 
 ## Authenticating using a Service Principal
-For a semi-permanent/hardcoded way to authenticate, you can create a "Service Principal" for your application (an application equivalent of a user). Once you've done this you'll have 3 pieces of information: A tenant ID, an application ID, and an application secret. You will use these to create an authentication token. For more information on how to get this information go here: <a href ="https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/">Authenticating a service principal with Azure Resource Manager</a>. See also: <a href="https://msftstack.wordpress.com/2016/01/05/azure-resource-manager-authentication-with-python/">Azure Resource Manager REST calls from Python</a>. Make sure you create a service principal with sufficient access rights, like "Contributor", not "Reader".
+For a semi-permanent/hardcoded way to authenticate, you can create a "Service Principal" for your application (an application equivalent of a user). Once you've done this you'll have 3 pieces of information: A tenant ID, an application ID, and an application secret. You will use these to create an authentication token. For more information on how to get this information go here: [Authenticating a service principal with Azure Resource Manager](https://azure.microsoft.com/en-us/documentation/articles/resource-group-authenticate-service-principal/). See also: [Azure Resource Manager REST calls from Python](https://msftstack.wordpress.com/2016/01/05/azure-resource-manager-authentication-with-python/). Make sure you create a service principal with sufficient access rights, like "Contributor", not "Reader".
 
 ## Authenticating using CLI
 When you run a CLI command, it caches an authentication token which you can use with azurerm calls. Recent versions of CLI have a command which returns an authentication token: _az account get-access-token_. Azurerm has added a new function to get the Azure authentication token from CLI's local cache: 
@@ -35,9 +34,9 @@ me@azure:-$ python
 ```
 
 ## azurerm examples
-A more detailed set of **azurerm** programming examples can be found here: <a href="https://github.com/gbowerman/azurerm/blob/master/examples.md">azurerm Python library programming examples</a>. For even more examples look at the <a href="https://github.com/gbowerman/azurerm/tree/master/examples">azurerm examples library</a>. 
+A more detailed set of **azurerm** programming examples can be found here:[azurerm Python library programming examples](https://github.com/gbowerman/azurerm/blob/master/examples.md). For even more examples look at the [azurerm examples library](https://github.com/gbowerman/azurerm/tree/master/examples). 
 
-See also the unit test suite which is new but the goal is to expand it to test every function in the library: <a href="https://github.com/gbowerman/azurerm/tree/master/test">test</a>
+See also the unit test suite which is new but the goal is to expand it to test every function in the library: [test](https://github.com/gbowerman/azurerm/tree/master/test)
 
 ### National/isolated cloud support
 To use this library with national or isolated clouds, set environment variables to override the public default endpoints.
@@ -84,12 +83,12 @@ for rg in resource_groups['value']:
 ``` 
 
 #### Example to create a virtual machine
-See <a href="https://github.com/gbowerman/azurerm/tree/master/examples/create_vm.py">create_vm.py</a>.
+See [create_vm.py](https://github.com/gbowerman/azurerm/tree/master/examples/create_vm.py).
 
-See also an example to create a VM Scale Set <a href="https://github.com/gbowerman/azurerm/tree/master/examples/create_vmss.py">create_vmss.py</a>. 
+See also an example to create a VM Scale Set [create_vmss.py](https://github.com/gbowerman/azurerm/tree/master/examples/create_vmss.py).
 
 #### Example to create a Media Services Account
-See <a href="https://github.com/gbowerman/azurerm/tree/master/examples/createmediaserviceaccountinrg.py">createmediaserviceaccountinrg.py</a>
+See [reatemediaserviceaccountinrg.py](https://github.com/gbowerman/azurerm/tree/master/examples/createmediaserviceaccountinrg.py)
 
 ## Functions currently supported
 A basic set of infrastructure create, list, query functions are implemented. If you want to add something please send me a PR (don't forget to update this readme too).
