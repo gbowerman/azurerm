@@ -22,7 +22,7 @@ When you run a CLI command, it caches an authentication token which you can use 
 ```
 azurerm.get_access_token_from_cli()
 ```
-This saves you from having to create a Service Princial at all. Note: This function will fail unless you have an unexired authentication token in your local CLI cache. I.e. you have run _az login_ on the same machine recently.
+This saves you from having to create a Service Princial at all. Note: This function will fail unless you have an unexpired authentication token in your local CLI cache. I.e. you have run _az login_ on the same machine recently.
 
 Example authenticating using the Azure Portal Cloud Shell:
 ```
