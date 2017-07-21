@@ -74,7 +74,6 @@ rgname = input()
 location = 'southeastasia'
 rgreturn = azurerm.create_resource_group(access_token, subscription_id, rgname, location)
 print('Create RG return code: ' + str(rgreturn.status_code)
-print(json.dumps(rgreturn.json(), sort_keys=False, indent=2, separators=(',', ': ')))
 
 # list resource groups
 resource_groups = azurerm.list_resource_groups(access_token, subscription_id)
