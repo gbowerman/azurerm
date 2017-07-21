@@ -34,9 +34,9 @@ me@azure:-$ python
 ```
 
 ## azurerm examples
-A more detailed set of **azurerm** programming examples can be found here:[azurerm Python library programming examples](https://github.com/gbowerman/azurerm/blob/master/examples.md). For even more examples look at the [azurerm examples library](https://github.com/gbowerman/azurerm/tree/master/examples). 
+See below for some simple examples. A detailed set of **azurerm** programming examples can be found here: [azurerm Python library programming examples](https://github.com/gbowerman/azurerm/blob/master/examples.md). For more examples look at the [azurerm examples library](https://github.com/gbowerman/azurerm/tree/master/examples). 
 
-See also the unit test suite which is new but the goal is to expand it to test every function in the library: [test](https://github.com/gbowerman/azurerm/tree/master/test)
+See also the unit test suite which covers the main storage, network, compute functions - the goal is to expand it to test every function in the library: [test](https://github.com/gbowerman/azurerm/tree/master/test)
 
 ### National/isolated cloud support
 To use this library with national or isolated clouds, set environment variables to override the public default endpoints.
