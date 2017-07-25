@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.8.9 (7/25/17):
+- Fix bug in template functions which messed up parameters
+
 ### v0.8.8 (7/20/17):
 - Changes to readme and setup.py to display readme in pypi.
 - Created a github wiki and started moving reference content out of the readme and into the wiki.

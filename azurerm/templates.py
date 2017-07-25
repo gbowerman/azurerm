@@ -14,7 +14,7 @@ def deploy_template(access_token, subscription_id, resource_group, deployment_na
                         '?api-version=', BASE_API])
     properties = {'template': template}
     properties['mode'] = 'Incremental'
-    properties = {'parameters': parameters}
+    properties['parameters'] = parameters
     template_body = {'properties': properties}
     body = json.dumps(template_body)    
     return do_put(endpoint, body, access_token)
@@ -30,7 +30,7 @@ def deploy_template_uri(access_token, subscription_id, resource_group, deploymen
                         '?api-version=', BASE_API])
     properties = {'templateLink': {'uri': template_uri, 'contentVersion': '1.0.0.0'}}
     properties['mode'] = 'Incremental'
-    properties = {'parameters': parameters}
+    properties['parameters'] = parameters
     template_body = {'properties': properties}
     body = json.dumps(template_body)                        
     return do_put(endpoint, body, access_token)
@@ -47,7 +47,7 @@ def deploy_template_uri_param_uri(access_token, subscription_id, resource_group,
                         '?api-version=', BASE_API])
     properties = {'templateLink': {'uri': template_uri, 'contentVersion': '1.0.0.0'}}
     properties['mode'] = 'Incremental'
-    properties = {'parametersLink': {'uri': parameters_uri, 'contentVersion': '1.0.0.0'}}
+    properties['parametersLink'] = {'uri': parameters_uri, 'contentVersion': '1.0.0.0'}
     template_body = {'properties': properties}
     body = json.dumps(template_body)
     return do_put(endpoint, body, access_token)
