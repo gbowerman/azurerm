@@ -55,5 +55,5 @@ deployment_name = Haikunator().haikunate()
 print('Deployment name:' + deployment_name)
 
 deploy_return = azurerm.deploy_template_uri(
-    access_token, subscription_id, rgname, deployment_name, template_uri, json.dumps(param_data))
+    access_token, subscription_id, rgname, deployment_name, template_uri, param_data)
 print(deploy_return)
