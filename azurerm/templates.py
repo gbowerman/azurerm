@@ -28,11 +28,11 @@ def deploy_template_uri(access_token, subscription_id, resource_group, deploymen
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,
                         '?api-version=', BASE_API])
-    properties = {'templateLink': {'uri': template_uri, 'contentVersion': '1.0.0.0'}}
+    properties = {'templateLink': {'uri': template_uri}}
     properties['mode'] = 'Incremental'
     properties['parameters'] = parameters
     template_body = {'properties': properties}
-    body = json.dumps(template_body)                        
+    body = json.dumps(template_body)                     
     return do_put(endpoint, body, access_token)
 
 
@@ -45,9 +45,9 @@ def deploy_template_uri_param_uri(access_token, subscription_id, resource_group,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,
                         '?api-version=', BASE_API])
-    properties = {'templateLink': {'uri': template_uri, 'contentVersion': '1.0.0.0'}}
+    properties = {'templateLink': {'uri': template_uri}}
     properties['mode'] = 'Incremental'
-    properties['parametersLink'] = {'uri': parameters_uri, 'contentVersion': '1.0.0.0'}
+    properties['parametersLink'] = {'uri': parameters_uri}
     template_body = {'properties': properties}
     body = json.dumps(template_body)
     return do_put(endpoint, body, access_token)

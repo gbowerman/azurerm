@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.8.10 (7/25/17):
+- Remove contentVersion from template functions
+
 ### v0.8.9 (7/25/17):
 - Fix bug in template functions which messed up parameters
 
