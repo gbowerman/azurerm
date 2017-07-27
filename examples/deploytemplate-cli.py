@@ -23,8 +23,8 @@ argParser.add_argument('--location', '-l', required=True,
                        action='store', help='Location, e.g. eastus')
 argParser.add_argument('--rg', '-g', required=True,
                        action='store', help='Resource Group name')
-argParser.add_argument('--sub', '-s', required=True,
-                       action='store', help='subscription id')                       
+argParser.add_argument('--sub', '-s', required=False,
+                       action='store', help='subscription id (optional)')                       
 
 args = argParser.parse_args()
 
@@ -43,6 +43,8 @@ except FileNotFoundError:
     sys.exit()
 
 access_token = azurerm.get_access_token_from_cli()
+if subscription_id is None:
+    subscription_id = azurerm.get_subscription_from_cli()
 deployment_name = Haikunator().haikunate() 
 print('Deployment name:' + deployment_name)
 

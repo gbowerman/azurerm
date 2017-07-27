@@ -1,6 +1,10 @@
 # azurerm - change log
 
-### v0.8.10 (7/27/17):
+### v0.8.12 (7/27/17):
+- Change get_subscription_from_cli() to read utf-8-sig encoding
+- Not sure why this became necessary after working before - will need to do more testing of this
+
+### v0.8.11 (7/27/17):
 - Added get_subscription_from_cli() to return the default, or named, subscription id from CLI's
   local cache - will only work if CLI local cache is present on the machine (i.e. you ran 
   'az login' once or are in Azure Cloud Shell)

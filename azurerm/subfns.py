@@ -1,4 +1,5 @@
 # subnfs - place to store azurerm functions related to subscriptions
+import io
 import json
 import os
 
@@ -17,7 +18,7 @@ def get_subscription_from_cli(name=None):
         print('Error from get_subscription_from_cli(): Cannot find ' +
               azure_profile_path)
         return None
-    with open(azure_profile_path, 'r') as azure_profile_fd:
+    with io.open(azure_profile_path, 'r', encoding='utf-8-sig') as azure_profile_fd:
         azure_profile = json.load(azure_profile_fd)
     for subscription_info in azure_profile['subscriptions']:
         if (name is None and subscription_info['isDefault'] is True) or \
