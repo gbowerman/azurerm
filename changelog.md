@@ -1,5 +1,10 @@
 # azurerm - change log
 
+### v0.8.10 (7/27/17):
+- Added get_subscription_from_cli() to return the default, or named, subscription id from CLI's
+  local cache - will only work if CLI local cache is present on the machine (i.e. you ran 
+  'az login' once or are in Azure Cloud Shell)
+
 ### v0.8.10 (7/25/17):
 - Remove contentVersion from template functions
 
