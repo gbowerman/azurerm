@@ -3,6 +3,7 @@
 from .acs import *
 from .adalfns import *
 from .amsrp import *
+from .container import *
 from .computerp import *
 from .deployments import *
 from .insightsrp import *

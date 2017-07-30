@@ -1,5 +1,10 @@
 # azurerm - change log
 
+### v0.8.13 (7/29/17):
+- Added support for container instances preview
+- New functions: create_container_instance, detete_container_instance, get_container_instance
+- list_container_instances_sub, list_container_instances, list_container_instances_sub   
+
 ### v0.8.12 (7/27/17):
 - Change get_subscription_from_cli() to read utf-8-sig encoding
 - Not sure why this became necessary after working before - will need to do more testing of this
