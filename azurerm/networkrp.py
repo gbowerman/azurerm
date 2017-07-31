@@ -72,10 +72,10 @@ def create_nsg(access_token, subscription_id, resource_group, nsg_name, location
 
 
 # create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, 
-# description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', 
+# description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='*', 
 # destination_prefix='*', access = 'Allow', priority=100, direction='Inbound')
 # create network security group rule
-def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='Internet', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound'):
+def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='*', destination_prefix='*', access = 'Allow', priority=100, direction='Inbound'):
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -88,8 +88,6 @@ def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg
     properties['destinationPortRange'] = destination_range
     properties['sourceAddressPrefix'] = source_prefix
     properties['destinationAddressPrefix'] = destination_prefix
-    properties['sourceAddressPrefix'] = '*'
-    properties['destinationAddressPrefix'] = '*'
     properties['access'] = access
     properties['priority'] = priority
     properties['direction'] = direction
