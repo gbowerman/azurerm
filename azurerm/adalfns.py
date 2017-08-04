@@ -1,7 +1,10 @@
 # adalfns - place to store azurerm functions which call adal routines
 import json
 import os
+from datetime import datetime as dt
+
 import adal
+
 from .settings import get_auth_endpoint, get_resource_endpoint
 
 
@@ -27,4 +30,24 @@ def get_access_token_from_cli():
         return None
     with open(access_keys_path, 'r') as access_keys_fd:
         keys = json.load(access_keys_fd)
+    if 'accessToken' not in keys[0]:
+        print('Error from get_access_token_from_cli(): accessToken not found in ' + \
+            access_keys_path)
+        return None
+    if 'expiresOn' not in keys[0]:
+        print('Error from get_access_token_from_cli(): expiresOn not found in ' + \
+            access_keys_path)
+        return None
+    if 'tokenType' not in keys[0]:
+        print('Error from get_access_token_from_cli(): tokenType not found in ' + \
+            access_keys_path)
+        return None
+    expiry_date_str = keys[0]['expiresOn']
+    if 'T' in expiry_date_str:
+        exp_date = dt.strptime(keys[0]['expiresOn'], '%Y-%m-%dT%H:%M:%S.%fZ')
+    else:
+        exp_date = dt.strptime(keys[0]['expiresOn'], '%Y-%m-%d %H:%M:%S.%f')
+    if exp_date < dt.now():
+        print('Error from get_access_token_from_cli(): token expired. Run \'az login\'')
+        return None
     return keys[0]['accessToken']

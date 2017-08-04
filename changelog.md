@@ -1,5 +1,11 @@
 # azurerm - change log
 
+### v0.8.17 (8/04/17):
+- ISO time format fix for get_access_token_from_cli()
+
+### v0.8.16 (8/04/17):
+- Added error checking to get_access_token_from_cli() to check accessToken hasn't expired
+
 ### v0.8.15 (8/04/17):
 - BREAKING CHANGE:
 - ACS Windows support - Added admin_password and ostype=[Linux/Windows] arguments to create_container_service()
