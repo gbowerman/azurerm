@@ -1,7 +1,9 @@
 # azurerm - change log
 
 ### v0.8.15 (8/04/17):
+- BREAKING CHANGE:
 - ACS Windows support - Added admin_password and ostype=[Linux/Windows] arguments to create_container_service()
+- 'location' parameter now comes before public_key parmeter (which is no optional, as not required for ostype='Windows')
 
 ### v0.8.13 (7/29/17):
 - Added support for container instances preview
