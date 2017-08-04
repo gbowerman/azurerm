@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.8.15 (8/04/17):
+- ACS Windows support - Added admin_password and ostype=[Linux/Windows] arguments to create_container_service()
+
 ### v0.8.13 (7/29/17):
 - Added support for container instances preview
 - New functions: create_container_instance, detete_container_instance, get_container_instance

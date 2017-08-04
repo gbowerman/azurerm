@@ -6,11 +6,12 @@ from .settings import get_rm_endpoint, ACS_API
 
 # create_container_service(access_token, subscription_id, resource_group, service_name, \
 #    agent_count, agent_vm_size, agent_dns, master_dns, admin_user, public_key, location, \
-#    master_count=3, orchestrator='DCOS', app_id=None, app_secret=None)
+#    master_count=3, orchestrator='DCOS', app_id=None, app_secret=None, admin_pasword=None)
 # create a new container service - includ app_id and app_secret if using Kubernetes
 def create_container_service(access_token, subscription_id, resource_group, service_name, \
-    agent_count, agent_vm_size, agent_dns, master_dns, admin_user, public_key, location, \
-    master_count=3, orchestrator='DCOS', app_id=None, app_secret=None):
+    agent_count, agent_vm_size, agent_dns, master_dns, admin_user, location, public_key=None,\
+    master_count=3, orchestrator='DCOS', app_id=None, app_secret=None, admin_password=None, \
+    ostype='Linux'):
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
@@ -24,9 +25,13 @@ def create_container_service(access_token, subscription_id, resource_group, serv
     ap_profile['vmSize'] = agent_vm_size
     ap_profile['dnsPrefix'] = agent_dns
     properties['agentPoolProfiles'] = [ap_profile]
-    linux_profile = {'adminUsername': admin_user}
-    linux_profile['ssh'] = {'publicKeys': [{'keyData': public_key}]}
-    properties['linuxProfile'] = linux_profile
+    if ostype == 'Linux':
+        linux_profile = {'adminUsername': admin_user}
+        linux_profile['ssh'] = {'publicKeys': [{'keyData': public_key}]}
+        properties['linuxProfile'] = linux_profile
+    else: # Windows
+        windows_profile = {'adminUsername': admin_user, 'adminPassword': admin_password}
+        properties['windowsProfile'] = windows_profile
     if orchestrator == 'Kubernetes':
        sp_profile = {'ClientID': app_id}
        sp_profile['Secret'] = app_secret
