@@ -1,5 +1,19 @@
 # azurerm - change log
 
+### v0.8.18 (8/04/17):
+- BREAKING CHANGE:
+- Changed how container instance groups are handled, in order to manage multiple container instances in a group
+- Added helper function: create_container_definition(container_name, image, port=80, cpu=1.0, memgb=1.5, environment=None) 
+- Create a list of these definitions which is then passed to create_container_group()
+- changed other container instance functions to work at a group level
+- create_container_group(access_token, subscription_id, resource_group, container_group_name,
+                              container_list, location, ostype='Linux', port=80, iptype='public')
+- delete_container_group(access_token, subscription_id, resource_group, container_group_name)
+- get_container_group(access_token, subscription_id, resource_group, container_group_name)
+- get_container_logs(access_token, subscription_id, resource_group, container_group_name, container_name=None)
+- list_container_groups(access_token, subscription_id, resource_group)
+- list_container_groups_sub(access_token, subscription_id)
+
 ### v0.8.17 (8/04/17):
 - ISO time format fix for get_access_token_from_cli()
 
