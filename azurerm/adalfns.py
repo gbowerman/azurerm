@@ -29,7 +29,7 @@ def get_access_token(tenant_id, application_id, application_secret):
 def get_access_token_from_cli():
     '''Get an Azure authentication token from CLI's local cache
 
-    Will only work if CLI local cache has an unexpired auth token (i.e. you ran 'az login' 
+    Will only work if CLI local cache has an unexpired auth token (i.e. you ran 'az login'
         recently)
 
     Returns:
