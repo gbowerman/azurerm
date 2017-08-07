@@ -1,12 +1,21 @@
-# resourcegroups.py - azurerm functions for Resource Groups
+'''resourcegroups.py - azurerm functions for Resource Groups.'''
 import json
 from .restfns import do_delete, do_get, do_put
 from .settings import get_rm_endpoint, BASE_API
 
 
-# create_resource_group(access_token, subscription_id, rgname, location)
-# create a resource group in the specified location
 def create_resource_group(access_token, subscription_id, rgname, location):
+    '''Create a resource group in the specified location.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        rgname (str): Azure resource group name.
+        location (str): Azure data center location. E.g. westus.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', rgname,
@@ -15,9 +24,18 @@ def create_resource_group(access_token, subscription_id, rgname, location):
     body = json.dumps(rg_body)
     return do_put(endpoint, body, access_token)
 
-# delete_resource_group(access_token, subscription_id, rgname)
-# delete the named resource group
+
 def delete_resource_group(access_token, subscription_id, rgname):
+    '''Delete the named resource group.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        rgname (str): Azure resource group name.
+
+    Returns:
+        HTTP response.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', rgname,
@@ -25,9 +43,17 @@ def delete_resource_group(access_token, subscription_id, rgname):
     return do_delete(endpoint, access_token)
 
 
-# get_resource_group(access_token, subscription_id, rgname)
-# get details about the named resource group
 def get_resource_group(access_token, subscription_id, rgname):
+    '''Get details about the named resource group.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        rgname (str): Azure resource group name.
+
+    Returns:
+        HTTP response.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', rgname,
@@ -35,8 +61,16 @@ def get_resource_group(access_token, subscription_id, rgname):
     return do_get(endpoint, access_token)
 
 
-# list_resource_groups(access_token, subscription_id)
 def list_resource_groups(access_token, subscription_id):
+    '''List the resource groups in a subscription.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+
+    Returns:
+        HTTP response.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/',

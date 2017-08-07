@@ -1,4 +1,4 @@
-# azurerm - library for easy Azure Resource Manager calls from Python
+'''azurerm - library for easy Azure Resource Manager calls from Python'''
 
 from .acs import *
 from .adalfns import *
