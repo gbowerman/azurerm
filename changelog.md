@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.8.19 (8/04/17):
+- Comments improvements, using docstring, with a view to hosting docs on readthedocs soon.
+- Made get_access_key_from_cli() check all keys in the CLI cache.
+
 ### v0.8.18 (8/04/17):
 - BREAKING CHANGE:
 - Changed how container instance groups are handled, in order to manage multiple container instances in a group
