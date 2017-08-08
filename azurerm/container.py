@@ -6,7 +6,7 @@ from .settings import get_rm_endpoint, CONTAINER_API
 
 def create_container_definition(container_name, image, port=80, cpu=1.0, memgb=1.5,
                                 environment=None):
-    '''Makes a python dictionary of container properties
+    '''Makes a python dictionary of container properties.
 
     Args:
         container_name: The name of the container.
@@ -45,7 +45,7 @@ def create_container_group(access_token, subscription_id, resource_group, contai
         container_list (list): A list of container properties. Use create_container_definition to
             create each container property set.
         location (str): Azure data center location. E.g. westus.
-        ostyp (str): Container operating system type. Linux or Windows.
+        ostype (str): Container operating system type. Linux or Windows.
         port (int): TCP port number. E.g. 8080.
         iptype (str): Type of IP address. E.g. public.
 

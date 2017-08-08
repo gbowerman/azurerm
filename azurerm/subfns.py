@@ -1,4 +1,4 @@
-# subnfs - place to store azurerm functions related to subscriptions
+'''subnfs - place to store azurerm functions related to subscriptions'''
 import io
 import json
 import os
@@ -9,9 +9,9 @@ from .settings import BASE_API, get_rm_endpoint
 
 # get_subscription_from_cli()
 # get the default, or named, subscription id from CLI's local cache
-# will only work if CLI local cache is present on the machine (i.e. you
-# ran 'az login' once or are in Azure Cloud Shell)
 def get_subscription_from_cli(name=None):
+    '''Ran 'az login' once or are in Azure Cloud Shell).
+    '''
     home = os.path.expanduser('~')
     azure_profile_path = home + os.sep + '.azure' + os.sep + 'azureProfile.json'
     if os.path.isfile(azure_profile_path) is False:
@@ -27,18 +27,18 @@ def get_subscription_from_cli(name=None):
     return None
 
 
-# list_locations(access_token, subscrpition_id)
-# list available locations for a subscription
 def list_locations(access_token, subscription_id):
+    '''List available locations for a subscription.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/locations?api-version=', BASE_API])
     return do_get(endpoint, access_token)
 
 
-# list_subscriptions(access_token)
-# list the available Azure subscriptions for this user/service principle
 def list_subscriptions(access_token):
+    '''List the available Azure subscriptions for this user/service principle.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/',
                         '?api-version=', BASE_API])

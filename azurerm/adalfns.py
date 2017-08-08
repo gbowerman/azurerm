@@ -9,7 +9,7 @@ from .settings import get_auth_endpoint, get_resource_endpoint
 
 
 def get_access_token(tenant_id, application_id, application_secret):
-    '''get an Azure access token using the adal library
+    '''get an Azure access token using the adal library.
 
     Args:
         tenant_id (str): Tenant id of the user's account.
@@ -27,7 +27,7 @@ def get_access_token(tenant_id, application_id, application_secret):
 
 
 def get_access_token_from_cli():
-    '''Get an Azure authentication token from CLI's local cache
+    '''Get an Azure authentication token from CLI's local cache.
 
     Will only work if CLI local cache has an unexpired auth token (i.e. you ran 'az login'
         recently)

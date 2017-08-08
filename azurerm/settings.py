@@ -1,4 +1,4 @@
-# settings.py - place to store constants for azurerm
+'''settings.py - place to store constants for azurerm'''
 import os
 
 # public defaults for authentication and resource endpoints
@@ -17,9 +17,9 @@ MEDIA_API = '2015-10-01'
 NETWORK_API = '2017-04-01'
 STORAGE_API = '2016-01-01'
 
-# Isolated cloud support..
-# allow Azure endpoints to bet set by environment variable, else return default values
 def get_rm_endpoint():
+    '''Allow Azure endpoints to bet set by environment variable, else return default values.
+    '''
     rm_endpoint = os.environ.get('AZURE_RM_ENDPOINT')
     if rm_endpoint is None:
         return AZURE_RM_ENDPOINT

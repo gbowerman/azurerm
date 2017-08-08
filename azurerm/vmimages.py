@@ -1,12 +1,20 @@
-# vmimages.py - azurerm functions for Microsoft.Compute RP publishers and images
+'''vmimages.py - azurerm functions for Microsoft.Compute RP publishers and images'''
 
 from .restfns import do_get
 from .settings import get_rm_endpoint, COMP_API
 
 
-# list_offers(access_token, subscription_id, location, publisher)
-# list available VM image offers from a publisher
 def list_offers(access_token, subscription_id, location, publisher):
+    '''List available VM image offers from a publisher.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        location (str): Azure data center location. E.g. westus.
+
+    Returns:
+        HTTP response with JSON list of image offers.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/',
@@ -16,9 +24,9 @@ def list_offers(access_token, subscription_id, location, publisher):
     return do_get(endpoint, access_token)
 
 
-# list_publishers(access_token, subscription_id, location)
-# list available image publishers for a location
 def list_publishers(access_token, subscription_id, location):
+    '''List available image publishers for a location.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/',
@@ -27,9 +35,9 @@ def list_publishers(access_token, subscription_id, location):
     return do_get(endpoint, access_token)
 
 
-# list_skus(access_token, subscription_id, location, publisher, offer)
-# list available VM image skus for a publisher offer
 def list_skus(access_token, subscription_id, location, publisher, offer):
+    '''List available VM image skus for a publisher offer.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/',
@@ -40,9 +48,9 @@ def list_skus(access_token, subscription_id, location, publisher, offer):
     return do_get(endpoint, access_token)
 
 
-# list_sku_versions(access_token, subscription_id, location, publisher, offer, sku)
-# list available versions for a given publisher's sku
 def list_sku_versions(access_token, subscription_id, location, publisher, offer, sku):
+    '''List available versions for a given publisher's sku.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/',

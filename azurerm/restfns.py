@@ -1,11 +1,13 @@
-# azurerm restfns - REST functions for azurerm
-import json
-import requests
-import pkg_resources # to get version
-import platform 
+'''azurerm restfns - REST functions for azurerm'''
+import platform
 
-# User-Agent Header
+import pkg_resources  # to get version
+import requests
+
+
 def get_user_agent():
+    '''User-Agent Header.
+    '''
     version = pkg_resources.require("azurerm")[0].version
     user_agent = "python/{} ({}) requests/{} azurerm/{}".format(
         platform.python_version(),
@@ -14,17 +16,17 @@ def get_user_agent():
         version)
     return user_agent
 
-# do_get(endpoint, access_token)
-# do an HTTP GET request and return JSON
 def do_get(endpoint, access_token):
+    '''Do an HTTP GET request and return JSON.
+    '''
     headers = {"Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
     return requests.get(endpoint, headers=headers).json()
 
 
-# do_get_next(endpoint, access_token)
-# do an HTTP GET request, follow the nextLink chain and return JSON
 def do_get_next(endpoint, access_token):
+    '''Do an HTTP GET request, follow the nextLink chain and return JSON.
+    '''
     headers = {"Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
     looping = True
@@ -44,33 +46,33 @@ def do_get_next(endpoint, access_token):
     return vm_dict
 
 
-# do_delete(endpoint, access_token)
-# do an HTTP GET request and return JSON
 def do_delete(endpoint, access_token):
+    '''Do an HTTP GET request and return JSON.
+    '''
     headers = {"Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
     return requests.delete(endpoint, headers=headers)
 
 
-# do_patch(endpoint, body, access_token)
-# do an HTTP PATCH request and return JSON
 def do_patch(endpoint, body, access_token):
+    '''Do an HTTP PATCH request and return JSON.
+    '''
     headers = {"content-type": "application/json", "Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
     return requests.patch(endpoint, data=body, headers=headers)
 
 
-# do_post(endpoint, body, access_token)
-# do an HTTP POST request and return JSON
 def do_post(endpoint, body, access_token):
+    '''Do an HTTP POST request and return JSON.
+    '''
     headers = {"content-type": "application/json", "Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
     return requests.post(endpoint, data=body, headers=headers)
 
 
-# do_put(endpoint, body, access_token)
-# do an HTTP PUT request and return JSON
 def do_put(endpoint, body, access_token):
+    '''Do an HTTP PUT request and return JSON.
+    '''
     headers = {"content-type": "application/json", "Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
     return requests.put(endpoint, data=body, headers=headers)

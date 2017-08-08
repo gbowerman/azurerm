@@ -1,4 +1,4 @@
-# computerp.py - azurerm functions for the Microsoft.Compute resource provider
+'''computerp.py - azurerm functions for the Microsoft.Compute resource provider'''
 
 from .restfns import do_delete, do_get, do_get_next, do_patch, do_post, do_put
 from .settings import get_rm_endpoint, COMP_API, NETWORK_API
@@ -6,10 +6,10 @@ import json
 
 
 # create_as(access_token, subscription_id, resource_group, as_name, \
-#   update_domains, fault_domains, location)
-# create availability set
 def create_as(access_token, subscription_id, resource_group, as_name,
               update_domains, fault_domains, location):
+    '''Create availability set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -26,11 +26,11 @@ def create_as(access_token, subscription_id, resource_group, as_name,
 # create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer,
 #         sku, version, nic_id, location, storage_type='standard_LRS', username='azure',
 #         password=None, public_key=None)
-# create a simple virtual machine - in most cases deploying an ARM
-# template might be easier
 def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer,
               sku, version, nic_id, location, storage_type='Standard_LRS', osdisk_name=None,
               username='azure', password=None, public_key=None):
+    '''Template might be easier.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -76,12 +76,12 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
 # create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, \
 #   publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, \
 #   location, storage_type='Standard_LRS', username='azure', password=None, public_key=None, overprovision='true', \
-#   upgradePolicy='Manual', public_ip_per_vm=False)
-# create virtual machine scale set
 def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity,
                 publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, location, storage_type='Standard_LRS',
                 username='azure', password=None, public_key=None, overprovision='true',
                 upgradePolicy='Manual', public_ip_per_vm=False):
+    '''Create virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -134,9 +134,9 @@ def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_siz
     return do_put(endpoint, body, access_token)
 
 
-# deallocate_vm(access_token, subscription_id, resource_group, vm_name)
-# stop-deallocate a virtual machine
 def deallocate_vm(access_token, subscription_id, resource_group, vm_name):
+    '''Stop-deallocate a virtual machine.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -146,9 +146,9 @@ def deallocate_vm(access_token, subscription_id, resource_group, vm_name):
     return do_post(endpoint, '', access_token)
 
 
-# delete_as(access_token, subscription_id, resource_group, as_name)
-# delete availability set
 def delete_as(access_token, subscription_id, resource_group, as_name):
+    '''Delete availability set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -157,9 +157,9 @@ def delete_as(access_token, subscription_id, resource_group, as_name):
     return do_delete(endpoint, access_token)
 
 
-# delete_vm(access_token, subscription_id, resource_group, vm_name)
-# delete a virtual machine
 def delete_vm(access_token, subscription_id, resource_group, vm_name):
+    '''Delete a virtual machine.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -168,9 +168,9 @@ def delete_vm(access_token, subscription_id, resource_group, vm_name):
     return do_delete(endpoint, access_token)
 
 
-# delete_vmss(access_token, subscription_id, resource_group, vmss_name)
-# delete a virtual machine scale set
 def delete_vmss(access_token, subscription_id, resource_group, vmss_name):
+    '''Delete a virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -179,9 +179,9 @@ def delete_vmss(access_token, subscription_id, resource_group, vmss_name):
     return do_delete(endpoint, access_token)
 
 
-# delete_vmss_vm(access_token, subscription_id, resource_group, vmss_name, vm_ids)
-# delete a VM in a VM Scale Set
 def delete_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm_ids):
+    '''Delete a VM in a VM Scale Set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -191,9 +191,9 @@ def delete_vmss_vms(access_token, subscription_id, resource_group, vmss_name, vm
     return do_post(endpoint, body, access_token)
 
 
-# get_compute_usage(access_token, subscription_id, location)
-# list compute usage and limits for a location
 def get_compute_usage(access_token, subscription_id, location):
+    '''List compute usage and limits for a location.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.compute/locations/', location,
@@ -201,9 +201,9 @@ def get_compute_usage(access_token, subscription_id, location):
     return do_get(endpoint, access_token)
 
 
-# get_vm(access_token, subscription_id, resource_group, vm_name)
-# get virtual machine details
 def get_vm(access_token, subscription_id, resource_group, vm_name):
+    '''Get virtual machine details.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -212,9 +212,9 @@ def get_vm(access_token, subscription_id, resource_group, vm_name):
     return do_get(endpoint, access_token)
 
 
-# get_vm_extension(access_token, subscription_id, resource_group, vm_name, extension_name)
-# get details about a VM extension
 def get_vm_extension(access_token, subscription_id, resource_group, vm_name, extension_name):
+    '''Get details about a VM extension.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -224,9 +224,9 @@ def get_vm_extension(access_token, subscription_id, resource_group, vm_name, ext
     return do_get(endpoint, access_token)
 
 
-# get_vm_instance(access_token, subscription_id, resource_group, vm_name)
-# get operational details about the state of a VM
 def get_vm_instance_view(access_token, subscription_id, resource_group, vm_name):
+    '''Get operational details about the state of a VM.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -235,9 +235,9 @@ def get_vm_instance_view(access_token, subscription_id, resource_group, vm_name)
     return do_get(endpoint, access_token)
 
 
-# get_vmss(access_token, subscription_id, resource_group, vmss_name)
-# get virtual machine scale set details
 def get_vmss(access_token, subscription_id, resource_group, vmss_name):
+    '''Get virtual machine scale set details.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -246,9 +246,9 @@ def get_vmss(access_token, subscription_id, resource_group, vmss_name):
     return do_get(endpoint, access_token)
 
 
-# get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_name)
-# get virtual machine scale set instance view
 def get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_name):
+    '''Get virtual machine scale set instance view.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -257,9 +257,9 @@ def get_vmss_instance_view(access_token, subscription_id, resource_group, vmss_n
     return do_get(endpoint, access_token)
 
 
-# get_vmss_nics(access_token, subscription_id, resource_group, vmss_name)
-# get NIC details for a VM Scale Set
 def get_vmss_nics(access_token, subscription_id, resource_group, vmss_name):
+    '''Get NIC details for a VM Scale Set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -268,9 +268,9 @@ def get_vmss_nics(access_token, subscription_id, resource_group, vmss_name):
     return do_get(endpoint, access_token)
 
 
-# get_vmss_public_ips(access_token, subscription_id, resource_group, vmss_name)
-# get public IP address details for a VM scale set
 def get_vmss_public_ips(access_token, subscription_id, resource_group, vmss_name):
+    '''Get public IP address details for a VM scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -279,9 +279,9 @@ def get_vmss_public_ips(access_token, subscription_id, resource_group, vmss_name
     return do_get(endpoint, access_token)
 
 
-# get_vmss_rolling_upgrades(access_token, subscription_id, resource_group, vmss_name)
-# get details of the latest VM scale set rolling upgrade
 def get_vmss_rolling_upgrades(access_token, subscription_id, resource_group, vmss_name):
+    '''Get details of the latest VM scale set rolling upgrade.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -290,9 +290,9 @@ def get_vmss_rolling_upgrades(access_token, subscription_id, resource_group, vms
     return do_get(endpoint, access_token)
 
 
-# get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id)
-# get individual VMSS VM details
 def get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instance_id):
+    '''Get individual VMSS VM details.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -302,9 +302,9 @@ def get_vmss_vm(access_token, subscription_id, resource_group, vmss_name, instan
     return do_get(endpoint, access_token)
 
 
-# get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id)
-# get individual VMSS VM instance view
 def get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name, instance_id):
+    '''Get individual VMSS VM instance view.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -314,9 +314,9 @@ def get_vmss_vm_instance_view(access_token, subscription_id, resource_group, vms
     return do_get(endpoint, access_token)
 
 
-# get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id)
-# get NIC details for a VMSS VM
 def get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, instance_id):
+    '''Get NIC details for a VMSS VM.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -326,9 +326,9 @@ def get_vmss_vm_nics(access_token, subscription_id, resource_group, vmss_name, i
     return do_get(endpoint, access_token)
 
 
-# get_as(access_token, subscription_id, resource_group, as_name)
-# get availability set
 def get_as(access_token, subscription_id, resource_group, as_name):
+    '''Get availability set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -337,9 +337,9 @@ def get_as(access_token, subscription_id, resource_group, as_name):
     return do_get(endpoint, access_token)
 
 
-# list_as_sub(access_token, subscription_id, resource_group)
-# list availability sets in a resource_group
 def list_as(access_token, subscription_id, resource_group):
+    '''List availability sets in a resource_group.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -348,9 +348,9 @@ def list_as(access_token, subscription_id, resource_group):
     return do_get_next(endpoint, access_token)
 
 
-# list_as_sub(access_token, subscription_id)
-# list availability sets in a subscription
 def list_as_sub(access_token, subscription_id):
+    '''List availability sets in a subscription.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/availabilitySets',
@@ -358,9 +358,9 @@ def list_as_sub(access_token, subscription_id):
     return do_get_next(endpoint, access_token)
 
 
-# list_vm_images_sub(access_token, subscription_id)
-# list VM images in a subscription
 def list_vm_images_sub(access_token, subscription_id):
+    '''List VM images in a subscription.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/images',
@@ -368,9 +368,9 @@ def list_vm_images_sub(access_token, subscription_id):
     return do_get_next(endpoint, access_token)
 
 
-# list_vm_instance_view(access_token, subscription_id, resource_group)
-# list VM instances views in a resource group
 def list_vm_instance_view(access_token, subscription_id, resource_group):
+    '''List VM instances views in a resource group.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -379,9 +379,9 @@ def list_vm_instance_view(access_token, subscription_id, resource_group):
     return do_get_next(endpoint, access_token)
 
 
-# list_vms(access_token, subscription_id, resource_group)
-# list VMs in a resource group
 def list_vms(access_token, subscription_id, resource_group):
+    '''List VMs in a resource group.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -390,9 +390,9 @@ def list_vms(access_token, subscription_id, resource_group):
     return do_get(endpoint, access_token)
 
 
-# list_vms_sub(access_token, subscription_id)
-# list VMs in a subscription
 def list_vms_sub(access_token, subscription_id):
+    '''List VMs in a subscription.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/virtualMachines',
@@ -400,9 +400,9 @@ def list_vms_sub(access_token, subscription_id):
     return do_get_next(endpoint, access_token)
 
 
-# list_vmss(access_token, subscription_id, resource_group)
-# list VM Scale Sets in a resource group
 def list_vmss(access_token, subscription_id, resource_group):
+    '''List VM Scale Sets in a resource group.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -411,9 +411,9 @@ def list_vmss(access_token, subscription_id, resource_group):
     return do_get_next(endpoint, access_token)
 
 
-# list_vmss_skus(access_token, subscription_id, resource_group, vmss_name)
-# list the VM skus available for a VM Scale Set
 def list_vmss_skus(access_token, subscription_id, resource_group, vmss_name):
+    '''List the VM skus available for a VM Scale Set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -423,9 +423,9 @@ def list_vmss_skus(access_token, subscription_id, resource_group, vmss_name):
     return do_get_next(endpoint, access_token)
 
 
-# list_vmss_sub(access_token, subscription_id)
-# list VM Scale Sets in a subscription
 def list_vmss_sub(access_token, subscription_id):
+    '''List VM Scale Sets in a subscription.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/Microsoft.Compute/virtualMachineScaleSets',
@@ -434,9 +434,9 @@ def list_vmss_sub(access_token, subscription_id):
 
 
 # list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name)
-# list the VMSS VM instance views in a scale set - uses do_get_next to get
-# all of them in a loop
 def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name):
+    '''All of them in a loop.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -445,9 +445,9 @@ def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vm
     return do_get_next(endpoint, access_token)
 
 
-# list_vmss_vm_instance_view_pg(access_token, subscription_id, resource_group, vmss_name)
-# gets one page of a paginated list of scale set VM instance views
 def list_vmss_vm_instance_view_pg(access_token, subscription_id, resource_group, vmss_name, link=None):
+    '''Gets one page of a paginated list of scale set VM instance views.
+    '''
     if link is None:
         endpoint = ''.join([get_rm_endpoint(),
                             '/subscriptions/', subscription_id,
@@ -459,9 +459,9 @@ def list_vmss_vm_instance_view_pg(access_token, subscription_id, resource_group,
     return do_get(endpoint, access_token)
 
 
-# list_vmss_vms(access_token, subscription_id, resource_group, vmss_name)
-# list the VMs in a VM Scale Set
 def list_vmss_vms(access_token, subscription_id, resource_group, vmss_name):
+    '''List the VMs in a VM Scale Set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -471,9 +471,9 @@ def list_vmss_vms(access_token, subscription_id, resource_group, vmss_name):
     return do_get_next(endpoint, access_token)
 
 
-# poweroff_vmss(access_token, subscription_id, resource_group, vmss_name)
-# poweroff all the VMs in a virtual machine scale set
 def poweroff_vmss(access_token, subscription_id, resource_group, vmss_name):
+    '''Poweroff all the VMs in a virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -483,9 +483,9 @@ def poweroff_vmss(access_token, subscription_id, resource_group, vmss_name):
     return do_post(endpoint, body, access_token)
 
 
-# poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
-# poweroff all the VMs in a virtual machine scale set
 def poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
+    '''Poweroff all the VMs in a virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -496,9 +496,9 @@ def poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, 
 
 
 # reimage_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
-# reset specific VMs a virtual machine scale set to factory settings (OS
-# drive is reset, temp drive is not)
 def reimage_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
+    '''Drive is reset, temp drive is not).
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -508,9 +508,9 @@ def reimage_vmss_vms(access_token, subscription_id, resource_group, vmss_name, i
     return do_post(endpoint, body, access_token)
 
 
-# restart_vm(access_token, subscription_id, resource_group, vm_name)
-# restart a virtual machine
 def restart_vm(access_token, subscription_id, resource_group, vm_name):
+    '''Restart a virtual machine.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -521,9 +521,9 @@ def restart_vm(access_token, subscription_id, resource_group, vm_name):
     return do_post(endpoint, '', access_token)
 
 
-# restart_vmss(access_token, subscription_id, resource_group, vmss_name)
-# restart all the VMs in a virtual machine scale set
 def restart_vmss(access_token, subscription_id, resource_group, vmss_name):
+    '''Restart all the VMs in a virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -533,9 +533,9 @@ def restart_vmss(access_token, subscription_id, resource_group, vmss_name):
     return do_post(endpoint, body, access_token)
 
 
-# restart_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
-# restart a specific VM in a virtual machine scale set
 def restart_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
+    '''Restart a specific VM in a virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -545,9 +545,9 @@ def restart_vmss_vms(access_token, subscription_id, resource_group, vmss_name, i
     return do_post(endpoint, body, access_token)
 
 
-# scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity)
-# change the instance count of an existing VM Scale Set
 def scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity):
+    '''Change the instance count of an existing VM Scale Set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -559,9 +559,9 @@ def scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, t
 
 
 # scale_vmss_lite(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity)
-# change the instance count of an existing VM Scale Set - testing patch
-# capacity only
 def scale_vmss_lite(access_token, subscription_id, resource_group, vmss_name, capacity):
+    '''Capacity only.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -571,9 +571,9 @@ def scale_vmss_lite(access_token, subscription_id, resource_group, vmss_name, ca
     return do_patch(endpoint, body, access_token)
 
 
-# start_vm(access_token, subscription_id, resource_group, vm_name)
-# start a virtual machine
 def start_vm(access_token, subscription_id, resource_group, vm_name):
+    '''Start a virtual machine.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -584,9 +584,9 @@ def start_vm(access_token, subscription_id, resource_group, vm_name):
     return do_post(endpoint, '', access_token)
 
 
-# start_vmss(access_token, subscription_id, resource_group, vmss_name)
-# start all the VMs in a virtual machine scale set
 def start_vmss(access_token, subscription_id, resource_group, vmss_name):
+    '''Start all the VMs in a virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -596,9 +596,9 @@ def start_vmss(access_token, subscription_id, resource_group, vmss_name):
     return do_post(endpoint, body, access_token)
 
 
-# start_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
-# start all the VMs in a virtual machine scale set
 def start_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
+    '''Start all the VMs in a virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -608,9 +608,9 @@ def start_vmss_vms(access_token, subscription_id, resource_group, vmss_name, ins
     return do_post(endpoint, body, access_token)
 
 
-# stopdalloc_vmss(access_token, subscription_id, resource_group, vmss_name)
-# stop all the VMs in a virtual machine scale set
 def stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name):
+    '''Stop all the VMs in a virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -620,9 +620,9 @@ def stopdealloc_vmss(access_token, subscription_id, resource_group, vmss_name):
     return do_post(endpoint, body, access_token)
 
 
-# stopdealloc_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
-# stop all the VMs in a virtual machine scale set
 def stopdealloc_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
+    '''Stop all the VMs in a virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -632,9 +632,9 @@ def stopdealloc_vmss_vms(access_token, subscription_id, resource_group, vmss_nam
     return do_post(endpoint, body, access_token)
 
 
-# stop_vm(access_token, subscription_id, resource_group, vm_name)
-# stop a virtual machine but don't deallocate resources (power off)
 def stop_vm(access_token, subscription_id, resource_group, vm_name):
+    '''Stop a virtual machine but don't deallocate resources (power off).
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -646,9 +646,9 @@ def stop_vm(access_token, subscription_id, resource_group, vm_name):
 
 
 # update_vm(access_token, subscription_id, resource_group, vm_name, body)
-# updates a VM model, that is put an updated virtual machine body, e.g. a
-# sku version
 def update_vm(access_token, subscription_id, resource_group, vm_name, body):
+    '''Sku version.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -658,9 +658,9 @@ def update_vm(access_token, subscription_id, resource_group, vm_name, body):
 
 
 # update_vmss(access_token, subscription_id, resource_group, vmss_name, body)
-# updates a VMSS model, that is put an updated virtual machine scale set
-# body, e.g. a sku version
 def update_vmss(access_token, subscription_id, resource_group, vmss_name, body):
+    '''Body, e.g. a sku version.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
@@ -669,9 +669,9 @@ def update_vmss(access_token, subscription_id, resource_group, vmss_name, body):
     return do_put(endpoint, body, access_token)
 
 
-# upgrade_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
-# upgrade specific VMs in a virtual machine scale set
 def upgrade_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
+    '''Upgrade specific VMs in a virtual machine scale set.
+    '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
