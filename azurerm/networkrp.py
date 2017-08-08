@@ -4,8 +4,6 @@ from .restfns import do_delete, do_get, do_put
 from .settings import get_rm_endpoint, NETWORK_API
 
 
-# create_lb_with_nat_pool(access_token, subscription_id, resource_group,
-# lb_name, public_ip_id,
 def create_lb_with_nat_pool(access_token, subscription_id, resource_group, lb_name, public_ip_id,
                             fe_start_port, fe_end_port, backend_port, location):
     '''Create a load balancer with inbound NAT pools.
@@ -37,7 +35,8 @@ def create_lb_with_nat_pool(access_token, subscription_id, resource_group, lb_na
     return do_put(endpoint, body, access_token)
 
 
-def create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id, location, nsg_id=None):
+def create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id,
+               location, nsg_id=None):
     '''Create a network interface with an associated public ip address.
     '''
     endpoint = ''.join([get_rm_endpoint(),
@@ -72,10 +71,10 @@ def create_nsg(access_token, subscription_id, resource_group, nsg_name, location
     return do_put(endpoint, body, access_token)
 
 
-# create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name,
-# description, protocol='Tcp', source_range='*', destination_range='*',
-# source_prefix='*',
-def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name, description, protocol='Tcp', source_range='*', destination_range='*', source_prefix='*', destination_prefix='*', access='Allow', priority=100, direction='Inbound'):
+def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name,
+                    description, protocol='Tcp', source_range='*', destination_range='*',
+                    source_prefix='*', destination_prefix='*', access='Allow', priority=100,
+                    direction='Inbound'):
     '''Create network security group rule.
     '''
     endpoint = ''.join([get_rm_endpoint(),
@@ -98,7 +97,8 @@ def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg
     return do_put(endpoint, body, access_token)
 
 
-def create_public_ip(access_token, subscription_id, resource_group, public_ip_name, dns_label, location):
+def create_public_ip(access_token, subscription_id, resource_group, public_ip_name, dns_label,
+                     location):
     '''Create a public ip address.
     '''
     endpoint = ''.join([get_rm_endpoint(),
@@ -114,7 +114,6 @@ def create_public_ip(access_token, subscription_id, resource_group, public_ip_na
     return do_put(endpoint, body, access_token)
 
 
-# create_vnet(access_token, subscription_id, resource_group, name, location,
 def create_vnet(access_token, subscription_id, resource_group, name, location,
                 address_prefix='10.0.0.0/16', subnet_prefix='10.0.0.0/16', nsg_id=None):
     '''Create a VNet with specified name and location. Optional subnet address prefix..

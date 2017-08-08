@@ -32,9 +32,8 @@ def do_get_next(endpoint, access_token):
     looping = True
     value_list = []
     vm_dict = {}
-    while(looping):
+    while looping:
         get_return = requests.get(endpoint, headers=headers).json()
-        # print(json.dumps(get_return[get_return, sort_keys=False, indent=2, separators=(',', ': ')))
         if not 'value' in get_return:
             return get_return
         if not 'nextLink' in get_return:

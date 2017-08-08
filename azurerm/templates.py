@@ -4,7 +4,8 @@ from .restfns import do_put
 from .settings import get_rm_endpoint, BASE_API
 
 
-def deploy_template(access_token, subscription_id, resource_group, deployment_name, template, parameters):
+def deploy_template(access_token, subscription_id, resource_group, deployment_name, template,
+                    parameters):
     '''Deploy a template referenced by a JSON string, with parameters as a JSON string.
     '''
     endpoint = ''.join([get_rm_endpoint(),
@@ -20,7 +21,8 @@ def deploy_template(access_token, subscription_id, resource_group, deployment_na
     return do_put(endpoint, body, access_token)
 
 
-def deploy_template_uri(access_token, subscription_id, resource_group, deployment_name, template_uri, parameters):
+def deploy_template_uri(access_token, subscription_id, resource_group, deployment_name,
+                        template_uri, parameters):
     '''Deploy a template referenced by a URI, with parameters as a JSON string.
     '''
     endpoint = ''.join([get_rm_endpoint(),
@@ -36,8 +38,8 @@ def deploy_template_uri(access_token, subscription_id, resource_group, deploymen
     return do_put(endpoint, body, access_token)
 
 
-def deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name, template_uri,
-                                  parameters_uri):
+def deploy_template_uri_param_uri(access_token, subscription_id, resource_group, deployment_name,
+                                  template_uri, parameters_uri):
     '''Deploy a template with both template and parameters referenced by URIs.
     '''
     endpoint = ''.join([get_rm_endpoint(),

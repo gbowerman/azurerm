@@ -1,11 +1,11 @@
 '''computerp.py - azurerm functions for the Microsoft.Compute resource provider'''
 
-from .restfns import do_delete, do_get, do_get_next, do_patch, do_post, do_put
-from .settings import get_rm_endpoint, COMP_API, NETWORK_API
 import json
 
+from .restfns import do_delete, do_get, do_get_next, do_patch, do_post, do_put
+from .settings import COMP_API, NETWORK_API, get_rm_endpoint
 
-# create_as(access_token, subscription_id, resource_group, as_name, \
+
 def create_as(access_token, subscription_id, resource_group, as_name,
               update_domains, fault_domains, location):
     '''Create availability set.
@@ -23,9 +23,6 @@ def create_as(access_token, subscription_id, resource_group, as_name,
     return do_put(endpoint, body, access_token)
 
 
-# create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer,
-#         sku, version, nic_id, location, storage_type='standard_LRS', username='azure',
-#         password=None, public_key=None)
 def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, publisher, offer,
               sku, version, nic_id, location, storage_type='Standard_LRS', osdisk_name=None,
               username='azure', password=None, public_key=None):
@@ -73,13 +70,10 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
     return do_put(endpoint, body, access_token)
 
 
-# create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity, \
-#   publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, \
-#   location, storage_type='Standard_LRS', username='azure', password=None, public_key=None, overprovision='true', \
 def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity,
-                publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, location, storage_type='Standard_LRS',
-                username='azure', password=None, public_key=None, overprovision='true',
-                upgradePolicy='Manual', public_ip_per_vm=False):
+                publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, location,
+                storage_type='Standard_LRS', username='azure', password=None, public_key=None,
+                overprovision='true', upgrade_policy='Manual', public_ip_per_vm=False):
     '''Create virtual machine scale set.
     '''
     endpoint = ''.join([get_rm_endpoint(),
@@ -92,7 +86,7 @@ def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_siz
     vmss_sku = {'name': vm_size, 'tier': 'Standard', 'capacity': capacity}
     vmss_body['sku'] = vmss_sku
     properties = {'overprovision': overprovision}
-    properties['upgradePolicy'] = {'mode': upgradePolicy}
+    properties['upgradePolicy'] = {'mode': upgrade_policy}
     os_profile = {'computerNamePrefix': vmss_name}
     os_profile['adminUsername'] = username
     if password is not None:
@@ -433,7 +427,6 @@ def list_vmss_sub(access_token, subscription_id):
     return do_get_next(endpoint, access_token)
 
 
-# list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name)
 def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vmss_name):
     '''All of them in a loop.
     '''
@@ -441,11 +434,13 @@ def list_vmss_vm_instance_view(access_token, subscription_id, resource_group, vm
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
-                        '/virtualMachines?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
+                        '/virtualMachines?$expand=instanceView&$select=instanceView&api-version=',
+                        COMP_API])
     return do_get_next(endpoint, access_token)
 
 
-def list_vmss_vm_instance_view_pg(access_token, subscription_id, resource_group, vmss_name, link=None):
+def list_vmss_vm_instance_view_pg(access_token, subscription_id, resource_group, vmss_name,
+                                  link=None):
     '''Gets one page of a paginated list of scale set VM instance views.
     '''
     if link is None:
@@ -453,7 +448,8 @@ def list_vmss_vm_instance_view_pg(access_token, subscription_id, resource_group,
                             '/subscriptions/', subscription_id,
                             '/resourceGroups/', resource_group,
                             '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
-                            '/virtualMachines?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
+                            '/virtualMachines?$expand=instanceView&$select=instanceView',
+                            '&api-version=', COMP_API])
     else:
         endpoint = link
     return do_get(endpoint, access_token)
@@ -495,7 +491,6 @@ def poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, 
     return do_post(endpoint, body, access_token)
 
 
-# reimage_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids)
 def reimage_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
     '''Drive is reset, temp drive is not).
     '''
@@ -558,7 +553,6 @@ def scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, t
     return do_patch(endpoint, body, access_token)
 
 
-# scale_vmss_lite(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity)
 def scale_vmss_lite(access_token, subscription_id, resource_group, vmss_name, capacity):
     '''Capacity only.
     '''
@@ -645,7 +639,6 @@ def stop_vm(access_token, subscription_id, resource_group, vm_name):
     return do_post(endpoint, '', access_token)
 
 
-# update_vm(access_token, subscription_id, resource_group, vm_name, body)
 def update_vm(access_token, subscription_id, resource_group, vm_name, body):
     '''Sku version.
     '''
@@ -657,7 +650,6 @@ def update_vm(access_token, subscription_id, resource_group, vm_name, body):
     return do_put(endpoint, body, access_token)
 
 
-# update_vmss(access_token, subscription_id, resource_group, vmss_name, body)
 def update_vmss(access_token, subscription_id, resource_group, vmss_name, body):
     '''Body, e.g. a sku version.
     '''

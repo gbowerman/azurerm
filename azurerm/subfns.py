@@ -7,10 +7,11 @@ from .restfns import do_get
 from .settings import BASE_API, get_rm_endpoint
 
 
-# get_subscription_from_cli()
-# get the default, or named, subscription id from CLI's local cache
 def get_subscription_from_cli(name=None):
-    '''Ran 'az login' once or are in Azure Cloud Shell).
+    '''Get the default, or named, subscription id from CLI's local cache.
+
+    Requirements:
+        User has run 'az login' once, or is in Azure Cloud Shell.
     '''
     home = os.path.expanduser('~')
     azure_profile_path = home + os.sep + '.azure' + os.sep + 'azureProfile.json'

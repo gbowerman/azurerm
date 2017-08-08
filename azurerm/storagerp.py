@@ -4,9 +4,9 @@ from .restfns import do_delete, do_get, do_put, do_post
 from .settings import get_rm_endpoint, STORAGE_API
 
 
-# create_storage_account(access_token, subscription_id, rgname, account_name, location)
-def create_storage_account(access_token, subscription_id, rgname, account_name, location, storage_type='Standard_LRS'):
-    '''Note: just standard storage for now. Could add a storageType argument later..
+def create_storage_account(access_token, subscription_id, rgname, account_name, location,
+                           storage_type='Standard_LRS'):
+    '''Create a new storage account in the named resource group, with the named location.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -16,7 +16,7 @@ def create_storage_account(access_token, subscription_id, rgname, account_name, 
 
     storage_body = {'location': location}
     storage_body['sku'] = {'name': storage_type}
-    storage_body['kind'] = 'Storage'             
+    storage_body['kind'] = 'Storage'
     body = json.dumps(storage_body)
     return do_put(endpoint, body, access_token)
 

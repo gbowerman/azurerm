@@ -69,6 +69,4 @@ def get_access_token_from_cli():
     # if dropped out of the loop, token expired
     print('Error from get_access_token_from_cli(): token expired. Run \'az login\'')
     return None
-
-
-    
+ 

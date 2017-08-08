@@ -4,9 +4,9 @@ from .restfns import do_get, do_put
 from .settings import get_rm_endpoint, INSIGHTS_API, INSIGHTS_METRICS_API, INSIGHTS_PREVIEW_API
 
 
-# create_autoscale_rule(subscription_id, resource_group, vmss_name, metric_name, operator, 
-def create_autoscale_rule(subscription_id, resource_group, vmss_name, metric_name, operator, 
-    threshold, direction, change_count, time_grain='PT1M', time_window='PT5M', cool_down='PT1M'):
+def create_autoscale_rule(subscription_id, resource_group, vmss_name, metric_name, operator,
+                          threshold, direction, change_count, time_grain='PT1M',
+                          time_window='PT5M', cool_down='PT1M'):
     '''Create a new autoscale rule - pass the output in a list to create_autoscale_setting().
     '''
     metric_trigger = {'metricName': metric_name}
@@ -28,9 +28,10 @@ def create_autoscale_rule(subscription_id, resource_group, vmss_name, metric_nam
     new_rule['scaleAction'] = scale_action
     return new_rule
 
-# create_autoscale_setting(access_token, subscription_id, resource_group, setting_name, vmss_name,
-def create_autoscale_setting(access_token, subscription_id, resource_group, setting_name, 
-    vmss_name, location, min, max, default, autoscale_rules, notify=None):
+
+def create_autoscale_setting(access_token, subscription_id, resource_group, setting_name,
+                             vmss_name, location, minval, maxval, default, autoscale_rules,
+                             notify=None):
     '''Create a new autoscale setting for a scale set.
     '''
     endpoint = ''.join([get_rm_endpoint(),
@@ -40,8 +41,8 @@ def create_autoscale_setting(access_token, subscription_id, resource_group, sett
                         '?api-version=', INSIGHTS_API])
     autoscale_setting = {'location': location}
     profile = {'name': 'Profile1'}
-    capacity = {'minimum': str(min)}
-    capacity['maximum'] = str(max)
+    capacity = {'minimum': str(minval)}
+    capacity['maximum'] = str(maxval)
     capacity['default'] = str(default)
     profile['capacity'] = capacity
     profile['rules'] = autoscale_rules
@@ -49,7 +50,8 @@ def create_autoscale_setting(access_token, subscription_id, resource_group, sett
     properties = {'name': setting_name}
     properties['profiles'] = profiles
     properties['targetResourceUri'] = '/subscriptions/' + subscription_id + \
-        '/resourceGroups/' + resource_group + '/providers/Microsoft.Compute/virtualMachineScaleSets/' + vmss_name
+        '/resourceGroups/' + resource_group + \
+        '/providers/Microsoft.Compute/virtualMachineScaleSets/' + vmss_name
     properties['enabled'] = True
     if notify is not None:
         notification = {'operation': 'Scale'}
@@ -74,7 +76,7 @@ def list_autoscale_settings(access_token, subscription_id):
 
 
 def list_insights_components(access_token, subscription_id, resource_group):
-    '''List the Microsoft Insights components in a resource group	.
+    '''List the Microsoft Insights components in a resource group.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -83,7 +85,9 @@ def list_insights_components(access_token, subscription_id, resource_group):
                         '/components?api-version=', INSIGHTS_API])
     return do_get(endpoint, access_token)
 
-def list_metric_definitions_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name):
+
+def list_metric_defs_for_resource(access_token, subscription_id, resource_group,
+                                  resource_provider, resource_type, resource_name):
     '''List the monitoring metric definitions for a resource.
     '''
     endpoint = ''.join([get_rm_endpoint(),
@@ -97,7 +101,8 @@ def list_metric_definitions_for_resource(access_token, subscription_id, resource
     return do_get(endpoint, access_token)
 
 
-def get_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider, resource_type, resource_name):
+def get_metrics_for_resource(access_token, subscription_id, resource_group, resource_provider,
+                             resource_type, resource_name):
     '''Get the monitoring metrics for a resource.
     '''
     endpoint = ''.join([get_rm_endpoint(),
@@ -110,12 +115,14 @@ def get_metrics_for_resource(access_token, subscription_id, resource_group, reso
                         '/metrics?api-version=', INSIGHTS_PREVIEW_API])
     return do_get(endpoint, access_token)
 
-# get_events_for_subscription(access_token, subscription_id, filter_string, select_string)
+
 def get_events_for_subscription(access_token, subscription_id, start_timestamp):
-    '''Example start_timetamp value: '2017-05-01T00:00:00.0000000Z'.
+    '''Get the insights evens for a subsctipion since the specific timestamp.
+    
+    Example start_timetamp value: '2017-05-01T00:00:00.0000000Z'.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
-                        '/providers/microsoft.insights/eventtypes/management/values?api-version=', 
+                        '/providers/microsoft.insights/eventtypes/management/values?api-version=',
                         INSIGHTS_API, '&$filter=eventTimestamp ge \'', start_timestamp, '\''])
     return do_get(endpoint, access_token)
