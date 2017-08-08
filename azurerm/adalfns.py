@@ -50,7 +50,7 @@ def get_access_token_from_cli():
         print('Error from get_access_token_from_cli(): tokenType not found in ' + \
             access_keys_path)
         return None
-    if 'expiresOn' not in key:
+    if 'expiresOn' not in keys[0]:
         print('Error from get_access_token_from_cli(): expiresOn not found in ' + \
             access_keys_path)
         return None
