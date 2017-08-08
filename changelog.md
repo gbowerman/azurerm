@@ -1,6 +1,6 @@
 # azurerm - change log
 
-### v0.8.19 (8/04/17):
+### v0.8.20 (8/04/17):
 - Comments improvements, using docstring, with a view to hosting docs on readthedocs soon.
 - Made get_access_key_from_cli() check all keys in the CLI cache.
 
