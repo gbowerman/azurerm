@@ -14,7 +14,7 @@
                               container_list, location, ostype='Linux', port=80, iptype='public')
 - delete_container_group(access_token, subscription_id, resource_group, container_group_name)
 - get_container_group(access_token, subscription_id, resource_group, container_group_name)
-- geot_container_logs(access_token, subscription_id, resource_group, container_group_name, container_name=None)
+- get_container_logs(access_token, subscription_id, resource_group, container_group_name, container_name=None)
 - list_container_groups(access_token, subscription_id, resource_group)
 - list_container_groups_sub(access_token, subscription_id)
 
