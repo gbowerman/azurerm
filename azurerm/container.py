@@ -138,7 +138,7 @@ def get_container_logs(access_token, subscription_id, resource_group, container_
     return do_get(endpoint, access_token)
 
 
-def list_container_groups(access_token, subscription_id, resource_group):
+def list_container_instance_groups(access_token, subscription_id, resource_group):
     '''List the container groups in a resource group.
 
     Args:

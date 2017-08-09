@@ -7,6 +7,20 @@ from .settings import get_rm_endpoint, NETWORK_API
 def create_lb_with_nat_pool(access_token, subscription_id, resource_group, lb_name, public_ip_id,
                             fe_start_port, fe_end_port, backend_port, location):
     '''Create a load balancer with inbound NAT pools.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        lb_name (str): Name of the new load balancer.
+        public_ip_id (str): Public IP address resource id.
+        fe_start_port (int): Start of front-end port range.
+        fe_end_port (int): End of front-end port range.
+        backend_port (int): Back end port for VMs.
+        location (str): Azure data center location. E.g. westus.
+
+    Returns:
+        HTTP response. Load Balancer JSON body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -38,6 +52,19 @@ def create_lb_with_nat_pool(access_token, subscription_id, resource_group, lb_na
 def create_nic(access_token, subscription_id, resource_group, nic_name, public_ip_id, subnet_id,
                location, nsg_id=None):
     '''Create a network interface with an associated public ip address.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        nic_name (str): Name of the new NIC.
+        public_ip_id (str): Public IP address resource id.
+        subnetid (str): Subnet resource id.
+        location (str): Azure data center location. E.g. westus.
+        nsg_id (str): Optional Network Secruity Group resource id.
+
+    Returns:
+        HTTP response. NIC JSON body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -60,6 +87,16 @@ def create_nic(access_token, subscription_id, resource_group, nic_name, public_i
 
 def create_nsg(access_token, subscription_id, resource_group, nsg_name, location):
     '''Create network security group (use create_nsg_rule() to add rules to it).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        nsg_name (str): Name of the new NSG.
+        location (str): Azure data center location. E.g. westus.
+
+    Returns:
+        HTTP response. NSG JSON body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -76,6 +113,25 @@ def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg
                     source_prefix='*', destination_prefix='*', access='Allow', priority=100,
                     direction='Inbound'):
     '''Create network security group rule.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        nsg_name (str): Name of the Network Security Group.
+        nsg_rule_name (str): Name of the new rule.
+        description (str): Description.
+        protocol (str): Optional protocol. Default Tcp.
+        source_range (str): Optional source IP range. Default '*'.
+        destination_range (str): Destination IP range. Default *'.
+        source_prefix (str): Source DNS prefix. Default '*'.
+        destination_prefix (str): Destination prefix. Default '*'.
+        access (str): Allow or deny rule. Default Allow.
+        priority: Relative priority. Default 100.
+        direction: Inbound or Outbound. Default Inbound.
+
+    Returns:
+        HTTP response. NSG JSON rule body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -100,6 +156,17 @@ def create_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg
 def create_public_ip(access_token, subscription_id, resource_group, public_ip_name, dns_label,
                      location):
     '''Create a public ip address.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        public_ip_name (str): Name of the new public ip address resource.
+        dns_label (str): DNS label to apply to the IP address.
+        location (str): Azure data center location. E.g. westus.
+
+    Returns:
+        HTTP response. Public IP address JSON body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -117,6 +184,19 @@ def create_public_ip(access_token, subscription_id, resource_group, public_ip_na
 def create_vnet(access_token, subscription_id, resource_group, name, location,
                 address_prefix='10.0.0.0/16', subnet_prefix='10.0.0.0/16', nsg_id=None):
     '''Create a VNet with specified name and location. Optional subnet address prefix..
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        name (str): Name of the new VNet.
+        location (str): Azure data center location. E.g. westus.
+        address_prefix (str): Optional VNet address prefix. Default '10.0.0.0/16'.
+        subnet_prefix (str): Optional subnet address prefix. Default '10.0.0.0/16'.
+        nsg_id (str): Optional Netwrok Security Group resource Id. Default None.
+
+    Returns:
+        HTTP response. VNet JSON body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -138,6 +218,15 @@ def create_vnet(access_token, subscription_id, resource_group, name, location,
 
 def delete_load_balancer(access_token, subscription_id, resource_group, lb_name):
     '''Delete a load balancer.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        lb_name (str): Name of the load balancer.
+
+    Returns:
+        HTTP response.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -149,6 +238,15 @@ def delete_load_balancer(access_token, subscription_id, resource_group, lb_name)
 
 def delete_nic(access_token, subscription_id, resource_group, nic_name):
     '''Delete a network interface.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        nic_name (str): Name of the NIC.
+
+    Returns:
+        HTTP response.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -160,6 +258,15 @@ def delete_nic(access_token, subscription_id, resource_group, nic_name):
 
 def delete_nsg(access_token, subscription_id, resource_group, nsg_name):
     '''Delete network security group.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        nsg_name (str): Name of the NSG.
+
+    Returns:
+        HTTP response.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -171,6 +278,16 @@ def delete_nsg(access_token, subscription_id, resource_group, nsg_name):
 
 def delete_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg_rule_name):
     '''Delete network security group rule.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        nsg_name (str): Name of the Network Security Group.
+        nsg_rule_name (str): Name of the NSG rule.
+
+    Returns:
+        HTTP response.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -183,6 +300,15 @@ def delete_nsg_rule(access_token, subscription_id, resource_group, nsg_name, nsg
 
 def delete_public_ip(access_token, subscription_id, resource_group, public_ip_name):
     '''Delete a public ip addresses associated with a resource group.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        public_ip_name (str): Name of the public ip address resource.
+
+    Returns:
+        HTTP response.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -194,6 +320,15 @@ def delete_public_ip(access_token, subscription_id, resource_group, public_ip_na
 
 def delete_vnet(access_token, subscription_id, resource_group, name):
     '''Delete a virtual network.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        name (str): Name of the VNet.
+
+    Returns:
+        HTTP response. VNet JSON body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -205,6 +340,16 @@ def delete_vnet(access_token, subscription_id, resource_group, name):
 
 def get_lb_nat_rule(access_token, subscription_id, resource_group, lb_name, rule_name):
     '''Get details about a load balancer inbound NAT rule.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        lb_name (str): Name of the load balancer.
+        rule_name (str): Name of the NAT rule.
+
+    Returns:
+        HTTP response. JSON body of rule.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -217,6 +362,15 @@ def get_lb_nat_rule(access_token, subscription_id, resource_group, lb_name, rule
 
 def get_load_balancer(access_token, subscription_id, resource_group, lb_name):
     '''Get details about a load balancer	.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        lb_name (str): Name of the load balancer.
+
+    Returns:
+        HTTP response. JSON body of load balancer properties.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -228,6 +382,14 @@ def get_load_balancer(access_token, subscription_id, resource_group, lb_name):
 
 def get_network_usage(access_token, subscription_id, location):
     '''List network usage and limits for a location.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        location (str): Azure data center location. E.g. westus.
+
+    Returns:
+        HTTP response. JSON body of network usage.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -238,6 +400,15 @@ def get_network_usage(access_token, subscription_id, location):
 
 def get_nic(access_token, subscription_id, resource_group, nic_name):
     '''Get details about a network interface.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        nic_name (str): Name of the NIC.
+
+    Returns:
+        HTTP response. NIC JSON body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -249,6 +420,15 @@ def get_nic(access_token, subscription_id, resource_group, nic_name):
 
 def get_public_ip(access_token, subscription_id, resource_group, ip_name):
     '''Get details about the named public ip address.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        public_ip_name (str): Name of the public ip address resource.
+
+    Returns:
+        HTTP response. Public IP address JSON body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -261,6 +441,15 @@ def get_public_ip(access_token, subscription_id, resource_group, ip_name):
 
 def get_vnet(access_token, subscription_id, resource_group, vnet_name):
     '''Get details about the named virtual network.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        vnet_name (str): Name of the VNet.
+
+    Returns:
+        HTTP response. VNet JSON body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -272,6 +461,15 @@ def get_vnet(access_token, subscription_id, resource_group, vnet_name):
 
 def list_lb_nat_rules(access_token, subscription_id, resource_group, lb_name):
     '''List the inbound NAT rules for a load balancer.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        lb_name (str): Name of the load balancer.
+
+    Returns:
+        HTTP response. JSON body of load balancer NAT rules.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -282,7 +480,14 @@ def list_lb_nat_rules(access_token, subscription_id, resource_group, lb_name):
 
 
 def list_load_balancers(access_token, subscription_id):
-    '''List the load balancers in a subscription	.
+    '''List the load balancers in a subscription.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+
+    Returns:
+        HTTP response. JSON body of load balancer list with properties.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -292,7 +497,15 @@ def list_load_balancers(access_token, subscription_id):
 
 
 def list_load_balancers_rg(access_token, subscription_id, resource_group):
-    '''List the load balancers in a resource group	.
+    '''List the load balancers in a resource group.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+
+    Returns:
+        HTTP response. JSON body of load balancer list with properties.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -304,6 +517,13 @@ def list_load_balancers_rg(access_token, subscription_id, resource_group):
 
 def list_nics(access_token, subscription_id):
     '''List the network interfaces in a subscription.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+
+    Returns:
+        HTTP response. JSON body of NICs list with properties.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -313,7 +533,15 @@ def list_nics(access_token, subscription_id):
 
 
 def list_nics_rg(access_token, subscription_id, resource_group):
-    '''List network interface cards within a resource group	.
+    '''List network interface cards within a resource group.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+
+    Returns:
+        HTTP response. JSON body of load balancer list with properties.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -325,6 +553,14 @@ def list_nics_rg(access_token, subscription_id, resource_group):
 
 def list_public_ips(access_token, subscription_id, resource_group):
     '''List the public ip addresses in a resource group	.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+
+    Returns:
+        HTTP response. JSON body of public IPs list with properties.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -336,6 +572,13 @@ def list_public_ips(access_token, subscription_id, resource_group):
 
 def list_vnets(access_token, subscription_id):
     '''List the VNETs in a subscription	.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+
+    Returns:
+        HTTP response. JSON body of VNets list with properties.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -346,6 +589,14 @@ def list_vnets(access_token, subscription_id):
 
 def list_vnets_rg(access_token, subscription_id, resource_group):
     '''List the VNETs in a resource group.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+
+    Returns:
+        HTTP response. JSON body of VNets list with properties.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -357,6 +608,16 @@ def list_vnets_rg(access_token, subscription_id, resource_group):
 
 def update_load_balancer(access_token, subscription_id, resource_group, lb_name, body):
     '''Updates a load balancer model, i.e. PUT an updated LB body.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        lb_name (str): Name of the new load balancer.
+        body (str): JSON body of an updated load balancer.
+
+    Returns:
+        HTTP response. Load Balancer JSON body.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,

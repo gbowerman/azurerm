@@ -9,9 +9,16 @@ from .settings import BASE_API, get_rm_endpoint
 
 def get_subscription_from_cli(name=None):
     '''Get the default, or named, subscription id from CLI's local cache.
-
     Requirements:
         User has run 'az login' once, or is in Azure Cloud Shell.
+
+    Args:
+        name (str): Optional subscription name. If this is set, the subscription id of the named
+           subscription is returned from the CLI cache if present. If not set, the subscription id
+           of the default subscription is returned.
+
+    Returns:
+        Azure subscription ID string.
     '''
     home = os.path.expanduser('~')
     azure_profile_path = home + os.sep + '.azure' + os.sep + 'azureProfile.json'
@@ -30,6 +37,13 @@ def get_subscription_from_cli(name=None):
 
 def list_locations(access_token, subscription_id):
     '''List available locations for a subscription.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+
+    Returns:
+        HTTP response. JSON list of locations.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
@@ -38,7 +52,13 @@ def list_locations(access_token, subscription_id):
 
 
 def list_subscriptions(access_token):
-    '''List the available Azure subscriptions for this user/service principle.
+    '''List the available Azure subscriptions for this user account or service principle.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response. JSON list of subscriptions.
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/',
