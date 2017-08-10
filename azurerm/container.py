@@ -1,4 +1,4 @@
-''' acs.py - azurerm functions for Azure Container instances'''
+''' container.py - azurerm functions for Azure Container instances'''
 import json
 from .restfns import do_delete, do_get, do_put
 from .settings import get_rm_endpoint, CONTAINER_API
@@ -33,8 +33,9 @@ def create_container_definition(container_name, image, port=80, cpu=1.0, memgb=1
     return container
 
 
-def create_container_group(access_token, subscription_id, resource_group, container_group_name,
-                           container_list, location, ostype='Linux', port=80, iptype='public'):
+def create_container_instance_group(access_token, subscription_id, resource_group,
+                                    container_group_name, container_list, location,
+                                    ostype='Linux', port=80, iptype='public'):
     '''Create a new container group with a list of containers specifified by container_list.
 
     Args:
@@ -71,7 +72,8 @@ def create_container_group(access_token, subscription_id, resource_group, contai
     return do_put(endpoint, body, access_token)
 
 
-def delete_container_group(access_token, subscription_id, resource_group, container_group_name):
+def delete_container_instance_group(access_token, subscription_id, resource_group,
+                                    container_group_name):
     '''Delete a container group from a resource group.
 
     Args:
@@ -92,7 +94,8 @@ def delete_container_group(access_token, subscription_id, resource_group, contai
     return do_delete(endpoint, access_token)
 
 
-def get_container_group(access_token, subscription_id, resource_group, container_group_name):
+def get_container_instance_group(access_token, subscription_id, resource_group,
+                                 container_group_name):
     '''Get the JSON definition of a container group.
 
     Args:
@@ -113,8 +116,8 @@ def get_container_group(access_token, subscription_id, resource_group, container
     return do_get(endpoint, access_token)
 
 
-def get_container_logs(access_token, subscription_id, resource_group, container_group_name,
-                       container_name=None):
+def get_container_instance_logs(access_token, subscription_id, resource_group, container_group_name,
+                                container_name=None):
     '''Get the container logs for containers in a container group.
 
     Args:
@@ -157,7 +160,7 @@ def list_container_instance_groups(access_token, subscription_id, resource_group
     return do_get(endpoint, access_token)
 
 
-def list_container_groups_sub(access_token, subscription_id):
+def list_container_instance_groups_sub(access_token, subscription_id):
     '''List the container groups in a subscription.
 
     Args:

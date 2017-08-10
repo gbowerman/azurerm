@@ -9,10 +9,10 @@ Desktop.ini
 pyupload.bat
 
 # docs build files
-/docs/_build/doctrees/
-/docs/_build/html/_sources
-/docs/_build/html/_static
-*.inv
+#/docs/_build/doctrees/
+#/docs/_build/html/_sources
+#/docs/_build/html/_static
+#*.inv
 
 # Recycle Bin used on file shares
 $RECYCLE.BIN/

@@ -1,5 +1,11 @@
 # azurerm - change log
 
+### v0.8.22 (8/10/17):
+- Breaking change - container instance group functions renamed to xxx_container_instance_group_yyy
+   e.g. create_container_instance_group(), list_container_instance_groups_sub() etc.
+- Complete docstring comments work. All functions have complete docstring descriptions.
+= Added Sphinx/Napolean doc building tools.
+
 ### v0.8.20 (8/04/17):
 - Comments improvements, using docstring, with a view to hosting docs on readthedocs soon.
 - Made get_access_key_from_cli() check all keys in the CLI cache.

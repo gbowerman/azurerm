@@ -6,7 +6,7 @@ import requests
 
 
 def get_user_agent():
-    '''User-Agent Header.
+    '''User-Agent Header. Sends library identification to Azure endpoint.
     '''
     version = pkg_resources.require("azurerm")[0].version
     user_agent = "python/{} ({}) requests/{} azurerm/{}".format(
@@ -18,6 +18,13 @@ def get_user_agent():
 
 def do_get(endpoint, access_token):
     '''Do an HTTP GET request and return JSON.
+
+    Args:
+        endpoint (str): Azure Resource Manager management endpoint.
+        access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response. JSON body.
     '''
     headers = {"Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
@@ -26,6 +33,13 @@ def do_get(endpoint, access_token):
 
 def do_get_next(endpoint, access_token):
     '''Do an HTTP GET request, follow the nextLink chain and return JSON.
+
+    Args:
+        endpoint (str): Azure Resource Manager management endpoint.
+        access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response. JSON body.
     '''
     headers = {"Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
@@ -47,6 +61,13 @@ def do_get_next(endpoint, access_token):
 
 def do_delete(endpoint, access_token):
     '''Do an HTTP GET request and return JSON.
+
+    Args:
+        endpoint (str): Azure Resource Manager management endpoint.
+        access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response.
     '''
     headers = {"Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
@@ -55,6 +76,14 @@ def do_delete(endpoint, access_token):
 
 def do_patch(endpoint, body, access_token):
     '''Do an HTTP PATCH request and return JSON.
+
+    Args:
+        endpoint (str): Azure Resource Manager management endpoint.
+        body (str): JSON body of information to patch.
+        access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response. JSON body.
     '''
     headers = {"content-type": "application/json", "Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
@@ -63,6 +92,14 @@ def do_patch(endpoint, body, access_token):
 
 def do_post(endpoint, body, access_token):
     '''Do an HTTP POST request and return JSON.
+
+    Args:
+        endpoint (str): Azure Resource Manager management endpoint.
+        body (str): JSON body of information to post.
+        access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response. JSON body.
     '''
     headers = {"content-type": "application/json", "Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
@@ -71,6 +108,14 @@ def do_post(endpoint, body, access_token):
 
 def do_put(endpoint, body, access_token):
     '''Do an HTTP PUT request and return JSON.
+
+    Args:
+        endpoint (str): Azure Resource Manager management endpoint.
+        body (str): JSON body of information to put.
+        access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response. JSON body.
     '''
     headers = {"content-type": "application/json", "Authorization": 'Bearer ' + access_token}
     headers['User-Agent'] = get_user_agent()
