@@ -1,0 +1,3234 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>azurerm package &#8212; azurerm 0.8.21 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0.8.21',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="azurerm" href="modules.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head>
+  <body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="azurerm-package">
+<h1>azurerm package<a class="headerlink" href="#azurerm-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-azurerm.acs">
+<span id="azurerm-acs-module"></span><h2>azurerm.acs module<a class="headerlink" href="#module-azurerm.acs" title="Permalink to this headline">¶</a></h2>
+<p>acs.py - azurerm functions for the Azure Container Service</p>
+<dl class="function">
+<dt id="azurerm.acs.create_container_service">
+<code class="descclassname">azurerm.acs.</code><code class="descname">create_container_service</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>service_name</em>, <em>agent_count</em>, <em>agent_vm_size</em>, <em>agent_dns</em>, <em>master_dns</em>, <em>admin_user</em>, <em>location</em>, <em>public_key=None</em>, <em>master_count=3</em>, <em>orchestrator='DCOS'</em>, <em>app_id=None</em>, <em>app_secret=None</em>, <em>admin_password=None</em>, <em>ostype='Linux'</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.acs.create_container_service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new container service - include app_id and app_secret if using Kubernetes.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>service_name</strong> (<em>str</em>) – Name of container service.</li>
+<li><strong>agent_count</strong> (<em>int</em>) – The number of agent VMs.</li>
+<li><strong>agent_vm_size</strong> (<em>str</em>) – VM size of agents, e.g. Standard_D1_v2.</li>
+<li><strong>agent_dns</strong> (<em>str</em>) – A unique DNS string for the agent DNS.</li>
+<li><strong>master_dns</strong> (<em>str</em>) – A unique string for the master DNS.</li>
+<li><strong>admin_user</strong> (<em>str</em>) – Admin user name.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location, e.g. westus.</li>
+<li><strong>public_key</strong> (<em>str</em>) – RSA public key (utf-8).</li>
+<li><strong>master_count</strong> (<em>int</em>) – Number of master VMs.</li>
+<li><strong>orchestrator</strong> (<em>str</em>) – Container orchestrator. E.g. DCOS, Kubernetes.</li>
+<li><strong>app_id</strong> (<em>str</em>) – Application ID for Kubernetes.</li>
+<li><strong>app_secret</strong> (<em>str</em>) – Application secret for Kubernetes.</li>
+<li><strong>admin_password</strong> (<em>str</em>) – Admin user password.</li>
+<li><strong>ostype</strong> (<em>str</em>) – Operating system. Windows of Linux.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. Container service JSON model.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.acs.delete_container_service">
+<code class="descclassname">azurerm.acs.</code><code class="descname">delete_container_service</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>service_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.acs.delete_container_service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a named container.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>service_name</strong> (<em>str</em>) – Name of container service.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.acs.get_container_service">
+<code class="descclassname">azurerm.acs.</code><code class="descname">get_container_service</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>service_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.acs.get_container_service" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details about an Azure Container Server</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>service_name</strong> (<em>str</em>) – Name of container service.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON model.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.acs.list_acs_operations">
+<code class="descclassname">azurerm.acs.</code><code class="descname">list_acs_operations</code><span class="sig-paren">(</span><em>access_token</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.acs.list_acs_operations" title="Permalink to this definition">¶</a></dt>
+<dd><p>List available Container Server operations.</p>
+<blockquote>
+<div>Args:
+access_token (str): A valid Azure authentication token.</div></blockquote>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HTTP response. JSON model.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.acs.list_container_services">
+<code class="descclassname">azurerm.acs.</code><code class="descname">list_container_services</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.acs.list_container_services" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the container services in a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON model.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.acs.list_container_services_sub">
+<code class="descclassname">azurerm.acs.</code><code class="descname">list_container_services_sub</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.acs.list_container_services_sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the container services in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON model.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.adalfns">
+<span id="azurerm-adalfns-module"></span><h2>azurerm.adalfns module<a class="headerlink" href="#module-azurerm.adalfns" title="Permalink to this headline">¶</a></h2>
+<p>adalfns - place to store azurerm functions which call adal routines</p>
+<dl class="function">
+<dt id="azurerm.adalfns.get_access_token">
+<code class="descclassname">azurerm.adalfns.</code><code class="descname">get_access_token</code><span class="sig-paren">(</span><em>tenant_id</em>, <em>application_id</em>, <em>application_secret</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.adalfns.get_access_token" title="Permalink to this definition">¶</a></dt>
+<dd><p>get an Azure access token using the adal library.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>tenant_id</strong> (<em>str</em>) – Tenant id of the user’s account.</li>
+<li><strong>application_id</strong> (<em>str</em>) – Application id of a Service Principal account.</li>
+<li><strong>application_secret</strong> (<em>str</em>) – Application secret (password) of the Service Principal account.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">An Azure authentication token string.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.adalfns.get_access_token_from_cli">
+<code class="descclassname">azurerm.adalfns.</code><code class="descname">get_access_token_from_cli</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.adalfns.get_access_token_from_cli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get an Azure authentication token from CLI’s local cache.</p>
+<dl class="docutils">
+<dt>Will only work if CLI local cache has an unexpired auth token (i.e. you ran ‘az login’</dt>
+<dd>recently)</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">An Azure authentication token string.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.amsrp">
+<span id="azurerm-amsrp-module"></span><h2>azurerm.amsrp module<a class="headerlink" href="#module-azurerm.amsrp" title="Permalink to this headline">¶</a></h2>
+<p>amsrp.py - azurerm functions for the Microsoft.Media resource provider.</p>
+<dl class="function">
+<dt id="azurerm.amsrp.check_ms_name_availability">
+<code class="descclassname">azurerm.amsrp.</code><code class="descname">check_ms_name_availability</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>msname</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.amsrp.check_ms_name_availability" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check media service name availability.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>msname</strong> (<em>str</em>) – media service name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.amsrp.create_media_service_rg">
+<code class="descclassname">azurerm.amsrp.</code><code class="descname">create_media_service_rg</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em>, <em>location</em>, <em>stoname</em>, <em>msname</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.amsrp.create_media_service_rg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a media service in a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>stoname</strong> (<em>str</em>) – Azure storage account name.</li>
+<li><strong>msname</strong> (<em>str</em>) – Media service name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.amsrp.delete_media_service_rg">
+<code class="descclassname">azurerm.amsrp.</code><code class="descname">delete_media_service_rg</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em>, <em>msname</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.amsrp.delete_media_service_rg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a media service.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>msname</strong> (<em>str</em>) – Media service name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.amsrp.list_media_endpoint_keys">
+<code class="descclassname">azurerm.amsrp.</code><code class="descname">list_media_endpoint_keys</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em>, <em>msname</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.amsrp.list_media_endpoint_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>list the media endpoint keys in a media service</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>msname</strong> (<em>str</em>) – Media service name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.amsrp.list_media_services">
+<code class="descclassname">azurerm.amsrp.</code><code class="descname">list_media_services</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.amsrp.list_media_services" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the media services in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.amsrp.list_media_services_rg">
+<code class="descclassname">azurerm.amsrp.</code><code class="descname">list_media_services_rg</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.amsrp.list_media_services_rg" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the media services in a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.computerp">
+<span id="azurerm-computerp-module"></span><h2>azurerm.computerp module<a class="headerlink" href="#module-azurerm.computerp" title="Permalink to this headline">¶</a></h2>
+<p>computerp.py - azurerm functions for the Microsoft.Compute resource provider</p>
+<dl class="function">
+<dt id="azurerm.computerp.create_as">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">create_as</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>as_name</em>, <em>update_domains</em>, <em>fault_domains</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.create_as" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create availability set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>as_name</strong> (<em>str</em>) – Name of the new availability set.</li>
+<li><strong>update_domains</strong> (<em>int</em>) – Number of update domains.</li>
+<li><strong>fault_domains</strong> (<em>int</em>) – Number of fault domains.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of the availability set properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.create_vm">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">create_vm</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vm_name</em>, <em>vm_size</em>, <em>publisher</em>, <em>offer</em>, <em>sku</em>, <em>version</em>, <em>nic_id</em>, <em>location</em>, <em>storage_type='Standard_LRS'</em>, <em>osdisk_name=None</em>, <em>username='azure'</em>, <em>password=None</em>, <em>public_key=None</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.create_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new Azure virtual machine.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the new virtual machine.</li>
+<li><strong>vm_size</strong> (<em>str</em>) – Size of virtual machine, e.g. ‘Standard_D1_v2’.</li>
+<li><strong>publisher</strong> (<em>str</em>) – VM image publisher. E.g. ‘MicrosoftWindowsServer’.</li>
+<li><strong>offer</strong> (<em>str</em>) – VM image offer. E.g. ‘WindowsServer’.</li>
+<li><strong>sku</strong> (<em>str</em>) – VM image sku. E.g. ‘2016-Datacenter’.</li>
+<li><strong>version</strong> (<em>str</em>) – VM image version. E.g. ‘latest’.</li>
+<li><strong>nic_id</strong> (<em>str</em>) – Resource id of a NIC.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>storage_type</strong> (<em>str</em>) – Optional storage type. Default ‘Standard_LRS’.</li>
+<li><strong>osdisk_name</strong> (<em>str</em>) – Optional OS disk name. Default is None.</li>
+<li><strong>username</strong> (<em>str</em>) – Optional user name. Default is ‘azure’.</li>
+<li><strong>password</strong> (<em>str</em>) – Optional password. Default is None (not required if using public_key).</li>
+<li><strong>public_key</strong> (<em>str</em>) – Optional public key. Default is None (not required if using password,
+e.g. on Windows).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of the virtual machine properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.create_vmss">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">create_vmss</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>vm_size</em>, <em>capacity</em>, <em>publisher</em>, <em>offer</em>, <em>sku</em>, <em>version</em>, <em>subnet_id</em>, <em>be_pool_id</em>, <em>lb_pool_id</em>, <em>location</em>, <em>storage_type='Standard_LRS'</em>, <em>username='azure'</em>, <em>password=None</em>, <em>public_key=None</em>, <em>overprovision=True</em>, <em>upgrade_policy='Manual'</em>, <em>public_ip_per_vm=False</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.create_vmss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the new scale set.</li>
+<li><strong>vm_size</strong> (<em>str</em>) – Size of virtual machine, e.g. ‘Standard_D1_v2’.</li>
+<li><strong>capacity</strong> (<em>int</em>) – Number of VMs in the scale set. 0-1000.</li>
+<li><strong>publisher</strong> (<em>str</em>) – VM image publisher. E.g. ‘MicrosoftWindowsServer’.</li>
+<li><strong>offer</strong> (<em>str</em>) – VM image offer. E.g. ‘WindowsServer’.</li>
+<li><strong>sku</strong> (<em>str</em>) – VM image sku. E.g. ‘2016-Datacenter’.</li>
+<li><strong>version</strong> (<em>str</em>) – VM image version. E.g. ‘latest’.</li>
+<li><strong>subnet_id</strong> (<em>str</em>) – Resource id of a subnet.</li>
+<li><strong>be_pool_id</strong> (<em>str</em>) – Resource id of a backend NAT pool.</li>
+<li><strong>lb_pool_id</strong> (<em>str</em>) – Resource id of a load balancer pool.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>storage_type</strong> (<em>str</em>) – Optional storage type. Default ‘Standard_LRS’.</li>
+<li><strong>username</strong> (<em>str</em>) – Optional user name. Default is ‘azure’.</li>
+<li><strong>password</strong> (<em>str</em>) – Optional password. Default is None (not required if using public_key).</li>
+<li><strong>public_key</strong> (<em>str</em>) – Optional public key. Default is None (not required if using password,
+e.g. on Windows).</li>
+<li><strong>overprovision</strong> (<em>bool</em>) – Optional. Enable overprovisioning of VMs. Default True.</li>
+<li><strong>upgrade_policy</strong> (<em>str</em>) – Optional. Set upgrade policy to Automatic, Manual or Rolling.
+Default ‘Manual’.</li>
+<li><strong>public_ip_per_vm</strong> (<em>bool</em>) – Optional. Set public IP per VM. Default False.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>To do:</dt>
+<dd>Make the LB pool arguments optional.</dd>
+</dl>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">HTTP response. JSON body of the virtual machine scale set properties.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.deallocate_vm">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">deallocate_vm</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vm_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.deallocate_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop-deallocate a virtual machine.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the virtual machine.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.delete_as">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">delete_as</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>as_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.delete_as" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete availability set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>as_name</strong> (<em>str</em>) – Name of the availability set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.delete_vm">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">delete_vm</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vm_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.delete_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a virtual machine.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the virtual machine.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.delete_vmss">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">delete_vmss</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.delete_vmss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.delete_vmss_vms">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">delete_vmss_vms</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>vm_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.delete_vmss_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a VM in a VM Scale Set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>vm_ids</strong> (<em>str</em>) – String representation of a JSON list of VM IDs. E.g. ‘[1,2]’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_as">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_as</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>as_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_as" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get availability set details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>as_name</strong> (<em>str</em>) – Name of the new availability set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of the availability set properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_compute_usage">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_compute_usage</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_compute_usage" title="Permalink to this definition">¶</a></dt>
+<dd><p>List compute usage and limits for a location.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of Compute usage and limits data.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vm">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vm</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vm_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get virtual machine details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the virtual machine.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VM properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vm_extension">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vm_extension</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vm_name</em>, <em>extension_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vm_extension" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details about a VM extension.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the virtual machine.</li>
+<li><strong>extension_name</strong> (<em>str</em>) – VM extension name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VM extension properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vm_instance_view">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vm_instance_view</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vm_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vm_instance_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get operational details about the state of a VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the virtual machine.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VM instance view details.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vmss">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vmss</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vmss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get virtual machine scale set details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of scale set properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vmss_instance_view">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vmss_instance_view</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vmss_instance_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get virtual machine scale set instance view.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VM instance view details.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vmss_nics">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vmss_nics</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vmss_nics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get NIC details for a VM Scale Set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VMSS NICs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vmss_public_ips">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vmss_public_ips</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vmss_public_ips" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get public IP address details for a VM scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of list of public IPs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vmss_rolling_upgrades">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vmss_rolling_upgrades</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vmss_rolling_upgrades" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details of the latest VM scale set rolling upgrade.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of rolling upgrades status.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vmss_vm">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vmss_vm</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>instance_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vmss_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get individual VMSS VM details.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>instance_id</strong> (<em>int</em>) – VM ID of the scale set VM.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VMSS VM model view.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vmss_vm_instance_view">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vmss_vm_instance_view</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>instance_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vmss_vm_instance_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get individual VMSS VM instance view.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>instance_id</strong> (<em>int</em>) – VM ID of the scale set VM.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VMSS VM instance view.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.get_vmss_vm_nics">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">get_vmss_vm_nics</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>instance_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.get_vmss_vm_nics" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get NIC details for a VMSS VM.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>instance_id</strong> (<em>int</em>) – VM ID of the scale set VM.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VMSS VM instance view.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_as">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_as</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_as" title="Permalink to this definition">¶</a></dt>
+<dd><p>List availability sets in a resource_group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of the list of availability set properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_as_sub">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_as_sub</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_as_sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>List availability sets in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of the list of availability set properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_vm_images_sub">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_vm_images_sub</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_vm_images_sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>List VM images in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of a list of VM images.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_vm_instance_view">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_vm_instance_view</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_vm_instance_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>List VM instances views in a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of a list of VM instance views.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_vms">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_vms</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>List VMs in a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of a list of VM model views.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_vms_sub">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_vms_sub</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_vms_sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>List VMs in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of a list of VM model views.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_vmss">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_vmss</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_vmss" title="Permalink to this definition">¶</a></dt>
+<dd><p>List VM Scale Sets in a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of a list of scale set model views.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_vmss_skus">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_vmss_skus</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_vmss_skus" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the VM skus available for a VM Scale Set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VM skus.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_vmss_sub">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_vmss_sub</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_vmss_sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>List VM Scale Sets in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VM scale sets.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_vmss_vm_instance_view">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_vmss_vm_instance_view</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_vmss_vm_instance_view" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the instance views for all the VMs in a VM scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of list of VM instance views.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_vmss_vm_instance_view_pg">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_vmss_vm_instance_view_pg</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>link=None</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_vmss_vm_instance_view_pg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Gets one page of a paginated list of scale set VM instance views.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>link</strong> (<em>str</em>) – Optional link to URI to get list (as part of a paginated API query).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of list of VM instance views.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.list_vmss_vms">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">list_vmss_vms</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.list_vmss_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the VMs in a VM Scale Set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of list of VM model views.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.poweroff_vmss">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">poweroff_vmss</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.poweroff_vmss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Power off all the VMs in a virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.poweroff_vmss_vms">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">poweroff_vmss_vms</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>instance_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.poweroff_vmss_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Poweroff all the VMs in a virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>instance_ids</strong> (<em>str</em>) – String representation of a JSON list of VM IDs. E.g. ‘[1,2]’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.reimage_vmss_vms">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">reimage_vmss_vms</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>instance_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.reimage_vmss_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Drive is reset, temp drive is not).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>instance_ids</strong> (<em>str</em>) – String representation of a JSON list of VM IDs. E.g. ‘[1,2]’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.restart_vm">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">restart_vm</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vm_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.restart_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restart a virtual machine.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the virtual machine.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.restart_vmss">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">restart_vmss</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.restart_vmss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restart all the VMs in a virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.restart_vmss_vms">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">restart_vmss_vms</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>instance_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.restart_vmss_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Restart a specific VM in a virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>instance_ids</strong> (<em>str</em>) – String representation of a JSON list of VM IDs. E.g. ‘[1,2]’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.scale_vmss">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">scale_vmss</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>size</em>, <em>tier</em>, <em>capacity</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.scale_vmss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change the instance count of an existing VM Scale Set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>size</strong> (<em>str</em>) – VM size. E.g. ‘Standard_D1_v2’.</li>
+<li><strong>tier</strong> (<em>str</em>) – VM tier. E.g. ‘Standard’.</li>
+<li><strong>capacity</strong> (<em>int</em>) – New number of VMs.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.start_vm">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">start_vm</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vm_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.start_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start a virtual machine.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the virtual machine.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.start_vmss">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">start_vmss</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.start_vmss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start all the VMs in a virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.start_vmss_vms">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">start_vmss_vms</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>instance_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.start_vmss_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Start all the VMs in a virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>instance_ids</strong> (<em>str</em>) – String representation of a JSON list of VM IDs. E.g. ‘[1,2]’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.stop_vm">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">stop_vm</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vm_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.stop_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop a virtual machine but don’t deallocate resources (power off).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the virtual machine.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.stopdealloc_vmss">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">stopdealloc_vmss</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.stopdealloc_vmss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop all the VMs in a virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.stopdealloc_vmss_vms">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">stopdealloc_vmss_vms</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>instance_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.stopdealloc_vmss_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stop the specified VMs in a virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>instance_ids</strong> (<em>str</em>) – String representation of a JSON list of VM IDs. E.g. ‘[1,2]’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.update_vm">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">update_vm</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vm_name</em>, <em>body</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.update_vm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a virtual machine with a new JSON body. E.g. do a GET, change something, call this.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the virtual machine.</li>
+<li><strong>body</strong> (<em>dict</em>) – JSON body of the VM.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.update_vmss">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">update_vmss</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>body</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.update_vmss" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update a VMSS with a new JSON body. E.g. do a GET, change something, call this.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vm_name</strong> (<em>str</em>) – Name of the virtual machine.</li>
+<li><strong>body</strong> (<em>dict</em>) – JSON body of the VM scale set.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.computerp.upgrade_vmss_vms">
+<code class="descclassname">azurerm.computerp.</code><code class="descname">upgrade_vmss_vms</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>instance_ids</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.computerp.upgrade_vmss_vms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Upgrade specific VMs in a virtual machine scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of the virtual machine scale set.</li>
+<li><strong>instance_ids</strong> (<em>str</em>) – String representation of a JSON list of VM IDs. E.g. ‘[1,2]’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.container">
+<span id="azurerm-container-module"></span><h2>azurerm.container module<a class="headerlink" href="#module-azurerm.container" title="Permalink to this headline">¶</a></h2>
+<p>acs.py - azurerm functions for Azure Container instances</p>
+<dl class="function">
+<dt id="azurerm.container.create_container_definition">
+<code class="descclassname">azurerm.container.</code><code class="descname">create_container_definition</code><span class="sig-paren">(</span><em>container_name</em>, <em>image</em>, <em>port=80</em>, <em>cpu=1.0</em>, <em>memgb=1.5</em>, <em>environment=None</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.container.create_container_definition" title="Permalink to this definition">¶</a></dt>
+<dd><p>Makes a python dictionary of container properties.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>container_name</strong> – The name of the container.</li>
+<li><strong>image</strong> (<em>str</em>) – Container image string. E.g. nginx.</li>
+<li><strong>port</strong> (<em>int</em>) – TCP port number. E.g. 8080.</li>
+<li><strong>cpu</strong> (<em>float</em>) – Amount of CPU to allocate to container. E.g. 1.0.</li>
+<li><strong>memgb</strong> (<em>float</em>) – Memory in GB to allocate to container. E.g. 1.5.</li>
+<li><strong>environment</strong> (<em>list</em>) – A list of [{‘name’:’envname’, ‘value’:’envvalue’}].</li>
+<li><strong>environment variables in the container.</strong> (<em>Sets</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A Python dictionary of container properties, pass a list of these to
+create_container_group().</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.container.create_container_group">
+<code class="descclassname">azurerm.container.</code><code class="descname">create_container_group</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>container_group_name</em>, <em>container_list</em>, <em>location</em>, <em>ostype='Linux'</em>, <em>port=80</em>, <em>iptype='public'</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.container.create_container_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new container group with a list of containers specifified by container_list.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>container_group_name</strong> (<em>str</em>) – Name of container instance group.</li>
+<li><strong>container_list</strong> (<em>list</em>) – A list of container properties. Use create_container_definition to</li>
+<li><strong>each container property set.</strong> (<em>create</em>) – </li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>ostype</strong> (<em>str</em>) – Container operating system type. Linux or Windows.</li>
+<li><strong>port</strong> (<em>int</em>) – TCP port number. E.g. 8080.</li>
+<li><strong>iptype</strong> (<em>str</em>) – Type of IP address. E.g. public.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response with JSON body of container group.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.container.delete_container_group">
+<code class="descclassname">azurerm.container.</code><code class="descname">delete_container_group</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>container_group_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.container.delete_container_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a container group from a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>container_group_name</strong> (<em>str</em>) – Name of container instance group.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.container.get_container_group">
+<code class="descclassname">azurerm.container.</code><code class="descname">get_container_group</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>container_group_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.container.get_container_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the JSON definition of a container group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>container_group_name</strong> (<em>str</em>) – Name of container instance group.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of container group.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.container.get_container_logs">
+<code class="descclassname">azurerm.container.</code><code class="descname">get_container_logs</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>container_group_name</em>, <em>container_name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.container.get_container_logs" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the container logs for containers in a container group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>container_group_name</strong> (<em>str</em>) – Name of container instance group.</li>
+<li><strong>container_name</strong> (<em>str</em>) – Optional name of a container in the group.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. Container logs.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.container.list_container_groups_sub">
+<code class="descclassname">azurerm.container.</code><code class="descname">list_container_groups_sub</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.container.list_container_groups_sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the container groups in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON list of container groups and their properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.container.list_container_instance_groups">
+<code class="descclassname">azurerm.container.</code><code class="descname">list_container_instance_groups</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.container.list_container_instance_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the container groups in a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON list of container groups and their properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.deployments">
+<span id="azurerm-deployments-module"></span><h2>azurerm.deployments module<a class="headerlink" href="#module-azurerm.deployments" title="Permalink to this headline">¶</a></h2>
+<p>deployments.py - azurerm functions for Deployments</p>
+<dl class="function">
+<dt id="azurerm.deployments.list_deployment_operations">
+<code class="descclassname">azurerm.deployments.</code><code class="descname">list_deployment_operations</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rg_name</em>, <em>deployment_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.deployments.list_deployment_operations" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all operations involved in a given deployment.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rg_name</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.deployments.show_deployment">
+<code class="descclassname">azurerm.deployments.</code><code class="descname">show_deployment</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rg_name</em>, <em>deployment_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.deployments.show_deployment" title="Permalink to this definition">¶</a></dt>
+<dd><p>Show details for a named deployment.abs</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rg_name</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.insightsrp">
+<span id="azurerm-insightsrp-module"></span><h2>azurerm.insightsrp module<a class="headerlink" href="#module-azurerm.insightsrp" title="Permalink to this headline">¶</a></h2>
+<p>insightsrp.py - azurerm functions for the Microsoft.Insights resource provider</p>
+<dl class="function">
+<dt id="azurerm.insightsrp.create_autoscale_rule">
+<code class="descclassname">azurerm.insightsrp.</code><code class="descname">create_autoscale_rule</code><span class="sig-paren">(</span><em>subscription_id</em>, <em>resource_group</em>, <em>vmss_name</em>, <em>metric_name</em>, <em>operator</em>, <em>threshold</em>, <em>direction</em>, <em>change_count</em>, <em>time_grain='PT1M'</em>, <em>time_window='PT5M'</em>, <em>cool_down='PT1M'</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.insightsrp.create_autoscale_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new autoscale rule - pass the output in a list to create_autoscale_setting().</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of scale set to apply scale events to.</li>
+<li><strong>metric_name</strong> (<em>str</em>) – Name of metric being evaluated.</li>
+<li><strong>operator</strong> (<em>str</em>) – Operator to evaluate. E.g. “GreaterThan”.</li>
+<li><strong>threshold</strong> (<em>str</em>) – Threshold to trigger action.</li>
+<li><strong>direction</strong> (<em>str</em>) – Direction of action. E.g. Increase.</li>
+<li><strong>change_count</strong> (<em>str</em>) – How many to increase or decrease by.</li>
+<li><strong>time_grain</strong> (<em>str</em>) – Optional. Measurement granularity. Default ‘PT1M’.</li>
+<li><strong>time_window</strong> (<em>str</em>) – Optional. Range of time to collect data over. Default ‘PT5M’.</li>
+<li><strong>cool_down</strong> (<em>str</em>) – Optional. Time to wait after last scaling action. ISO 8601 format.
+Default ‘PT1M’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of autoscale setting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.insightsrp.create_autoscale_setting">
+<code class="descclassname">azurerm.insightsrp.</code><code class="descname">create_autoscale_setting</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>setting_name</em>, <em>vmss_name</em>, <em>location</em>, <em>minval</em>, <em>maxval</em>, <em>default</em>, <em>autoscale_rules</em>, <em>notify=None</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.insightsrp.create_autoscale_setting" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new autoscale setting for a scale set.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>setting_name</strong> (<em>str</em>) – Name of the autoscale setting.</li>
+<li><strong>vmss_name</strong> (<em>str</em>) – Name of scale set to apply scale events to.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>minval</strong> (<em>int</em>) – Minimum number of VMs.</li>
+<li><strong>maxval</strong> (<em>int</em>) – Maximum number of VMs.</li>
+<li><strong>default</strong> (<em>int</em>) – Default VM number when no data available.</li>
+<li><strong>autoscale_rules</strong> (<em>list</em>) – List of outputs from create_autoscale_rule().</li>
+<li><strong>notify</strong> (<em>str</em>) – Optional.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of autoscale setting.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.insightsrp.get_events_for_subscription">
+<code class="descclassname">azurerm.insightsrp.</code><code class="descname">get_events_for_subscription</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>start_timestamp</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.insightsrp.get_events_for_subscription" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the insights evens for a subsctipion since the specific timestamp.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>start_timestamp</strong> (<em>str</em>) – timestamp to get events from. E.g. ‘2017-05-01T00:00:00.0000000Z’.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of insights events.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.insightsrp.get_metrics_for_resource">
+<code class="descclassname">azurerm.insightsrp.</code><code class="descname">get_metrics_for_resource</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>resource_provider</em>, <em>resource_type</em>, <em>resource_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.insightsrp.get_metrics_for_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the monitoring metrics for a resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>resource_type</strong> (<em>str</em>) – Type of resource.</li>
+<li><strong>resource_name</strong> (<em>str</em>) – Name of resource.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of resource metrics.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.insightsrp.list_autoscale_settings">
+<code class="descclassname">azurerm.insightsrp.</code><code class="descname">list_autoscale_settings</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.insightsrp.list_autoscale_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the autoscale settings in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of autoscale settings.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.insightsrp.list_insights_components">
+<code class="descclassname">azurerm.insightsrp.</code><code class="descname">list_insights_components</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.insightsrp.list_insights_components" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the Microsoft Insights components in a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of components.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.insightsrp.list_metric_defs_for_resource">
+<code class="descclassname">azurerm.insightsrp.</code><code class="descname">list_metric_defs_for_resource</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>resource_provider</em>, <em>resource_type</em>, <em>resource_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.insightsrp.list_metric_defs_for_resource" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the monitoring metric definitions for a resource.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>resource_provider</strong> (<em>str</em>) – Type of resource provider.</li>
+<li><strong>resource_type</strong> (<em>str</em>) – Type of resource.</li>
+<li><strong>resource_name</strong> (<em>str</em>) – Name of resource.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of metric definitions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.networkrp">
+<span id="azurerm-networkrp-module"></span><h2>azurerm.networkrp module<a class="headerlink" href="#module-azurerm.networkrp" title="Permalink to this headline">¶</a></h2>
+<p>networkrp.py - azurerm functions for the Microsoft.Network resource provider</p>
+<dl class="function">
+<dt id="azurerm.networkrp.create_lb_with_nat_pool">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">create_lb_with_nat_pool</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>lb_name</em>, <em>public_ip_id</em>, <em>fe_start_port</em>, <em>fe_end_port</em>, <em>backend_port</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.create_lb_with_nat_pool" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a load balancer with inbound NAT pools.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>lb_name</strong> (<em>str</em>) – Name of the new load balancer.</li>
+<li><strong>public_ip_id</strong> (<em>str</em>) – Public IP address resource id.</li>
+<li><strong>fe_start_port</strong> (<em>int</em>) – Start of front-end port range.</li>
+<li><strong>fe_end_port</strong> (<em>int</em>) – End of front-end port range.</li>
+<li><strong>backend_port</strong> (<em>int</em>) – Back end port for VMs.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. Load Balancer JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.create_nic">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">create_nic</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>nic_name</em>, <em>public_ip_id</em>, <em>subnet_id</em>, <em>location</em>, <em>nsg_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.create_nic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a network interface with an associated public ip address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>nic_name</strong> (<em>str</em>) – Name of the new NIC.</li>
+<li><strong>public_ip_id</strong> (<em>str</em>) – Public IP address resource id.</li>
+<li><strong>subnetid</strong> (<em>str</em>) – Subnet resource id.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>nsg_id</strong> (<em>str</em>) – Optional Network Secruity Group resource id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. NIC JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.create_nsg">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">create_nsg</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>nsg_name</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.create_nsg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create network security group (use create_nsg_rule() to add rules to it).</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>nsg_name</strong> (<em>str</em>) – Name of the new NSG.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. NSG JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.create_nsg_rule">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">create_nsg_rule</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>nsg_name</em>, <em>nsg_rule_name</em>, <em>description</em>, <em>protocol='Tcp'</em>, <em>source_range='*'</em>, <em>destination_range='*'</em>, <em>source_prefix='*'</em>, <em>destination_prefix='*'</em>, <em>access='Allow'</em>, <em>priority=100</em>, <em>direction='Inbound'</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.create_nsg_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create network security group rule.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>nsg_name</strong> (<em>str</em>) – Name of the Network Security Group.</li>
+<li><strong>nsg_rule_name</strong> (<em>str</em>) – Name of the new rule.</li>
+<li><strong>description</strong> (<em>str</em>) – Description.</li>
+<li><strong>protocol</strong> (<em>str</em>) – Optional protocol. Default Tcp.</li>
+<li><strong>source_range</strong> (<em>str</em>) – Optional source IP range. Default ‘*’.</li>
+<li><strong>destination_range</strong> (<em>str</em>) – Destination IP range. Default <a href="#id1"><span class="problematic" id="id2">*</span></a>’.</li>
+<li><strong>source_prefix</strong> (<em>str</em>) – Source DNS prefix. Default ‘*’.</li>
+<li><strong>destination_prefix</strong> (<em>str</em>) – Destination prefix. Default ‘*’.</li>
+<li><strong>access</strong> (<em>str</em>) – Allow or deny rule. Default Allow.</li>
+<li><strong>priority</strong> – Relative priority. Default 100.</li>
+<li><strong>direction</strong> – Inbound or Outbound. Default Inbound.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. NSG JSON rule body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.create_public_ip">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">create_public_ip</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>public_ip_name</em>, <em>dns_label</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.create_public_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a public ip address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>public_ip_name</strong> (<em>str</em>) – Name of the new public ip address resource.</li>
+<li><strong>dns_label</strong> (<em>str</em>) – DNS label to apply to the IP address.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. Public IP address JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.create_vnet">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">create_vnet</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>name</em>, <em>location</em>, <em>address_prefix='10.0.0.0/16'</em>, <em>subnet_prefix='10.0.0.0/16'</em>, <em>nsg_id=None</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.create_vnet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a VNet with specified name and location. Optional subnet address prefix..</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>name</strong> (<em>str</em>) – Name of the new VNet.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>address_prefix</strong> (<em>str</em>) – Optional VNet address prefix. Default ‘10.0.0.0/16’.</li>
+<li><strong>subnet_prefix</strong> (<em>str</em>) – Optional subnet address prefix. Default ‘10.0.0.0/16’.</li>
+<li><strong>nsg_id</strong> (<em>str</em>) – Optional Netwrok Security Group resource Id. Default None.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. VNet JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.delete_load_balancer">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">delete_load_balancer</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>lb_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.delete_load_balancer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a load balancer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>lb_name</strong> (<em>str</em>) – Name of the load balancer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.delete_nic">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">delete_nic</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>nic_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.delete_nic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a network interface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>nic_name</strong> (<em>str</em>) – Name of the NIC.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.delete_nsg">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">delete_nsg</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>nsg_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.delete_nsg" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete network security group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>nsg_name</strong> (<em>str</em>) – Name of the NSG.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.delete_nsg_rule">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">delete_nsg_rule</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>nsg_name</em>, <em>nsg_rule_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.delete_nsg_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete network security group rule.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>nsg_name</strong> (<em>str</em>) – Name of the Network Security Group.</li>
+<li><strong>nsg_rule_name</strong> (<em>str</em>) – Name of the NSG rule.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.delete_public_ip">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">delete_public_ip</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>public_ip_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.delete_public_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a public ip addresses associated with a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>public_ip_name</strong> (<em>str</em>) – Name of the public ip address resource.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.delete_vnet">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">delete_vnet</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.delete_vnet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a virtual network.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>name</strong> (<em>str</em>) – Name of the VNet.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. VNet JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.get_lb_nat_rule">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">get_lb_nat_rule</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>lb_name</em>, <em>rule_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.get_lb_nat_rule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details about a load balancer inbound NAT rule.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>lb_name</strong> (<em>str</em>) – Name of the load balancer.</li>
+<li><strong>rule_name</strong> (<em>str</em>) – Name of the NAT rule.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of rule.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.get_load_balancer">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">get_load_balancer</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>lb_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.get_load_balancer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details about a load balancer       .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>lb_name</strong> (<em>str</em>) – Name of the load balancer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of load balancer properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.get_network_usage">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">get_network_usage</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.get_network_usage" title="Permalink to this definition">¶</a></dt>
+<dd><p>List network usage and limits for a location.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of network usage.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.get_nic">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">get_nic</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>nic_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.get_nic" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details about a network interface.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>nic_name</strong> (<em>str</em>) – Name of the NIC.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. NIC JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.get_public_ip">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">get_public_ip</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>ip_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.get_public_ip" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details about the named public ip address.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>public_ip_name</strong> (<em>str</em>) – Name of the public ip address resource.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. Public IP address JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.get_vnet">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">get_vnet</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>vnet_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.get_vnet" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details about the named virtual network.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>vnet_name</strong> (<em>str</em>) – Name of the VNet.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. VNet JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.list_lb_nat_rules">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">list_lb_nat_rules</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>lb_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.list_lb_nat_rules" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the inbound NAT rules for a load balancer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>lb_name</strong> (<em>str</em>) – Name of the load balancer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of load balancer NAT rules.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.list_load_balancers">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">list_load_balancers</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.list_load_balancers" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the load balancers in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of load balancer list with properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.list_load_balancers_rg">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">list_load_balancers_rg</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.list_load_balancers_rg" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the load balancers in a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of load balancer list with properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.list_nics">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">list_nics</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.list_nics" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the network interfaces in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of NICs list with properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.list_nics_rg">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">list_nics_rg</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.list_nics_rg" title="Permalink to this definition">¶</a></dt>
+<dd><p>List network interface cards within a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of load balancer list with properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.list_public_ips">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">list_public_ips</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.list_public_ips" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the public ip addresses in a resource group        .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of public IPs list with properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.list_vnets">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">list_vnets</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.list_vnets" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the VNETs in a subscription        .</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VNets list with properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.list_vnets_rg">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">list_vnets_rg</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.list_vnets_rg" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the VNETs in a resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of VNets list with properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.networkrp.update_load_balancer">
+<code class="descclassname">azurerm.networkrp.</code><code class="descname">update_load_balancer</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>lb_name</em>, <em>body</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.networkrp.update_load_balancer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Updates a load balancer model, i.e. PUT an updated LB body.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>lb_name</strong> (<em>str</em>) – Name of the new load balancer.</li>
+<li><strong>body</strong> (<em>str</em>) – JSON body of an updated load balancer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. Load Balancer JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.resourcegroups">
+<span id="azurerm-resourcegroups-module"></span><h2>azurerm.resourcegroups module<a class="headerlink" href="#module-azurerm.resourcegroups" title="Permalink to this headline">¶</a></h2>
+<p>resourcegroups.py - azurerm functions for Resource Groups.</p>
+<dl class="function">
+<dt id="azurerm.resourcegroups.create_resource_group">
+<code class="descclassname">azurerm.resourcegroups.</code><code class="descname">create_resource_group</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.resourcegroups.create_resource_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a resource group in the specified location.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.resourcegroups.delete_resource_group">
+<code class="descclassname">azurerm.resourcegroups.</code><code class="descname">delete_resource_group</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.resourcegroups.delete_resource_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the named resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.resourcegroups.get_resource_group">
+<code class="descclassname">azurerm.resourcegroups.</code><code class="descname">get_resource_group</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.resourcegroups.get_resource_group" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get details about the named resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.resourcegroups.list_resource_groups">
+<code class="descclassname">azurerm.resourcegroups.</code><code class="descname">list_resource_groups</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.resourcegroups.list_resource_groups" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the resource groups in a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.restfns">
+<span id="azurerm-restfns-module"></span><h2>azurerm.restfns module<a class="headerlink" href="#module-azurerm.restfns" title="Permalink to this headline">¶</a></h2>
+<p>azurerm restfns - REST functions for azurerm</p>
+<dl class="function">
+<dt id="azurerm.restfns.do_delete">
+<code class="descclassname">azurerm.restfns.</code><code class="descname">do_delete</code><span class="sig-paren">(</span><em>endpoint</em>, <em>access_token</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.restfns.do_delete" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do an HTTP GET request and return JSON.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.restfns.do_get">
+<code class="descclassname">azurerm.restfns.</code><code class="descname">do_get</code><span class="sig-paren">(</span><em>endpoint</em>, <em>access_token</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.restfns.do_get" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do an HTTP GET request and return JSON.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.restfns.do_get_next">
+<code class="descclassname">azurerm.restfns.</code><code class="descname">do_get_next</code><span class="sig-paren">(</span><em>endpoint</em>, <em>access_token</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.restfns.do_get_next" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do an HTTP GET request, follow the nextLink chain and return JSON.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.restfns.do_patch">
+<code class="descclassname">azurerm.restfns.</code><code class="descname">do_patch</code><span class="sig-paren">(</span><em>endpoint</em>, <em>body</em>, <em>access_token</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.restfns.do_patch" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do an HTTP PATCH request and return JSON.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.restfns.do_post">
+<code class="descclassname">azurerm.restfns.</code><code class="descname">do_post</code><span class="sig-paren">(</span><em>endpoint</em>, <em>body</em>, <em>access_token</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.restfns.do_post" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do an HTTP POST request and return JSON.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.restfns.do_put">
+<code class="descclassname">azurerm.restfns.</code><code class="descname">do_put</code><span class="sig-paren">(</span><em>endpoint</em>, <em>body</em>, <em>access_token</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.restfns.do_put" title="Permalink to this definition">¶</a></dt>
+<dd><p>Do an HTTP PUT request and return JSON.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.restfns.get_user_agent">
+<code class="descclassname">azurerm.restfns.</code><code class="descname">get_user_agent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.restfns.get_user_agent" title="Permalink to this definition">¶</a></dt>
+<dd><p>User-Agent Header.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.settings">
+<span id="azurerm-settings-module"></span><h2>azurerm.settings module<a class="headerlink" href="#module-azurerm.settings" title="Permalink to this headline">¶</a></h2>
+<p>settings.py - place to store constants for azurerm</p>
+<dl class="function">
+<dt id="azurerm.settings.get_auth_endpoint">
+<code class="descclassname">azurerm.settings.</code><code class="descname">get_auth_endpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.settings.get_auth_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Azure auth endpoint by environment variable, else return default value.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.settings.get_resource_endpoint">
+<code class="descclassname">azurerm.settings.</code><code class="descname">get_resource_endpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.settings.get_resource_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Azure reousrce endpoint by environment variable, else return default value.</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.settings.get_rm_endpoint">
+<code class="descclassname">azurerm.settings.</code><code class="descname">get_rm_endpoint</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.settings.get_rm_endpoint" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set Azure Resource Manager endpoint by environment variable, else return default value.</p>
+<p>These functions facilitate the use of national and isolated clouds by allowing endpoints to
+be set dynamically. The default settings, if no environment varibles are used,
+are for public cloud.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.storagerp">
+<span id="azurerm-storagerp-module"></span><h2>azurerm.storagerp module<a class="headerlink" href="#module-azurerm.storagerp" title="Permalink to this headline">¶</a></h2>
+<p>storagerp.py - azurerm functions for the Microsoft.Storage resource provider</p>
+<dl class="function">
+<dt id="azurerm.storagerp.create_storage_account">
+<code class="descclassname">azurerm.storagerp.</code><code class="descname">create_storage_account</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em>, <em>account_name</em>, <em>location</em>, <em>storage_type='Standard_LRS'</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.storagerp.create_storage_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new storage account in the named resource group, with the named location.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>account_name</strong> (<em>str</em>) – Name of the new storage account.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>storage_type</strong> (<em>str</em>) – Premium or Standard, local or globally redundant.
+Defaults to Standard_LRS.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of storage account properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.storagerp.delete_storage_account">
+<code class="descclassname">azurerm.storagerp.</code><code class="descname">delete_storage_account</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em>, <em>account_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.storagerp.delete_storage_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete a storage account in the specified resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>account_name</strong> (<em>str</em>) – Name of the new storage account.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.storagerp.get_storage_account">
+<code class="descclassname">azurerm.storagerp.</code><code class="descname">get_storage_account</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em>, <em>account_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.storagerp.get_storage_account" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the properties for the named storage account.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>account_name</strong> (<em>str</em>) – Name of the new storage account.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of storage account properties.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.storagerp.get_storage_account_keys">
+<code class="descclassname">azurerm.storagerp.</code><code class="descname">get_storage_account_keys</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em>, <em>account_name</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.storagerp.get_storage_account_keys" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the access keys for the specified storage account.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>account_name</strong> (<em>str</em>) – Name of the new storage account.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of storage account keys.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.storagerp.get_storage_usage">
+<code class="descclassname">azurerm.storagerp.</code><code class="descname">get_storage_usage</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.storagerp.get_storage_usage" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns storage usage and quota information for the specified subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body of storage account usage.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.storagerp.list_storage_accounts_rg">
+<code class="descclassname">azurerm.storagerp.</code><code class="descname">list_storage_accounts_rg</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>rgname</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.storagerp.list_storage_accounts_rg" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the storage accounts in the specified resource group.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>rgname</strong> (<em>str</em>) – Azure resource group name.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body list of storage accounts.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.storagerp.list_storage_accounts_sub">
+<code class="descclassname">azurerm.storagerp.</code><code class="descname">list_storage_accounts_sub</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.storagerp.list_storage_accounts_sub" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the storage accounts in the specified subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON body list of storage accounts.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.subfns">
+<span id="azurerm-subfns-module"></span><h2>azurerm.subfns module<a class="headerlink" href="#module-azurerm.subfns" title="Permalink to this headline">¶</a></h2>
+<p>subnfs - place to store azurerm functions related to subscriptions</p>
+<dl class="function">
+<dt id="azurerm.subfns.get_subscription_from_cli">
+<code class="descclassname">azurerm.subfns.</code><code class="descname">get_subscription_from_cli</code><span class="sig-paren">(</span><em>name=None</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.subfns.get_subscription_from_cli" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the default, or named, subscription id from CLI’s local cache.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>name</strong> (<em>str</em>) – Optional subscription name. If this is set, the subscription id of the named
+subscription is returned from the CLI cache if present. If not set, the subscription id
+of the default subscription is returned.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">Azure subscription ID string.</td>
+</tr>
+</tbody>
+</table>
+<dl class="docutils">
+<dt>Requirements:</dt>
+<dd>User has run ‘az login’ once, or is in Azure Cloud Shell.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.subfns.list_locations">
+<code class="descclassname">azurerm.subfns.</code><code class="descname">list_locations</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.subfns.list_locations" title="Permalink to this definition">¶</a></dt>
+<dd><p>List available locations for a subscription.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response. JSON list of locations.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.subfns.list_subscriptions">
+<code class="descclassname">azurerm.subfns.</code><code class="descname">list_subscriptions</code><span class="sig-paren">(</span><em>access_token</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.subfns.list_subscriptions" title="Permalink to this definition">¶</a></dt>
+<dd><p>List the available Azure subscriptions for this user account or service principle.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">HTTP response. JSON list of subscriptions.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.templates">
+<span id="azurerm-templates-module"></span><h2>azurerm.templates module<a class="headerlink" href="#module-azurerm.templates" title="Permalink to this headline">¶</a></h2>
+<p>templates.py - azurerm functions for deploying templates</p>
+<dl class="function">
+<dt id="azurerm.templates.deploy_template">
+<code class="descclassname">azurerm.templates.</code><code class="descname">deploy_template</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>deployment_name</em>, <em>template</em>, <em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.templates.deploy_template" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deploy a template referenced by a JSON string, with parameters as a JSON string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>deployment_name</strong> (<em>str</em>) – A name you give to the deployment.</li>
+<li><strong>template</strong> (<em>str</em>) – String representatipn of a JSON template body.</li>
+<li><strong>parameters</strong> (<em>str</em>) – String representation of a JSON template parameters body.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.templates.deploy_template_uri">
+<code class="descclassname">azurerm.templates.</code><code class="descname">deploy_template_uri</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>deployment_name</em>, <em>template_uri</em>, <em>parameters</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.templates.deploy_template_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deploy a template referenced by a URI, with parameters as a JSON string.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>deployment_name</strong> (<em>str</em>) – A name you give to the deployment.</li>
+<li><strong>template_uri</strong> (<em>str</em>) – URI which points to a JSON template (e.g. github raw location).</li>
+<li><strong>parameters</strong> (<em>str</em>) – String representation of a JSON template parameters body.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.templates.deploy_template_uri_param_uri">
+<code class="descclassname">azurerm.templates.</code><code class="descname">deploy_template_uri_param_uri</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>resource_group</em>, <em>deployment_name</em>, <em>template_uri</em>, <em>parameters_uri</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.templates.deploy_template_uri_param_uri" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deploy a template with both template and parameters referenced by URIs.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>resource_group</strong> (<em>str</em>) – Azure resource group name.</li>
+<li><strong>deployment_name</strong> (<em>str</em>) – A name you give to the deployment.</li>
+<li><strong>template_uri</strong> (<em>str</em>) – URI which points to a JSON template (e.g. github raw location).</li>
+<li><strong>parameters_uri</strong> (<em>str</em>) – URI which points to a JSON parameters file (e.g. github raw location).</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm.vmimages">
+<span id="azurerm-vmimages-module"></span><h2>azurerm.vmimages module<a class="headerlink" href="#module-azurerm.vmimages" title="Permalink to this headline">¶</a></h2>
+<p>vmimages.py - azurerm functions for Microsoft.Compute RP publishers and images</p>
+<dl class="function">
+<dt id="azurerm.vmimages.list_offers">
+<code class="descclassname">azurerm.vmimages.</code><code class="descname">list_offers</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>location</em>, <em>publisher</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.vmimages.list_offers" title="Permalink to this definition">¶</a></dt>
+<dd><p>List available VM image offers from a publisher.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>publisher</strong> (<em>str</em>) – Publisher name, e.g. Canonical.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response with JSON list of image offers.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.vmimages.list_publishers">
+<code class="descclassname">azurerm.vmimages.</code><code class="descname">list_publishers</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.vmimages.list_publishers" title="Permalink to this definition">¶</a></dt>
+<dd><p>List available image publishers for a location. E.g. MicrosoftWindowsServer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response with JSON list of publishers.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.vmimages.list_sku_versions">
+<code class="descclassname">azurerm.vmimages.</code><code class="descname">list_sku_versions</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>location</em>, <em>publisher</em>, <em>offer</em>, <em>sku</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.vmimages.list_sku_versions" title="Permalink to this definition">¶</a></dt>
+<dd><p>List available versions for a given publisher’s sku.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>publisher</strong> (<em>str</em>) – VM image publisher. E.g. MicrosoftWindowsServer.</li>
+<li><strong>offer</strong> (<em>str</em>) – VM image offer. E.g. WindowsServer.</li>
+<li><strong>sku</strong> (<em>str</em>) – VM image sku. E.g. 2016-Datacenter.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response with JSON list of versions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="azurerm.vmimages.list_skus">
+<code class="descclassname">azurerm.vmimages.</code><code class="descname">list_skus</code><span class="sig-paren">(</span><em>access_token</em>, <em>subscription_id</em>, <em>location</em>, <em>publisher</em>, <em>offer</em><span class="sig-paren">)</span><a class="headerlink" href="#azurerm.vmimages.list_skus" title="Permalink to this definition">¶</a></dt>
+<dd><p>List available VM image skus for a publisher offer.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>access_token</strong> (<em>str</em>) – A valid Azure authentication token.</li>
+<li><strong>subscription_id</strong> (<em>str</em>) – Azure subscription id.</li>
+<li><strong>location</strong> (<em>str</em>) – Azure data center location. E.g. westus.</li>
+<li><strong>publisher</strong> (<em>str</em>) – VM image publisher. E.g. MicrosoftWindowsServer.</li>
+<li><strong>offer</strong> (<em>str</em>) – VM image offer. E.g. WindowsServer.</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">HTTP response with JSON list of skus.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-azurerm">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-azurerm" title="Permalink to this headline">¶</a></h2>
+<p>azurerm - library for easy Azure Resource Manager calls from Python</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+<h1 class="logo"><a href="index.html">azurerm</a></h1>
+
+
+
+
+
+
+
+
+<h3>Navigation</h3>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">azurerm</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">azurerm package</a></li>
+</ul>
+</li>
+</ul>
+
+<div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+  <li><a href="modules.html">azurerm</a><ul>
+      <li>Previous: <a href="modules.html" title="previous chapter">azurerm</a></li>
+  </ul></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2017, Guy Bowerman.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 1.6.3</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.10</a>
+      
+      |
+      <a href="_sources/azurerm.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

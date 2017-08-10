@@ -15,7 +15,7 @@ def create_container_definition(container_name, image, port=80, cpu=1.0, memgb=1
         cpu (float): Amount of CPU to allocate to container. E.g. 1.0.
         memgb (float): Memory in GB to allocate to container. E.g. 1.5.
         environment (list): A list of [{'name':'envname', 'value':'envvalue'}].
-            Sets environment variables in the container.
+        Sets environment variables in the container.
 
     Returns:
         A Python dictionary of container properties, pass a list of these to
@@ -43,7 +43,7 @@ def create_container_group(access_token, subscription_id, resource_group, contai
         resource_group (str): Azure resource group name.
         container_group_name (str): Name of container instance group.
         container_list (list): A list of container properties. Use create_container_definition to
-            create each container property set.
+        create each container property set.
         location (str): Azure data center location. E.g. westus.
         ostype (str): Container operating system type. Linux or Windows.
         port (int): TCP port number. E.g. 8080.

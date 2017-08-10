@@ -9,8 +9,6 @@ from .settings import BASE_API, get_rm_endpoint
 
 def get_subscription_from_cli(name=None):
     '''Get the default, or named, subscription id from CLI's local cache.
-    Requirements:
-        User has run 'az login' once, or is in Azure Cloud Shell.
 
     Args:
         name (str): Optional subscription name. If this is set, the subscription id of the named
@@ -19,6 +17,9 @@ def get_subscription_from_cli(name=None):
 
     Returns:
         Azure subscription ID string.
+
+    Requirements:
+        User has run 'az login' once, or is in Azure Cloud Shell.
     '''
     home = os.path.expanduser('~')
     azure_profile_path = home + os.sep + '.azure' + os.sep + 'azureProfile.json'

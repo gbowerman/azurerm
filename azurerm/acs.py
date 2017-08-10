@@ -28,6 +28,7 @@ def create_container_service(access_token, subscription_id, resource_group, serv
         app_secret (str): Application secret for Kubernetes.
         admin_password (str): Admin user password.
         ostype (str): Operating system. Windows of Linux.
+
     Returns:
         HTTP response. Container service JSON model.
     '''
