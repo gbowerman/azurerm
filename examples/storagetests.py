@@ -60,6 +60,10 @@ print('Storage account keys...')
 keys = azurerm.get_storage_account_keys(access_token, subscription_id, resource_group, saname)
 print(keys.text)
 
+# Get just the primary access key. For the secondary access key, use [1] instead of [0]
+primarykey = json.loads(keys.text)
+print(primarykey['keys'][0]['value'])
+
 # delete storage_account
 #print('Press Enter to delete account.')
 #input()
