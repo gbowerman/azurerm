@@ -36,6 +36,8 @@ me@azure:-$ python
 ## azurerm examples
 See below for some simple examples. A detailed set of **azurerm** programming examples can be found here: [azurerm Python library programming examples](https://github.com/gbowerman/azurerm/blob/master/examples.md). For more examples look at the [azurerm examples library](https://github.com/gbowerman/azurerm/tree/master/examples). 
 
+For full documentation see [azurerm reference manual](https://github.com/gbowerman/azurerm/tree/master/docs).
+
 See also the unit test suite which covers the main storage, network, compute functions - the goal is to expand it to test every function in the library: [test](https://github.com/gbowerman/azurerm/tree/master/test)
 
 ### National/isolated cloud support
@@ -92,4 +94,4 @@ See [createmediaserviceaccountinrg.py](https://github.com/gbowerman/azurerm/tree
 ## Functions currently supported
 A basic set of infrastructure create, list, query functions are implemented. If you want to add something please send me a PR (don't forget to update this readme too).
 
-See the [Function reference](https://github.com/gbowerman/azurerm/wiki/Function-reference) in the azurerm Wiki for a list of supported functions.
+See the [Function reference](https://github.com/gbowerman/azurerm/tree/master/docs) for full documentation.
