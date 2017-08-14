@@ -3,6 +3,34 @@ import argparse
 import glob
 
 
+def extract_code(end_mark,
+                 current_str,
+                 str_array, line_num):
+    '''Extract a multi-line string from a string array, up to a specified end marker.
+
+        Args:
+            end_mark (str): The end mark string to match for.
+            current_str (str): The first line of the string array.
+            str_array (list): An array of strings (lines).
+            line_num (int): The current offset into the array.
+
+        Returns:
+            Extended string up to line with end marker.
+    '''
+    if end_mark not in current_str:
+        reached_end = False
+        line_num += 1
+        while reached_end is False:
+            next_line = str_array[line_num]
+            if end_mark in next_line:
+                reached_end = True
+            else:
+                line_num += 1
+            current_str += next_line
+    clean_str = current_str.split(end_mark)[0]
+    return {'current_str': clean_str, 'line_num': line_num}
+
+
 def process_file(pyfile_name):
     '''Process a Python source file with Google style docstring comments.
 
@@ -13,7 +41,7 @@ def process_file(pyfile_name):
         pyfile_name (str): file name to read.
 
     Returns:
-        dictionary object containing summary comment, with a list of entries for each function.
+        Dictionary object containing summary comment, with a list of entries for each function.
     '''
     print('Processing file: ' + pyfile_name)
 
@@ -39,42 +67,24 @@ def process_file(pyfile_name):
             fn_def = line[4:]
             fn_name = fn_def.split('(')[0]
             function_info = {'name': fn_name}
-            if ')' not in fn_def:
-                reached_end = False
-                line_num += 1
-                while reached_end is False:
-                    next_line = pyfile_str[line_num]
-                    if ')' in next_line:
-                        reached_end = True
-                    else:
-                        line_num += 1
-                    fn_def += next_line
-            # get rid of trailing :\n
-            fn_def_clean = fn_def.split(':')[0]
-            function_info['definition'] = fn_def_clean
+            extract = extract_code('):', fn_def, pyfile_str, line_num)
+            fn_def = extract['current_str'] + ')'
+            line_num = extract['line_num']
+            function_info['definition'] = fn_def
             # process docstring
             line_num += 1
             doc_line = pyfile_str[line_num]
             if doc_line.startswith("    '''"):
                 comment_str = doc_line[7:]
-                if "'''" not in comment_str:
-                    reached_end = False
-                    line_num += 1
-                    while reached_end is False:
-                        next_line = pyfile_str[line_num]
-                        if "'''" in next_line:
-                            reached_end = True
-                        comment_str += next_line
-                        line_num += 1
-                # get rid of trailing '''\n
-                comment_str_clean = comment_str.split("'''")[0]
-                function_info['comments'] = comment_str_clean
+                extract = extract_code("'''", comment_str, pyfile_str, line_num)
+                comment_str = extract['current_str']
+                function_info['comments'] = comment_str
             file_dict['functions'].append(function_info)
     return file_dict
 
 
 def process_output(meta_file, outfile_name):
-    '''Create a markdown format documentation file
+    '''Create a markdown format documentation file.
 
     Args:
         meta_file (dict): Dictionary with documentation metadata.
