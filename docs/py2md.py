@@ -3,9 +3,7 @@ import argparse
 import glob
 
 
-def extract_code(end_mark,
-                 current_str,
-                 str_array, line_num):
+def extract_code(end_mark, current_str, str_array, line_num):
     '''Extract a multi-line string from a string array, up to a specified end marker.
 
         Args:
