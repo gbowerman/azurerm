@@ -1,0 +1,13 @@
+{
+  "version":"1.0",
+  "Features":
+    [
+       {
+       "Options": {
+            "Formats":["WebVtt","ttml"],
+            "Language":"enUs",
+            "Type":"RecoOptions"
+       },
+       "Type":"SpReco"
+    }]
+}

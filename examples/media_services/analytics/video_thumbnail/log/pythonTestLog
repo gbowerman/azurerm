@@ -1,0 +1,129 @@
+2016-09-13 14:33:13,400 - INFO:Starting new HTTPS connection (1): wamsprodglobal001acs.accesscontrol.windows.net
+2016-09-13 14:33:14,493 - DEBUG:"POST /v2/OAuth2-13 HTTP/1.1" 200 661
+2016-09-13 14:33:14,518 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:14,802 - DEBUG:"GET /API HTTP/1.1" 301 164
+2016-09-13 14:33:14,842 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:15,893 - DEBUG:"GET /api/ HTTP/1.1" 200 456
+2016-09-13 14:33:15,929 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:16,069 - DEBUG:"POST /API/Assets HTTP/1.1" 301 164
+2016-09-13 14:33:16,121 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:17,429 - DEBUG:"POST /api//Assets HTTP/1.1" 201 2056
+2016-09-13 14:33:17,449 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:17,561 - DEBUG:"POST /API/Files HTTP/1.1" 301 164
+2016-09-13 14:33:17,581 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:18,758 - DEBUG:"POST /api//Files HTTP/1.1" 201 758
+2016-09-13 14:33:18,778 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:18,898 - DEBUG:"POST /API/AccessPolicies HTTP/1.1" 301 164
+2016-09-13 14:33:18,918 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:19,949 - DEBUG:"POST /api//AccessPolicies HTTP/1.1" 201 540
+2016-09-13 14:33:19,967 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:20,086 - DEBUG:"POST /API/Locators HTTP/1.1" 301 164
+2016-09-13 14:33:20,102 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:21,424 - DEBUG:"POST /api//Locators HTTP/1.1" 201 1416
+2016-09-13 14:33:21,468 - INFO:Starting new HTTPS connection (1): nimbuspmteam.blob.core.windows.net
+2016-09-13 14:33:25,877 - DEBUG:"PUT /asset-fd177e0a-9d96-4b96-85d6-f1796eb214fa/movie.mp4?sv=2012-02-12&sr=c&si=4e5d7465-4e44-430c-8fc3-ba021ac43fc8&sig=KVKunraw48sUKudEMdueP0%2B75gxXnkLCGcKtGdtz2Sc%3D&se=2016-09-13T19%3A53%3A18Z HTTP/1.1" 201 None
+2016-09-13 14:33:25,909 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:26,029 - DEBUG:"PATCH /API%2FFiles%28%27nb%3Acid%3AUUID%3A074dd19f-a5e9-4109-882d-23fb3cfd99cf%27%29 HTTP/1.1" 301 164
+2016-09-13 14:33:26,049 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:26,849 - DEBUG:"PATCH /api/%2FFiles%28%27nb%3Acid%3AUUID%3A074dd19f-a5e9-4109-882d-23fb3cfd99cf%27%29 HTTP/1.1" 204 0
+2016-09-13 14:33:26,869 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:26,977 - DEBUG:"DELETE /API%2FLocators%28%27nb%3Alid%3AUUID%3A4e5d7465-4e44-430c-8fc3-ba021ac43fc8%27%29 HTTP/1.1" 301 164
+2016-09-13 14:33:27,005 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:27,973 - DEBUG:"DELETE /api/%2FLocators%28%27nb%3Alid%3AUUID%3A4e5d7465-4e44-430c-8fc3-ba021ac43fc8%27%29 HTTP/1.1" 204 0
+2016-09-13 14:33:27,993 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:28,105 - DEBUG:"DELETE /API%2FAccessPolicies%28%27nb%3Apid%3AUUID%3A0ae3b7f4-6090-49f4-8999-7655bbe722bf%27%29 HTTP/1.1" 301 164
+2016-09-13 14:33:28,125 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:28,793 - DEBUG:"DELETE /api/%2FAccessPolicies%28%27nb%3Apid%3AUUID%3A0ae3b7f4-6090-49f4-8999-7655bbe722bf%27%29 HTTP/1.1" 204 0
+2016-09-13 14:33:28,821 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:28,953 - DEBUG:"GET /API/MediaProcessors HTTP/1.1" 301 164
+2016-09-13 14:33:28,985 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:30,041 - DEBUG:"GET /api//MediaProcessors HTTP/1.1" 200 8590
+2016-09-13 14:33:30,069 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:30,177 - DEBUG:"POST /API/Jobs HTTP/1.1" 301 164
+2016-09-13 14:33:30,197 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:42,521 - DEBUG:"POST /api//Jobs HTTP/1.1" 201 1220
+2016-09-13 14:33:42,577 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:42,693 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:33:42,757 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:43,649 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1208
+2016-09-13 14:33:48,710 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:48,863 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:33:48,883 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:49,584 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1208
+2016-09-13 14:33:54,610 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:33:54,750 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:33:54,754 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:33:55,728 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1208
+2016-09-13 14:34:00,744 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:34:00,848 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:34:00,864 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:34:01,764 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:34:06,782 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:34:06,898 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:34:06,926 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:34:07,706 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:34:12,733 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:34:12,849 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:34:12,865 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:34:13,745 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:34:18,757 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:34:18,881 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:34:18,917 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:34:19,788 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:34:24,810 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:34:24,922 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:34:24,950 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:34:25,798 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:34:30,825 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:34:30,935 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:34:30,950 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:34:31,770 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:34:36,780 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:34:36,890 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:34:36,905 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:34:37,655 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:34:42,674 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:34:42,799 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:34:42,815 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:34:43,643 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:34:48,663 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:34:48,788 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:34:48,804 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:34:49,460 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:34:54,468 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:34:54,576 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:34:54,596 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:34:56,447 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:35:01,464 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:35:01,576 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:35:01,581 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:35:02,493 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:35:07,520 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:35:07,918 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:35:07,946 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:35:08,996 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:35:14,018 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:35:14,136 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:35:14,160 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:35:14,953 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:35:20,009 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:35:20,121 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:35:20,141 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:35:20,908 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:35:25,929 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:35:26,054 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:35:26,070 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:35:26,819 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1229
+2016-09-13 14:35:31,845 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:35:31,970 - DEBUG:"GET /API/Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 301 164
+2016-09-13 14:35:32,004 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:35:32,635 - DEBUG:"GET /api//Jobs('nb:jid:UUID:1f391db8-9ad1-47ae-b5d2-b50453782376') HTTP/1.1" 200 1253
+2016-09-13 14:35:37,656 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:35:38,383 - DEBUG:"GET /api/Jobs('nb%3Ajid%3AUUID%3A1f391db8-9ad1-47ae-b5d2-b50453782376')/OutputMediaAssets HTTP/1.1" 200 2088
+2016-09-13 14:35:38,424 - INFO:Starting new HTTPS connection (1): media.windows.net
+2016-09-13 14:35:38,596 - DEBUG:"GET /API/Assets('nb:cid:UUID:c467347b-cca7-4ca8-9a5f-afbd1115b7f6') HTTP/1.1" 301 164
+2016-09-13 14:35:38,628 - INFO:Starting new HTTPS connection (1): wamsbayclus001rest-hs.cloudapp.net
+2016-09-13 14:35:39,265 - DEBUG:"GET /api//Assets('nb:cid:UUID:c467347b-cca7-4ca8-9a5f-afbd1115b7f6') HTTP/1.1" 200 2074
+2016-09-13 14:35:39,299 - INFO:Starting new HTTPS connection (1): nimbuspmteam.blob.core.windows.net
+2016-09-13 14:35:39,922 - DEBUG:"GET /asset-c467347b-cca7-4ca8-9a5f-afbd1115b7f6?restype=container&comp=list HTTP/1.1" 200 None
+2016-09-13 14:35:40,262 - DEBUG:"GET /asset-c467347b-cca7-4ca8-9a5f-afbd1115b7f6/movie_VideoThumbnails_MotionThumbnail.mp4 HTTP/1.1" 206 195503

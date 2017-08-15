@@ -1,0 +1,13 @@
+{
+    "Version":"1.0", 
+    "Options": 
+    {
+        "Language":"English", 
+        "TimeInterval":"00:00:01.5",
+        "DetectRegions": 
+         [
+            //{"Left":"1","Top":"1","Width":"1280","Height":"720"}
+         ],
+        "TextOrientation":"Up"
+    }
+}
