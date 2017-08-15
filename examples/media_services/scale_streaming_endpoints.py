@@ -5,7 +5,7 @@ License: MIT (see LICENSE.txt file for details)
 """
 import os
 import json
-import amspy
+import azurerm
 import time
 import logging
 import datetime
@@ -36,7 +36,7 @@ account_name = configData['accountName']
 account_key = configData['accountKey']
 
 # Get the access token...
-response = amspy.get_access_token(account_name, account_key)
+response = azurerm.get_access_token(account_name, account_key)
 resjson = response.json()
 access_token = resjson["access_token"]
 
@@ -50,7 +50,7 @@ SCALE_UNIT = "1"
 
 print ("\n001 >>> Scaling a Streaming Endpoint")
 # list and get the id of the default streaming endpoint
-response = amspy.list_streaming_endpoint(access_token)
+response = azurerm.list_streaming_endpoint(access_token)
 if (response.status_code == 200):
         resjson = response.json()
         for ea in resjson['d']['results']:
@@ -63,7 +63,7 @@ if (response.status_code == 200):
 else:
         print("POST Status.............................: " + str(response.status_code) + " - Streaming Endpoint Creation ERROR." + str(response.content))
 ### scale the default streaming endpoint
-response = amspy.scale_streaming_endpoint(access_token, streaming_endpoint_id, SCALE_UNIT)
+response = azurerm.scale_streaming_endpoint(access_token, streaming_endpoint_id, SCALE_UNIT)
 if (response.status_code == 202):
         print("POST Status.............................: " + str(response.status_code))
         print("Streaming Endpoint SU Configured to.....: " + SCALE_UNIT)

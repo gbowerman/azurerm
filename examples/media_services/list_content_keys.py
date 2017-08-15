@@ -5,7 +5,7 @@ License: MIT (see LICENSE.txt file for details)
 """
 import os
 import json
-import amspy
+import azurerm
 import time
 #import pytz
 import logging
@@ -37,7 +37,7 @@ account_name = configData['accountName']
 account_key = configData['accountKey']
 
 # Get the access token...
-response = amspy.get_access_token(account_name, account_key)
+response = azurerm.get_access_token2(account_name, account_key)
 resjson = response.json()
 access_token = resjson["access_token"]
 
@@ -48,7 +48,7 @@ print ("-------------------------------------------------------\n");
 
 ### list content keys
 print ("\n001 >>> Listing Content Keys")
-response = amspy.list_content_key(access_token)
+response = azurerm.list_content_key(access_token)
 if (response.status_code == 200):
 	resjson = response.json()
 	print("GET Status: " + str(response.status_code))

@@ -1,13 +1,13 @@
 ## Pre-Req to run the samples
 You will need to install the python sdk for Azure and Blob Storage (we use this sdk for the upload
-part of our scripts), and install the amspy python library (this is the library that implements
+part of our scripts), and install the azurerm python library (this is the library that implements
 the AMS REST API's).
 
 ```
 pip(3) install pycrypto
 pip(3) install azure
 pip(3) install azure-storage
-pip(3) install amspy
+pip(3) install azurerm
 ```
 
 ## Config File
@@ -49,7 +49,7 @@ configuration, authorization policies, and etc), as well as configuring the HLS 
 export PYTHONDONTWRITEBYTECODE=1; python3 aes_workflow_from_raw.py
 ```
 ### Azure Media Analytics Usage Sample Scripts
-A set of scripts that show how to use Azure Media Analytics is available in the amspy/examples/Analytics folder.
+A set of scripts that show how to use Azure Media Analytics is available in the azurerm/examples/media_servies/analytics folder.
 In this folder you will find examples of the following analytics tools:
 
 - Face Detection

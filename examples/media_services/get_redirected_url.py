@@ -5,7 +5,7 @@ License: MIT (see LICENSE.txt file for details)
 """
 import os
 import json
-import amspy
+import azurerm
 import time
 #import pytz
 import logging
@@ -37,7 +37,7 @@ account_name = configData['accountName']
 account_key = configData['accountKey']
 
 # Get the access token...
-response = amspy.get_access_token(account_name, account_key)
+response = azurerm.get_access_token(account_name, account_key)
 resjson = response.json()
 access_token = resjson["access_token"]
 
@@ -47,7 +47,7 @@ print ("Simple Python Library for Azure Media Services REST API");
 print ("-------------------------------------------------------\n");
 
 ### get ams redirected url
-response = amspy.get_url(access_token)
+response = azurerm.get_url(access_token)
 if (response.status_code == 200):
 	print("New Redirected URL: " + str(response.url))
 else:

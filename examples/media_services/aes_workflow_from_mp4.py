@@ -5,7 +5,7 @@ License: MIT (see LICENSE.txt file for details)
 """
 import os
 import json
-import amspy
+import azurerm
 import time
 #import pytz
 import logging
@@ -57,7 +57,7 @@ if (purge_log.lower() == "yes"):
 logging.basicConfig(format='%(asctime)s - %(levelname)s:%(message)s', level=log_level, filename=log_name)
 
 # Get the access token...
-response = amspy.get_access_token(account_name, account_key)
+response = azurerm.get_ams_access_token(account_name, account_key)
 resjson = response.json()
 access_token = resjson["access_token"]
 
@@ -87,7 +87,7 @@ def print_phase_message(message):
         print(str(time_stamp) + ": " +  message)
 
 ### get ams redirected url
-response = amspy.get_url(access_token)
+response = azurerm.get_url(access_token)
 if (response.status_code == 200):
         ams_redirected_rest_endpoint = str(response.url)
 else:
@@ -100,7 +100,7 @@ else:
 # https://github.com/msleal/create_ams_aeskey
 # The streaming endpoint will be scaled for you (to "1" scale unit).
 print_phase_header("Checking the AES Content Key and Setting Streaming Endpoint Scale Unit")
-response = amspy.list_content_key(access_token)
+response = azurerm.list_content_key(access_token)
 if (response.status_code == 200):
 	resjson = response.json()
 	count = len(resjson['d']['results']);
@@ -124,7 +124,7 @@ else:
 
 # list and get the id of the default streaming endpoint
 print("")
-response = amspy.list_streaming_endpoint(access_token)
+response = azurerm.list_streaming_endpoint(access_token)
 if (response.status_code == 200):
 	resjson = response.json()
 	for ea in resjson['d']['results']:
@@ -139,7 +139,7 @@ else:
 
 # scale the default streaming endpoint
 print("")
-response = amspy.scale_streaming_endpoint(access_token, streaming_endpoint_id, SCALE_UNIT)
+response = azurerm.scale_streaming_endpoint(access_token, streaming_endpoint_id, SCALE_UNIT)
 if (response.status_code == 202):
 	print_phase_message("POST Status.............................: " + str(response.status_code))
 	print_phase_message("Streaming Endpoint SU Configured to.....: " + SCALE_UNIT)
@@ -150,7 +150,7 @@ else:
 ######################### PHASE 1: UPLOAD and VALIDATE #########################
 ### create an asset
 print_phase_header("Creating a Media Asset")
-response = amspy.create_media_asset(access_token, NAME)
+response = azurerm.create_media_asset(access_token, NAME)
 if (response.status_code == 201):
 	resjson = response.json()
 	asset_id = str(resjson['d']['Id']);
@@ -162,13 +162,13 @@ else:
 
 ### list an asset
 print_phase_header("Listing a Media Asset")
-response = amspy.list_media_asset(access_token, asset_id)
+response = azurerm.list_media_asset(access_token, asset_id)
 if (response.status_code == 200):
 	resjson = response.json()
 	asset_uri = str(resjson['d']['Uri'])
 	print_phase_message("GET Status..............................: " + str(response.status_code))
 	print_phase_message("Media Asset Name........................: " + str(resjson['d']['Name']))
-	print_phase_message("Media Asset Encryption..................: " + str(amspy.translate_asset_options(resjson['d']['Options'])))
+	print_phase_message("Media Asset Encryption..................: " + str(azurerm.translate_asset_options(resjson['d']['Options'])))
 	print_phase_message("Media Asset Storage Account Name........: " + str(resjson['d']['StorageAccountName']))
 	print_phase_message("Media Asset Uri.........................: " + asset_uri)
 else:
@@ -176,7 +176,7 @@ else:
 
 ### create an assetfile
 print_phase_header("Creating a Media Assetfile (for the video file)")
-response = amspy.create_media_assetfile(access_token, asset_id, VIDEO_NAME, "false", "false")
+response = azurerm.create_media_assetfile(access_token, asset_id, VIDEO_NAME, "false", "false")
 if (response.status_code == 201):
 	resjson = response.json()
 	video_assetfile_id = str(resjson['d']['Id']);
@@ -189,7 +189,7 @@ else:
 
 ### create an assetfile
 print_phase_header("Creating a Media Assetfile (for the manifest file)")
-response = amspy.create_media_assetfile(access_token, asset_id, ISM_NAME, "true", "false")
+response = azurerm.create_media_assetfile(access_token, asset_id, ISM_NAME, "true", "false")
 if (response.status_code == 201):
 	resjson = response.json()
 	ism_assetfile_id = str(resjson['d']['Id']);
@@ -203,7 +203,7 @@ else:
 ### create an asset access policy
 print_phase_header("Creating an Asset Access Policy")
 duration = "440"
-response = amspy.create_asset_accesspolicy(access_token, "NewUploadPolicy", duration, "2")
+response = azurerm.create_asset_accesspolicy(access_token, "NewUploadPolicy", duration, "2")
 if (response.status_code == 201):
 	resjson = response.json()
 	write_accesspolicy_id = str(resjson['d']['Id']);
@@ -215,7 +215,7 @@ else:
 
 ### list an asset access policies
 print_phase_header("Listing a Asset Access Policies")
-response = amspy.list_asset_accesspolicy(access_token)
+response = azurerm.list_asset_accesspolicy(access_token)
 if (response.status_code == 200):
 	resjson = response.json()
 	print_phase_message("GET Status..............................: " + str(response.status_code))
@@ -231,8 +231,8 @@ print_phase_header("Creating a SAS Locator")
 #Also, your StartTime value must be in the following DateTime format: YYYY-MM-DDTHH:mm:ssZ (for example, "2014-05-23T17:53:50Z").
 # EDITED: Not providing starttime is the best approach to be able to upload a file immediatly...
 #starttime = datetime.datetime.now(pytz.timezone(time_zone)).strftime("%Y-%m-%dT%H:%M:%SZ")
-#response = amspy.create_sas_locator(access_token, asset_id, write_accesspolicy_id, starttime)
-response = amspy.create_sas_locator(access_token, asset_id, write_accesspolicy_id)
+#response = azurerm.create_sas_locator(access_token, asset_id, write_accesspolicy_id, starttime)
+response = azurerm.create_sas_locator(access_token, asset_id, write_accesspolicy_id)
 if (response.status_code == 201):
 	resjson = response.json()
 	saslocator_id = str(resjson['d']['Id']);
@@ -249,7 +249,7 @@ else:
 
 ### list the sas locator
 print_phase_header("Listing a SAS Locator")
-response = amspy.list_sas_locator(access_token)
+response = azurerm.list_sas_locator(access_token)
 if (response.status_code == 200):
 	resjson = response.json()
 	print_phase_message("GET Status..............................: " + str(response.status_code))
@@ -297,7 +297,7 @@ if (response == None):
 
 ### update the assetfile
 print_phase_header("Updating the Video Assetfile")
-response = amspy.update_media_assetfile(access_token, asset_id, video_assetfile_id, video_content_length, VIDEO_NAME)
+response = azurerm.update_media_assetfile(access_token, asset_id, video_assetfile_id, video_content_length, VIDEO_NAME)
 if (response.status_code == 204):
 	print_phase_message("MERGE Status............................: " + str(response.status_code))
 	print_phase_message("Assetfile Content Length Updated........: " + str(video_content_length))
@@ -306,7 +306,7 @@ else:
 
 ### update the assetfile
 print_phase_header("Updating the Manifest Assetfile")
-response = amspy.update_media_assetfile(access_token, asset_id, ism_assetfile_id, ism_content_length, ISM_NAME)
+response = azurerm.update_media_assetfile(access_token, asset_id, ism_assetfile_id, ism_content_length, ISM_NAME)
 if (response.status_code == 204):
 	print_phase_message("MERGE Status............................: " + str(response.status_code))
 	print_phase_message("Assetfile Content Length Updated........: " + str(ism_content_length))
@@ -315,7 +315,7 @@ else:
 
 ### delete the locator
 print_phase_header("Deleting the Locator")
-response = amspy.delete_sas_locator(access_token, saslocator_id)
+response = azurerm.delete_sas_locator(access_token, saslocator_id)
 if (response.status_code == 204):
 	print_phase_message("DELETE Status...........................: " + str(response.status_code))
 	print_phase_message("SAS URL Locator Deleted.................: " + saslocator_id)
@@ -324,7 +324,7 @@ else:
 
 ### delete the asset access policy
 print_phase_header("Deleting the Acess Policy")
-response = amspy.delete_asset_accesspolicy(access_token, write_accesspolicy_id)
+response = azurerm.delete_asset_accesspolicy(access_token, write_accesspolicy_id)
 if (response.status_code == 204):
 	print_phase_message("DELETE Status...........................: " + str(response.status_code))
 	print_phase_message("Asset Access Policy Deleted.............: " + write_accesspolicy_id)
@@ -333,7 +333,7 @@ else:
 
 ### get the media processor
 print_phase_header("Getting the Media Processor")
-response = amspy.list_media_processor(access_token)
+response = azurerm.list_media_processor(access_token)
 if (response.status_code == 200):
         resjson = response.json()
         print_phase_message("GET Status..............................: " + str(response.status_code))
@@ -347,7 +347,7 @@ else:
 
 ## create a media validation job
 print_phase_header("Creating a Media Job to validate the mp4")
-response = amspy.validate_mp4_asset(access_token, processor_id, asset_id, "mp4validated")
+response = azurerm.validate_mp4_asset(access_token, processor_id, asset_id, "mp4validated")
 if (response.status_code == 201):
 	resjson = response.json()
 	job_id = str(resjson['d']['Id']);
@@ -360,7 +360,7 @@ else:
 print_phase_header("Getting the Media Job Status")
 flag = 1
 while (flag):
-	response = amspy.list_media_job(access_token, job_id)
+	response = azurerm.list_media_job(access_token, job_id)
 	if (response.status_code == 200):
 		resjson = response.json()
 		job_state = str(resjson['d']['State'])
@@ -368,17 +368,17 @@ while (flag):
 			joboutputassets_uri = resjson['d']['OutputMediaAssets']['__deferred']['uri']
 			flag = 0;
 		print_phase_message("GET Status..............................: " + str(response.status_code))
-		print_phase_message("Media Job Status........................: " + amspy.translate_job_state(job_state))
+		print_phase_message("Media Job Status........................: " + azurerm.translate_job_state(job_state))
 	else:
 		print_phase_message("GET Status..............................: " + str(response.status_code) + " - Media Job: '" + asset_id + "' Listing ERROR." + str(response.content))
 	time.sleep(5);
 
 ######################### PHASE 2: PROTECT and STREAM #########################
 ### delete an asset
-if (amspy.translate_job_state(job_state) == 'Finished'):
+if (azurerm.translate_job_state(job_state) == 'Finished'):
 	### delete an asset
 	print_phase_header("Deleting the Original Asset")
-	response = amspy.delete_media_asset(access_token, asset_id)
+	response = azurerm.delete_media_asset(access_token, asset_id)
 	if (response.status_code == 204):
 		print_phase_message("DELETE Status...........................: " + str(response.status_code))
 		print_phase_message("Asset Deleted...........................: " + asset_id)
@@ -387,7 +387,7 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 
 	## getting the encoded asset id
 	print_phase_header("Getting the Encoded Media Asset Id")
-	response = amspy.get_url(access_token, joboutputassets_uri, False)
+	response = azurerm.get_url(access_token, joboutputassets_uri, False)
 	if (response.status_code == 200):
 		resjson = response.json()
 		encoded_asset_id = resjson['d']['results'][0]['Id']
@@ -398,7 +398,7 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 
 	### link a content key
 	print_phase_header("Linking the Content Key to the Encoded Asset")
-	response = amspy.link_asset_content_key(access_token, encoded_asset_id, contentkey_id, ams_redirected_rest_endpoint)
+	response = azurerm.link_asset_content_key(access_token, encoded_asset_id, contentkey_id, ams_redirected_rest_endpoint)
 	if (response.status_code == 204):
 		print_phase_message("GET Status..............................: " + str(response.status_code))
 		print_phase_message("Media Content Key Linked................: OK")
@@ -407,7 +407,7 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 
 	### configure content key authorization policy
 	print_phase_header("Creating the Content Key Authorization Policy")
-	response = amspy.create_contentkey_authorization_policy(access_token, AUTH_POLICY)
+	response = azurerm.create_contentkey_authorization_policy(access_token, AUTH_POLICY)
 	if (response.status_code == 201):
 		resjson = response.json()
 		authorization_policy_id = str(resjson['d']['Id']);
@@ -418,7 +418,7 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 
 	### configure asset delivery policy
 	print_phase_header("Creating the Content Key Authorization Policy Options")
-	response = amspy.create_contentkey_authorization_policy_options(access_token)
+	response = azurerm.create_contentkey_authorization_policy_options(access_token)
 	if (response.status_code == 201):
 		resjson = response.json()
 		authorization_policy_options_id = str(resjson['d']['Id']);
@@ -429,7 +429,7 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 
 	### link a contentkey authorization policies with options
 	print_phase_header("Linking the Content Key Authorization Policy with Options")
-	response = amspy.link_contentkey_authorization_policy(access_token, authorization_policy_id, authorization_policy_options_id, ams_redirected_rest_endpoint)
+	response = azurerm.link_contentkey_authorization_policy(access_token, authorization_policy_id, authorization_policy_options_id, ams_redirected_rest_endpoint)
 	if (response.status_code == 204):
 		print_phase_message("GET Status..............................: " + str(response.status_code))
 		print_phase_message("CK Authorization Policy Linked..........: OK")
@@ -438,7 +438,7 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 
 	### link a contentkey authorization policies with options
 	print_phase_header("Add the Authorization Policy to the Content Key")
-	response = amspy.add_authorization_policy(access_token, contentkey_id, authorization_policy_id)
+	response = azurerm.add_authorization_policy(access_token, contentkey_id, authorization_policy_id)
 	if (response.status_code == 204):
 		print_phase_message("GET Status..............................: " + str(response.status_code))
 		print_phase_message("Authorization Policy Added..............: OK")
@@ -447,7 +447,7 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 
 	### get the delivery url
 	print_phase_header("Getting the Key Delivery URL")
-	response = amspy.get_delivery_url(access_token, contentkey_id, KEY_DELIVERY_TYPE)
+	response = azurerm.get_delivery_url(access_token, contentkey_id, KEY_DELIVERY_TYPE)
 	if (response.status_code == 200):
 		resjson = response.json()
 		keydelivery_url = str(resjson['d']['GetKeyDeliveryUrl']);
@@ -458,7 +458,7 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 
 	### create asset delivery policy
 	print_phase_header("Creating Asset Delivery Policy")
-	response = amspy.create_asset_delivery_policy(access_token, account_name)
+	response = azurerm.create_asset_delivery_policy(access_token, account_name)
 	if (response.status_code == 201):
 		resjson = response.json()
 		assetdeliverypolicy_id = str(resjson['d']['Id']);
@@ -469,7 +469,7 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 
 	### link the asset with the asset delivery policy
 	print_phase_header("Linking the Asset with the Asset Delivery Policy")
-	response = amspy.link_asset_delivery_policy(access_token, encoded_asset_id, assetdeliverypolicy_id, ams_redirected_rest_endpoint)
+	response = azurerm.link_asset_delivery_policy(access_token, encoded_asset_id, assetdeliverypolicy_id, ams_redirected_rest_endpoint)
 	if (response.status_code == 204):
 		print_phase_message("GET Status..............................: " + str(response.status_code))
 		print_phase_message("Asset Delivery Policy Linked............: OK")
@@ -479,7 +479,7 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 	### create an asset access policy
 	print_phase_header("Creating an Asset Access Policy")
 	duration = "43200"
-	response = amspy.create_asset_accesspolicy(access_token, "NewViewAccessPolicy", duration)
+	response = azurerm.create_asset_accesspolicy(access_token, "NewViewAccessPolicy", duration)
 	if (response.status_code == 201):
 		resjson = response.json()
 		view_accesspolicy_id = str(resjson['d']['Id']);
@@ -492,8 +492,8 @@ if (amspy.translate_job_state(job_state) == 'Finished'):
 	### create an ondemand streaming locator
 	print_phase_header("Create an OnDemand Streaming Locator")
 	#starttime = datetime.datetime.now(pytz.timezone(time_zone)).strftime("%Y-%m-%dT%H:%M:%SZ")
-	#response = amspy.create_ondemand_streaming_locator(access_token, encoded_asset_id, view_accesspolicy_id, starttime)
-	response = amspy.create_ondemand_streaming_locator(access_token, encoded_asset_id, view_accesspolicy_id)
+	#response = azurerm.create_ondemand_streaming_locator(access_token, encoded_asset_id, view_accesspolicy_id, starttime)
+	response = azurerm.create_ondemand_streaming_locator(access_token, encoded_asset_id, view_accesspolicy_id)
 	if (response.status_code == 201):
 		resjson = response.json()
 		ondemandlocator_id = str(resjson['d']['Id']);

@@ -5,7 +5,7 @@ License: MIT (see LICENSE.txt file for details)
 """
 import os
 import json
-import amspy
+import azurerm
 import time
 #import pytz
 import logging
@@ -37,7 +37,7 @@ account_name = configData['accountName']
 account_key = configData['accountKey']
 
 # Get the access token...
-response = amspy.get_access_token(account_name, account_key)
+response = azurerm.get_access_token(account_name, account_key)
 resjson = response.json()
 access_token = resjson["access_token"]
 
@@ -51,7 +51,7 @@ name = "testasset"
 
 ### create an asset
 print ("\n001 >>> Creating a Media Asset")
-response = amspy.create_media_asset(access_token, name)
+response = azurerm.create_media_asset(access_token, name)
 if (response.status_code == 201):
 	resjson = response.json()
 	asset_id = str(resjson['d']['Id']);

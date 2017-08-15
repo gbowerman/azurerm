@@ -141,7 +141,7 @@ License: MIT (see LICENSE.txt file for details)
 
 # get_access_token(accountname, accountkey)
 # get access token with ams
-def get_access_token(accountname, accountkey):
+def get_ams_access_token(accountname, accountkey):
     accountkey_encoded = urllib.parse.quote(accountkey, safe='')
     body = "grant_type=client_credentials&client_id=" + accountname + \
 	"&client_secret=" + accountkey_encoded + " &scope=urn%3aWindowsAzureMediaServices"

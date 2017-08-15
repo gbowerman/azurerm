@@ -5,7 +5,7 @@ License: MIT (see LICENSE.txt file for details)
 """
 import os
 import json
-import amspy
+import azurerm
 import time
 import logging
 import datetime
@@ -36,7 +36,7 @@ account_name = configData['accountName']
 account_key = configData['accountKey']
 
 # Get the access token...
-response = amspy.get_access_token(account_name, account_key)
+response = azurerm.get_access_token(account_name, account_key)
 resjson = response.json()
 access_token = resjson["access_token"]
 
@@ -47,7 +47,7 @@ print ("-------------------------------------------------------\n");
 
 ### list streaming endpoints
 print ("\n001 >>> Listing Streaming Endpoints")
-response = amspy.list_streaming_endpoint(access_token)
+response = azurerm.list_streaming_endpoint(access_token)
 if (response.status_code == 200):
 	resjson = response.json()
 	for ea in resjson['d']['results']:
