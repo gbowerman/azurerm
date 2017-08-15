@@ -6,7 +6,7 @@ Documentation : https://azure.microsoft.com/en-us/documentation/articles/media-s
 """
 import os
 import json
-import amspy
+import azurerm
 import time
 import sys
 #import pytz
@@ -64,7 +64,7 @@ if (purge_log.lower() == "yes"):
 logging.basicConfig(format='%(asctime)s - %(levelname)s:%(message)s', level=log_level, filename=log_name)
 
 # Get the access token...
-response = amspy.get_access_token(account_name, account_key)
+response = azurerm.get_ams_access_token(account_name, account_key)
 resjson = response.json()
 access_token = resjson["access_token"]
 
@@ -91,7 +91,7 @@ def print_phase_message(message):
         print (str(time_stamp) + ": " +  message)
 
 ### get ams redirected url
-response = amspy.get_url(access_token)
+response = azurerm.get_url(access_token)
 if (response.status_code == 200):
         ams_redirected_rest_endpoint = str(response.url)
 else:
@@ -102,7 +102,7 @@ else:
 ######################### PHASE 1: UPLOAD #########################
 ### create an asset
 print_phase_header("Creating a Media Asset")
-response = amspy.create_media_asset(access_token, NAME)
+response = azurerm.create_media_asset(access_token, NAME)
 if (response.status_code == 201):
 	resjson = response.json()
 	asset_id = str(resjson['d']['Id'])
@@ -114,7 +114,7 @@ else:
 
 ### create an assetfile
 print_phase_header("Creating a Media Assetfile (for the video file)")
-response = amspy.create_media_assetfile(access_token, asset_id, VIDEO_NAME, "false", "false")
+response = azurerm.create_media_assetfile(access_token, asset_id, VIDEO_NAME, "false", "false")
 if (response.status_code == 201):
 	resjson = response.json()
 	video_assetfile_id = str(resjson['d']['Id'])
@@ -128,7 +128,7 @@ else:
 ### create an asset write access policy for uploading
 print_phase_header("Creating an Asset Write Access Policy")
 duration = "440"
-response = amspy.create_asset_accesspolicy(access_token, "NewUploadPolicy", duration, "2")
+response = azurerm.create_asset_accesspolicy(access_token, "NewUploadPolicy", duration, "2")
 if (response.status_code == 201):
 	resjson = response.json()
 	write_accesspolicy_id = str(resjson['d']['Id'])
@@ -146,8 +146,8 @@ print_phase_header("Creating a write SAS Locator")
 #Also, your StartTime value must be in the following DateTime format: YYYY-MM-DDTHH:mm:ssZ (for example, "2014-05-23T17:53:50Z").
 # EDITED: Not providing starttime is the best approach to be able to upload a file immediatly...
 #starttime = datetime.datetime.now(pytz.timezone(time_zone)).strftime("%Y-%m-%dT%H:%M:%SZ")
-#response = amspy.create_sas_locator(access_token, asset_id, write_accesspolicy_id, starttime)
-response = amspy.create_sas_locator(access_token, asset_id, write_accesspolicy_id)
+#response = azurerm.create_sas_locator(access_token, asset_id, write_accesspolicy_id, starttime)
+response = azurerm.create_sas_locator(access_token, asset_id, write_accesspolicy_id)
 if (response.status_code == 201):
 	resjson = response.json()
 	saslocator_id = str(resjson['d']['Id'])
@@ -190,7 +190,7 @@ if (response == None):
 
 ### update the assetfile metadata after uploading
 print_phase_header("Updating the Video Assetfile")
-response = amspy.update_media_assetfile(access_token, asset_id, video_assetfile_id, video_content_length, VIDEO_NAME)
+response = azurerm.update_media_assetfile(access_token, asset_id, video_assetfile_id, video_content_length, VIDEO_NAME)
 if (response.status_code == 204):
 	print_phase_message("MERGE Status............................: " + str(response.status_code))
 	print_phase_message("Assetfile Content Length Updated........: " + str(video_content_length))
@@ -199,7 +199,7 @@ else:
 
 ### delete the locator, so that it can't be used again
 print_phase_header("Deleting the Locator")
-response = amspy.delete_sas_locator(access_token, saslocator_id)
+response = azurerm.delete_sas_locator(access_token, saslocator_id)
 if (response.status_code == 204):
 	print_phase_message("DELETE Status...........................: " + str(response.status_code))
 	print_phase_message("SAS URL Locator Deleted.................: " + saslocator_id)
@@ -208,7 +208,7 @@ else:
 
 ### delete the asset access policy
 print_phase_header("Deleting the Acess Policy")
-response = amspy.delete_asset_accesspolicy(access_token, write_accesspolicy_id)
+response = azurerm.delete_asset_accesspolicy(access_token, write_accesspolicy_id)
 if (response.status_code == 204):
 	print_phase_message("DELETE Status...........................: " + str(response.status_code))
 	print_phase_message("Asset Access Policy Deleted.............: " + write_accesspolicy_id)
@@ -217,7 +217,7 @@ else:
 
 ### get the media processor for Indexer v2
 print_phase_header("Getting the Media Processor for Indexer v2")
-response = amspy.list_media_processor(access_token)
+response = azurerm.list_media_processor(access_token)
 if (response.status_code == 200):
         resjson = response.json()
         print_phase_message("GET Status..............................: " + str(response.status_code))
@@ -234,7 +234,7 @@ print_phase_header("Creating a Media Job to index the content")
 with open(INDEXER_V2_JSON_PRESET, mode='r') as file:
         indexer_preset = file.read()
 
-response = amspy.encode_mezzanine_asset(access_token, processor_id, asset_id, ASSET_FINAL_NAME, indexer_preset)
+response = azurerm.encode_mezzanine_asset(access_token, processor_id, asset_id, ASSET_FINAL_NAME, indexer_preset)
 if (response.status_code == 201):
 	resjson = response.json()
 	job_id = str(resjson['d']['Id'])
@@ -247,7 +247,7 @@ else:
 print_phase_header("Getting the Media Job Status")
 flag = 1
 while (flag):
-	response = amspy.list_media_job(access_token, job_id)
+	response = azurerm.list_media_job(access_token, job_id)
 	if (response.status_code == 200):
 		resjson = response.json()
 		job_state = str(resjson['d']['State'])
@@ -255,14 +255,14 @@ while (flag):
 			joboutputassets_uri = resjson['d']['OutputMediaAssets']['__deferred']['uri']
 			flag = 0
 		print_phase_message("GET Status..............................: " + str(response.status_code))
-		print_phase_message("Media Job Status........................: " + amspy.translate_job_state(job_state))
+		print_phase_message("Media Job Status........................: " + azurerm.translate_job_state(job_state))
 	else:
 		print_phase_message("GET Status..............................: " + str(response.status_code) + " - Media Job: '" + asset_id + "' Listing ERROR." + str(response.content))
 	time.sleep(5)
 
 ## getting the indexed asset id
 print_phase_header("Getting the Indexed Media Asset Id")
-response = amspy.get_url(access_token, joboutputassets_uri, False)
+response = azurerm.get_url(access_token, joboutputassets_uri, False)
 if (response.status_code == 200):
 	resjson = response.json()
 	output_asset_id = resjson['d']['results'][0]['Id']
@@ -272,7 +272,7 @@ else:
 	print_phase_message("GET Status..............................: " + str(response.status_code) + " - Media Job Output Asset: '" + job_id + "' Getting ERROR." + str(response.content))
 
 # Get Asset by using the list_media_asset method and the Asset ID
-response = amspy.list_media_asset(access_token,output_asset_id)
+response = azurerm.list_media_asset(access_token,output_asset_id)
 if (response.status_code == 200):
     resjson = response.json()
     # Get the container name from the Uri

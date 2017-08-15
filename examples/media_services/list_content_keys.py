@@ -37,7 +37,7 @@ account_name = configData['accountName']
 account_key = configData['accountKey']
 
 # Get the access token...
-response = azurerm.get_access_token2(account_name, account_key)
+response = azurerm.get_ams_access_token(account_name, account_key)
 resjson = response.json()
 access_token = resjson["access_token"]
 

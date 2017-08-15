@@ -5,7 +5,7 @@ License: MIT (see LICENSE.txt file for details)
 """
 import os
 import json
-import amspy
+import azurerm
 import time
 import sys
 #import pytz
@@ -52,12 +52,12 @@ log_level = configData['logLevel']
 purge_log = configData['purgeLog']
 
 # Get a fresh API access token...
-response = amspy.get_access_token(account_name, account_key)
+response = azurerm.get_ams_access_token(account_name, account_key)
 resjson = response.json()
 access_token = resjson["access_token"]
 
 # Get Asset by using the list_media_asset method and the Asset ID
-response = amspy.list_media_asset(access_token,OUTPUTASSETID)
+response = azurerm.list_media_asset(access_token,OUTPUTASSETID)
 if (response.status_code == 200):
     resjson = response.json()
     # Get the container name from the Uri
