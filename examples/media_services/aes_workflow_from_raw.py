@@ -142,7 +142,7 @@ else:
 # scale the default streaming endpoint
 print("")
 response = azurerm.scale_streaming_endpoint(access_token, streaming_endpoint_id, SCALE_UNIT)
-if (response.status_code == 202):
+if (response.status_code == 202) or (response.status_code == 204):
 	print_phase_message("POST Status.............................: " + str(response.status_code))
 	print_phase_message("Streaming Endpoint SU Configured to.....: " + SCALE_UNIT)
 else:
