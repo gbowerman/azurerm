@@ -4,7 +4,8 @@ import platform
 import json
 import pkg_resources  # to get version
 import requests
-from .settings import json_acceptformat, json_only_acceptformat, xml_acceptformat, batch_acceptformat, charset, dsversion_min, dsversion_max, xmsversion
+from .settings import json_acceptformat, json_only_acceptformat, xml_acceptformat, batch_acceptformat, charset, dsversion_min, dsversion_max, xmsversion, \
+get_rm_endpoint, ams_rest_endpoint, ams_auth_endpoint, MEDIA_API
 
 def get_user_agent():
     '''User-Agent Header. Sends library identification to Azure endpoint.
@@ -122,7 +123,20 @@ def do_put(endpoint, body, access_token):
     headers['User-Agent'] = get_user_agent()
     return requests.put(endpoint, data=body, headers=headers)
 
+
 ''' restfns - REST functions for amspy. '''
+def get_url(access_token, endpoint=ams_rest_endpoint, flag=True):
+    '''Get Media Services Final Endpoint URL.
+    Args:
+        access_token (str): A valid Azure authentication token.
+        endpoint (str): Azure Media Services Initial Endpoint.
+        flag (bol): flag.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
+    return do_ams_get_url(endpoint, access_token, flag)
+
 # do_auth(endpoint, body, access_token)
 # do an HTTP POST request for authentication (acquire an access token) and return JSON
 def do_ams_auth(endpoint, body):
@@ -243,7 +257,7 @@ def do_ams_sto_put(endpoint, body, content_length, access_token):
 		"Content-Length" : str(content_length)}
     return requests.put(endpoint, data=body, headers=headers)
 
-# do_get_url(endpoint, access_token)
+# do_ams_get_url(endpoint, access_token)
 # do an HTTP GET request and return JSON
 def do_ams_get_url(endpoint, access_token, flag=True):
     headers = {"Content-Type": json_acceptformat,

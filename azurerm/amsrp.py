@@ -3,7 +3,7 @@
 import json
 import urllib
 import requests
-from .restfns import do_ams_auth, do_ams_get, do_ams_post, do_ams_put, do_ams_delete, do_ams_patch, do_ams_sto_put, do_ams_get_url
+from .restfns import do_ams_auth, do_ams_get, do_ams_post, do_ams_put, do_ams_delete, do_ams_patch, do_ams_sto_put, do_ams_get_url, get_url
 from .settings import get_rm_endpoint, ams_rest_endpoint, ams_auth_endpoint, MEDIA_API
 
 def check_media_service_name_availability(access_token, subscription_id, msname):
@@ -133,144 +133,306 @@ def list_media_services_rg(access_token, subscription_id, rgname):
     return do_ams_get(endpoint, access_token)
 
 
-"""
-Copyright (c) 2016, Marcelo Leal
-Description: Simple Azure Media Services Rest Python library
-License: MIT (see LICENSE.txt file for details)
-"""
-
-# get_access_token(accountname, accountkey)
-# get access token with ams
 def get_ams_access_token(accountname, accountkey):
+    '''Get Media Services Authentication Token.
+
+    Args:
+        accountname (str): Azure Media Services account name.
+        accountkey (str): Azure Media Services Key.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     accountkey_encoded = urllib.parse.quote(accountkey, safe='')
     body = "grant_type=client_credentials&client_id=" + accountname + \
 	"&client_secret=" + accountkey_encoded + " &scope=urn%3aWindowsAzureMediaServices"
     return do_ams_auth(ams_auth_endpoint, body)
 
-# get_url(access_token)
-# get an specific url
-def get_url(access_token, endpoint=ams_rest_endpoint, flag=True):
-    return do_ams_get_url(endpoint, access_token, flag)
 
-# list_media_asset(access_token, oid="")
-# list a media asset(s)
 def list_media_asset(access_token, oid=""):
+    '''List Media Service Asset(s).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Asset OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Assets'
     return helper_list(access_token, oid, path)
 
-# list_content_keys(access_token, oid="")
-# list the content key(s)
+
 def list_content_key(access_token, oid=""):
+    '''List Media Service Content Key(s).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Content Key OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeys'
     return helper_list(access_token, oid, path)
 
-# list_contentkey_authorization_policy(access_token, oid="")
-# list content key authorization policy(ies)
+
 def list_contentkey_authorization_policy(access_token, oid=""):
+    '''List Media Service Content Key Authorization Policy(ies).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Content Key Authorization Policy OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeyAuthorizationPolicies'
     return helper_list(access_token, oid, path)
 
-# list_contentkey_authorization_policy_options(access_token, oid="")
-# list content key authorization policy options
+
 def list_contentkey_authorization_policy_options(access_token, oid=""):
+    '''List Media Service Content Key Authorization Policy Option(s).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Content Key Authorization Policy Option OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeyAuthorizationPolicyOptions'
     return helper_list(access_token, oid, path)
 
-# list_media_processor(access_token, oid="")
-# list the media processor(s)
+
 def list_media_processor(access_token, oid=""):
+    '''List Media Service Processor(s).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Processor OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/MediaProcessors'
     return helper_list(access_token, oid, path)
 
-# list_asset_accesspolicy(access_token, oid="")
-# list a asset access policy(ies)
+
 def list_asset_accesspolicy(access_token, oid=""):
+    '''List Media Service Asset Access Policy(ies).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Asset Access Policy OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/AccessPolicies'
     return helper_list(access_token, oid, path)
 
-# list_sas_locator(access_token, oid="")
-# list a sas locator(s)
+
 def list_sas_locator(access_token, oid=""):
+    '''List Media Service SAS Locator(s).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service SAS Locator OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Locators'
     return helper_list(access_token, oid, path)
 
-# list_media_job(access_token, oid="")
-# list a media job(s)
+
 def list_media_job(access_token, oid=""):
+    '''List Media Service Job(s).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Job OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Jobs'
     return helper_list(access_token, oid, path)
 
-# list_asset_delivery_policy(access_token, oid="")
-# list an asset delivery policy(ies)
+
 def list_asset_delivery_policy(access_token, oid=""):
+    '''List Media Service Asset Delivery Policy(ies).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Asset Delivery Policy OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/AssetDeliveryPolicies'
     return helper_list(access_token, oid, path)
 
-# list_streaming_endpoint(access_token, oid="")
-# list streaming endpoint(s)
+
 def list_streaming_endpoint(access_token, oid=""):
+    '''List Media Service Streaming Endpoint(s).
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Streaming Endpoint OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/StreamingEndpoints'
     return helper_list(access_token, oid, path)
 
-# delete_streaming_endpoint(access_token, oid)
-# delete a streaming endpoint
+
 def delete_streaming_endpoint(access_token, oid):
+    '''Delete Media Service Streaming Endpoint.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Streaming Endpoint OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/StreamingEndpoints'
     return helper_delete(access_token, oid, path)
 
-# delete_asset_delivery_policy(access_token, oid)
-# delete a asset delivery policy
+
 def delete_asset_delivery_policy(access_token, oid):
+    '''Delete Media Service Asset Delivery Policy.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Delivery Policy OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/AssetDeliveryPolicies'
     return helper_delete(access_token, oid, path)
 
-# delete_asset_accesspolicy(access_token, oid)
-# delete a asset access policy
+
 def delete_asset_accesspolicy(access_token, oid):
+    '''Delete Media Service Asset Access Policy.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Asset Access Policy OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/AccessPolicies'
     return helper_delete(access_token, oid, path)
 
-# delete_sas_locator(access_token, oid)
-# delete a sas locator
+
 def delete_sas_locator(access_token, oid):
+    '''Delete Media Service SAS Locator.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service SAS Locator OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Locators'
     return helper_delete(access_token, oid, path)
 
-# delete_content_key(access_token, oid)
-# delete a content key
+
 def delete_content_key(access_token, oid):
+    '''Delete Media Service Content Key.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Content Key OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeys'
     return helper_delete(access_token, oid, path)
 
-# delete_contentkey_authorization_policy(access_token, oid)
-# delete a content key authorization policy
+
 def delete_contentkey_authorization_policy(access_token, oid):
+    '''Delete Media Service Content Key Authorization Policy.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Content Key Authorization Policy OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeyAuthorizationPolicies'
     return helper_delete(access_token, oid, path)
 
-# delete_contentkey_authorization_policy_options(access_token, oid)
-# delete content key authorization policy options
+
 def delete_contentkey_authorization_policy_options(access_token, oid):
+    '''Delete Media Service Content Key Authorization Policy Option.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Content Key Authorization Policy Option OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeyAuthorizationPolicyOptions'
     return helper_delete(access_token, oid, path)
 
-# delete_media_asset(access_token, oid)
-# delete a media asset
+
 def delete_media_asset(access_token, oid):
+    '''Delete Media Service Media Asset.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): Media Service Asset OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Assets'
     return helper_delete(access_token, oid, path)
 
-# create_media_asset(access_token, name, options="0")
-# create a media asset
+
 def create_media_asset(access_token, name, options="0"):
+    '''Create Media Service Asset.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        name (str): Media Service Asset Name.
+        options (str): Media Service Options.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Assets'
     endpoint = ''.join([ams_rest_endpoint, path])
     body = '{"Name": "' + name + '", "Options": "' + str(options) + '"}'
     return do_ams_post(endpoint, path, body, access_token)
 
-# create_media_assetfile(access_token, parent_asset_id, name, is_primary="false", is_encrypted="false", encryption_scheme="None", encryptionkey_id="None")
-# create a media assetfile
+
 def create_media_assetfile(access_token, parent_asset_id, name, is_primary="false", is_encrypted="false", encryption_scheme="None", encryptionkey_id="None"):
+    '''Create Media Service Asset File.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        parent_asset_id (str): Media Service Parent Asset ID.
+        name (str): Media Service Asset Name.
+        is_primary (str): Media Service Primary Flag.
+        is_encrypted (str): Media Service Encryption Flag.
+        encryption_scheme (str): Media Service Encryption Scheme.
+        encryptionkey_id (str): Media Service Encryption Key ID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Files'
     endpoint = ''.join([ams_rest_endpoint, path])
     if (encryption_scheme == "StorageEncryption"):
@@ -293,9 +455,18 @@ def create_media_assetfile(access_token, parent_asset_id, name, is_primary="fals
 		}'
     return do_ams_post(endpoint, path, body, access_token)
 
-# create_sas_locator(access_token, asset_id, accesspolicy_id)
-# create a sas locator
+
 def create_sas_locator(access_token, asset_id, accesspolicy_id):
+    '''Create Media Service SAS Locator.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        asset_id (str): Media Service Asset ID.
+        accesspolicy_id (str): Media Service Access Policy ID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Locators'
     endpoint = ''.join([ams_rest_endpoint, path])
     #body = '{"AccessPolicyId":"' + accesspolicy_id + '", "AssetId":"' + asset_id + '", "StartTime":"' + starttime + '", "Type":1 }'
@@ -306,9 +477,17 @@ def create_sas_locator(access_token, asset_id, accesspolicy_id):
 	}'
     return do_ams_post(endpoint, path, body, access_token)
 
-# create_asset_delivery_policy(access_token, asset_id, accesspolicy_id)
-# create an asset delivery policy
+
 def create_asset_delivery_policy(access_token, ams_account):
+    '''Create Media Service Asset Delivery Policy.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        ams_account (str): Media Service Account.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/AssetDeliveryPolicies'
     endpoint = ''.join([ams_rest_endpoint, path])
     body = '{ \
@@ -321,33 +500,70 @@ def create_asset_delivery_policy(access_token, ams_account):
 	}'
     return do_ams_post(endpoint, path, body, access_token)
 
-# create_media_task(access_token, processor_id, asset_id, content)
-# create a media task
+
 def create_media_task(access_token, processor_id, asset_id, content):
+    '''Create Media Service Task.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        processor_id (str): Media Service Processor ID.
+        content (str): Content Payload.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Tasks'
     endpoint = ''.join([ams_rest_endpoint, path])
     body = content
     return do_ams_post(endpoint, path, body, access_token)
 
-# create_media_job(access_token, processor_id, asset_id, content)
-# create a media job
+
 def create_media_job(access_token, processor_id, asset_id, content):
+    '''Create Media Service Job.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        processor_id (str): Media Service Processor ID.
+        asset_id (str): Media Service Asset ID.
+        content (str): Content Payload.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Jobs'
     endpoint = ''.join([ams_rest_endpoint, path])
     body = content
     return do_ams_post(endpoint, path, body, access_token)
 
-# create_contentkey_authorization_policy(access_token, processor_id, asset_id, content)
-# create content key authorization policy
+
 def create_contentkey_authorization_policy(access_token, content):
+    '''Create Media Service Content Key Authorization Policy.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        content (str): Content Payload.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeyAuthorizationPolicies'
     endpoint = ''.join([ams_rest_endpoint, path])
     body = content
     return do_ams_post(endpoint, path, body, access_token)
 
-# create_contentkey_authorization_policy_options(access_token, processor_id, asset_id, content)
-# create content key authorization policy options
+
 def create_contentkey_authorization_policy_options(access_token, key_delivery_type="2", name="HLS Open Authorization Policy", key_restriction_type="0"):
+    '''Create Media Service Content Key Authorization Policy Options.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        key_delivery_type (str): A Media Service Content Key Authorization Policy Delivery Type.
+        name (str): A Media Service Contenty Key Authorization Policy Name.
+        key_restiction_type (str): A Media Service Contenty Key Restriction Type.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeyAuthorizationPolicyOptions'
     endpoint = ''.join([ams_rest_endpoint, path])
     body = '{ \
@@ -362,9 +578,19 @@ def create_contentkey_authorization_policy_options(access_token, key_delivery_ty
 	}'
     return do_ams_post(endpoint, path, body, access_token, "json_only")
 
-# create_ondemand_streaming_locator(access_token, encoded_asset_id, asset_id, pid, starttime="None")
-# create an ondemand streaming locator
+
 def create_ondemand_streaming_locator(access_token, encoded_asset_id, pid, starttime=None):
+    '''Create Media Service OnDemand Streaming Locator.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        encoded_asset_id (str): A Media Service Encoded Asset ID.
+        pid (str): A Media Service Encoded PID.
+        starttime (str): A Media Service Starttime.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Locators'
     endpoint = ''.join([ams_rest_endpoint, path])
     if(starttime == None):
@@ -382,9 +608,19 @@ def create_ondemand_streaming_locator(access_token, encoded_asset_id, pid, start
 		}' 
     return do_ams_post(endpoint, path, body, access_token, "json_only")
 
-# create_asset_accesspolicy(access_token, duration)
-# create an asset access policy
+
 def create_asset_accesspolicy(access_token, name, duration, permission="1"):
+    '''Create Media Service Asset Access Policy.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        name (str): A Media Service Asset Access Policy Name.
+        duration (str): A Media Service duration.
+        permission (str): A Media Service permission.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/AccessPolicies'
     endpoint = ''.join([ams_rest_endpoint, path])
     body = '{ \
@@ -394,9 +630,19 @@ def create_asset_accesspolicy(access_token, name, duration, permission="1"):
 	}'
     return do_ams_post(endpoint, path, body, access_token)
 
-# create_streaming_endpoint(access_token, name, options="0")
-# create a streaming endpoint
+
 def create_streaming_endpoint(access_token, name, description="New Streaming Endpoint", scale_units="1"):
+    '''Create Media Service Streaming Endpoint.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        name (str): A Media Service Streaming Endpoint Name.
+        description (str): A Media Service Streaming Endpoint Description.
+        scale_units (str): A Media Service Scale Units Number.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/StreamingEndpoints'
     endpoint = ''.join([ams_rest_endpoint, path])
     body = '{ \
@@ -415,9 +661,18 @@ def create_streaming_endpoint(access_token, name, description="New Streaming End
 	}'
     return do_ams_post(endpoint, path, body, access_token)
 
-# scale_streaming_endpoint(access_token, streaming_endpoint_id, scale_units)
-# scale a scale unit
+
 def scale_streaming_endpoint(access_token, streaming_endpoint_id, scale_units):
+    '''Scale Media Service Streaming Endpoint.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        streaming_endpoint_id (str): A Media Service Streaming Endpoint ID.
+        scale_units (str): A Media Service Scale Units Number.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/StreamingEndpoints'
     full_path = ''.join([path, "('", streaming_endpoint_id, "')", "/Scale"])
     full_path_encoded = urllib.parse.quote(full_path, safe='')
@@ -425,9 +680,19 @@ def scale_streaming_endpoint(access_token, streaming_endpoint_id, scale_units):
     body = '{"scaleUnits": "' + str(scale_units) + '"}'
     return do_ams_post(endpoint, full_path_encoded, body, access_token)
 
-# link_asset_content_key(access_token, asset_id, encryptionkey_id)
-# link an asset with a content key
+
 def link_asset_content_key(access_token, asset_id, encryptionkey_id, ams_redirected_rest_endpoint):
+    '''Link Media Service Asset and Content Key.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        asset_id (str): A Media Service Asset ID.
+        encryption_id (str): A Media Service Encryption ID.
+        ams_redirected_rest_endpoint (str): A Media Service Redirected Endpoint.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Assets'
     full_path = ''.join([path, "('", asset_id, "')", "/$links/ContentKeys"])
     full_path_encoded = urllib.parse.quote(full_path, safe='')
@@ -436,9 +701,19 @@ def link_asset_content_key(access_token, asset_id, encryptionkey_id, ams_redirec
     body = '{"uri": "' + uri + '"}'
     return do_ams_post(endpoint, full_path_encoded, body, access_token)
 
-# link_asset_deliver_policy(access_token, asset_id, encryptionkey_id)
-# link an asset with a delivery policy
+
 def link_asset_delivery_policy(access_token, asset_id, adp_id, ams_redirected_rest_endpoint):
+    '''Link Media Service Asset Delivery Policy.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        asset_id (str): A Media Service Asset ID.
+        adp_id (str): A Media Service Asset Delivery Policy ID.
+        ams_redirected_rest_endpoint (str): A Media Service Redirected Endpoint.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Assets'
     full_path = ''.join([path, "('", asset_id, "')", "/$links/DeliveryPolicies"])
     full_path_encoded = urllib.parse.quote(full_path, safe='')
@@ -447,9 +722,19 @@ def link_asset_delivery_policy(access_token, asset_id, adp_id, ams_redirected_re
     body = '{"uri": "' + uri + '"}'
     return do_ams_post(endpoint, full_path_encoded, body, access_token)
 
-# link_contentkey_authorization_policy(access_token, ckap_id, options_id, encryptionkey_id)
-# link content key aurhorization policy with options
+
 def link_contentkey_authorization_policy(access_token, ckap_id, options_id, ams_redirected_rest_endpoint):
+    '''Link Media Service Content Key Authorization Policy.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        ckap_id (str): A Media Service Asset Content Key Authorization Policy ID.
+        options_id (str): A Media Service Content Key Authorization Policy Options .
+        ams_redirected_rest_endpoint (str): A Media Service Redirected Endpoint.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeyAuthorizationPolicies'
     full_path = ''.join([path, "('", ckap_id, "')", "/$links/Options"])
     full_path_encoded = urllib.parse.quote(full_path, safe='')
@@ -458,16 +743,36 @@ def link_contentkey_authorization_policy(access_token, ckap_id, options_id, ams_
     body = '{"uri": "' + uri + '"}'
     return do_ams_post(endpoint, full_path_encoded, body, access_token, "json_only", "1.0;NetFx")
 
-# add_authorization_policy(access_token, oid)
-# add a authorization policy
+
 def add_authorization_policy(access_token, ck_id, oid):
+    '''Add Media Service Authorization Policy.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        ck_id (str): A Media Service Asset Content Key ID.
+        options_id (str): A Media Service OID.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeys'
     body = '{"AuthorizationPolicyId":"' + oid + '"}'
     return helper_add(access_token, ck_id, path, body)
 
-# update_media_assetfile(access_token, parent_asset_id, asset_id, content_length, name)
-# update a media assetfile
+
 def update_media_assetfile(access_token, parent_asset_id, asset_id, content_length, name):
+    '''Update Media Service Asset File.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        parent_asset_id (str): A Media Service Asset Parent Asset ID.
+        asset_id (str): A Media Service Asset Asset ID.
+        content_length (str): A Media Service Asset Content Length.
+        name (str): A Media Service Asset name.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Files'
     full_path = ''.join([path, "('", asset_id, "')"])
     full_path_encoded = urllib.parse.quote(full_path, safe='')
@@ -481,18 +786,38 @@ def update_media_assetfile(access_token, parent_asset_id, asset_id, content_leng
 	}'
     return do_ams_patch(endpoint, full_path_encoded, body, access_token)
 
-# get_delivery_url(access_token, ck_id, key_type)
-# get a delivery url
+
 def get_delivery_url(access_token, ck_id, key_type):
+    '''Get Media Service Delivery URL.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        ck_id (str): A Media Service Content Key ID.
+        key_type (str): A Media Service key Type.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/ContentKeys'
     full_path = ''.join([path, "('", ck_id, "')", "/GetKeyDeliveryUrl"])
     endpoint = ''.join([ams_rest_endpoint, full_path])
     body = '{"keyDeliveryType": "' + key_type + '"}'
     return do_ams_post(endpoint, full_path, body, access_token)
 
-# encode_mezzanine_asset(access_token, processor_id, asset_id, output_assetname, json_profile)
-# encode a mezzanine asset
+
 def encode_mezzanine_asset(access_token, processor_id, asset_id, output_assetname, json_profile):
+    '''Get Media Service Encode Mezanine Asset.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        processor_id (str): A Media Service Processor ID.
+        asset_id (str): A Media Service Asset ID.
+        output_assetname (str): A Media Service Asset Name.
+        json_profile (str): A Media Service JSON Profile.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Jobs'
     endpoint = ''.join([ams_rest_endpoint, path])
     assets_path = ''.join(["/Assets", "('", asset_id, "')"])
@@ -513,9 +838,19 @@ def encode_mezzanine_asset(access_token, processor_id, asset_id, output_assetnam
 	}'
     return do_ams_post(endpoint, path, body, access_token)
 
-# validate_mp4_asset(access_token, processor_id, asset_id, output_assetname)
-# validate a mp4 asset
+
 def validate_mp4_asset(access_token, processor_id, asset_id, output_assetname):
+    '''Validate MP4 File.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        processor_id (str): A Media Service Processor ID.
+        asset_id (str): A Media Service Asset ID.
+        output_assetname (str): A Media Service Asset Name.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     path = '/Jobs'
     endpoint = ''.join([ams_rest_endpoint, path])
     assets_path = ''.join(["/Assets", "('", asset_id, "')"])
@@ -536,30 +871,68 @@ def validate_mp4_asset(access_token, processor_id, asset_id, output_assetname):
 	}'
     return do_ams_post(endpoint, path, body, access_token)
 
-### Helpers...
-# Generic functions not intended for "external" use... 
+
 def helper_add(access_token, ck_id, path, body):
+    '''Helper Function to add strings to a URL path.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        ck_id (str): A CK ID.
+        path (str): A URL Path.
+        body (str): A Body.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     full_path = ''.join([path, "('", ck_id, "')"])
     full_path_encoded = urllib.parse.quote(full_path, safe='')
     endpoint = ''.join([ams_rest_endpoint, full_path_encoded])
     return do_ams_put(endpoint, full_path_encoded, body, access_token, "json_only", "1.0;NetFx")
 
+
 def helper_list(access_token, oid, path):
+    '''Helper Function to list a URL path.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): An OID.
+        path (str): A URL Path.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     if(oid != ""):
     	path = ''.join([path, "('", oid, "')"])
     endpoint = ''.join([ams_rest_endpoint, path])
     return do_ams_get(endpoint, path, access_token)
 
+
 def helper_delete(access_token, oid, path):
+    '''Helper Function to delete a Object at a URL path.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        oid (str): An OID.
+        path (str): A URL Path.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     full_path = ''.join([path, "('", oid, "')"])
     full_path_encoded = urllib.parse.quote(full_path, safe='')
     endpoint = ''.join([ams_rest_endpoint, full_path_encoded])
     return do_ams_delete(endpoint, full_path_encoded, access_token)
 
-### Aux Funcions...
-# These are functions that are intended for "external" use, but are not AMS REST API's...
-# Translate the numeric options/encryption of the Asset
+
 def translate_asset_options(nr):
+    '''AUX Function to translate the asset (numeric) encryption option of an Asset.
+
+    Args:
+        nr (int): A valid number to translate.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     if (nr == "0"): 
     	return "None"
     if (nr == "1"): 
@@ -569,8 +942,16 @@ def translate_asset_options(nr):
     if (nr == "4"): 
     	return "EnvelopeEncryptionProtected"
 
-# Translate the numeric state of the Jobs
+
 def translate_job_state(nr):
+    '''AUX Function to translate the (numeric) state of a Job.
+
+    Args:
+        nr (int): A valid number to translate.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     if (nr == "0"): 
     	return "Queued"
     if (nr == "1"): 
@@ -585,13 +966,34 @@ def translate_job_state(nr):
     	return "Canceled"
     if (nr == "6"): 
     	return "Canceling"
-# Get specific url
+
+
 def retrieve_url_content(url):
+    '''AUX Function to get a URL Content.
+
+    Args:
+        url (str): A valid URL.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     return do_ams_get(endpoint, path, access_token)
+
 
 ### Exceptions...
 # These, I think, should not be here... ;-)
 # upload_block_blob(access_token, endpoint, content, content_length)
 # upload a block blob
 def upload_block_blob(access_token, endpoint, content, content_length):
+    '''AUX (quick and dirty) Function to upload a block Blob..
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        endpoint (str): A Media Service Endpoint.
+        content (str): A Content.
+        content_length (str): A Content Length.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     return do_ams_sto_put(endpoint, content, content_length, access_token)
