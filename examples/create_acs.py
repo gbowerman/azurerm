@@ -30,9 +30,11 @@ location = 'eastus'
 hk = Haikunator()
 rgname = hk.haikunate()
 print('Creating resource group: ' + rgname)
-response = azurerm.create_resource_group(access_token, subscription_id, rgname, location)
+response = azurerm.create_resource_group(
+    access_token, subscription_id, rgname, location)
 if response.status_code != 201:
-    print(json.dumps(response.json(), sort_keys=False, indent=2, separators=(',', ': ')))
+    print(json.dumps(response.json(), sort_keys=False,
+                     indent=2, separators=(',', ': ')))
     sys.exit('Expecting return code 201 from create_resource_group(): ')
 
 # create Container Service name and DNS values
@@ -41,10 +43,10 @@ agent_dns = hk.haikunate(delimiter='')
 master_dns = hk.haikunate(delimiter='')
 
 # generate RSA Key for container service
-key = rsa.generate_private_key(backend=default_backend(), public_exponent=65537, \
-    key_size=2048)
-public_key = key.public_key().public_bytes(serialization.Encoding.OpenSSH, \
-    serialization.PublicFormat.OpenSSH).decode('utf-8')
+key = rsa.generate_private_key(backend=default_backend(), public_exponent=65537,
+                               key_size=2048)
+public_key = key.public_key().public_bytes(serialization.Encoding.OpenSSH,
+                                           serialization.PublicFormat.OpenSSH).decode('utf-8')
 
 # create container service
 agent_count = 3
@@ -57,10 +59,11 @@ print('Master DNS: ' + master_dns)
 print('Agents: ' + str(agent_count) + ' * ' + agent_vm_size)
 print('Master count: ' + str(master_count))
 
-response = azurerm.create_container_service(access_token, subscription_id, \
-    rgname, service_name, agent_count, agent_vm_size, agent_dns, \
-    master_dns, admin_user, location, public_key, master_count=master_count)
+response = azurerm.create_container_service(access_token, subscription_id,
+                                            rgname, service_name, agent_count, agent_vm_size, agent_dns,
+                                            master_dns, admin_user, location, public_key, master_count=master_count)
 if response.status_code != 201:
-    sys.exit('Expecting 201 from create_container_service(): ' + str(response.status_code))
+    sys.exit('Expecting 201 from create_container_service(): ' +
+             str(response.status_code))
 
 print(json.dumps(response.json(), sort_keys=False, indent=2, separators=(',', ': ')))
