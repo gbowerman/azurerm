@@ -1,37 +1,36 @@
-import azurerm
+'''create_as.py - create an Azure Availability Set'''
 import json
+import sys
+
+import azurerm
 
 # Load Azure app defaults
 try:
     with open('azurermconfig.json') as configFile:
-        configData = json.load(configFile)
+        CONFIG_DATA = json.load(configFile)
 except FileNotFoundError:
     print("Error: Expecting azurermonfig.json in current folder")
     sys.exit()
 
-tenant_id = configData['tenantId']
-app_id = configData['appId']
-app_secret = configData['appSecret']
-subscription_id = configData['subscriptionId']
-resource_group = configData['resourceGroup']
-access_token = azurerm.get_access_token(
-    tenant_id,
-    app_id,
-    app_secret
-)
+TENANT_ID = CONFIG_DATA['tenantId']
+APP_ID = CONFIG_DATA['appId']
+APP_SECRET = CONFIG_DATA['appSecret']
+SUB_ID = CONFIG_DATA['subscriptionId']
+LOCATION = CONFIG_DATA['region']
+ACCESS_TOKEN = azurerm.get_access_token(TENANT_ID, APP_ID, APP_SECRET)
+
+print('Enter an existing Azure Resource Group name.')
+RG_NAME = input()
 
 # create an availability set
 print('Enter availability set name to create.')
-asname = input()
-location = 'eastus'
-update_domains = 5
-fault_domains = 3
-asreturn = azurerm.create_as(access_token, subscription_id, resource_group, asname,
-                             update_domains, fault_domains, location)
-print(asreturn)
-
-print('Availability set details...')
+AS_NAME = input()
+UDS = 5
+FDS = 3
+RET = azurerm.create_as(ACCESS_TOKEN, SUB_ID, RG_NAME, AS_NAME, UDS, FDS, LOCATION)
+print(RET)
 
 # get availability set details
-as_info = azurerm.get_as(access_token, subscription_id, resource_group, asname)
-print(json.dumps(as_info, sort_keys=False, indent=2, separators=(',', ': ')))
+print('Availability set details...')
+AS_INFO = azurerm.get_as(ACCESS_TOKEN, SUB_ID, RG_NAME, AS_NAME)
+print(json.dumps(AS_INFO, sort_keys=False, indent=2, separators=(',', ': ')))
