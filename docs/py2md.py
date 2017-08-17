@@ -49,7 +49,7 @@ def process_file(pyfile_name):
         pyfile_str = fpyfile.readlines()
 
     # meta-doc for a source file
-    file_dict = {'source_file': pyfile_name}
+    file_dict = {'source_file': pyfile_name.replace('\\', '/')}
 
     # get file summary line at the top of the file
     if pyfile_str[0].startswith("'''"):
