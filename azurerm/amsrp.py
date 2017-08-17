@@ -418,7 +418,8 @@ def create_media_asset(access_token, name, options="0"):
     return do_ams_post(endpoint, path, body, access_token)
 
 
-def create_media_assetfile(access_token, parent_asset_id, name, is_primary="false", is_encrypted="false", encryption_scheme="None", encryptionkey_id="None"):
+def create_media_assetfile(access_token, parent_asset_id, name, is_primary="false", \
+is_encrypted="false", encryption_scheme="None", encryptionkey_id="None"):
     '''Create Media Service Asset File.
 
     Args:
@@ -516,7 +517,8 @@ def create_contentkey_authorization_policy(access_token, content):
     return do_ams_post(endpoint, path, body, access_token)
 
 
-def create_contentkey_authorization_policy_options(access_token, key_delivery_type="2", name="HLS Open Authorization Policy", key_restriction_type="0"):
+def create_contentkey_authorization_policy_options(access_token, key_delivery_type="2", \
+name="HLS Open Authorization Policy", key_restriction_type="0"):
     '''Create Media Service Content Key Authorization Policy Options.
 
     Args:
@@ -557,7 +559,7 @@ def create_ondemand_streaming_locator(access_token, encoded_asset_id, pid, start
     '''
     path = '/Locators'
     endpoint = ''.join([ams_rest_endpoint, path])
-    if starttime == None:
+    if starttime is None:
         body = '{ \
 			"AccessPolicyId":"' + pid + '", \
 			"AssetId":"' + encoded_asset_id + '", \
@@ -595,7 +597,8 @@ def create_asset_accesspolicy(access_token, name, duration, permission="1"):
     return do_ams_post(endpoint, path, body, access_token)
 
 
-def create_streaming_endpoint(access_token, name, description="New Streaming Endpoint", scale_units="1"):
+def create_streaming_endpoint(access_token, name, description="New Streaming Endpoint", \
+scale_units="1"):
     '''Create Media Service Streaming Endpoint.
 
     Args:
@@ -687,7 +690,8 @@ def link_asset_delivery_policy(access_token, asset_id, adp_id, ams_redirected_re
     return do_ams_post(endpoint, full_path_encoded, body, access_token)
 
 
-def link_contentkey_authorization_policy(access_token, ckap_id, options_id, ams_redirected_rest_endpoint):
+def link_contentkey_authorization_policy(access_token, ckap_id, options_id, \
+ams_redirected_rest_endpoint):
     '''Link Media Service Content Key Authorization Policy.
 
     Args:
@@ -703,7 +707,8 @@ def link_contentkey_authorization_policy(access_token, ckap_id, options_id, ams_
     full_path = ''.join([path, "('", ckap_id, "')", "/$links/Options"])
     full_path_encoded = urllib.parse.quote(full_path, safe='')
     endpoint = ''.join([ams_rest_endpoint, full_path_encoded])
-    uri = ''.join([ams_redirected_rest_endpoint, 'ContentKeyAuthorizationPolicyOptions', "('", options_id, "')"])
+    uri = ''.join([ams_redirected_rest_endpoint, 'ContentKeyAuthorizationPolicyOptions', \
+    "('", options_id, "')"])
     body = '{"uri": "' + uri + '"}'
     return do_ams_post(endpoint, full_path_encoded, body, access_token, "json_only", "1.0;NetFx")
 
@@ -797,7 +802,10 @@ def encode_mezzanine_asset(access_token, processor_id, asset_id, output_assetnam
    		"Tasks":[{ \
        	  		"Configuration":\'' + json_profile + '\', \
        	  		"MediaProcessorId":"' + processor_id + '", \
-       	  		"TaskBody":"<?xml version=\\"1.0\\" encoding=\\"utf-16\\"?><taskBody><inputAsset>JobInputAsset(0)</inputAsset><outputAsset assetCreationOptions=\\"0\\" assetName=\\"' + output_assetname + '\\">JobOutputAsset(0)</outputAsset></taskBody>" \
+       	  		"TaskBody":"<?xml version=\\"1.0\\" encoding=\\"utf-16\\"?><taskBody>\
+                     <inputAsset>JobInputAsset(0)</inputAsset><outputAsset assetCreationOptions=\\"0\\" \
+                     assetName=\\"' + output_assetname + '\\">JobOutputAsset(0)</outputAsset>\
+                     </taskBody>" \
       		}] \
 	}'
     return do_ams_post(endpoint, path, body, access_token)
@@ -828,9 +836,21 @@ def validate_mp4_asset(access_token, processor_id, asset_id, output_assetname):
        	  		} \
      	 	}], \
    		"Tasks":[{ \
-       	  		"Configuration":"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?><taskDefinition xmlns=\\"http://schemas.microsoft.com/iis/media/v4/TM/TaskDefinition#\\"><name>MP4 Preprocessor</name><id>859515BF-9BA3-4BDD-A3B6-400CEF07F870</id><description xml:lang=\\"en\\" /><inputFolder /><properties namespace=\\"http://schemas.microsoft.com/iis/media/V4/TM/MP4Preprocessor#\\" prefix=\\"mp4p\\"><property name=\\"SmoothRequired\\" value=\\"false\\" /><property name=\\"HLSRequired\\" value=\\"true\\" /></properties><taskCode><type>Microsoft.Web.Media.TransformManager.MP4PreProcessor.MP4Preprocessor_Task, Microsoft.Web.Media.TransformManager.MP4Preprocessor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</type></taskCode></taskDefinition>", \
+       	  		"Configuration":"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?><taskDefinition \
+                     xmlns=\\"http://schemas.microsoft.com/iis/media/v4/TM/TaskDefinition#\\">\
+                     <name>MP4 Preprocessor</name><id>859515BF-9BA3-4BDD-A3B6-400CEF07F870</id>\
+                     <description xml:lang=\\"en\\" /><inputFolder /><properties \
+                     namespace=\\"http://schemas.microsoft.com/iis/media/V4/TM/MP4Preprocessor#\\" \
+                     prefix=\\"mp4p\\"><property name=\\"SmoothRequired\\" value=\\"false\\" />\
+                     <property name=\\"HLSRequired\\" value=\\"true\\" /></properties><taskCode>\
+                     <type>Microsoft.Web.Media.TransformManager.MP4PreProcessor.MP4Preprocessor_Task, \
+                     Microsoft.Web.Media.TransformManager.MP4Preprocessor, Version=1.0.0.0, Culture=neutral, \
+                     PublicKeyToken=31bf3856ad364e35</type></taskCode></taskDefinition>", \
        	  		"MediaProcessorId":"' + processor_id + '", \
-       	  		"TaskBody":"<?xml version=\\"1.0\\" encoding=\\"utf-16\\"?><taskBody><inputAsset>JobInputAsset(0)</inputAsset><outputAsset assetCreationOptions=\\"0\\" assetName=\\"' + output_assetname + '\\">JobOutputAsset(0)</outputAsset></taskBody>" \
+       	  		"TaskBody":"<?xml version=\\"1.0\\" encoding=\\"utf-16\\"?><taskBody>\
+                     <inputAsset>JobInputAsset(0)</inputAsset><outputAsset assetCreationOptions=\\"0\\" \
+                     assetName=\\"' + output_assetname + '\\">JobOutputAsset(0)\
+                     </outputAsset></taskBody>" \
       		}] \
 	}'
     return do_ams_post(endpoint, path, body, access_token)
@@ -916,27 +936,30 @@ def translate_job_state(code):
     Returns:
         HTTP response. JSON body.
     '''
+    code_description = ""
     if code == "0":
-        return "Queued"
+        code_description = "Queued"
     if code == "1":
-        return "Scheduled"
+        code_description = "Scheduled"
     if code == "2":
-        return "Processing"
+        code_description = "Processing"
     if code == "3":
-        return "Finished"
+        code_description = "Finished"
     if code == "4":
-        return "Error"
+        code_description = "Error"
     if code == "5":
-        return "Canceled"
+        code_description = "Canceled"
     if code == "6":
-        return "Canceling"
+        code_description = "Canceling"
+
+    return code_description
 
 
 ### Exceptions...
 # These, I think, should not be here... ;-)
 # upload_block_blob(access_token, endpoint, content, content_length)
 # upload a block blob
-def upload_block_blob(access_token, endpoint, content, content_length):
+def upload_block_blob(endpoint, content, content_length):
     '''AUX (quick and dirty) Function to upload a block Blob..
 
     Args:
@@ -948,4 +971,4 @@ def upload_block_blob(access_token, endpoint, content, content_length):
     Returns:
         HTTP response. JSON body.
     '''
-    return do_ams_sto_put(endpoint, content, content_length, access_token)
+    return do_ams_sto_put(endpoint, content, content_length)

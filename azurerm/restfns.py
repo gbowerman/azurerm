@@ -135,16 +135,31 @@ def get_url(access_token, endpoint=ams_rest_endpoint, flag=True):
     '''
     return do_ams_get_url(endpoint, access_token, flag)
 
-# do_auth(endpoint, body, access_token)
-# do an HTTP POST request for authentication (acquire an access token) and return JSON
+
 def do_ams_auth(endpoint, body):
+    '''Acquire Media Services Authentication Token.
+    Args:
+        endpoint (str): Azure Media Services Initial Endpoint.
+        body (str): A Content Body.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     headers = {"content-type": "application/x-www-form-urlencoded",
                "Accept": json_acceptformat}
     return requests.post(endpoint, data=body, headers=headers)
 
-# do_get(endpoint, path, access_token)
-# do an HTTP GET request and return JSON
+
 def do_ams_get(endpoint, path, access_token):
+    '''Do a AMS HTTP GET request and return JSON.
+    Args:
+        endpoint (str): Azure Media Services Initial Endpoint.
+        path (str): Azure Media Services Endpoint Path.
+        access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     headers = {"Content-Type": json_acceptformat,
              		"DataServiceVersion": dsversion_min,
              		"MaxDataServiceVersion": dsversion_max,
@@ -161,9 +176,20 @@ def do_ams_get(endpoint, path, access_token):
         response = requests.get(redirected_url, data=body, headers=headers)
     return response
 
-# do_put(endpoint, path, body, access_token, format="json", ds_min_version="3.0;NetFx")
-# do an HTTP PUT request and return JSON
+
 def do_ams_put(endpoint, path, body, access_token, rformat="json", ds_min_version="3.0;NetFx"):
+    '''Do a AMS HTTP PUT request and return JSON.
+    Args:
+        endpoint (str): Azure Media Services Initial Endpoint.
+        path (str): Azure Media Services Endpoint Path.
+        body  (str): Azure Media Services Content Body.
+        access_token (str): A valid Azure authentication token.
+        rformat (str): A required JSON Accept Format.
+        ds_min_version (str): A required DS MIN Version.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     min_ds = dsversion_min
     content_acceptformat = json_acceptformat
     if rformat == "json_only":
@@ -184,9 +210,20 @@ def do_ams_put(endpoint, path, body, access_token, rformat="json", ds_min_versio
         response = requests.put(redirected_url, data=body, headers=headers)
         return response
 
-# do_post(endpoint, body, access_token, format="json", ds_min_version="3.0;NetFx")
-# do an HTTP POST request and return JSON
+
 def do_ams_post(endpoint, path, body, access_token, rformat="json", ds_min_version="3.0;NetFx"):
+    '''Do a AMS HTTP POST request and return JSON.
+    Args:
+        endpoint (str): Azure Media Services Initial Endpoint.
+        path (str): Azure Media Services Endpoint Path.
+        body  (str): Azure Media Services Content Body.
+        access_token (str): A valid Azure authentication token.
+        rformat (str): A required JSON Accept Format.
+        ds_min_version (str): A required DS MIN Version.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     min_ds = dsversion_min
     content_acceptformat = json_acceptformat
     acceptformat = json_acceptformat
@@ -211,9 +248,18 @@ def do_ams_post(endpoint, path, body, access_token, rformat="json", ds_min_versi
         response = requests.post(redirected_url, data=body, headers=headers)
     return response
 
-# do_patch(endpoint, path, body, access_token)
-# do an HTTP PATCH request and return JSON
+
 def do_ams_patch(endpoint, path, body, access_token):
+    '''Do a AMS PATCH request and return JSON.
+    Args:
+        endpoint (str): Azure Media Services Initial Endpoint.
+        path (str): Azure Media Services Endpoint Path.
+        body  (str): Azure Media Services Content Body.
+        access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     headers = {"Content-Type": json_acceptformat,
                "DataServiceVersion": dsversion_min,
                "MaxDataServiceVersion": dsversion_max,
@@ -229,9 +275,17 @@ def do_ams_patch(endpoint, path, body, access_token):
         response = requests.patch(redirected_url, data=body, headers=headers)
     return response
 
-# do_delete(endpoint, access_token)
-# do an HTTP DELETE request and return JSON
+
 def do_ams_delete(endpoint, path, access_token):
+    '''Do a AMS DELETE request and return JSON.
+    Args:
+        endpoint (str): Azure Media Services Initial Endpoint.
+        path (str): Azure Media Services Endpoint Path.
+        access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     headers = {"DataServiceVersion": dsversion_min,
                "MaxDataServiceVersion": dsversion_max,
                "Accept": json_acceptformat,
@@ -246,9 +300,17 @@ def do_ams_delete(endpoint, path, access_token):
         response = requests.delete(redirected_url, headers=headers)
     return response
 
-# do_sto_put(endpoint, body, access_token)
-# do an HTTP PUT request to the azure storage api and return JSON
-def do_ams_sto_put(endpoint, body, content_length, access_token):
+
+def do_ams_sto_put(endpoint, body, content_length):
+    '''Do a PUT request to the Azure Storage API and return JSON.
+    Args:
+        endpoint (str): Azure Media Services Initial Endpoint.
+        body  (str): Azure Media Services Content Body.
+        content_length (str): Content_length.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     headers = {"Accept": json_acceptformat,
                "Accept-Charset" : charset,
                "x-ms-blob-type" : "BlockBlob",
@@ -258,9 +320,17 @@ def do_ams_sto_put(endpoint, body, content_length, access_token):
                "Content-Length" : str(content_length)}
     return requests.put(endpoint, data=body, headers=headers)
 
-# do_ams_get_url(endpoint, access_token)
-# do an HTTP GET request and return JSON
+
 def do_ams_get_url(endpoint, access_token, flag=True):
+    '''Do an AMS GET request to retrieve the Final AMS Endpoint and return JSON.
+    Args:
+        endpoint (str): Azure Media Services Initial Endpoint.
+        access_token (str): A valid Azure authentication token.
+        flag  (str): A Flag to follow the redirect or not.
+
+    Returns:
+        HTTP response. JSON body.
+    '''
     headers = {"Content-Type": json_acceptformat,
                "DataServiceVersion": dsversion_min,
                "MaxDataServiceVersion": dsversion_max,
