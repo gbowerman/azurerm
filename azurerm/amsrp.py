@@ -2,8 +2,8 @@
 
 import json
 import urllib
-import requests
-from .restfns import do_ams_auth, do_ams_get, do_ams_post, do_ams_put, do_ams_delete, do_ams_patch, do_ams_sto_put, do_ams_get_url, get_url
+from .restfns import do_get, do_put, do_post, do_delete, do_ams_auth, do_ams_get, \
+do_ams_post, do_ams_put, do_ams_delete, do_ams_patch, do_ams_sto_put
 from .settings import get_rm_endpoint, ams_rest_endpoint, ams_auth_endpoint, MEDIA_API
 
 def check_media_service_name_availability(access_token, subscription_id, msname):
@@ -24,7 +24,7 @@ def check_media_service_name_availability(access_token, subscription_id, msname)
     ms_body = {'name': msname}
     ms_body['type'] = 'mediaservices'
     body = json.dumps(ms_body)
-    return do_ams_post(endpoint, body, access_token)
+    return do_post(endpoint, body, access_token)
 
 
 def create_media_service_rg(access_token, subscription_id, rgname, location, stoname, msname):
@@ -55,7 +55,7 @@ def create_media_service_rg(access_token, subscription_id, rgname, location, sto
     properties = {'storageAccounts': [storage_account]}
     ms_body['properties'] = properties
     body = json.dumps(ms_body)
-    return do_ams_put(endpoint, body, access_token)
+    return do_put(endpoint, body, access_token)
 
 
 def delete_media_service_rg(access_token, subscription_id, rgname, msname):
@@ -75,7 +75,7 @@ def delete_media_service_rg(access_token, subscription_id, rgname, msname):
                         '/resourceGroups/', rgname,
                         '/providers/microsoft.media/mediaservices/', msname,
                         '?api-version=', MEDIA_API])
-    return do_ams_delete(endpoint, access_token)
+    return do_delete(endpoint, access_token)
 
 
 def list_media_endpoint_keys(access_token, subscription_id, rgname, msname):
@@ -96,7 +96,7 @@ def list_media_endpoint_keys(access_token, subscription_id, rgname, msname):
                         '/providers/microsoft.media/',
                         '/mediaservices/', msname,
                         '/listKeys?api-version=', MEDIA_API])
-    return do_ams_get(endpoint, access_token)
+    return do_get(endpoint, access_token)
 
 
 def list_media_services(access_token, subscription_id):
@@ -112,7 +112,7 @@ def list_media_services(access_token, subscription_id):
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
                         '/providers/microsoft.media/mediaservices?api-version=', MEDIA_API])
-    return do_ams_get(endpoint, access_token)
+    return do_get(endpoint, access_token)
 
 
 def list_media_services_rg(access_token, subscription_id, rgname):
@@ -130,7 +130,7 @@ def list_media_services_rg(access_token, subscription_id, rgname):
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', rgname,
                         '/providers/microsoft.media/mediaservices?api-version=', MEDIA_API])
-    return do_ams_get(endpoint, access_token)
+    return do_get(endpoint, access_token)
 
 
 def get_ams_access_token(accountname, accountkey):
@@ -435,8 +435,8 @@ def create_media_assetfile(access_token, parent_asset_id, name, is_primary="fals
     '''
     path = '/Files'
     endpoint = ''.join([ams_rest_endpoint, path])
-    if (encryption_scheme == "StorageEncryption"):
-    	body = '{ \
+    if encryption_scheme == "StorageEncryption":
+        body = '{ \
 			"IsEncrypted": "' + is_encrypted + '", \
 			"EncryptionScheme": "' + encryption_scheme + '", \
 			"EncryptionVersion": "' + "1.0" + '", \
@@ -447,7 +447,7 @@ def create_media_assetfile(access_token, parent_asset_id, name, is_primary="fals
 			"ParentAssetId": "' + parent_asset_id + '" \
 		}'
     else:
-    	body = '{ \
+        body = '{ \
 			"IsPrimary": "' + is_primary + '", \
 			"MimeType": "video/mp4", \
 			"Name": "' + name + '", \
@@ -469,7 +469,6 @@ def create_sas_locator(access_token, asset_id, accesspolicy_id):
     '''
     path = '/Locators'
     endpoint = ''.join([ams_rest_endpoint, path])
-    #body = '{"AccessPolicyId":"' + accesspolicy_id + '", "AssetId":"' + asset_id + '", "StartTime":"' + starttime + '", "Type":1 }'
     body = '{ \
 		"AccessPolicyId":"' + accesspolicy_id + '", \
 		"AssetId":"' + asset_id + '", \
@@ -498,41 +497,6 @@ def create_asset_delivery_policy(access_token, ams_account):
 			\\"Key\\":\\"2\\", \
 			\\"Value\\":\\"https://' + ams_account + '.keydelivery.mediaservices.windows.net/\\"}]" \
 	}'
-    return do_ams_post(endpoint, path, body, access_token)
-
-
-def create_media_task(access_token, processor_id, asset_id, content):
-    '''Create Media Service Task.
-
-    Args:
-        access_token (str): A valid Azure authentication token.
-        processor_id (str): Media Service Processor ID.
-        content (str): Content Payload.
-
-    Returns:
-        HTTP response. JSON body.
-    '''
-    path = '/Tasks'
-    endpoint = ''.join([ams_rest_endpoint, path])
-    body = content
-    return do_ams_post(endpoint, path, body, access_token)
-
-
-def create_media_job(access_token, processor_id, asset_id, content):
-    '''Create Media Service Job.
-
-    Args:
-        access_token (str): A valid Azure authentication token.
-        processor_id (str): Media Service Processor ID.
-        asset_id (str): Media Service Asset ID.
-        content (str): Content Payload.
-
-    Returns:
-        HTTP response. JSON body.
-    '''
-    path = '/Jobs'
-    endpoint = ''.join([ams_rest_endpoint, path])
-    body = content
     return do_ams_post(endpoint, path, body, access_token)
 
 
@@ -568,11 +532,11 @@ def create_contentkey_authorization_policy_options(access_token, key_delivery_ty
     endpoint = ''.join([ams_rest_endpoint, path])
     body = '{ \
 		"Name":"policy",\
-		"KeyDeliveryType":2, \
+		"KeyDeliveryType":"' + key_delivery_type + '", \
 		"KeyDeliveryConfiguration":"", \
 			"Restrictions":[{ \
 			"Name":"' + name + '", \
-			"KeyRestrictionType":0, \
+			"KeyRestrictionType":"' + key_restriction_type + '", \
 			"Requirements":null \
 		}] \
 	}'
@@ -593,19 +557,19 @@ def create_ondemand_streaming_locator(access_token, encoded_asset_id, pid, start
     '''
     path = '/Locators'
     endpoint = ''.join([ams_rest_endpoint, path])
-    if(starttime == None):
-    	body = '{ \
+    if starttime == None:
+        body = '{ \
 			"AccessPolicyId":"' + pid + '", \
 			"AssetId":"' + encoded_asset_id + '", \
 			"Type": "2" \
-		}' 
+    }'
     else:
-    	body = '{ \
+        body = '{ \
 			"AccessPolicyId":"' + pid + '", \
 			"AssetId":"' + encoded_asset_id + '", \
 			"StartTime":"' + str(starttime) + '", \
 			"Type": "2" \
-		}' 
+		}'
     return do_ams_post(endpoint, path, body, access_token, "json_only")
 
 
@@ -901,8 +865,8 @@ def helper_list(access_token, oid, path):
     Returns:
         HTTP response. JSON body.
     '''
-    if(oid != ""):
-    	path = ''.join([path, "('", oid, "')"])
+    if oid != "":
+        path = ''.join([path, "('", oid, "')"])
     endpoint = ''.join([ams_rest_endpoint, path])
     return do_ams_get(endpoint, path, access_token)
 
@@ -933,14 +897,14 @@ def translate_asset_options(nr):
     Returns:
         HTTP response. JSON body.
     '''
-    if (nr == "0"): 
-    	return "None"
-    if (nr == "1"): 
-    	return "StorageEncrypted"
-    if (nr == "2"): 
-    	return "CommonEncryptionProtected"
-    if (nr == "4"): 
-    	return "EnvelopeEncryptionProtected"
+    if nr == "0":
+        return "None"
+    if nr == "1":
+        return "StorageEncrypted"
+    if nr == "2":
+        return "CommonEncryptionProtected"
+    if nr == "4":
+        return "EnvelopeEncryptionProtected"
 
 
 def translate_job_state(nr):
@@ -952,32 +916,20 @@ def translate_job_state(nr):
     Returns:
         HTTP response. JSON body.
     '''
-    if (nr == "0"): 
-    	return "Queued"
-    if (nr == "1"): 
-    	return "Scheduled"
-    if (nr == "2"): 
-    	return "Processing"
-    if (nr == "3"): 
-    	return "Finished"
-    if (nr == "4"): 
-    	return "Error"
-    if (nr == "5"): 
-    	return "Canceled"
-    if (nr == "6"): 
-    	return "Canceling"
-
-
-def retrieve_url_content(url):
-    '''AUX Function to get a URL Content.
-
-    Args:
-        url (str): A valid URL.
-
-    Returns:
-        HTTP response. JSON body.
-    '''
-    return do_ams_get(endpoint, path, access_token)
+    if nr == "0":
+        return "Queued"
+    if nr == "1":
+        return "Scheduled"
+    if nr == "2":
+        return "Processing"
+    if nr == "3":
+        return "Finished"
+    if nr == "4":
+        return "Error"
+    if nr == "5":
+        return "Canceled"
+    if nr == "6":
+        return "Canceling"
 
 
 ### Exceptions...

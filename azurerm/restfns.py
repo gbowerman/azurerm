@@ -1,11 +1,10 @@
 '''azurerm restfns - REST functions for azurerm'''
 
 import platform
-import json
 import pkg_resources  # to get version
 import requests
-from .settings import json_acceptformat, json_only_acceptformat, xml_acceptformat, batch_acceptformat, charset, dsversion_min, dsversion_max, xmsversion, \
-get_rm_endpoint, ams_rest_endpoint, ams_auth_endpoint, MEDIA_API
+from .settings import json_acceptformat, json_only_acceptformat, xml_acceptformat, \
+charset, dsversion_min, dsversion_max, xmsversion, ams_rest_endpoint
 
 def get_user_agent():
     '''User-Agent Header. Sends library identification to Azure endpoint.
@@ -124,7 +123,6 @@ def do_put(endpoint, body, access_token):
     return requests.put(endpoint, data=body, headers=headers)
 
 
-''' restfns - REST functions for amspy. '''
 def get_url(access_token, endpoint=ams_rest_endpoint, flag=True):
     '''Get Media Services Final Endpoint URL.
     Args:
@@ -141,135 +139,138 @@ def get_url(access_token, endpoint=ams_rest_endpoint, flag=True):
 # do an HTTP POST request for authentication (acquire an access token) and return JSON
 def do_ams_auth(endpoint, body):
     headers = {"content-type": "application/x-www-form-urlencoded",
-                "Accept": json_acceptformat}
+               "Accept": json_acceptformat}
     return requests.post(endpoint, data=body, headers=headers)
 
 # do_get(endpoint, path, access_token)
 # do an HTTP GET request and return JSON
 def do_ams_get(endpoint, path, access_token):
     headers = {"Content-Type": json_acceptformat,
-		"DataServiceVersion": dsversion_min,
-		"MaxDataServiceVersion": dsversion_max,
-		"Accept": json_acceptformat,
-		"Accept-Charset" : charset,
-		"Authorization": "Bearer " + access_token,
-		"x-ms-version" : xmsversion}
+             		"DataServiceVersion": dsversion_min,
+             		"MaxDataServiceVersion": dsversion_max,
+             		"Accept": json_acceptformat,
+             		"Accept-Charset" : charset,
+             		"Authorization": "Bearer " + access_token,
+             		"x-ms-version" : xmsversion}
     body = ''
     response = requests.get(endpoint, headers=headers, allow_redirects=False)
-    # AMS response to the first call can be a redirect, 
+    # AMS response to the first call can be a redirect,
     # so we handle it here to make it transparent for the caller...
-    if (response.status_code == 301):
-         redirected_url = ''.join([response.headers['location'], path])
-         response = requests.get(redirected_url, data=body, headers=headers)
+    if response.status_code == 301:
+        redirected_url = ''.join([response.headers['location'], path])
+        response = requests.get(redirected_url, data=body, headers=headers)
     return response
 
 # do_put(endpoint, path, body, access_token, format="json", ds_min_version="3.0;NetFx")
 # do an HTTP PUT request and return JSON
-def do_ams_put(endpoint, path, body, access_token, format="json", ds_min_version="3.0;NetFx"):
-    min_ds = dsversion_min; content_acceptformat = json_acceptformat
-    if (format == "json_only"):
-    	min_ds = ds_min_version
-    	content_acceptformat = json_only_acceptformat
-    headers = {"Content-Type": content_acceptformat,
-		"DataServiceVersion": min_ds,
-		"MaxDataServiceVersion": dsversion_max,
-		"Accept": json_acceptformat,
-		"Accept-Charset" : charset,
-		"Authorization": "Bearer " + access_token,
-		"x-ms-version" : xmsversion}
+def do_ams_put(endpoint, path, body, access_token, rformat="json", ds_min_version="3.0;NetFx"):
+    min_ds = dsversion_min
+    content_acceptformat = json_acceptformat
+    if rformat == "json_only":
+        min_ds = ds_min_version
+        content_acceptformat = json_only_acceptformat
+        headers = {"Content-Type": content_acceptformat,
+                   "DataServiceVersion": min_ds,
+                   "MaxDataServiceVersion": dsversion_max,
+                   "Accept": json_acceptformat,
+                   "Accept-Charset" : charset,
+                   "Authorization": "Bearer " + access_token,
+                   "x-ms-version" : xmsversion}
     response = requests.put(endpoint, data=body, headers=headers, allow_redirects=False)
-    # AMS response to the first call can be a redirect, 
+    # AMS response to the first call can be a redirect,
     # so we handle it here to make it transparent for the caller...
-    if (response.status_code == 301):
-    	redirected_url = ''.join([response.headers['location'], path])
-    	response = requests.put(redirected_url, data=body, headers=headers)
-    return response
+    if response.status_code == 301:
+        redirected_url = ''.join([response.headers['location'], path])
+        response = requests.put(redirected_url, data=body, headers=headers)
+        return response
 
 # do_post(endpoint, body, access_token, format="json", ds_min_version="3.0;NetFx")
 # do an HTTP POST request and return JSON
-def do_ams_post(endpoint, path, body, access_token, format="json", ds_min_version="3.0;NetFx"):
-    min_ds = dsversion_min; content_acceptformat = json_acceptformat; acceptformat = json_acceptformat
-    if (format == "json_only"):
-    	min_ds = ds_min_version
-    	content_acceptformat = json_only_acceptformat
-    if (format == "xml"):
-    	content_acceptformat = xml_acceptformat
-    	acceptformat = xml_acceptformat + ",application/xml" 
-    headers = {"Content-Type": content_acceptformat, 
-		"DataServiceVersion": min_ds,
-		"MaxDataServiceVersion": dsversion_max,
-		"Accept": acceptformat,
-		"Accept-Charset" : charset,
-		"Authorization": "Bearer " + access_token,
-		"x-ms-version" : xmsversion}
+def do_ams_post(endpoint, path, body, access_token, rformat="json", ds_min_version="3.0;NetFx"):
+    min_ds = dsversion_min
+    content_acceptformat = json_acceptformat
+    acceptformat = json_acceptformat
+    if rformat == "json_only":
+        min_ds = ds_min_version
+        content_acceptformat = json_only_acceptformat
+    if rformat == "xml":
+        content_acceptformat = xml_acceptformat
+        acceptformat = xml_acceptformat + ",application/xml"
+    headers = {"Content-Type": content_acceptformat,
+               "DataServiceVersion": min_ds,
+               "MaxDataServiceVersion": dsversion_max,
+               "Accept": acceptformat,
+               "Accept-Charset" : charset,
+               "Authorization": "Bearer " + access_token,
+               "x-ms-version" : xmsversion}
     response = requests.post(endpoint, data=body, headers=headers, allow_redirects=False)
-    # AMS response to the first call can be a redirect, 
+    # AMS response to the first call can be a redirect,
     # so we handle it here to make it transparent for the caller...
-    if (response.status_code == 301):
-         redirected_url = ''.join([response.headers['location'], path])
-         response = requests.post(redirected_url, data=body, headers=headers)
+    if response.status_code == 301:
+        redirected_url = ''.join([response.headers['location'], path])
+        response = requests.post(redirected_url, data=body, headers=headers)
     return response
 
 # do_patch(endpoint, path, body, access_token)
 # do an HTTP PATCH request and return JSON
 def do_ams_patch(endpoint, path, body, access_token):
-    headers = {"Content-Type": json_acceptformat, 
-		"DataServiceVersion": dsversion_min,
-		"MaxDataServiceVersion": dsversion_max,
-		"Accept": json_acceptformat,
-		"Accept-Charset" : charset,
-		"Authorization": "Bearer " + access_token,
-		"x-ms-version" : xmsversion}
+    headers = {"Content-Type": json_acceptformat,
+               "DataServiceVersion": dsversion_min,
+               "MaxDataServiceVersion": dsversion_max,
+               "Accept": json_acceptformat,
+               "Accept-Charset" : charset,
+               "Authorization": "Bearer " + access_token,
+               "x-ms-version" : xmsversion}
     response = requests.patch(endpoint, data=body, headers=headers, allow_redirects=False)
-    # AMS response to the first call can be a redirect, 
+    # AMS response to the first call can be a redirect,
     # so we handle it here to make it transparent for the caller...
-    if (response.status_code == 301):
-         redirected_url = ''.join([response.headers['location'], path])
-         response = requests.patch(redirected_url, data=body, headers=headers)
+    if response.status_code == 301:
+        redirected_url = ''.join([response.headers['location'], path])
+        response = requests.patch(redirected_url, data=body, headers=headers)
     return response
 
 # do_delete(endpoint, access_token)
 # do an HTTP DELETE request and return JSON
 def do_ams_delete(endpoint, path, access_token):
     headers = {"DataServiceVersion": dsversion_min,
-		"MaxDataServiceVersion": dsversion_max,
-		"Accept": json_acceptformat,
-		"Accept-Charset" : charset,
-		"Authorization": 'Bearer ' + access_token,
-		"x-ms-version" : xmsversion}
+               "MaxDataServiceVersion": dsversion_max,
+               "Accept": json_acceptformat,
+               "Accept-Charset" : charset,
+               "Authorization": 'Bearer ' + access_token,
+               "x-ms-version" : xmsversion}
     response = requests.delete(endpoint, headers=headers, allow_redirects=False)
-    # AMS response to the first call can be a redirect, 
+    # AMS response to the first call can be a redirect,
     # so we handle it here to make it transparent for the caller...
-    if (response.status_code == 301):
-         redirected_url = ''.join([response.headers['location'], path])
-         response = requests.delete(redirected_url, headers=headers)
+    if response.status_code == 301:
+        redirected_url = ''.join([response.headers['location'], path])
+        response = requests.delete(redirected_url, headers=headers)
     return response
 
 # do_sto_put(endpoint, body, access_token)
 # do an HTTP PUT request to the azure storage api and return JSON
 def do_ams_sto_put(endpoint, body, content_length, access_token):
     headers = {"Accept": json_acceptformat,
-		"Accept-Charset" : charset,
-		"x-ms-blob-type" : "BlockBlob",
-		"x-ms-meta-m1": "v1",
-		"x-ms-meta-m2": "v2",
-		"x-ms-version" : "2015-02-21",
-		"Content-Length" : str(content_length)}
+               "Accept-Charset" : charset,
+               "x-ms-blob-type" : "BlockBlob",
+               "x-ms-meta-m1": "v1",
+               "x-ms-meta-m2": "v2",
+               "x-ms-version" : "2015-02-21",
+               "Content-Length" : str(content_length)}
     return requests.put(endpoint, data=body, headers=headers)
 
 # do_ams_get_url(endpoint, access_token)
 # do an HTTP GET request and return JSON
 def do_ams_get_url(endpoint, access_token, flag=True):
     headers = {"Content-Type": json_acceptformat,
-		"DataServiceVersion": dsversion_min,
-		"MaxDataServiceVersion": dsversion_max,
-		"Accept": json_acceptformat,
-		"Accept-Charset" : charset,
-		"Authorization": "Bearer " + access_token,
-		"x-ms-version" : xmsversion}
+               "DataServiceVersion": dsversion_min,
+               "MaxDataServiceVersion": dsversion_max,
+               "Accept": json_acceptformat,
+               "Accept-Charset" : charset,
+               "Authorization": "Bearer " + access_token,
+               "x-ms-version" : xmsversion}
     body = ''
     response = requests.get(endpoint, headers=headers, allow_redirects=flag)
-    if(flag):
-    	if (response.status_code == 301):
-    		response = requests.get(response.headers['location'], data=body, headers=headers)
+    if flag:
+        if response.status_code == 301:
+            response = requests.get(response.headers['location'], data=body, headers=headers)
     return response
