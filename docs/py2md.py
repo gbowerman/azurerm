@@ -49,7 +49,7 @@ def process_file(pyfile_name):
         pyfile_str = fpyfile.readlines()
 
     # meta-doc for a source file
-    file_dict = {}
+    file_dict = {'source_file': pyfile_name}
 
     # get file summary line at the top of the file
     if pyfile_str[0].startswith("'''"):
@@ -80,7 +80,7 @@ def process_file(pyfile_name):
     return file_dict
 
 
-def process_output(meta_file, outfile_name):
+def process_output(meta_file, outfile_name, code_links):
     '''Create a markdown format documentation file.
 
     Args:
@@ -105,9 +105,11 @@ def process_output(meta_file, outfile_name):
                 '. [' + chapter_name + '](#' + chapter_link + ')\n'
             chapter_num += 1
 
+
     # Document each meta-file
     for meta_doc in meta_file['modules']:
         doc_str += '## ' + meta_doc['summary_comment'] + '\n'
+        doc_str += '[source file](' + meta_doc['source_file'] + ')' + '\n'
         for function_info in meta_doc['functions']:
             doc_str += '### ' + function_info['name'] + '\n'
             doc_str += function_info['definition'] + '\n\n'
@@ -132,11 +134,14 @@ def main():
                             help='Name of markdown file to write output to.')
     arg_parser.add_argument('--projectname', '-n', required=False, action='store',
                             help='Project name (optional, otherwise sourcedir will be used).')
+    arg_parser.add_argument('--codelinks', '-c', required=False, action='store_true',
+                            help='Include links to source files (optional).')
 
     args = arg_parser.parse_args()
 
     source_dir = args.sourcedir
     doc_file = args.docfile
+    code_links = args.codelinks
     proj_name = args.projectname
     if proj_name is None:
         proj_name = source_dir
@@ -154,7 +159,7 @@ def main():
         meta_doc['modules'].append(file_meta_doc)
 
     # create output file
-    process_output(meta_doc, doc_file)
+    process_output(meta_doc, doc_file, code_links)
 
 
 if __name__ == "__main__":

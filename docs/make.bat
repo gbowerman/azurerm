@@ -1,1 +1,1 @@
-python .\py2md.py -s ..\azurerm -o README.md -n "azurerm - Azure REST wrappers"
+python .\py2md.py -s ..\azurerm -o README.md -n "azurerm - Azure REST wrappers" -c
