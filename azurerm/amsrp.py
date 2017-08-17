@@ -888,7 +888,7 @@ def helper_delete(access_token, oid, path):
     return do_ams_delete(endpoint, full_path_encoded, access_token)
 
 
-def translate_asset_options(nr):
+def translate_asset_options(code):
     '''AUX Function to translate the asset (numeric) encryption option of an Asset.
 
     Args:
@@ -897,17 +897,17 @@ def translate_asset_options(nr):
     Returns:
         HTTP response. JSON body.
     '''
-    if nr == "0":
+    if code == "0":
         return "None"
-    if nr == "1":
+    if code == "1":
         return "StorageEncrypted"
-    if nr == "2":
+    if code == "2":
         return "CommonEncryptionProtected"
-    if nr == "4":
+    if code == "4":
         return "EnvelopeEncryptionProtected"
 
 
-def translate_job_state(nr):
+def translate_job_state(code):
     '''AUX Function to translate the (numeric) state of a Job.
 
     Args:
@@ -916,19 +916,19 @@ def translate_job_state(nr):
     Returns:
         HTTP response. JSON body.
     '''
-    if nr == "0":
+    if code == "0":
         return "Queued"
-    if nr == "1":
+    if code == "1":
         return "Scheduled"
-    if nr == "2":
+    if code == "2":
         return "Processing"
-    if nr == "3":
+    if code == "3":
         return "Finished"
-    if nr == "4":
+    if code == "4":
         return "Error"
-    if nr == "5":
+    if code == "5":
         return "Canceled"
-    if nr == "6":
+    if code == "6":
         return "Canceling"
 
 
