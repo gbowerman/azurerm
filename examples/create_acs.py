@@ -59,9 +59,10 @@ print('Master DNS: ' + master_dns)
 print('Agents: ' + str(agent_count) + ' * ' + agent_vm_size)
 print('Master count: ' + str(master_count))
 
-response = azurerm.create_container_service(access_token, subscription_id,
-                                            rgname, service_name, agent_count, agent_vm_size, agent_dns,
-                                            master_dns, admin_user, location, public_key, master_count=master_count)
+response = azurerm.create_container_service(access_token, subscription_id, rgname, service_name,
+                                            agent_count, agent_vm_size, agent_dns, master_dns,
+                                            admin_user, location, public_key,
+                                            master_count=master_count)
 if response.status_code != 201:
     sys.exit('Expecting 201 from create_container_service(): ' +
              str(response.status_code))

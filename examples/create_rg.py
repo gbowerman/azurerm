@@ -1,27 +1,27 @@
-import azurerm
+'''create_rg.py - Create an Azure resource group'''
 import json
+import sys
+
+import azurerm
 
 # Load Azure app defaults
 try:
-   with open('azurermconfig.json') as configFile:    
-      configData = json.load(configFile)
+    with open('azurermconfig.json') as config_file:
+        CONFIG_DATA = json.load(config_file)
 except FileNotFoundError:
-   print("Error: Expecting vmssConfig.json in current folder")
-   sys.exit()
-   
-tenant_id = configData['tenantId']
-app_id = configData['appId']
-app_secret = configData['appSecret']
-subscription_id = configData['subscriptionId']
-access_token = azurerm.get_access_token(
-    tenant_id,
-    app_id,
-    app_secret
-)
+    print("Error: Expecting azurermconfig.json in current folder")
+    sys.exit()
+
+TENANT_ID = CONFIG_DATA['tenantId']
+APP_ID = CONFIG_DATA['appId']
+APP_SECRET = CONFIG_DATA['appSecret']
+SUB_ID = CONFIG_DATA['subscriptionId']
+
+ACCESS_TOKEN = azurerm.get_access_token(TENANT_ID, APP_ID, APP_SECRET)
 
 # create a resource group
 print('Enter Resource group name to create.')
-rgname = input()
-location = 'eastus'
-rgreturn = azurerm.create_resource_group(access_token, subscription_id, rgname, location)
-print(rgreturn)
+RGNAME = input()
+LOCATION = 'eastus'
+RET = azurerm.create_resource_group(ACCESS_TOKEN, SUB_ID, RGNAME, LOCATION)
+print(RET)
