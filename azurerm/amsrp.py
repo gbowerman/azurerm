@@ -802,10 +802,7 @@ def encode_mezzanine_asset(access_token, processor_id, asset_id, output_assetnam
    		"Tasks":[{ \
        	  		"Configuration":\'' + json_profile + '\', \
        	  		"MediaProcessorId":"' + processor_id + '", \
-       	  		"TaskBody":"<?xml version=\\"1.0\\" encoding=\\"utf-16\\"?><taskBody>\
-                     <inputAsset>JobInputAsset(0)</inputAsset><outputAsset assetCreationOptions=\\"0\\" \
-                     assetName=\\"' + output_assetname + '\\">JobOutputAsset(0)</outputAsset>\
-                     </taskBody>" \
+       	  		"TaskBody":"<?xml version=\\"1.0\\" encoding=\\"utf-16\\"?><taskBody><inputAsset>JobInputAsset(0)</inputAsset><outputAsset assetCreationOptions=\\"0\\" assetName=\\"' + output_assetname + '\\">JobOutputAsset(0)</outputAsset></taskBody>" \
       		}] \
 	}'
     return do_ams_post(endpoint, path, body, access_token)
@@ -836,21 +833,9 @@ def validate_mp4_asset(access_token, processor_id, asset_id, output_assetname):
        	  		} \
      	 	}], \
    		"Tasks":[{ \
-       	  		"Configuration":"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?><taskDefinition \
-                     xmlns=\\"http://schemas.microsoft.com/iis/media/v4/TM/TaskDefinition#\\">\
-                     <name>MP4 Preprocessor</name><id>859515BF-9BA3-4BDD-A3B6-400CEF07F870</id>\
-                     <description xml:lang=\\"en\\" /><inputFolder /><properties \
-                     namespace=\\"http://schemas.microsoft.com/iis/media/V4/TM/MP4Preprocessor#\\" \
-                     prefix=\\"mp4p\\"><property name=\\"SmoothRequired\\" value=\\"false\\" />\
-                     <property name=\\"HLSRequired\\" value=\\"true\\" /></properties><taskCode>\
-                     <type>Microsoft.Web.Media.TransformManager.MP4PreProcessor.MP4Preprocessor_Task, \
-                     Microsoft.Web.Media.TransformManager.MP4Preprocessor, Version=1.0.0.0, Culture=neutral, \
-                     PublicKeyToken=31bf3856ad364e35</type></taskCode></taskDefinition>", \
+       	  		"Configuration":"<?xml version=\\"1.0\\" encoding=\\"utf-8\\"?><taskDefinition xmlns=\\"http://schemas.microsoft.com/iis/media/v4/TM/TaskDefinition#\\"><name>MP4 Preprocessor</name><id>859515BF-9BA3-4BDD-A3B6-400CEF07F870</id><description xml:lang=\\"en\\" /><inputFolder /><properties namespace=\\"http://schemas.microsoft.com/iis/media/V4/TM/MP4Preprocessor#\\" prefix=\\"mp4p\\"><property name=\\"SmoothRequired\\" value=\\"false\\" /><property name=\\"HLSRequired\\" value=\\"true\\" /></properties><taskCode><type>Microsoft.Web.Media.TransformManager.MP4PreProcessor.MP4Preprocessor_Task, Microsoft.Web.Media.TransformManager.MP4Preprocessor, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35</type></taskCode></taskDefinition>", \
        	  		"MediaProcessorId":"' + processor_id + '", \
-       	  		"TaskBody":"<?xml version=\\"1.0\\" encoding=\\"utf-16\\"?><taskBody>\
-                     <inputAsset>JobInputAsset(0)</inputAsset><outputAsset assetCreationOptions=\\"0\\" \
-                     assetName=\\"' + output_assetname + '\\">JobOutputAsset(0)\
-                     </outputAsset></taskBody>" \
+       	  		"TaskBody":"<?xml version=\\"1.0\\" encoding=\\"utf-16\\"?><taskBody><inputAsset>JobInputAsset(0)</inputAsset><outputAsset assetCreationOptions=\\"0\\" assetName=\\"' + output_assetname + '\\">JobOutputAsset(0)</outputAsset></taskBody>" \
       		}] \
 	}'
     return do_ams_post(endpoint, path, body, access_token)
