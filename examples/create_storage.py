@@ -16,12 +16,7 @@ TENANT_ID = CONFIG_DATA['tenantId']
 APP_ID = CONFIG_DATA['appId']
 APP_SECRET = CONFIG_DATA['appSecret']
 SUB_ID = CONFIG_DATA['subscriptionId']
-
-ACCESS_TOKEN = azurerm.get_access_token(
-    TENANT_ID,
-    APP_ID,
-    APP_SECRET
-)
+ACCESS_TOKEN = azurerm.get_access_token(TENANT_ID, APP_ID, APP_SECRET)
 
 print('Enter an existing Azure Resource Group name.')
 RG_NAME = input()
