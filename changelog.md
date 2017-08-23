@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.8.25 (8/22/17):
+- Comments formatting for README.py only.
+
 ### v0.8.24 (8/22/17):
 - Added cosmosdb API - thanks @iainfounds.
 
