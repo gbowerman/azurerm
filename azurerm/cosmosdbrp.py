@@ -1,4 +1,4 @@
-'''storagerp.py - azurerm functions for the Microsoft.Storage resource provider'''
+'''cosmosdbrp.py - azurerm functions for the Microsoft.Storage resource provider'''
 import json
 
 from .restfns import do_post, do_put
