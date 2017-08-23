@@ -1,11 +1,12 @@
 '''storagerp.py - azurerm functions for the Microsoft.Storage resource provider'''
 import json
-from .restfns import do_delete, do_get, do_put, do_post
-from .settings import get_rm_endpoint, COSMOSDB_API
+
+from .restfns import do_post, do_put
+from .settings import COSMOSDB_API, get_rm_endpoint
 
 
 def create_cosmosdb_account(access_token, subscription_id, rgname, account_name, location,
-                           cosmosdb_kind):
+                            cosmosdb_kind):
     '''Create a new storage account in the named resource group, with the named location.
 
     Args:
@@ -25,9 +26,12 @@ def create_cosmosdb_account(access_token, subscription_id, rgname, account_name,
                         '/providers/Microsoft.DocumentDB/databaseAccounts/', account_name,
                         '?api-version=', COSMOSDB_API])
 
-    cosmosdb_body = {'location': location, 'kind': cosmosdb_kind, 'properties': {'databaseAccountOfferType': 'Standard', 'locations': [{'failoverPriority': 0, 'locationName': location}]}}
+    cosmosdb_body = {'location': location,
+                     'kind': cosmosdb_kind,
+                     'properties': {'databaseAccountOfferType': 'Standard',
+                                    'locations': [{'failoverPriority': 0,
+                                                   'locationName': location}]}}
     body = json.dumps(cosmosdb_body)
-
     return do_put(endpoint, body, access_token)
 
 
