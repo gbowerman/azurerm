@@ -1,4 +1,4 @@
-''' container.py - azurerm functions for Azure Container instances'''
+'''container.py - azurerm functions for Azure Container instances'''
 import json
 from .restfns import do_delete, do_get, do_put
 from .settings import get_rm_endpoint, CONTAINER_API
