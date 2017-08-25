@@ -1,4 +1,4 @@
-'''cosmosdbrp.py - azurerm functions for the Microsoft.Storage resource provider'''
+'''cosmosdbrp.py - azurerm functions for the Microsoft.DocumentDB resource provider'''
 import json
 
 from .restfns import do_post, do_put
@@ -7,7 +7,7 @@ from .settings import COSMOSDB_API, get_rm_endpoint
 
 def create_cosmosdb_account(access_token, subscription_id, rgname, account_name, location,
                             cosmosdb_kind):
-    '''Create a new storage account in the named resource group, with the named location.
+    '''Create a new Cosmos DB account in the named resource group, with the named location.
 
     Args:
         access_token (str): A valid Azure authentication token.
