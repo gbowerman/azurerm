@@ -11,8 +11,7 @@ def main():
         with open('azurermconfig.json') as config_file:
             config_data = json.load(config_file)
     except FileNotFoundError:
-        print("Error: Expecting azurermconfig.json in current folder")
-        sys.exit()
+        sys.exit("Error: Expecting azurermconfig.json in current folder")
 
     tenant_id = config_data['tenantId']
     app_id = config_data['appId']
