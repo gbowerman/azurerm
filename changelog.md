@@ -1,10 +1,13 @@
 # azurerm - change log
 
+### v0.8.25 (8/27/17):
+- Fixed list_insights_components()
+
 ### v0.8.25 (8/22/17):
 - Comments formatting for README.py only.
 
 ### v0.8.24 (8/22/17):
-- Added cosmosdb API - thanks @iainfounds.
+- Added cosmosdb API - thanks @iainfoulds.
 
 ### v0.8.23 (8/11/17):
 - Auto-generated documentation now in place. See [azurerm Technical Reference](https://github.com/gbowerman/azurerm/tree/master/docs).

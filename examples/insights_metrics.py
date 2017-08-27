@@ -24,7 +24,7 @@ def main():
         with open('azurermconfig.json') as config_file:
             config_data = json.load(config_file)
     except FileNotFoundError:
-        print("Error: Expecting vmssConfig.json in current folder")
+        print("Error: Expecting azurermconfig.json in current folder")
         sys.exit()
 
     tenant_id = config_data['tenantId']
