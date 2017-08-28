@@ -39,13 +39,11 @@ def main():
     access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
     # get public IPs
-    public_ips = azurerm.get_vmss_public_ips(
-        access_token, subscription_id, rgname, name)
+    public_ips = azurerm.get_vmss_public_ips(access_token, subscription_id, rgname, name)
 
     # print details
     if details is True:
-        print(json.dumps(public_ips, sort_keys=False,
-                         indent=2, separators=(',', ': ')))
+        print(json.dumps(public_ips, sort_keys=False, indent=2, separators=(',', ': ')))
     else:
         for pip in public_ips['value']:
             vm_id = re.search('Machines/(.*)/networkInt', pip['id']).group(1)

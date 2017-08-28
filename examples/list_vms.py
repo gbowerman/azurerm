@@ -36,5 +36,6 @@ def main():
                     ', OS: ', offer, ' ', sku]))
     '''
 
+
 if __name__ == "__main__":
     main()

@@ -1,6 +1,9 @@
 # azurerm - change log
 
-### v0.8.25 (8/27/17):
+### v0.8.27 (8/28/17):
+- Fixed list_vmss_nics() (incorrect API version)
+
+### v0.8.26 (8/27/17):
 - Fixed list_insights_components()
 
 ### v0.8.25 (8/22/17):

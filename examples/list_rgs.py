@@ -29,5 +29,6 @@ def main():
         print(json.dumps(rg_details, sort_keys=False, indent=2, separators=(',', ': ')))
         '''
 
+
 if __name__ == "__main__":
     main()
