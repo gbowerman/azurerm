@@ -20,7 +20,7 @@ def main():
         with open('azurermconfig.json') as config_file:
             config_data = json.load(config_file)
     except FileNotFoundError:
-        sys.exit('Error: Expecting vmssConfig.json in current folder')
+        sys.exit('Error: Expecting azurermconfig.json in current folder')
 
     tenant_id = config_data['tenantId']
     app_id = config_data['appId']
@@ -34,15 +34,17 @@ def main():
         name = vmss['name']
         location = vmss['location']
         capacity = vmss['sku']['capacity']
-        print(''.join(['Name: ', name, ', location: ', location,
-                       ', Capacity: ', str(capacity)]))
+        print(''.join(['Name: ', name, ', location: ',
+                       location, ', Capacity: ', str(capacity)]))
         print('VMSS NICs...')
         rgname = get_rg_from_id(vmss['id'])
-        vmss_nics = azurerm.get_vmss_nics(access_token, subscription_id, rgname, name)
+        vmss_nics = azurerm.get_vmss_nics(
+            access_token, subscription_id, rgname, name)
         print(json.dumps(vmss_nics, sort_keys=False,
                          indent=2, separators=(',', ': ')))
         print('VMSS Virtual machines...')
-        vms = azurerm.list_vmss_vms(access_token, subscription_id, rgname, name)
+        vms = azurerm.list_vmss_vms(
+            access_token, subscription_id, rgname, name)
         #print(json.dumps(vms, sort_keys=False, indent=2, separators=(',', ': ')))
         for vmssvm in vms['value']:
             vm_id = vmssvm['instanceId']
