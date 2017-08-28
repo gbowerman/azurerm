@@ -23,12 +23,11 @@ def main():
     # list resource groups
     resource_groups = azurerm.list_resource_groups(access_token, sub_id)
     for rgname in resource_groups['value']:
-        print(rgname['name'] + ', ' + rgname['location'] + ', '
-              + rgname['properties']['provisioningState'])
-        print('Resource group details..')
+        print(rgname['name'] + ', ' + rgname['location'])
+        '''
         rg_details = azurerm.get_resource_group(access_token, sub_id, rgname['name'])
         print(json.dumps(rg_details, sort_keys=False, indent=2, separators=(',', ': ')))
-
+        '''
 
 if __name__ == "__main__":
     main()
