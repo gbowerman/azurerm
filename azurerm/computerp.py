@@ -926,7 +926,7 @@ def restart_vmss_vms(access_token, subscription_id, resource_group, vmss_name, i
     return do_post(endpoint, body, access_token)
 
 
-def scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, tier, capacity):
+def scale_vmss(access_token, subscription_id, resource_group, vmss_name, capacity):
     '''Change the instance count of an existing VM Scale Set.
 
     Args:
@@ -934,8 +934,6 @@ def scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, t
         subscription_id (str): Azure subscription id.
         resource_group (str): Azure resource group name.
         vmss_name (str): Name of the virtual machine scale set.
-        size (str): VM size. E.g. 'Standard_D1_v2'.
-        tier (str): VM tier. E.g. 'Standard'.
         capacity (int): New number of VMs.
     Returns:
         HTTP response.
@@ -945,8 +943,7 @@ def scale_vmss(access_token, subscription_id, resource_group, vmss_name, size, t
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
                         '?api-version=', COMP_API])
-    body = '{"sku":{ "name":"' + size + '", "tier":"' + \
-        tier + '", "capacity":"' + str(capacity) + '"}}'
+    body = '{"sku":{"capacity":"' + str(capacity) + '"}}'
     return do_patch(endpoint, body, access_token)
 
 

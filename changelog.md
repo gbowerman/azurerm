@@ -1,5 +1,11 @@
 # azurerm - change log
 
+### v0.8.28 (8/29/17):
+- BREAKING CHANGE: 
+  Improved scale_vmss() to no longer require VM size or sku - now it only requires resource group,
+  VMSS name and capacity. New definiton:
+  def scale_vmss(access_token, subscription_id, resource_group, vmss_name, capacity)
+
 ### v0.8.27 (8/28/17):
 - Fixed list_vmss_nics() (incorrect API version)
 
