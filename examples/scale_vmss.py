@@ -35,13 +35,7 @@ def main():
 
     access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
-    # get VMSS sku details
-    vmss_model = azurerm.get_vmss(access_token, subscription_id, rgname, vmss_name)
-    sku_name = vmss_model['sku']['name']
-    sku_tier = vmss_model['sku']['tier']
-
-    scaleoutput = azurerm.scale_vmss(access_token, subscription_id, rgname, vmss_name, sku_name,
-                                     sku_tier, capacity)
+    scaleoutput = azurerm.scale_vmss(access_token, subscription_id, rgname, vmss_name, capacity)
     print(scaleoutput.text)
 
 
