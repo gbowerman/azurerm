@@ -1,49 +1,47 @@
-import azurerm
+'''create_rg.py - example script to create an Azure resource group'''
 import json
+import sys
+
+import azurerm
 
 # Load Azure app defaults
 try:
-    with open('azurermconfig.json') as configFile:
-        configData = json.load(configFile)
+    with open('azurermconfig.json') as config_file:
+        CONFIG_DATA = json.load(config_file)
 except FileNotFoundError:
-    print("Error: Expecting vmssConfig.json in current folder")
+    print("Error: Expecting azurermconfig.json in current folder")
     sys.exit()
 
-tenant_id = configData['tenantId']
-app_id = configData['appId']
-app_secret = configData['appSecret']
-subscription_id = configData['subscriptionId']
-resource_group = configData['resourceGroup']
-vmssname = configData['vmssName']
+TENANT_ID = CONFIG_DATA['tenantId']
+APP_ID = CONFIG_DATA['appId']
+APP_SECRET = CONFIG_DATA['appSecret']
+SUB_ID = CONFIG_DATA['subscriptionId']
+ACCESS_TOKEN = azurerm.get_access_token(TENANT_ID, APP_ID, APP_SECRET)
 
-access_token = azurerm.get_access_token(
-    tenant_id,
-    application_id,
-    application_secret
-)
+print('Enter an existing Azure Resource Group name.')
+RG_NAME = input()
 
-# create a storage account 
+# create a storage account
 print('Enter storage account name to create.')
-saname = input()
-location = 'southeastasia'
-sareturn = azurerm.create_storage_account(access_token, subscription_id, resource_group, saname, location)
-print(sareturn)
+SA_NAME = input()
+LOCATION = 'southeastasia'
+RET = azurerm.create_storage_account(ACCESS_TOKEN, SUB_ID, RG_NAME, SA_NAME, LOCATION)
+print(RET)
 
 print('Storage account details...')
 
 # get storage account details
-sa_info = azurerm.get_storage_account(access_token, subscription_id, resource_group, saname)
-print(json.dumps(sa_info, sort_keys=False, indent=2, separators=(',', ': ')))
+SA_INFO = azurerm.get_storage_account(ACCESS_TOKEN, SUB_ID, RG_NAME, SA_NAME)
+print(json.dumps(SA_INFO, sort_keys=False, indent=2, separators=(',', ': ')))
 
 print('Storage account quota...')
 
 # get storage account quota
-quota_info = azurerm.get_storage_usage(access_token, subscription_id)
-print(json.dumps(quota_info, sort_keys=False, indent=2, separators=(',', ': ')))
+QUOTA_INFO = azurerm.get_storage_usage(ACCESS_TOKEN, SUB_ID)
+print(json.dumps(QUOTA_INFO, sort_keys=False, indent=2, separators=(',', ': ')))
 
 print('Storage account keys...')
 
 # get storage account keys
-keys = azurerm.get_storage_account_keys(access_token, subscription_id, resource_group, saname)
-print(json.dumps(keys.text, sort_keys=False, indent=2, separators=(',', ': ')))
-# print(keys.text)
+KEYS = azurerm.get_storage_account_keys(ACCESS_TOKEN, SUB_ID, RG_NAME, SA_NAME)
+print(json.dumps(KEYS.text, sort_keys=False, indent=2, separators=(',', ': ')))

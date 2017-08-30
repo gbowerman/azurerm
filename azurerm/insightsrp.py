@@ -1,7 +1,8 @@
 '''insightsrp.py - azurerm functions for the Microsoft.Insights resource provider'''
 import json
 from .restfns import do_get, do_put
-from .settings import get_rm_endpoint, INSIGHTS_API, INSIGHTS_METRICS_API, INSIGHTS_PREVIEW_API
+from .settings import get_rm_endpoint, INSIGHTS_API, INSIGHTS_COMPONENTS_API,\
+    INSIGHTS_METRICS_API, INSIGHTS_PREVIEW_API
 
 
 def create_autoscale_rule(subscription_id, resource_group, vmss_name, metric_name, operator,
@@ -128,7 +129,7 @@ def list_insights_components(access_token, subscription_id, resource_group):
                         '/subscriptions/', subscription_id,
                         '/resourceGroups/', resource_group,
                         '/providers/microsoft.insights/',
-                        '/components?api-version=', INSIGHTS_API])
+                        '/components?api-version=', INSIGHTS_COMPONENTS_API])
     return do_get(endpoint, access_token)
 
 
@@ -192,7 +193,7 @@ def get_events_for_subscription(access_token, subscription_id, start_timestamp):
         start_timestamp (str): timestamp to get events from. E.g. '2017-05-01T00:00:00.0000000Z'.
     Returns:
         HTTP response. JSON body of insights events.
-    
+
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,

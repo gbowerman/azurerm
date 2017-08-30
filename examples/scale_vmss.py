@@ -1,31 +1,32 @@
-'''instanceviews.py - lists VM instance views for a scale set'''
+'''scale_events.py - scale a scale set in or out'''
 import json
 import sys
 
 import azurerm
 
-
 def usage():
     '''Return usage and exit.'''
-    sys.exit('Usage: python ' + sys.argv[0] + ' rg_name vmss_name')
+    sys.exit('Usage: python ' + sys.argv[0] + ' rg_name vmss_name capacity')
 
 
 def main():
-    '''Main routine.'''
+    '''main routine'''
 
     # process arguments
-    if len(sys.argv) < 3:
+    if len(sys.argv) < 4:
         usage()
 
     rgname = sys.argv[1]
-    vmss = sys.argv[2]
+    vmss_name = sys.argv[2]
+    capacity = sys.argv[3]
 
     # Load Azure app defaults
     try:
         with open('azurermconfig.json') as config_file:
             config_data = json.load(config_file)
     except FileNotFoundError:
-        sys.exit("Error: Expecting azurermconfig.json in current folder")
+        print("Error: Expecting azurermconfig.json in current folder")
+        sys.exit()
 
     tenant_id = config_data['tenantId']
     app_id = config_data['appId']
@@ -34,10 +35,8 @@ def main():
 
     access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
-    # loop through resource groups
-    instances = azurerm.list_vmss_vm_instance_view(access_token, subscription_id, rgname, vmss)
-
-    print(json.dumps(instances, sort_keys=False, indent=2, separators=(',', ': ')))
+    scaleoutput = azurerm.scale_vmss(access_token, subscription_id, rgname, vmss_name, capacity)
+    print(scaleoutput.text)
 
 
 if __name__ == "__main__":

@@ -1,4 +1,4 @@
-''' adalfns - place to store azurerm functions which call adal routines'''
+'''adalfns - place to store azurerm functions which call adal routines'''
 import json
 import os
 from datetime import datetime as dt

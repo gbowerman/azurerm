@@ -1,4 +1,4 @@
-'''get_vminstanceview.py - returns the instance view for an Azure VM'''
+'''delete_rg.py - example script to delete an Azure Resource Group'''
 import json
 import sys
 
@@ -6,18 +6,17 @@ import azurerm
 
 
 def usage():
-    '''Return usage and exit.'''
-    sys.exit('Usage: python ' + sys.argv[0] + ' rg_name vm_name')
+    '''Basic usage function to print usage and exit.'''
+    sys.exit('Usage: python ' + sys.argv[0] + ' rg_name')
 
 
 def main():
     '''Main routine.'''
-    # process arguments
-    if len(sys.argv) < 3:
+    # check for single command argument
+    if len(sys.argv) != 2:
         usage()
 
     rgname = sys.argv[1]
-    vm_name = sys.argv[2]
 
     # Load Azure app defaults
     try:
@@ -33,13 +32,9 @@ def main():
 
     access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
 
-    print('Getting VM instance view\n')
-    instance_view = azurerm.get_vm_instance_view(
-        access_token, subscription_id, rgname, vm_name)
-    print(json.dumps(instance_view, sort_keys=False,
-                     indent=2, separators=(',', ': ')))
-    # for status in instance_view['statuses']:
-    #    print('Code: ' + status['code'])
+    # delete a resource group
+    rgreturn = azurerm.delete_resource_group(access_token, subscription_id, rgname)
+    print(rgreturn)
 
 
 if __name__ == "__main__":
