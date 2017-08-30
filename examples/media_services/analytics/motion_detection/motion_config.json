@@ -1,0 +1,13 @@
+{
+  "version": "1.0",
+  "options": {
+    "sensitivityLevel": "medium",
+    "frameSamplingValue": 1,
+    "detectLightChange": "False",
+    "mergeTimeThreshold":
+    "00:00:02",
+    "detectionZones": [
+        //none defined
+    ]
+  }
+}

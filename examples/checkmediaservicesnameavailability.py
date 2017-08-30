@@ -38,7 +38,7 @@ subscription_id = subscriptions["value"][0]["subscriptionId"]
 name = "itisjustasimpletest"
 response = azurerm.check_media_service_name_availability(access_token, subscription_id, name)
 ms = response.json()
-if (ms["NameAvailable"] == True):
+if (ms["nameAvailable"] == True):
 	namestatus = "Available"
 else:
 	namestatus = "Unavailable"

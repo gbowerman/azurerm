@@ -1,0 +1,8 @@
+{               
+    "version": "1.0",
+    "options": {
+        "outputAudio": "true",
+        "maxMotionThumbnailDurationInSecs": "30",
+        "fadeInFadeOut": "false"
+    }
+}
