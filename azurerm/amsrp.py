@@ -1,4 +1,4 @@
-'''amsrp.py - azurerm functions for the Microsoft.Media resource provider and AMS Rest Interface.'''
+'''amsrp.py - azurerm functions for the Microsoft.Media resource provider and AMS Rest Interface'''
 
 import json
 import urllib
