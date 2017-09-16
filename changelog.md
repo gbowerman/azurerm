@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.9.0 (9/16/2017): 
+- Integration with msleal's Azure Media Services API wrapper library.
+- Part 1: integration of core APIs. Example library integration planned.
+
 ### v0.8.28 (8/29/17):
 - BREAKING CHANGE: 
   Improved scale_vmss() to no longer require VM size or sku - now it only requires resource group,
