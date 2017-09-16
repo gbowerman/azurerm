@@ -12,5 +12,6 @@ from .networkrp import *
 from .resourcegroups import *
 from .storagerp import *
 from .subfns import *
+from .restfns import *
 from .templates import *
 from .vmimages import *

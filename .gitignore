@@ -5,6 +5,12 @@ ehthumbs.db
 # Folder config file
 Desktop.ini
 
+# Config files...
+config.json
+
+# Logs...
+debug.log
+
 # pypi upload file
 pyupload.bat
 
