@@ -10,7 +10,6 @@ import time
 #import pytz
 import logging
 import datetime
-from azure import *
 from azure.storage.blob import BlockBlobService
 from azure.storage.blob import ContentSettings
 
