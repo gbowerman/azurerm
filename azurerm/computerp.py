@@ -839,6 +839,56 @@ def poweroff_vmss_vms(access_token, subscription_id, resource_group, vmss_name, 
     return do_post(endpoint, body, access_token)
 
 
+def put_vmss(access_token, subscription_id, resource_group, vmss_name, vmss_body):
+    '''Put VMSS body.
+
+    Can be used to create or update a scale set.
+    E.g. call get_vmss(), make changes to the body, call put_vmss().
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        vmss_name (str): Name of the new scale set.
+        vmss_body (dictionary): Body containining 
+
+    Returns:
+        HTTP response. JSON body of the virtual machine scale set properties.
+    '''
+    endpoint = ''.join([get_rm_endpoint(),
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                        '?api-version=', COMP_API])
+    body = json.dumps(vmss_body)
+    return do_put(endpoint, body, access_token)
+
+
+def put_vmss_vm(access_token, subscription_id, resource_group, vmss_name, vm_id, vm_body):
+    '''Update a VMSS VM. E.g. add/remove a data disk from a specifc VM in a scale set (preview).
+       Note: Only currently enabled for Azure Canary regions.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+        vmss_name (str): Name of the new scale set.
+        vm_id (int): VM ID of VM to update
+        vmss_body (dictionary): Body containining 
+
+    Returns:
+        HTTP response. JSON body of the virtual machine scale set VM properties.
+    '''
+    endpoint = ''.join([get_rm_endpoint(),
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Compute/virtualMachineScaleSets/', vmss_name,
+                        '/virtualMachines/', str(vm_id),
+                        '?api-version=', COMP_API])
+    body = json.dumps(vm_body)
+    return do_put(endpoint, body, access_token)
+
+
 def reimage_vmss_vms(access_token, subscription_id, resource_group, vmss_name, instance_ids):
     '''Drive is reset, temp drive is not).
 
