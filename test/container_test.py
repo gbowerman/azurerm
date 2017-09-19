@@ -98,7 +98,7 @@ class TestAzurermPy(unittest.TestCase):
                                                        container_name=self.container_name)
         #print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
         self.assertIn(response['error']['code'],
-                      ['ContainerGroupTransitioning','ContainerLogNotAvailable'])
+                      ['ContainerGroupTransitioning', 'ContainerLogNotAvailable'])
 
         # delete container group
         print('Deleting container instance: ' + self.container_name)
