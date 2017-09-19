@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.9.1 (9/19/2017): 
+- Media services fixes. Thanks @msleal.
+- create_asset_delivery_policy() and get_key_delivery_url()
+
 ### v0.9.1 (9/18/2017): 
 - Add put_vmss() and put_vmss_vm() functions for easy updating of scale set properties.
 - Note: put_vmss_vm() is currently preview and won't work outside of Canary environments.
