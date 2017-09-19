@@ -1,6 +1,6 @@
 # azurerm - change log
 
-### v0.9.1 (9/19/2017): 
+### v0.9.2 (9/19/2017): 
 - Media services fixes. Thanks @msleal.
 - create_asset_delivery_policy() and get_key_delivery_url()
 
