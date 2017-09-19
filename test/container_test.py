@@ -91,14 +91,13 @@ class TestAzurermPy(unittest.TestCase):
                                                               self.subscription_id)
         self.assertTrue(len(response['value']) > 0)
 
-        # show container logs
+        # show container logs - not a great test
         print('Getting container logs: ' + self.container_group_name)
         response = azurerm.get_container_instance_logs(self.access_token, self.subscription_id,
                                                        self.rgname, self.container_group_name,
                                                        container_name=self.container_name)
         #print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
-        self.assertEqual(response['error']['code'],
-                         'ContainerGroupTransitioning')
+        self.assertEqual(response['error']['code'], 'ContainerLogNotAvailable')
 
         # delete container group
         print('Deleting container instance: ' + self.container_name)
