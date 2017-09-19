@@ -478,7 +478,7 @@ def create_sas_locator(access_token, asset_id, accesspolicy_id):
     return do_ams_post(endpoint, path, body, access_token)
 
 
-def create_asset_delivery_policy(access_token, ams_account):
+def create_asset_delivery_policy(access_token, ams_account, key_delivery_url):
     '''Create Media Service Asset Delivery Policy.
 
     Args:
@@ -496,7 +496,7 @@ def create_asset_delivery_policy(access_token, ams_account):
 		"AssetDeliveryPolicyType":"3", \
 		"AssetDeliveryConfiguration":"[{ \
 			\\"Key\\":\\"2\\", \
-			\\"Value\\":\\"https://' + ams_account + '.keydelivery.mediaservices.windows.net/\\"}]" \
+			\\"Value\\":\\"' + key_delivery_url + '\\"}]" \
 	}'
     return do_ams_post(endpoint, path, body, access_token)
 
@@ -756,8 +756,8 @@ def update_media_assetfile(access_token, parent_asset_id, asset_id, content_leng
     return do_ams_patch(endpoint, full_path_encoded, body, access_token)
 
 
-def get_delivery_url(access_token, ck_id, key_type):
-    '''Get Media Service Delivery URL.
+def get_key_delivery_url(access_token, ck_id, key_type):
+    '''Get Media Services Key Delivery URL.
 
     Args:
         access_token (str): A valid Azure authentication token.
