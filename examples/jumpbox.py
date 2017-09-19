@@ -231,8 +231,7 @@ def main():
                                      publisher, offer, sku, version, nic_id, location,
                                      username=username, public_key=sshkey)
     if rmreturn.status_code != 201:
-        print('Error ' + rmreturn.status_code + ' creating VM. ' + rmreturn.text)
-        sys.exit()
+        sys.exit('Error ' + rmreturn.status_code + ' creating VM. ' + rmreturn.text)
     if no_wait is False:
         print('Waiting for VM provisioning..')
         waiting = True
