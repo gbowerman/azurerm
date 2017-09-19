@@ -1,8 +1,0 @@
-{
-  "version": "1.0",
-  "options": {
-    "aggregateEmotionWindowMs": "987",
-    "mode": "aggregateEmotion",
-    "aggregateEmotionIntervalMs": "342"
-  }
-}
