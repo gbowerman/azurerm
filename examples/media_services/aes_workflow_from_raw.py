@@ -4,6 +4,7 @@ Description: Simple Azure Media Services Python library
 License: MIT (see LICENSE.txt file for details)
 """
 import os
+import re
 import json
 import azurerm
 import time
@@ -412,10 +413,10 @@ if (azurerm.translate_job_state(job_state) == 'Finished'):
 
 	### get the delivery url
 	print_phase_header("Getting the Key Delivery URL")
-	response = azurerm.get_delivery_url(access_token, contentkey_id, KEY_DELIVERY_TYPE)
+	response = azurerm.get_key_delivery_url(access_token, contentkey_id, KEY_DELIVERY_TYPE)
 	if (response.status_code == 200):
 		resjson = response.json()
-		keydelivery_url = str(resjson['d']['GetKeyDeliveryUrl']);
+		keydelivery_url = re.sub("\?.*$","", str(resjson['d']['GetKeyDeliveryUrl']));
 		print_phase_message("POST Status.............................: " + str(response.status_code))
 		print_phase_message("Key Delivery URL........................: " + keydelivery_url)
 	else:
@@ -423,7 +424,7 @@ if (azurerm.translate_job_state(job_state) == 'Finished'):
 
 	### create asset delivery policy
 	print_phase_header("Creating Asset Delivery Policy")
-	response = azurerm.create_asset_delivery_policy(access_token, account_name)
+	response = azurerm.create_asset_delivery_policy(access_token, account_name, keydelivery_url)
 	if (response.status_code == 201):
 		resjson = response.json()
 		assetdeliverypolicy_id = str(resjson['d']['Id']);
