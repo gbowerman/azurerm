@@ -17,7 +17,7 @@ def attach_model(subscription, rgname, vmssvm_model, diskname, lun):
 
 
 def detach_model(vmssvm_model, lun):
-    '''Detach a data disk to a VMSS VM model'''
+    '''Detach a data disk from a VMSS VM model'''
     data_disks = vmssvm_model['properties']['storageProfile']['dataDisks']
     data_disks[:] = [disk for disk in data_disks if disk.get('lun') != lun]
     vmssvm_model['properties']['storageProfile']['dataDisks'] = data_disks
