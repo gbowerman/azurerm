@@ -5,16 +5,6 @@ import os
 ams_auth_endpoint = 'https://wamsprodglobal001acs.accesscontrol.windows.net/v2/OAuth2-13'
 ams_rest_endpoint = 'https://media.windows.net/API'
 
-#AMS Headers...
-json_only_acceptformat = "application/json"
-json_acceptformat = "application/json;odata=verbose"
-xml_acceptformat = "application/atom+xml"
-batch_acceptformat = "multipart/mixed" 
-xmsversion = "2.13"
-dsversion_min = "3.0;NetFx"
-dsversion_max = "3.0;NetFx"
-charset = "UTF-8"
-
 # public defaults for authentication and resource endpoints
 AZURE_RM_ENDPOINT = 'https://management.azure.com'
 AZURE_AUTH_ENDPOINT = 'https://login.microsoftonline.com/'
@@ -29,9 +19,21 @@ INSIGHTS_API = '2015-04-01'
 INSIGHTS_COMPONENTS_API = '2015-05-01'
 INSIGHTS_METRICS_API = '2016-03-01'
 INSIGHTS_PREVIEW_API = '2016-06-01'
+KEYVAULT_API = '2016-10-01'
 MEDIA_API = '2015-10-01'
 NETWORK_API = '2017-04-01'
 STORAGE_API = '2016-01-01'
+
+# AMS Headers
+json_only_acceptformat = "application/json"
+json_acceptformat = "application/json;odata=verbose"
+xml_acceptformat = "application/atom+xml"
+batch_acceptformat = "multipart/mixed" 
+xmsversion = "2.13"
+dsversion_min = "3.0;NetFx"
+dsversion_max = "3.0;NetFx"
+charset = "UTF-8"
+
 
 def get_rm_endpoint():
     '''Set Azure Resource Manager endpoint by environment variable, else return default value.
