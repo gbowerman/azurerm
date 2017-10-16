@@ -105,9 +105,10 @@ def create_vm(access_token, subscription_id, resource_group, vm_name, vm_size, p
 
 
 def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity,
-                publisher, offer, sku, version, subnet_id, be_pool_id, lb_pool_id, location,
-                storage_type='Standard_LRS', username='azure', password=None, public_key=None,
-                overprovision=True, upgrade_policy='Manual', public_ip_per_vm=False):
+                publisher, offer, sku, version, subnet_id, location, be_pool_id=None,
+                lb_pool_id=None, storage_type='Standard_LRS', username='azure', password=None,
+                public_key=None, overprovision=True, upgrade_policy='Manual',
+                public_ip_per_vm=False):
     '''Create virtual machine scale set.
 
     Args:
@@ -122,9 +123,9 @@ def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_siz
         sku (str): VM image sku. E.g. '2016-Datacenter'.
         version (str): VM image version. E.g. 'latest'.
         subnet_id (str): Resource id of a subnet.
+        location (str): Azure data center location. E.g. westus.
         be_pool_id (str): Resource id of a backend NAT pool.
         lb_pool_id (str): Resource id of a load balancer pool.
-        location (str): Azure data center location. E.g. westus.
         storage_type (str): Optional storage type. Default 'Standard_LRS'.
         username (str): Optional user name. Default is 'azure'.
         password (str): Optional password. Default is None (not required if using public_key).
@@ -134,9 +135,6 @@ def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_siz
         upgrade_policy (str): Optional. Set upgrade policy to Automatic, Manual or Rolling.
             Default 'Manual'.
         public_ip_per_vm (bool): Optional. Set public IP per VM. Default False.
-
-    To do:
-        Make the LB pool arguments optional.
 
     Returns:
         HTTP response. JSON body of the virtual machine scale set properties.
@@ -177,8 +175,10 @@ def create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_siz
     nic = {'name': vmss_name}
     ip_config = {'name': vmss_name}
     ip_properties = {'subnet': {'id': subnet_id}}
-    ip_properties['loadBalancerBackendAddressPools'] = [{'id': be_pool_id}]
-    ip_properties['loadBalancerInboundNatPools'] = [{'id': lb_pool_id}]
+    if be_pool_id is not None:
+        ip_properties['loadBalancerBackendAddressPools'] = [{'id': be_pool_id}]
+    if lb_pool_id is not None:
+        ip_properties['loadBalancerInboundNatPools'] = [{'id': lb_pool_id}]
     if public_ip_per_vm is True:
         ip_properties['publicIpAddressConfiguration'] = {
             'name': 'pubip', 'properties': {'idleTimeoutInMinutes': 15}}

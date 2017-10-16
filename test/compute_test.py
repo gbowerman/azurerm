@@ -149,7 +149,7 @@ class TestAzurermPy(unittest.TestCase):
         print('Creating VMSS: ' + self.vmssname + ', capacity = ' + str(capacity))
         response = azurerm.create_vmss(self.access_token, self.subscription_id, self.rgname, \
             self.vmssname, vm_size, capacity, publisher, offer, sku, version, \
-            self.subnet_id, self.be_pool_id, self.lb_pool_id, self.location, username=username, \
+            self.subnet_id, self.location, self.be_pool_id, self.lb_pool_id, username=username, \
             public_key=self.public_key)
         # print(json.dumps(response.json()))
         self.assertEqual(response.status_code, 201)

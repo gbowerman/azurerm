@@ -1,5 +1,18 @@
 # azurerm - change log
 
+### v0.9.3 (10/16/17):
+- BREAKING CHANGE: 
+  create_vmss() lb pool parameters are now optional.
+  New usage: 
+  ```
+  create_vmss(access_token, subscription_id, resource_group, vmss_name, vm_size, capacity,
+              publisher, offer, sku, version, subnet_id, location, be_pool_id=None,
+              lb_pool_id=None, storage_type='Standard_LRS', username='azure', password=None,
+              public_key=None, overprovision=True, upgrade_policy='Manual',
+              public_ip_per_vm=False)
+  ```
+  location arg is now before LB args, which can be omitted if you're not using a load balancer.
+  
 ### v0.9.2 (9/19/2017): 
 - Media services fixes. Thanks @msleal.
 - create_asset_delivery_policy() and get_key_delivery_url()
