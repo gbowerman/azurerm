@@ -87,9 +87,8 @@ def main():
     rmreturn = azurerm.put_vmss_vm(access_token, subscription_id, rgname, vmssname, vmid,
                                    new_model)
 
-    if rmreturn.status_code != 201:
-        sys.exit('Error ' + str(rmreturn.status_code) +
-                 ' creating VM. ' + rmreturn.text)
+    if rmreturn.status_code != 201 and rmreturn.status_code != 202:
+        sys.exit('Error ' + str(rmreturn.status_code) + ' creating VM. ' + rmreturn.text)
 
     print(json.dumps(rmreturn, sort_keys=False, indent=2, separators=(',', ': ')))
 
