@@ -1,5 +1,6 @@
 '''adalfns - place to store azurerm functions which call adal routines'''
 import json
+import codecs
 import os
 from datetime import datetime as dt
 
@@ -36,37 +37,53 @@ def get_access_token_from_cli():
         An Azure authentication token string.
     '''
     home = os.path.expanduser('~')
+    sub_username = ""
+    #First we need to identify our current subscription
+    azure_profile_path = home + os.sep + '.azure' + os.sep + 'azureProfile.json'
+    if os.path.isfile(azure_profile_path) is False:
+        print('Error from get_access_token_from_cli(): Cannot find ' + azure_profile_path)
+        return None
+    with codecs.open(azure_profile_path, 'r', 'utf-8-sig') as azure_profile_fd:
+        subs = json.load(azure_profile_fd)
+    for sub in subs['subscriptions']:
+        if sub['isDefault'] == True:
+            sub_username = sub['user']['name']
+    if sub_username == "":
+        print('Error from get_access_token_from_cli(): Default subscription not found in ' +  \
+            azure_profile_path)
+        return None
+    #Now that we know what subscription to use, let's try to get the acces_token...
     access_keys_path = home + os.sep + '.azure' + os.sep + 'accessTokens.json'
     if os.path.isfile(access_keys_path) is False:
         print('Error from get_access_token_from_cli(): Cannot find ' + access_keys_path)
         return None
     with open(access_keys_path, 'r') as access_keys_fd:
         keys = json.load(access_keys_fd)
-    if 'accessToken' not in keys[0]:
-        print('Error from get_access_token_from_cli(): accessToken not found in ' + \
-            access_keys_path)
-        return None
-    if 'tokenType' not in keys[0]:
-        print('Error from get_access_token_from_cli(): tokenType not found in ' + \
-            access_keys_path)
-        return None
-    if 'expiresOn' not in keys[0]:
-        print('Error from get_access_token_from_cli(): expiresOn not found in ' + \
-            access_keys_path)
-        return None
     # loop through accessTokens.json until first unexpired entry found
     for key in keys:
-        expiry_date_str = key['expiresOn']
-        # check date and skip past expired entries
-        if 'T' in expiry_date_str:
-            exp_date = dt.strptime(key['expiresOn'], '%Y-%m-%dT%H:%M:%S.%fZ')
-        else:
-            exp_date = dt.strptime(key['expiresOn'], '%Y-%m-%d %H:%M:%S.%f')
-        if exp_date < dt.now():
-            continue
-        else:
-            return key['accessToken']
+        if key['userId'] == sub_username:
+            if 'accessToken' not in keys[0]:
+                print('Error from get_access_token_from_cli(): accessToken not found in ' + \
+                    access_keys_path)
+                return None
+            if 'tokenType' not in keys[0]:
+                print('Error from get_access_token_from_cli(): tokenType not found in ' + \
+                    access_keys_path)
+                return None
+            if 'expiresOn' not in keys[0]:
+                print('Error from get_access_token_from_cli(): expiresOn not found in ' + \
+                    access_keys_path)
+                return None
+            expiry_date_str = key['expiresOn']
+            # check date and skip past expired entries
+            if 'T' in expiry_date_str:
+                exp_date = dt.strptime(key['expiresOn'], '%Y-%m-%dT%H:%M:%S.%fZ')
+            else:
+                exp_date = dt.strptime(key['expiresOn'], '%Y-%m-%d %H:%M:%S.%f')
+            if exp_date < dt.now():
+                continue
+            else:
+                return key['accessToken']
     # if dropped out of the loop, token expired
     print('Error from get_access_token_from_cli(): token expired. Run \'az login\'')
     return None
- 
