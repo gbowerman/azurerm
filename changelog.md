@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.9.4 (11/6/17):
+- Adding media services examples (msleal)
+- Fixing get_subscription_from_cli() bug (msleal)
+
 ### v0.9.3 (10/16/17):
 - BREAKING CHANGE: 
   create_vmss() lb pool parameters are now optional.
