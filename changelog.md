@@ -1,5 +1,8 @@
 # azurerm - change log
 
+### v0.9.5 (11/8/17):
+- Increment Compute API version to 2017-12-01
+
 ### v0.9.4 (11/6/17):
 - Adding media services examples (msleal)
 - Fixing get_subscription_from_cli() bug (msleal)
