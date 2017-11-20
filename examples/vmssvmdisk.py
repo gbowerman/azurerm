@@ -80,9 +80,6 @@ def main():
         if operation == 'detach':
             new_model = detach_model(vmssvm_model, lun)
 
-    # temporary fix - remove diskSizeGb
-    del new_model['properties']['storageProfile']['osDisk']['diskSizeGB']
-
     # do a put on the VM
     rmreturn = azurerm.put_vmss_vm(access_token, subscription_id, rgname, vmssname, vmid,
                                    new_model)
