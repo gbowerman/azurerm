@@ -43,43 +43,43 @@ def main():
     arg_parser.add_argument('--diskname', '-d', required=False, action='store',
                             help='Optional password')
 
-   args = arg_parser.parse_args()
-   vmssname = args.vmssname
-   rgname = args.rgname
-   operation = args.operation
-   vmid = args.vmid
-   lun = int(args.lun)
-   diskname = args.diskname
+    args = arg_parser.parse_args()
+    vmssname = args.vmssname
+    rgname = args.rgname
+    operation = args.operation
+    vmid = args.vmid
+    lun = int(args.lun)
+    diskname = args.diskname
 
-   if operation != 'attach' and operation != 'detach':
-       sys.exit('--operation must be attach or detach')
-   if diskname is None and operation == 'attach':
-       sys.exit('--diskname is required for attach operation.')
+    if operation != 'attach' and operation != 'detach':
+        sys.exit('--operation must be attach or detach')
+    if diskname is None and operation == 'attach':
+        sys.exit('--diskname is required for attach operation.')
 
-   subscription_id = azurerm.get_subscription_from_cli()
+    subscription_id = azurerm.get_subscription_from_cli()
 
-   # authenticate
-   access_token = azurerm.get_access_token_from_cli()
+    # authenticate
+    access_token = azurerm.get_access_token_from_cli()
 
-   # do a get on the VM
-   vmssvm_model = azurerm.get_vmss_vm(access_token, subscription_id, rgname, vmssname, vmid)
+    # do a get on the VM
+    vmssvm_model = azurerm.get_vmss_vm(access_token, subscription_id, rgname, vmssname, vmid)
 
-   # check operation
-   if operation == 'attach':
-       new_model = attach_model(subscription_id, rgname, vmssvm_model, diskname, lun)
-   else:
-       if operation == 'detach':
-           new_model = detach_model(vmssvm_model, lun)
+    # check operation
+    if operation == 'attach':
+        new_model = attach_model(subscription_id, rgname, vmssvm_model, diskname, lun)
+    else:
+        if operation == 'detach':
+            new_model = detach_model(vmssvm_model, lun)
 
-   # do a put on the VM
-   rmreturn = azurerm.put_vmss_vm(access_token, subscription_id, rgname, vmssname, vmid,
-                                  new_model)
+    # do a put on the VM
+    rmreturn = azurerm.put_vmss_vm(access_token, subscription_id, rgname, vmssname, vmid,
+                                   new_model)
 
-   if rmreturn.status_code != 201:
-       sys.exit('Error ' + str(rmreturn.status_code) +
-                ' creating VM. ' + rmreturn.text)
+    if rmreturn.status_code != 201:
+        sys.exit('Error ' + str(rmreturn.status_code) +
+                 ' creating VM. ' + rmreturn.text)
 
-   print(json.dumps(rmreturn, sort_keys=False, indent=2, separators=(',', ': ')))
+    print(json.dumps(rmreturn, sort_keys=False, indent=2, separators=(',', ': ')))
 
 if __name__ == "__main__":
-   main()
+    main()
