@@ -41,7 +41,7 @@ def main():
     arg_parser.add_argument('--lun', '-l', required=True,
                             action='store', help='lun id')
    arg_parser.add_argument('--diskname', '-d', required=False, action='store',
-                            help='Optional password')
+                           help='Optional password')
 
    args = arg_parser.parse_args()
    vmssname = args.vmssname
