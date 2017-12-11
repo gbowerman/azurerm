@@ -1,7 +1,12 @@
 # azurerm - change log
 
+### v0.9.6 (12/11/17):
+- Incremented Resource groups API version to 2017-05-10
+- Added function: export_template(access_token, subscription_id, rgname) + unit test
+- Added function: get_resource_group_resources(access_token, subscription_id, rgname) + unit test
+
 ### v0.9.5 (11/8/17):
-- Increment Compute API version to 2017-12-01
+- Incremented Compute API version to 2017-12-01
 
 ### v0.9.4 (11/6/17):
 - Adding media services examples (msleal)

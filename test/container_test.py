@@ -96,7 +96,7 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.get_container_instance_logs(self.access_token, self.subscription_id,
                                                        self.rgname, self.container_group_name,
                                                        container_name=self.container_name)
-        #print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
+        print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
         self.assertIn(response['error']['code'],
                       ['ContainerGroupTransitioning', 'ContainerLogNotAvailable'])
 
