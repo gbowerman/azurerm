@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.9.7 (11/06/18):
+- Added DEPLOYMENT_API version 2018-05-01
+- Updated COMP_API to 2018-10-01 and NETWORK_API to 2018-08-01
+
 ### v0.9.6 (12/11/17):
 - Incremented Resource groups API version to 2017-05-10
 - Added function: export_template(access_token, subscription_id, rgname) + unit test

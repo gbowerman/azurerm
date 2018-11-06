@@ -1,7 +1,7 @@
 '''templates.py - azurerm functions for deploying templates'''
 import json
 from .restfns import do_put
-from .settings import get_rm_endpoint, BASE_API
+from .settings import get_rm_endpoint, DEPLOYMENTS_API
 
 
 def deploy_template(access_token, subscription_id, resource_group, deployment_name, template,
@@ -23,7 +23,7 @@ def deploy_template(access_token, subscription_id, resource_group, deployment_na
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,
-                        '?api-version=', BASE_API])
+                        '?api-version=', DEPLOYMENTS_API])
     properties = {'template': template}
     properties['mode'] = 'Incremental'
     properties['parameters'] = parameters
@@ -51,7 +51,7 @@ def deploy_template_uri(access_token, subscription_id, resource_group, deploymen
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,
-                        '?api-version=', BASE_API])
+                        '?api-version=', DEPLOYMENTS_API])
     properties = {'templateLink': {'uri': template_uri}}
     properties['mode'] = 'Incremental'
     properties['parameters'] = parameters
@@ -79,7 +79,7 @@ def deploy_template_uri_param_uri(access_token, subscription_id, resource_group,
                         '/subscriptions/', subscription_id,
                         '/resourcegroups/', resource_group,
                         '/providers/Microsoft.Resources/deployments/', deployment_name,
-                        '?api-version=', BASE_API])
+                        '?api-version=', DEPLOYMENTS_API])
     properties = {'templateLink': {'uri': template_uri}}
     properties['mode'] = 'Incremental'
     properties['parametersLink'] = {'uri': parameters_uri}
