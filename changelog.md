@@ -1,5 +1,9 @@
 # azurerm - change log
 
+### v0.9.11 (11/08/18):
+- update get_access_token_from_cli() to work in Azure cloud shell by getting token from MSI
+  endpoint
+
 ### v0.9.10 (11/07/18):
 - BREAKING CHANGES
    get_storage_usage() now takes a location parameter
