@@ -48,6 +48,7 @@ class TestAzurermPy(unittest.TestCase):
         print('Creating storage account: ' + self.storage_account)
         response = azurerm.create_storage_account(self.access_token, self.subscription_id, \
             self.rgname, self.storage_account, self.location)
+        # print(response.text)
         self.assertEqual(response.status_code, 202)
 
         # get storage account
@@ -58,15 +59,17 @@ class TestAzurermPy(unittest.TestCase):
 
         # get storage account keys
         print('Get storage account keys')
-        time.sleep(2) # small delay to allow account keys to be created
+        time.sleep(20) # small delay to allow account keys to be created
         response = azurerm.get_storage_account_keys(self.access_token, self.subscription_id, \
             self.rgname, self.storage_account) 
         keys = json.loads(response.text)
+        # print(response.text)
         self.assertTrue('keys' in keys)
 
         # get storage usage
         print('Get storage usage')
-        response = azurerm.get_storage_usage(self.access_token, self.subscription_id)
+        response = azurerm.get_storage_usage(self.access_token, self.subscription_id, self.location)
+        # print(json.dumps(response))
         self.assertTrue('value' in response)
 
         # list storage accounts

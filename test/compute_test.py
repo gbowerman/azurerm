@@ -90,13 +90,17 @@ class TestAzurermPy(unittest.TestCase):
         self.nsg_id = response.json()['id']
 
         # create NSG rule
+        time.sleep(5)
         nsg_rule = 'ssh'
         print('Creating NSG rule: ' + nsg_rule)
         response = azurerm.create_nsg_rule(self.access_token, self.subscription_id, self.rgname, \
             nsg_name, nsg_rule, description='ssh rule', destination_range='22')
+        # print(json.dumps(response.json()))
         self.assertEqual(response.status_code, 201)
 
         # create nic for VM create
+        # sleep long enough for subnet to finish creating
+        time.sleep(10)
         nic_name = self.vnet + 'nic'
         print('Creating nic: ' + nic_name)
         response = azurerm.create_nic(self.access_token, self.subscription_id, self.rgname, \
@@ -128,10 +132,10 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.json()['name'], self.asname)
 
         # create VM
-        vm_size = 'Standard_D1'
+        vm_size = 'Standard_B1s'
         publisher = 'Canonical'
         offer = 'UbuntuServer'
-        sku = '16.04-LTS'
+        sku = '18.04-LTS'
         version = 'latest'
         username = 'rootuser'
         password = self.h.haikunate(',')
@@ -172,13 +176,6 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.get_as(self.access_token, self.subscription_id, self.rgname, self.asname)
         self.assertEqual(response['name'], self.asname)
 
-        # list vm instance views
-        print('Listing VM instance views')
-        response = azurerm.list_vm_instance_view(self.access_token, self.subscription_id, \
-            self.rgname)
-        # print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
-        self.assertTrue(len(response['value']) > 0)
-
         # list VMSS skus
         print('Listing VMSS skus')
         response = azurerm.list_vmss_skus(self.access_token, self.subscription_id, \
@@ -190,7 +187,7 @@ class TestAzurermPy(unittest.TestCase):
         print('Getting VMSS NICs')
         response = azurerm.get_vmss_nics(self.access_token, self.subscription_id, \
             self.rgname, self.vmssname)
-        #print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
+        print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
         self.assertTrue(len(response['value']) > 0)
 
         # delete VM

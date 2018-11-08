@@ -1,5 +1,15 @@
 # azurerm - change log
 
+### v0.9.10 (11/07/18):
+- BREAKING CHANGES
+   get_storage_usage() now takes a location parameter
+   list_vm_instance_view() is removed as the instance view is now provided in the list_vm call.
+- COMP_API version lowered to 2018-06-01 as 10-01 doesn't support listing VMSS NICs
+- Updated QA tests to introduce some delays (creating NSG, subnet, storage acc)
+
+### v0.9.9 (11/07/18):
+- Updated STORAGE_API to 2018-07-01
+
 ### v0.9.7 (11/06/18):
 - Added DEPLOYMENT_API version 2018-05-01
 - Updated COMP_API to 2018-10-01 and NETWORK_API to 2018-08-01

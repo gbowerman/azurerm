@@ -94,7 +94,7 @@ def get_storage_account_keys(access_token, subscription_id, rgname, account_name
     return do_post(endpoint, '', access_token)
 
 
-def get_storage_usage(access_token, subscription_id):
+def get_storage_usage(access_token, subscription_id, location):
     '''Returns storage usage and quota information for the specified subscription.
 
     Args:
@@ -106,7 +106,8 @@ def get_storage_usage(access_token, subscription_id):
     '''
     endpoint = ''.join([get_rm_endpoint(),
                         '/subscriptions/', subscription_id,
-                        '/providers/Microsoft.Storage/usages',
+                        '/providers/Microsoft.Storage/locations/', location,
+                        '/usages',
                         '?api-version=', STORAGE_API])
     return do_get(endpoint, access_token)
 

@@ -12,7 +12,7 @@ AZURE_RESOURCE_ENDPOINT = 'https://management.core.windows.net/'
 
 ACS_API = '2017-01-31'
 BASE_API = '2016-09-01'
-COMP_API = '2018-10-01'
+COMP_API = '2018-06-01'
 CONTAINER_API = '2017-08-01-preview'
 COSMOSDB_API = '2015-04-08'
 DEPLOYMENTS_API = '2018-05-01'
@@ -24,7 +24,7 @@ KEYVAULT_API = '2016-10-01'
 MEDIA_API = '2015-10-01'
 NETWORK_API = '2018-08-01'
 RESOURCE_API = '2017-05-10'
-STORAGE_API = '2016-01-01'
+STORAGE_API = '2018-07-01'
 
 # AMS Headers
 json_only_acceptformat = "application/json"

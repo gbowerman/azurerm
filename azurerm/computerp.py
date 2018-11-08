@@ -616,25 +616,6 @@ def list_vm_images_sub(access_token, subscription_id):
     return do_get_next(endpoint, access_token)
 
 
-def list_vm_instance_view(access_token, subscription_id, resource_group):
-    '''List VM instances views in a resource group.
-
-    Args:
-        access_token (str): A valid Azure authentication token.
-        subscription_id (str): Azure subscription id.
-        resource_group (str): Azure resource group name.
-
-    Returns:
-        HTTP response. JSON body of a list of VM instance views.
-    '''
-    endpoint = ''.join([get_rm_endpoint(),
-                        '/subscriptions/', subscription_id,
-                        '/resourceGroups/', resource_group,
-                        '/providers/Microsoft.Compute/virtualMachines',
-                        '?$expand=instanceView&$select=instanceView&api-version=', COMP_API])
-    return do_get_next(endpoint, access_token)
-
-
 def list_vms(access_token, subscription_id, resource_group):
     '''List VMs in a resource group.
 

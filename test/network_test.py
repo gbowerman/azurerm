@@ -96,9 +96,12 @@ class TestAzurermPy(unittest.TestCase):
 
         # create nic
         nic_name = self.vnet + 'nic'
+        # sleep long enough for subnet to finish creating
+        time.sleep(10)
         print('Creating nic: ' + nic_name)
         response = azurerm.create_nic(self.access_token, self.subscription_id, self.rgname, \
             nic_name, ip_id, subnet_id, self.location, nsg_id=nsg_id)
+        # print(response.text)
         self.assertEqual(response.status_code, 201)
         self.assertEqual(response.json()['name'], nic_name)
         nic_id = response.json()['id']
