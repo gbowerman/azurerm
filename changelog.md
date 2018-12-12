@@ -1,7 +1,13 @@
 # azurerm - change log
 
+### v0.9.12 (12/11/18):
+- Added list_tenants() to list tenants user has access to. Added test and updated 
+  subscriptions_test.py. Updated BASE_API version.
+- Added key vault functions: create_keyvault(), delete_keyvault(), get_keyvault(),
+  list_keyvaults(), list_keyvaults_sub(). Added keyvault unit tests.
+  
 ### v0.9.11 (11/08/18):
-- update get_access_token_from_cli() to work in Azure cloud shell by getting token from MSI
+- Update get_access_token_from_cli() to work in Azure cloud shell by getting token from MSI
   endpoint
 
 ### v0.9.10 (11/07/18):

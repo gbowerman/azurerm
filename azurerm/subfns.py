@@ -65,3 +65,18 @@ def list_subscriptions(access_token):
                         '/subscriptions/',
                         '?api-version=', BASE_API])
     return do_get(endpoint, access_token)
+
+
+def list_tenants(access_token):
+    '''List tenants accessible by this user.
+
+    Args:
+          access_token (str): A valid Azure authentication token.
+
+    Returns:
+        HTTP response. JSON list of tenant IDs.
+    '''  
+    endpoint = ''.join([get_rm_endpoint(),
+                        '/tenants/',
+                        '?api-version=', BASE_API])
+    return do_get(endpoint, access_token)

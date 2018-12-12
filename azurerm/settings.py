@@ -11,7 +11,7 @@ AZURE_AUTH_ENDPOINT = 'https://login.microsoftonline.com/'
 AZURE_RESOURCE_ENDPOINT = 'https://management.core.windows.net/'
 
 ACS_API = '2017-01-31'
-BASE_API = '2016-09-01'
+BASE_API = '2016-06-01'
 COMP_API = '2018-06-01'
 CONTAINER_API = '2017-08-01-preview'
 COSMOSDB_API = '2015-04-08'
@@ -20,7 +20,7 @@ INSIGHTS_API = '2015-04-01'
 INSIGHTS_COMPONENTS_API = '2015-05-01'
 INSIGHTS_METRICS_API = '2016-03-01'
 INSIGHTS_PREVIEW_API = '2016-06-01'
-KEYVAULT_API = '2016-10-01'
+KEYVAULT_API = '2018-02-14'
 MEDIA_API = '2015-10-01'
 NETWORK_API = '2018-08-01'
 RESOURCE_API = '2017-05-10'
@@ -62,7 +62,7 @@ def get_auth_endpoint():
 
 
 def get_resource_endpoint():
-    '''Set Azure reousrce endpoint by environment variable, else return default value.
+    '''Set Azure reosurce endpoint by environment variable, else return default value.
     '''
     resource_endpoint = os.environ.get('AZURE_RESOURCE_ENDPOINT')
     if resource_endpoint is None:

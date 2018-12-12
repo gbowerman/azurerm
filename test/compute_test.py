@@ -22,17 +22,16 @@ class TestAzurermPy(unittest.TestCase):
     def setUp(self):
         # Load Azure app defaults
         try:
-            with open('azurermconfig.json') as configFile:
-                configData = json.load(configFile)
+            with open('azurermconfig.json') as config_file:
+                config_data = json.load(config_file)
         except FileNotFoundError:
-            print("Error: Expecting vmssConfig.json in current folder")
-            sys.exit()
-        tenant_id = configData['tenantId']
-        app_id = configData['appId']
-        app_secret = configData['appSecret']
-        self.subscription_id = configData['subscriptionId']
+            sys.exit("Error: Expecting azurermconfig.json in current folder")
+        tenant_id = config_data['tenantId']
+        app_id = config_data['appId']
+        app_secret = config_data['appSecret']
+        self.subscription_id = config_data['subscriptionId']
         self.access_token = azurerm.get_access_token(tenant_id, app_id, app_secret)
-        self.location = configData['location']
+        self.location = config_data['location']
         
         # generate names used in tests
         self.h = Haikunator()
@@ -138,7 +137,6 @@ class TestAzurermPy(unittest.TestCase):
         sku = '18.04-LTS'
         version = 'latest'
         username = 'rootuser'
-        password = self.h.haikunate(',')
 
         print('Creating VM: ' + self.vmname)
         response = azurerm.create_vm(self.access_token, self.subscription_id, self.rgname, \
@@ -187,7 +185,7 @@ class TestAzurermPy(unittest.TestCase):
         print('Getting VMSS NICs')
         response = azurerm.get_vmss_nics(self.access_token, self.subscription_id, \
             self.rgname, self.vmssname)
-        print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
+        # print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
         self.assertTrue(len(response['value']) > 0)
 
         # delete VM

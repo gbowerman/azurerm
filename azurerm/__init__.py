@@ -8,6 +8,7 @@ from .computerp import *
 from .cosmosdbrp import *
 from .deployments import *
 from .insightsrp import *
+from .keyvault import *
 from .networkrp import *
 from .resourcegroups import *
 from .storagerp import *
