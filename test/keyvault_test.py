@@ -42,7 +42,6 @@ class TestAzurermPy(unittest.TestCase):
         self.assertEqual(response.status_code, 202)
 
     def test_keyvault(self):
-
         # create key vault
         print('Creating key vault: ' + self.vault_name)
         response = azurerm.create_keyvault(self.access_token, self.subscription_id, \

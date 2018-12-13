@@ -9,7 +9,7 @@ except(IOError, ImportError):
 
 
 setup(name='azurerm',
-      version='0.9.12',
+      version='0.9.13',
       description='Azure Resource Manager REST wrappers',
       long_description=LONG_DESCRIPTION,
       url='http://github.com/gbowerman/azurerm',

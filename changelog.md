@@ -1,5 +1,11 @@
 # azurerm - change log
 
+### v0.9.12 (12/13/18):
+- Added Microsoft Graph functions: 
+  get_graph_token_from_msi(), get_object_id_from_graph()
+- A user's object ID is required when creating an Azure Key Vault for example.
+- get_graph_token_from_msi() assumes you're running in an Azure Cloud Shell or VM.
+
 ### v0.9.12 (12/11/18):
 - Added list_tenants() to list tenants user has access to. Added test and updated 
   subscriptions_test.py. Updated BASE_API version.
