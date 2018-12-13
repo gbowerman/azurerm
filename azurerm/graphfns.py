@@ -3,8 +3,9 @@
      - Some functions depend on Azure cloud shell/Azure VMs for MSI endpoint
 '''
 import requests
+import os
 
-from .settings import GRAPH_RESOURCE_ENDPOINT
+from .settings import GRAPH_RESOURCE_HOST
 
 
 def get_graph_token_from_msi():
@@ -24,7 +25,7 @@ def get_graph_token_from_msi():
         return None
     
     headers = {'Metadata': 'true'}
-    body = {"resource": GRAPH_RESOURCE_ENDPOINT}
+    body = {"resource": 'https://' + GRAPH_RESOURCE_HOST + '/'}
     ret = requests.post(endpoint, headers=headers, data=body)
     return ret.json()['access_token']
 
@@ -42,7 +43,8 @@ def get_object_id_from_graph(access_token=None):
     if access_token is None:
         access_token = get_graph_token_from_msi()
 
-    endpoint = GRAPH_RESOURCE_ENDPOINT + 'v1.0/me/'
-    headers = {'Authorization': 'Bearer ' + access_token, 'Host': GRAPH_RESOURCE_ENDPOINT}
+    endpoint = 'https://' + GRAPH_RESOURCE_HOST + '/v1.0/me/'
+    headers = {'Authorization': 'Bearer ' + access_token, 'Host': GRAPH_RESOURCE_HOST}
     ret = requests.get(endpoint, headers=headers)
+    print(ret)
     return ret.json()['id']

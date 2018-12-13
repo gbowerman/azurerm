@@ -1,6 +1,12 @@
 # azurerm - change log
 
-### v0.9.12 (12/13/18):
+### v0.9.15 (12/13/18):
+- Fix to graph functions (incorrect GRAPH_RESOURCE_HOST value)
+
+### v0.9.14 (12/13/18):
+- Fix to graph functions (required import os library)
+
+### v0.9.13 (12/13/18):
 - Added Microsoft Graph functions: 
   get_graph_token_from_msi(), get_object_id_from_graph()
 - A user's object ID is required when creating an Azure Key Vault for example.

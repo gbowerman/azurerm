@@ -9,7 +9,7 @@ ams_rest_endpoint = 'https://media.windows.net/API'
 AZURE_RM_ENDPOINT = 'https://management.azure.com'
 AZURE_AUTH_ENDPOINT = 'https://login.microsoftonline.com/'
 AZURE_RESOURCE_ENDPOINT = 'https://management.core.windows.net/'
-GRAPH_RESOURCE_ENDPOINT = 'https://graph.microsoft.com/'
+GRAPH_RESOURCE_HOST = 'graph.microsoft.com'
 
 ACS_API = '2017-01-31'
 BASE_API = '2016-06-01'
