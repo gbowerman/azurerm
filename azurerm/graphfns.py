@@ -46,5 +46,4 @@ def get_object_id_from_graph(access_token=None):
     endpoint = 'https://' + GRAPH_RESOURCE_HOST + '/v1.0/me/'
     headers = {'Authorization': 'Bearer ' + access_token, 'Host': GRAPH_RESOURCE_HOST}
     ret = requests.get(endpoint, headers=headers)
-    print(ret)
     return ret.json()['id']
