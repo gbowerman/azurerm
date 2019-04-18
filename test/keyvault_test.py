@@ -26,6 +26,8 @@ class TestAzurermPy(unittest.TestCase):
         h = Haikunator()
         self.rgname = h.haikunate()
         self.vault_name = h.haikunate()
+        self.secret_name = h.haikunate()
+        self.secret_value = h.haikunate()
 
         # create resource group
         print('Creating resource group: ' + self.rgname)
@@ -46,7 +48,7 @@ class TestAzurermPy(unittest.TestCase):
         print('Creating key vault: ' + self.vault_name)
         response = azurerm.create_keyvault(self.access_token, self.subscription_id, \
             self.rgname, self.vault_name, self.location, tenant_id=self.tenant_id, 
-            object_id=self.app_id)
+            object_id='64f8ea29-97c4-4bc9-a833-ceae2b3c7b42')
         # print(response.text)
         self.assertEqual(response.status_code, 200)
 
@@ -62,11 +64,30 @@ class TestAzurermPy(unittest.TestCase):
         # print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
         self.assertTrue('value' in response)
 
-        # get key vault
-        print('Get key vault')
-        response = azurerm.get_keyvault(self.access_token, self.subscription_id, self.rgname, self.vault_name)
-        # print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
-        self.assertEqual(response['name'], self.vault_name)
+        # get key vault status and wait for provisioning status to be Succeeded
+        print('Get key vault and wait for successful provisioning..')
+        provisioning_state = ''
+        while provisioning_state != 'Succeeded':
+            response = azurerm.get_keyvault(self.access_token, self.subscription_id, self.rgname, self.vault_name)
+            # print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
+            self.assertEqual(response['name'], self.vault_name)
+            time.sleep(10)
+            provisioning_state = response['properties']['provisioningState']
+        vault_uri = response['properties']['vaultUri']
+
+        # add a secret
+        print('Adding secret ' + self.secret_name)
+        response = azurerm.set_keyvault_secret(self.access_token, vault_uri, self.secret_name,
+                                               self.secret_value)
+        print(str(response.status_code))
+        print(json.dumps(response.json))
+        self.assertEqual(response.status_code, 200)
+
+        # delete a secret
+        print('Deleting secret ' + self.secret_name)
+        response = azurerm.delete_keyvault_secret(self.access_token, vault_uri, self.secret_name)
+        print(response.json())
+        self.assertEqual(response.status_code, 200)
 
         # delete key vault
         print('Delete key vault: ' + self.vault_name)

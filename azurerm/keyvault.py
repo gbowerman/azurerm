@@ -1,4 +1,5 @@
 '''keyvault.py - azurerm functions for the Microsoft.Keyvault resource provider'''
+import datetime
 import json
 from .restfns import do_delete, do_get, do_get_next, do_put, do_post
 from .subfns import list_tenants
@@ -129,3 +130,54 @@ def list_keyvaults_sub(access_token, subscription_id):
                         '/providers/Microsoft.KeyVault/vaults',
                         '?api-version=', KEYVAULT_API])
     return do_get_next(endpoint, access_token)
+
+
+def set_keyvault_secret(access_token, vault_uri, secret_name, secret_value):
+    '''Adds a secret to a key vault using the key vault URI. 
+       Creates a new version if the secret already exists.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        vault_uri (str): Vault URI e.g. https://myvault.vault.azure.net.
+        secret_name (str): Name of the secret to add.
+        secret_value (str): Value of the secret.
+
+    Returns:
+        HTTP response. 200 OK.
+    '''
+    endpoint = ''.join([vault_uri,
+                    '/secrets/', secret_name,
+                    '?api-version=', '7.0'])
+    current_time = datetime.datetime.now().isoformat()
+    attributes = {'created': current_time,
+                  'enabled': True,
+                  'exp': None,
+                  'nbf': None,
+                  'recoveryLevel': 'Purgeable',
+                  'updated': current_time}
+    secret_body = {'attributes': attributes,
+                   'contentType': None,
+                   'kid': None,
+                   'managed': None,
+                   'tags': {'file-encoding': 'utf-8'},
+                   'value': secret_value}
+    body = json.dumps(secret_body)
+    print(body)
+    return do_put(endpoint, body, access_token)
+
+
+def delete_keyvault_secret(access_token, vault_uri, secret_name):
+    '''Deletes a secret from a key vault using the key vault URI. 
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        vault_uri (str): Vault URI e.g. https://myvault.azure.net.
+        secret_name (str): Name of the secret to add.
+
+    Returns:
+        HTTP response. 200 OK.
+    '''
+    endpoint = ''.join([vault_uri,
+                    '/secrets/', secret_name,
+                    '?api-version=', '7.0'])
+    return do_delete(endpoint, access_token)
