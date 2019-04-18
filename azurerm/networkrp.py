@@ -458,6 +458,7 @@ def get_vnet(access_token, subscription_id, resource_group, vnet_name):
                         '?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
+
 def list_asgs(access_token, subscription_id, resource_group):
     '''Get details about the application security groups for a resource group.
 
@@ -476,6 +477,7 @@ def list_asgs(access_token, subscription_id, resource_group):
                         '?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
+
 def list_asgs_all(access_token, subscription_id):
     '''Get details about the application security groups for a resource group.
 
@@ -492,6 +494,7 @@ def list_asgs_all(access_token, subscription_id):
                         '/providers/Microsoft.Network/virtualNetworks/',
                         '?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
+
 
 def list_lb_nat_rules(access_token, subscription_id, resource_group, lb_name):
     '''List the inbound NAT rules for a load balancer.
@@ -584,6 +587,7 @@ def list_nics_rg(access_token, subscription_id, resource_group):
                         '/networkInterfaces?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
+
 def list_nsgs(access_token, subscription_id, resource_group):
     ''' List all network security security groups in a resource group.
 
@@ -601,6 +605,7 @@ def list_nsgs(access_token, subscription_id, resource_group):
                 '/networkSecurityGroups?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
+
 def list_nsgs_all(access_token, subscription_id):
     '''List all network security groups in a subscription.
     Args:
@@ -611,8 +616,7 @@ def list_nsgs_all(access_token, subscription_id):
 
     '''
     endpoint = ''.join([get_rm_endpoint(),
-                '/subscriptions/', subsription_id,
-                '/resourceGroups', resource_group,
+                '/subscriptions/', subscription_id,
                 '/providers/Microsoft.Network/',
                 'networkSEcurityGroups?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)

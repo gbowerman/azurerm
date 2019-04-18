@@ -1,4 +1,9 @@
 # azurerm - change log
+### v0.9.17 (4/18/19): Adding list nsg/asg functions - thanks @mfunger
+- list_nsgs(access_token, subscription_id, resource_group)
+- list_nsgs_all(access_token, subscription_id)
+- list_asgs(access_token, subscription_id, resource_group)
+- list_asgs_all(access_token, subscription_id)
 
 ### v0.9.15 (12/13/18):
 - Fix to graph functions (incorrect GRAPH_RESOURCE_HOST value)

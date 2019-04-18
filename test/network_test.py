@@ -149,6 +149,14 @@ class TestAzurermPy(unittest.TestCase):
         response = azurerm.list_nics(self.access_token, self.subscription_id)
         self.assertTrue(len(response['value']) > 0)
 
+        # list nsgs in resource group
+        print('Listing nsgs in resource group.')
+        response = azurerm.list_nsgs(self.access_token, self.subscription_id, self.rgname)
+
+        # list nsgs in subscription
+        print('Listing nsgs in subscription.')
+        response = azurerm.list_nsgs_all(self.access_token, self.subscription_id)
+        
         # delete nsg rule
         print('Deleting nsg rule: ' + nsg_rule)
         response = azurerm.delete_nsg_rule(self.access_token, self.subscription_id, self.rgname, \
