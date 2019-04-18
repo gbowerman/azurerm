@@ -1,5 +1,5 @@
 # azurerm - change log
-### v0.9.17 (4/18/19): Adding list nsg/asg functions - thanks @mfunger
+### v0.9.18 (4/18/19): Adding list nsg/asg functions - thanks @mfunger
 - list_nsgs(access_token, subscription_id, resource_group)
 - list_nsgs_all(access_token, subscription_id)
 - list_asgs(access_token, subscription_id, resource_group)
