@@ -458,6 +458,40 @@ def get_vnet(access_token, subscription_id, resource_group, vnet_name):
                         '?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
+def list_asgs(access_token, subscription_id, resource_group):
+    '''Get details about the application security groups for a resource group.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name.
+
+    Returns:
+        HTTP response. ASG JSON body.
+    '''
+    endpoint = ''.join([get_rm_endpoint(),
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/virtualNetworks/',
+                        '?api-version=', NETWORK_API])
+    return do_get(endpoint, access_token)
+
+def list_asgs_all(access_token, subscription_id):
+    '''Get details about the application security groups for a resource group.
+
+    Args:
+        access_token (str): A valid Azure authentication token.
+        subscription_id (str): Azure subscription id.
+
+    Returns:
+        HTTP response. ASG JSON body.
+    '''
+    endpoint = ''.join([get_rm_endpoint(),
+                        '/subscriptions/', subscription_id,
+                        '/resourceGroups/', resource_group,
+                        '/providers/Microsoft.Network/virtualNetworks/',
+                        '?api-version=', NETWORK_API])
+    return do_get(endpoint, access_token)
 
 def list_lb_nat_rules(access_token, subscription_id, resource_group, lb_name):
     '''List the inbound NAT rules for a load balancer.
@@ -548,6 +582,39 @@ def list_nics_rg(access_token, subscription_id, resource_group):
                         '/resourceGroups/', resource_group,
                         '/providers/Microsoft.Network/',
                         '/networkInterfaces?api-version=', NETWORK_API])
+    return do_get(endpoint, access_token)
+
+def list_nsgs(access_token, subscription_id, resource_group):
+    ''' List all network security security groups in a resource group.
+
+    Args:
+        access_token (str): a valid Azure Authentication token.
+        subscription_id (str): Azure subscription id.
+        resource_group (str): Azure resource group name
+    Returns:
+        HTTP response. JSON body of network security groups list with properties.
+    '''
+    endpoint = ''.join([get_rm_endpoint(),
+                '/subscriptions/', subscription_id,
+                '/resourceGroups/', resource_group,
+                '/providers/Microsoft.Network/',
+                '/networkSecurityGroups?api-version=', NETWORK_API])
+    return do_get(endpoint, access_token)
+
+def list_nsgs_all(access_token, subscription_id):
+    '''List all network security groups in a subscription.
+    Args:
+        access_token (str): a valid Azure Authentication token.
+        subscription_id (str): Azure subscription id.
+    Returns:
+            HTTP response. JSON body of all network security groups in a subscription.
+
+    '''
+    endpoint = ''.join([get_rm_endpoint(),
+                '/subscriptions/', subsription_id,
+                '/resourceGroups', resource_group,
+                '/providers/Microsoft.Network/',
+                'networkSEcurityGroups?api-version=', NETWORK_API])
     return do_get(endpoint, access_token)
 
 
