@@ -1,4 +1,8 @@
 # azurerm - change log
+### v0.10.0 (5/1/19):
+- New Compute API version 2019-03-01
+- Adding skip_shutdown boolean option to stop_vm() - True will power-off VM in 10s or less
+
 ### v0.9.18 (4/18/19): Adding list nsg/asg functions - thanks @mfunger
 - list_nsgs(access_token, subscription_id, resource_group)
 - list_nsgs_all(access_token, subscription_id)

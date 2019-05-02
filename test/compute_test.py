@@ -185,8 +185,14 @@ class TestAzurermPy(unittest.TestCase):
         print('Getting VMSS NICs')
         response = azurerm.get_vmss_nics(self.access_token, self.subscription_id, \
             self.rgname, self.vmssname)
-        # print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
-        self.assertTrue(len(response['value']) > 0)
+        print(json.dumps(response, sort_keys=False, indent=2, separators=(',', ': ')))
+        # self.assertTrue(len(response['value']) > 0)
+
+        # stop VM using skip_shutdown
+        print('Stopping VM: ' + self.vmname)
+        response = azurerm.stop_vm(self.access_token, self.subscription_id, self.rgname, \
+            self.vmname, skip_shutdown=True)
+        self.assertEqual(response.status_code, 202)
 
         # delete VM
         print('Deleting VM: ' + self.vmname)

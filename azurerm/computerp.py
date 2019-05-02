@@ -1086,7 +1086,7 @@ def stopdealloc_vmss_vms(access_token, subscription_id, resource_group, vmss_nam
     return do_post(endpoint, body, access_token)
 
 
-def stop_vm(access_token, subscription_id, resource_group, vm_name):
+def stop_vm(access_token, subscription_id, resource_group, vm_name, skip_shutdown=False):
     '''Stop a virtual machine but don't deallocate resources (power off).
 
     Args:
@@ -1094,6 +1094,7 @@ def stop_vm(access_token, subscription_id, resource_group, vm_name):
         subscription_id (str): Azure subscription id.
         resource_group (str): Azure resource group name.
         vm_name (str): Name of the virtual machine.
+        skip_shutdown (boolean): Set VM to power-off "instantly"
 
     Returns:
         HTTP response.
@@ -1105,7 +1106,11 @@ def stop_vm(access_token, subscription_id, resource_group, vm_name):
                         vm_name,
                         '/powerOff',
                         '?api-version=', COMP_API])
-    return do_post(endpoint, '', access_token)
+    body = ''
+    if skip_shutdown is True:
+        body = '{"skipShutdown" : "true"}'
+
+    return do_post(endpoint, body, access_token)
 
 
 def update_vm(access_token, subscription_id, resource_group, vm_name, body):
